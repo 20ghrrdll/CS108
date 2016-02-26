@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS quiz (
 	pages BOOLEAN DEFAULT false,
 	random BOOLEAN DEFAULT false,
 	correction BOOLEAN DEFAULT false,
-	type enum('FillIn', 'QuestionResponse'),
 	PRIMARY KEY (quizId)
 );
 /* Creating the quiz_question table. This stores the question text and the correct answer
@@ -26,6 +25,7 @@ CREATE TABLE IF NOT EXISTS quiz_question(
 	questionId INT NOT NULL,
 	questionText longblob NOT NULL,
 	correctAnswer VARCHAR(255),
+	type enum('FillIn', 'QuestionResponse'),
 	PRIMARY KEY (quizId)
 );
 /* Creating the question answers table. This stores the answer associated with a question
