@@ -23,17 +23,18 @@ CREATE TABLE IF NOT EXISTS quiz (
 CREATE TABLE IF NOT EXISTS quiz_question(
 	quizId INT NOT NULL,
 	userId INT NOT NULL,
-	questionId INT NOT NULL AUTO_INCREMENT,
+	questionId INT NOT NULL,
 	questionText longblob NOT NULL,
 	correctAnswer VARCHAR(255),
-	PRIMARY KEY (questionId)
+	PRIMARY KEY (quizId)
 );
 /* Creating the question answers table. This stores the answer associated with a question
 */
 CREATE TABLE IF NOT EXISTS question_answers(
+	quizId INT NOT NULL,
 	questionId INT NOT NULL,
 	answer VARCHAR(255) NOT NULL,
-	PRIMARY KEY (questionId)
+	PRIMARY KEY (quizId)
 );
 /* Creating the quiz records table. This stores the info about how a user did on a quiz
 */
