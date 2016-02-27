@@ -5,6 +5,19 @@ DROP TABLE IF EXISTS question_answers;
 DROP TABLE IF EXISTS quiz_records;
 DROP TABLE IF EXISTS quiz_question_records;
 
+DROP TABLE IF EXISTS user;
+
+DROP TABLE IF EXISTS achievements;
+
+DROP TABLE IF EXISTS announcements;
+
+DROP TABLE IF EXISTS friends;
+
+DROP TABLE IF EXISTS friend_requests;
+
+DROP TABLE IF EXISTS messages;
+
+
 
 /* Creating the Quiz table. This stores the summary info about the quizes
 */
@@ -57,6 +70,55 @@ CREATE TABLE IF NOT EXISTS quiz_question_records (
 	correct BOOLEAN,
 	answered BOOLEAN
 );
+
+CREATE TABLE IF NOT EXISTS user (
+	username VARCHAR(255) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	admin BOOLEAN,
+	cookie VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS achievements (
+	userId INT NOT NULL,
+	acievementId INT NOT NULL,
+	timeAchieved DATETIME NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS announcements (
+  announcementId INT NOT NULL AUTO_INCREMENT,
+  userId INT NOT NULL,
+  posted datetime NOT NULL,
+  subject VARCHAR(8000) NOT NULL,
+  body VARCHAR(8000) NOT NULL,
+  PRIMARY KEY (announcementId)
+
+);
+
+CREATE TABLE IF NOT EXISTS friends(
+  user1 INT NOT NULL,
+  user2 INT NOT NULL,
+  established datetime NOT NULL,
+  UNIQUE KEY user1 (user1,user2),
+  UNIQUE KEY user2 (user2,user1)
+); 
+
+CREATE TABLE IF NOT EXISTS friend_requests (
+  userToId INT NOT NULL,
+  userFromId INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS messages (
+  messageId INT NOT NULL AUTO_INCREMENT,
+  senderId INT NOT NULL,
+  recipientId INT NOT NULL,
+  timeSent datetime NOT NULL,
+  unread INT(4) NOT NULL,
+  subject VARCHAR(8000) NOT NULL,
+  body VARCHAR(8000) NOT NULL,
+  quizId INT DEFAULT NULL,
+  type enum('CHALLENGE','NOTE') NOT NULL,
+  PRIMARY KEY (messageId)
+)  ;
 
 
 /*  ----------------------------------
