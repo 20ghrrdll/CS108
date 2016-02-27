@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 		UserManager userManager = (UserManager) getServletContext().getAttribute("userManager");
 		User matchingUser = userManager.getUser(username);
 		String hashedPassword = userManager.generateHashedPassword(password);
-		if (matchingUser == null && !matchingUser.getPassword().equals(hashedPassword)) {
+		if (matchingUser == null || !matchingUser.getPassword().equals(hashedPassword)) {
 			request.setAttribute("attempt", "invalid");
 			RequestDispatcher dispatch = request.getRequestDispatcher("login-page.jsp");
 			dispatch.forward(request, response);
