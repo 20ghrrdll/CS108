@@ -1,4 +1,3 @@
-package quizzes;
 
 public interface Question {
 
