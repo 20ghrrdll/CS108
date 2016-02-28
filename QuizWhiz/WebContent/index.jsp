@@ -1,25 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*" %>
+    pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*, main.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css" />
 <%
 User user = (User) session.getAttribute("currentUser");
+AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext().getAttribute("announcementManager");
+ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
+System.out.println(announcements.size());
 
 %>
 </head>
 <body>
-<% if(user != null) { %>
-	<div>
-		<strong>Hello <% out.print(user.getUsername()); %>!</strong>
+	<ul class="nav" >
+  		<li class="navList" ><a class="active navItem" href="#home">Home</a></li>
+  		<li class="navList" ><a class="navItem" href="#news">Friends</a></li>
+ 	 	<li class="navList" ><a class="navItem" href="#contact">Messages</a></li>
+  		<li class="navList" ><a class="navItem" href="#about">Achievements</a></li>
+  		<li class="navList" ><a class="navItem" href="#about">Privacy Settings</a></li>
+  		<% if(user != null) { %>
+			<li class="navList">
+				<strong class="navItem">Hello <% out.print(user.getUsername()); %>!</strong>
+			</li>
+		<% } else {
+				response.sendRedirect("login-page.jsp?");
+		}%>
+	</ul>
+	<div class="content">
+		<h1> Announcements</h1>
+<ul>
+		<%
+		for(int i = 0; i < announcements.size(); i++){
+			%>
+			<li>
+			<h3><%= announcements.get(i).getSubject() %></h3>
+			<p><%= announcements.get(i).getBody() %></p>
+			
+			</li> 
+			
+			<%
+		}
+		
+		%>
+		</ul>
+		
+		<h1> Popular Quizzes</h1>
+		<h1> Recently Created</h1>
+		<h1> Recently Taken</h1>
+		<h1> My Quizzes</h1>
+		<h1> Friend Activities</h1>
 	</div>
-	<% } else {
-		response.sendRedirect("login-page.jsp?");
-	}%>
-	
-	<h3>Welcome to our quiz website woohoo!</h3>
+
+</div>
+
+
 
 </body>
 </html>

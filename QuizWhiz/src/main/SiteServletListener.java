@@ -32,8 +32,10 @@ public class SiteServletListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent arg0)  { 
     	UserManager userManager = new UserManager();
+    	AnnouncementManager announcementManager = new AnnouncementManager();
     	ServletContext context = arg0.getServletContext();
     	context.setAttribute("userManager", userManager);
+    	context.setAttribute("announcementManager", announcementManager);
         context.setAttribute("ctx", context.getContextPath());
 
     }
