@@ -8,7 +8,8 @@
 <title>Login</title>
 </head>
 <body>
-<div class="loginView">
+<div class="centerDiv loginView">
+<div class="centerDiv inputView">
 <% if("empty".equals(request.getParameter("invalid"))) { %>
 	<div>
 		<strong>Empty Field </strong> Please enter fill in both a username and password.
@@ -23,6 +24,7 @@
 <div class="inputDesc">Password:</div> <input type="text" name="password" />
 <input type="submit" /></form>
 <a href="create-user.jsp">Create New Account</a>
+</div>
 </div>
 </body>
 </html>

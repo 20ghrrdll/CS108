@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <%
 User user = (User) session.getAttribute("currentUser");
-java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat();
+
 %>
 </head>
 <body>
@@ -15,7 +15,9 @@ java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat();
 	<div>
 		<strong>Hello <% out.print(user.getUsername()); %>!</strong>
 	</div>
-	<%}%>
+	<% } else {
+		response.sendRedirect("login-page.jsp?");
+	}%>
 	
 	<h3>Welcome to our quiz website woohoo!</h3>
 
