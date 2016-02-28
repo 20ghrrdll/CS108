@@ -7,17 +7,20 @@
 <title>Login</title>
 </head>
 <body>
-<% 
-if (request.getParameter("attempt") != null && request.getParameter("attempt").equals("invalid")) {
-	out.println("Invalid username or password. Please try again.<br><br>");
-} else {
-	out.println("Please log in.<br><br>");
-} 
-%>
+<% if("empty".equals(request.getParameter("invalid"))) { %>
+	<div>
+		<strong>Empty Field </strong> Please enter fill in both a username and password.
+	</div>
+	<% } else if("fail".equals(request.getParameter("invalid"))) { %>
+	<div>
+		<strong>Not found</strong> That username password combination was not found.
+	</div>
+	<% } %>
 <form action="LoginServlet" method="post">
 User Name: <input type="text" name="username" /><br>
 Password: <input type="text" name="password" />
 <input type="submit" /></form>
+<a href="create-user.jsp">Create New Account</a>
 </body>
 </html>
 

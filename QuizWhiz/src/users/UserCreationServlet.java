@@ -41,6 +41,7 @@ public class UserCreationServlet extends HttpServlet {
 			request.setAttribute("attempt", "invalid");
 			RequestDispatcher dispatch = request.getRequestDispatcher("create-user.jsp");
 			dispatch.forward(request, response);
+			System.out.println("exists");
 		} else {
 			String hashedPassword = userManager.generateHashedPassword(password);
 			userManager.addUser(username, hashedPassword);

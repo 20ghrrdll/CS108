@@ -36,13 +36,17 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		
+		if(username.isEmpty()  || password.isEmpty()) {
+			response.sendRedirect("login-page.jsp?invalid=empty");
+			return;
+		}
 		UserManager userManager = (UserManager) getServletContext().getAttribute("userManager");
 		User matchingUser = userManager.getUser(username);
 		String hashedPassword = userManager.generateHashedPassword(password);
 		if (matchingUser == null || !matchingUser.getPassword().equals(hashedPassword)) {
-			request.setAttribute("attempt", "invalid");
-			RequestDispatcher dispatch = request.getRequestDispatcher("login-page.jsp");
-			dispatch.forward(request, response);
+			response.sendRedirect("login-page.jsp?invalid=fail");
+			return;
 		} else {
 			request.setAttribute("currentUser", matchingUser);
 			// TODO: go to user homepage
