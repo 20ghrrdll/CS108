@@ -19,7 +19,5 @@ java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat();
 	
 	<h3>Welcome to our quiz website woohoo!</h3>
 
-
-
 </body>
 </html>

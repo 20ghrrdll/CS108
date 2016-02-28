@@ -34,6 +34,8 @@ public class SiteServletListener implements ServletContextListener {
     	UserManager userManager = new UserManager();
     	ServletContext context = arg0.getServletContext();
     	context.setAttribute("userManager", userManager);
+        context.setAttribute("ctx", context.getContextPath());
+
     }
 	
 }
