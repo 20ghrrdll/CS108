@@ -7,13 +7,15 @@
 <title>Create User</title>
 </head>
 <body>
-<% 
-if (request.getParameter("attempt") != null && request.getParameter("attempt").equals("invalid")) {
-	out.println("Username is taken. Please choose another one.<br><br>");
-} else {
-	out.println("Please enter the username and password you would like.<br><br>");
-} 
-%>
+<% if("empty".equals(request.getParameter("invalid"))) { %>
+	<div>
+		<strong>Empty Field </strong> Please enter fill in both a username and password.
+	</div>
+	<% } else if("exists".equals(request.getParameter("invalid"))) { %>
+	<div>
+		<strong>Exists!</strong> Sorry, a user with that name already exists.
+	</div>
+	<% } %>
 <form action="UserCreationServlet" method="post">
 User Name: <input type="text" name="username" /><br>
 Password: <input type="text" name="password" />
