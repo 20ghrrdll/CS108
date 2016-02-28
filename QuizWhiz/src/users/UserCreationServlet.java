@@ -35,12 +35,15 @@ public class UserCreationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		if(username.isEmpty()  || password.isEmpty()) {
+			response.sendRedirect("create-user.jsp?invalid=empty");
+			return;
+		}
 		UserManager userManager = (UserManager) getServletContext().getAttribute("userManager");
 		User matchingUser = userManager.getUser(username);
 		if (matchingUser != null) {
-			request.setAttribute("attempt", "invalid");
-			RequestDispatcher dispatch = request.getRequestDispatcher("create-user.jsp");
-			dispatch.forward(request, response);
+			response.sendRedirect("create-user.jsp?invalid=exists");
+			return;
 		} else {
 			String hashedPassword = userManager.generateHashedPassword(password);
 			userManager.addUser(username, hashedPassword);

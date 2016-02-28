@@ -65,10 +65,12 @@ public class UserManager {
 	public void addUser(String username, String password) {
 		String hashedPassword = generateHashedPassword(password);
 		try {
+			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
 			// TODO: correct table name
 			String update = "INSERT INTO " + "user (username, password)" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\");";
 			stmt.executeUpdate(update);
+			DBConnector.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
