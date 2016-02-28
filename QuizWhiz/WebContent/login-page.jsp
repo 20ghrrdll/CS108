@@ -11,17 +11,17 @@
 <div class="centerDiv loginView">
 <div class="centerDiv inputView">
 <% if("empty".equals(request.getParameter("invalid"))) { %>
-	<div>
-		<strong>Empty Field </strong> Please enter fill in both a username and password.
+	<div class="warning">
+		<strong>Empty Field </strong> Please enter a username and password.
 	</div>
 	<% } else if("fail".equals(request.getParameter("invalid"))) { %>
-	<div>
+	<div class="warning">
 		<strong>Not found</strong> That username password combination was not found.
 	</div>
 	<% } %>
 <form action="LoginServlet" method="post">
 <div class="inputDesc">User Name:</div> <input type="text" name="username" /><br>
-<div class="inputDesc">Password:</div> <input type="text" name="password" />
+<div class="inputDesc">Password:</div> <input type="password" name="password" />
 <input type="submit" /></form>
 <a href="create-user.jsp">Create New Account</a>
 </div>

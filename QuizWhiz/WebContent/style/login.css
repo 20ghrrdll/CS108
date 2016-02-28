@@ -29,3 +29,8 @@ body {
     right: 0;
     margin: auto;
 }
+
+.warning {
+	font-size: 80%;
+	color: red;
+}

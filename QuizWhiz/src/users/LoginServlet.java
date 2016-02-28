@@ -44,9 +44,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		UserManager userManager = (UserManager) getServletContext().getAttribute("userManager");
 		User matchingUser = userManager.getUser(username);
-		System.out.println(password);
 		String hashedPassword = userManager.generateHashedPassword(password);
-		System.out.println(matchingUser.getPassword() + "----" + hashedPassword);
 		if (matchingUser == null || !matchingUser.getPassword().equals(hashedPassword)) {
 			response.sendRedirect("login-page.jsp?invalid=fail");
 			return;
