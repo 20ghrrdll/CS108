@@ -40,10 +40,11 @@ public class UserManager {
 			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + "user" + " WHERE username=\"" + username + "\";";
-			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz;");
+			ResultSet rs = stmt.executeQuery(query);
 			
 			
 			if (rs.next()) {
+				System.out.println(rs.getString("username") + " "+ rs.getString("password"));
 				user = new User(rs.getString("username"), rs.getString("password"));
 			}
 			DBConnector.closeConnection();
