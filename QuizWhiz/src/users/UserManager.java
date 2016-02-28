@@ -8,12 +8,10 @@ import java.sql.*;
 
 public class UserManager {
 
-	private DBConnector connector;
-	private Connection con;
+	private static Connection con = null;
 	
 	public UserManager() {
-		connector = new DBConnector();
-		con = connector.getConnection();
+		//con = DBConnector.getConnection();
 	}
 	
 	
@@ -39,12 +37,16 @@ public class UserManager {
 		User user = null;
 		ArrayList<User> users = new ArrayList<User>();
 		try {
+			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM " + "TABLE" + " WHERE username=\"" + username + "\";";
-			ResultSet rs = stmt.executeQuery(query);
+			String query = "SELECT * FROM " + "user" + " WHERE username=\"" + username + "\";";
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quiz;");
+			
+			
 			if (rs.next()) {
 				user = new User(rs.getString("username"), rs.getString("password"));
 			}
+			DBConnector.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
@@ -64,7 +66,7 @@ public class UserManager {
 		try {
 			Statement stmt = con.createStatement();
 			// TODO: correct table name
-			String update = "INSERT INTO " + "TABLE" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\");";
+			String update = "INSERT INTO " + "user (username, password)" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\");";
 			stmt.executeUpdate(update);
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
