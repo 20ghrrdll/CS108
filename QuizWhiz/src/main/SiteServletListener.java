@@ -24,7 +24,8 @@ public class SiteServletListener implements ServletContextListener {
      */
     public void contextDestroyed(ServletContextEvent arg0)  { 
     	ServletContext context = arg0.getServletContext();
-    	// TODO: close connection
+    	UserManager userManager = (UserManager) context.getAttribute("userManager");
+    	userManager.closeConnection();
     }
 
 	/**

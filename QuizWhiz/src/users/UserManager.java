@@ -1,17 +1,18 @@
 package users;
 
+import main.MyDBInfo;
 import main.DBConnector;
-import java.util.ArrayList;
+import java.util.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class UserManager {
 
-	private static Connection con = null;
+	private static Connection con;
 	
 	public UserManager() {
-		//con = DBConnector.getConnection();
+		con = DBConnector.getConnection();
 	}
 	
 	
@@ -24,14 +25,12 @@ public class UserManager {
 	public User getUser(String username) {
 		User user = null;
 		try {
-			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM " + "user" + " WHERE username=\"" + username + "\";";
+			String query = "SELECT * FROM " + MyDBInfo.USER_TABLE + " WHERE username=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs.next()) {
-				user = new User(rs.getString("username"), rs.getString("password"));
+				user = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"));
 			}
-			DBConnector.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
@@ -49,14 +48,34 @@ public class UserManager {
 	public void addUser(String username, String password) {
 		String hashedPassword = generateHashedPassword(password);
 		try {
-			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
-			String update = "INSERT INTO " + "user (username, password)" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\");";
+			String update = "INSERT INTO " + MyDBInfo.USER_TABLE + " (username, password)" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\");";
 			stmt.executeUpdate(update);
-			DBConnector.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
+	}
+	
+	
+	/**
+	 * Queries the database to find all friends of a given username.
+	 * @param username
+	 * @return ArrayList of Users that are friends with the given username
+	 */
+	public Set<User> getFriends(String username) {
+		Set<User> friends = new HashSet<User>();
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.FRIENDS_TABLE + " WHERE user1=\"" + username + "\" OR user2=\"" + username + "\";";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				User friend = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"));
+				friends.add(friend);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return friends;
 	}
 	
 	
@@ -81,6 +100,11 @@ public class UserManager {
 			buff.append(Integer.toString(val, 16));
 		}
 		return buff.toString();
+	}
+	
+	
+	public void closeConnection() {
+		DBConnector.closeConnection();
 	}
 	
 }
