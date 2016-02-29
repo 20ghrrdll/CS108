@@ -7,7 +7,6 @@ public class Quiz {
 	private int id;
 	private String name, description, creator, type;
 	private boolean practiceMode, multiplePages, random, immediateCorrection;
-	private ArrayList<Question> questions;
 	
 	public Quiz(int id, String name, String description, String creator, 
 				String type, boolean practiceMode, boolean multiplePages, 

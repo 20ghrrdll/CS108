@@ -12,7 +12,31 @@ public class QuizManager {
 	
 	public QuizManager() {
 		con = DBConnector.getConnection();
-
+	}
+	
+	public Quiz getQuiz(int quizId){
+		Quiz quiz = null;
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE + " WHERE quizId='" + quizId + "';";
+			System.out.println(query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int quizID = rs.getInt("quizID");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				String creator = rs.getString("creatorId");
+				String type = rs.getString("type");
+				boolean practiceMode = rs.getBoolean("practiceMode");
+				boolean multiplePages = rs.getBoolean("pages");
+				boolean random = rs.getBoolean("random");
+				boolean immediateCorrection = rs.getBoolean("correction");
+				quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return quiz;
 	}
 	
 	/**
@@ -23,16 +47,14 @@ public class QuizManager {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		try {
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE;
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +";";
 			ResultSet rs = stmt.executeQuery(query);
 			
 			while (rs.next()) {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
-				// TODO: change to updated id String creator = rs.getString("creator");
-				// TODO: String type = 
-				String creator = rs.getString("creator");
+				String creator = rs.getString("creatorId");
 				String type = rs.getString("type");
 				boolean practiceMode = rs.getBoolean("practiceMode");
 				boolean multiplePages = rs.getBoolean("pages");
@@ -44,7 +66,6 @@ public class QuizManager {
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
-		
 		return quizzes;
 	}
 	
@@ -76,6 +97,8 @@ public class QuizManager {
 		
 		return quizzes;
 	}
+	
+	
 	
 	public void closeConnection() {
 		DBConnector.closeConnection();

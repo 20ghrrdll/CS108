@@ -13,6 +13,7 @@ ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
+
 %>
 </head>
 <body>
