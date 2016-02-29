@@ -6,6 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Homepage</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css" />
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="w3-theme-indigo.css">
+<script>
+function myFunction(id) {
+    document.getElementById(id).classList.toggle("w3-show");
+}
+</script>
 <%
 User user = (User) session.getAttribute("currentUser");
 AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext().getAttribute("announcementManager");
@@ -17,27 +25,45 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 %>
 </head>
 <body>
-	<ul class="nav" >
+<%-- 	<ul class="w3-navbar w3-light-grey w3-border w3-large"" >
 	  	<% if(user != null) { %>
-	  	<li class="navListTitle">
-				<a href="index.jsp?" ><strong class="navItem">Hello <% out.print(user.getUsername()); %>!</strong></a>
+	  	<li>
+				<a href="index.jsp?" >Hello <% out.print(user.getUsername()); %>!</a>
 			</li>
 		<% } else {
 				response.sendRedirect("login-page.jsp?");
 		}%>
-		<li class="navList" >
-			<a class="navItem" href="#">
-			<img class="icon" src="Icons/settings_filled.png">
-			</a>
-		</li>
-		<li class="navList" ><a class="navItem" href="#achievements"><img class="icon" src="Icons/medal.png"></a></li>
-		<li class="navList" ><a class="navItem" href="#messages"><img class="icon" src="Icons/new_message.png"></a></li>
-  		<li class="navList" ><a class="navItem" href="#friends"><img class="icon" src="Icons/groups_filled.png"></a></li>
-  		
+  <li><a href="#"><i class="fa fa-search"></i></a></li>
+  <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+  <li><a href="#"><i class="fa fa-globe"></i></a></li>
+  <li><a href="#"><i class="fa fa-sign-in"></i></a></li>
+</ul> --%>
+
+	<ul class="w3-navbar w3-black w3-border">
+  		<% if(user != null) { %>
+	  	<li>
+				<a href="index.jsp?" >Hello <% out.print(user.getUsername()); %>!</a>
+			</li>
+		<% } else {
+				response.sendRedirect("login-page.jsp?");
+		}%>
+  		<ul class="w3-right">
+    		<li><a href="#">Friends</a></li>
+    		<li><a href="#">Messages</a></li>
+    		<li class="w3-dropdown-hover">
+    			<a href="#">Settings</a>
+    			<div class="w3-dropdown-content w3-white w3-card-4">
+      				<a href="#">Privacy Options</a>
+     				<a href="#">Log out</a>
+    			</div>
+ 		 	</li>
+ 		 	<li><a href="#">Achievements</a></li>
+  		</ul>
 	</ul>
-	<div class="content">
-		<h1 id="announcement"> Announcements</h1>
-		<ul>
+<div class="w3-accordion">
+		<h1 id="announcement" class="center-title" onclick="myFunction('Demo1')"> Announcements</h1>
+		<div id="Demo1" class="w3-accordion-content">
+		<ul class="w3-ul w3-hoverable">
 		<%
 		for(int i = 0; i < announcements.size(); i++){
 			%>
@@ -52,10 +78,14 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 		
 		%>
 		</ul>
+		</div>
+		</div>
+		<div class="w3-row">
+		  <div class="w3-container w3-half">
 		
-		<h1> Popular Quizzes</h1>
+		<h1 class="center-title"> Popular Quizzes</h1>
 		
-		<ol>
+		<ol class="w3-ul w3-hoverable">
 		<%
 		for(int i = 0; i < popularQuizzes.size(); i++){
 			%>
@@ -70,13 +100,42 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 		
 		%>
 		</ol>
+		</div>
+		  <div class="w3-container w3-half">
 		
-		<h1> Recently Created</h1>
-		<h1> Recently Taken</h1>
-		<h1> My Quizzes</h1>
-		<h1> Friend Activities</h1>
-	</div>
-
+		<h1 class="center-title"> Recently Created</h1>
+		<ul class="w3-ul w3-hoverable">
+		<li><a href="#">Test List</a></li>
+		<li><a href="#">Test List</a></li>
+		<li><a href="#">Test List</a></li>
+		<li><a href="#">Test List</a></li>
+		</ul>
+		
+		</div>
+		</div>
+		<div class="w3-row">
+				  <div class="w3-container w3-half">
+		
+		<h1 class="center-title"> Recently Taken</h1>
+		<ul class="w3-ul w3-hoverable">
+		<li><a href="#">Test List</a></li>
+		<li><a href="#">Test List</a></li>
+		<li><a href="#">Test List</a></li>
+		<li><a href="#">Test List</a></li>
+		</ul>
+		</div>
+				  <div class="w3-container w3-half">
+		
+		<h1 class="center-title"> My Quizzes</h1>
+		<ul class="w3-ul w3-hoverable">
+		<li><a href="#">Test List</a></li>
+		<li><a href="#">Test List</a></li>
+		<li><a href="#">Test List</a></li>
+		<li><a href="#">Test List</a></li>
+		</ul>
+		</div>
+		</div>
+		<h1 class="center-title"> Friend Activities</h1>
 
 </body>
 </html>
