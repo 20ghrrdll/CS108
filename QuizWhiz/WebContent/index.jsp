@@ -8,7 +8,7 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css" />
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="w3-theme-indigo.css">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-indigo.css">
 <script>
 function myFunction(id) {
     document.getElementById(id).classList.toggle("w3-show");
@@ -24,22 +24,8 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 
 %>
 </head>
-<body>
-<%-- 	<ul class="w3-navbar w3-light-grey w3-border w3-large"" >
-	  	<% if(user != null) { %>
-	  	<li>
-				<a href="index.jsp?" >Hello <% out.print(user.getUsername()); %>!</a>
-			</li>
-		<% } else {
-				response.sendRedirect("login-page.jsp?");
-		}%>
-  <li><a href="#"><i class="fa fa-search"></i></a></li>
-  <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-  <li><a href="#"><i class="fa fa-globe"></i></a></li>
-  <li><a href="#"><i class="fa fa-sign-in"></i></a></li>
-</ul> --%>
-
-	<ul class="w3-navbar w3-black w3-border">
+<body class="w3-theme-light standards">
+	<ul class="w3-navbar w3-theme-dark w3-border">
   		<% if(user != null) { %>
 	  	<li>
 				<a href="index.jsp?" >Hello <% out.print(user.getUsername()); %>!</a>
@@ -61,7 +47,7 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
   		</ul>
 	</ul>
 <div class="w3-accordion">
-		<h1 id="announcement" class="center-title" onclick="myFunction('Demo1')"> Announcements</h1>
+		<h1 id="announcement" class="center-title w3-theme" onclick="myFunction('Demo1')"> Announcements</h1>
 		<div id="Demo1" class="w3-accordion-content">
 		<ul class="w3-ul w3-hoverable">
 		<%
@@ -83,7 +69,7 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 		<div class="w3-row">
 		  <div class="w3-container w3-half">
 		
-		<h1 class="center-title"> Popular Quizzes</h1>
+		<h1 class="center-title w3-theme"> Popular Quizzes</h1>
 		
 		<ol class="w3-ul w3-hoverable">
 		<%
@@ -103,7 +89,7 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 		</div>
 		  <div class="w3-container w3-half">
 		
-		<h1 class="center-title"> Recently Created</h1>
+		<h1 class="center-title w3-theme "> Recently Created</h1>
 		<ul class="w3-ul w3-hoverable">
 		<li><a href="#">Test List</a></li>
 		<li><a href="#">Test List</a></li>
@@ -116,7 +102,7 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 		<div class="w3-row">
 				  <div class="w3-container w3-half">
 		
-		<h1 class="center-title"> Recently Taken</h1>
+		<h1 class="center-title w3-theme"> Recently Taken</h1>
 		<ul class="w3-ul w3-hoverable">
 		<li><a href="#">Test List</a></li>
 		<li><a href="#">Test List</a></li>
@@ -126,7 +112,7 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 		</div>
 				  <div class="w3-container w3-half">
 		
-		<h1 class="center-title"> My Quizzes</h1>
+		<h1 class="center-title w3-theme"> My Quizzes</h1>
 		<ul class="w3-ul w3-hoverable">
 		<li><a href="#">Test List</a></li>
 		<li><a href="#">Test List</a></li>
@@ -135,7 +121,7 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 		</ul>
 		</div>
 		</div>
-		<h1 class="center-title"> Friend Activities</h1>
+		<h1 class="center-title w3-theme"> Friend Activities</h1>
 
 </body>
 </html>

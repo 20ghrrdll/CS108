@@ -4,3 +4,11 @@
 .center-title{
 	text-align: center;
 }
+
+.standards{
+	font-family: Helvetica;
+}
+
+li {
+	cursor: pointer;
+}
