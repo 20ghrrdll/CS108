@@ -45,8 +45,9 @@ public class UserCreationServlet extends HttpServlet {
 			response.sendRedirect("create-user.jsp?invalid=exists");
 			return;
 		} else {
-			String hashedPassword = userManager.generateHashedPassword(password);
-			userManager.addUser(username, hashedPassword);
+			userManager.addUser(username, password);
+			request.getSession().setAttribute("currentUser", userManager.getUser(username));
+			response.sendRedirect("index.jsp");
 			// TODO: forward to user welcome homepage; add user somewhere else?
 		}
 	}

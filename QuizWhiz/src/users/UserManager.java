@@ -35,16 +35,12 @@ public class UserManager {
 	 */
 	public User getUser(String username) {
 		User user = null;
-		ArrayList<User> users = new ArrayList<User>();
 		try {
 			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + "user" + " WHERE username=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
-			
-			
 			if (rs.next()) {
-				System.out.println(rs.getString("username") + " "+ rs.getString("password"));
 				user = new User(rs.getString("username"), rs.getString("password"));
 			}
 			DBConnector.closeConnection();
@@ -67,7 +63,6 @@ public class UserManager {
 		try {
 			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
-			// TODO: correct table name
 			String update = "INSERT INTO " + "user (username, password)" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\");";
 			stmt.executeUpdate(update);
 			DBConnector.closeConnection();

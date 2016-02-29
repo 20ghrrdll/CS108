@@ -4,23 +4,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/login.css" />
 <title>Login</title>
 </head>
 <body>
+<div class="centerDiv loginView">
+<div class="centerDiv inputView">
 <% if("empty".equals(request.getParameter("invalid"))) { %>
-	<div>
-		<strong>Empty Field </strong> Please enter fill in both a username and password.
+	<div class="warning">
+		<strong>Empty Field </strong> Please enter a username and password.
 	</div>
 	<% } else if("fail".equals(request.getParameter("invalid"))) { %>
-	<div>
+	<div class="warning">
 		<strong>Not found</strong> That username password combination was not found.
 	</div>
 	<% } %>
 <form action="LoginServlet" method="post">
-User Name: <input type="text" name="username" /><br>
-Password: <input type="text" name="password" />
+<div class="inputDesc">User Name:</div> <input type="text" name="username" /><br>
+<div class="inputDesc">Password:</div> <input type="password" name="password" />
 <input type="submit" /></form>
 <a href="create-user.jsp">Create New Account</a>
+</div>
+</div>
 </body>
 </html>
 
