@@ -10,14 +10,15 @@
 User user = (User) session.getAttribute("currentUser");
 AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext().getAttribute("announcementManager");
 ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
-System.out.println(announcements.size());
 
+QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
+ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 %>
 </head>
 <body>
 	<ul class="nav" >
 	  	<% if(user != null) { %>
-			<li class="navListTitle">
+	  	<li class="navListTitle">
 				<a href="index.jsp?" ><strong class="navItem">Hello <% out.print(user.getUsername()); %>!</strong></a>
 			</li>
 		<% } else {
@@ -52,6 +53,23 @@ System.out.println(announcements.size());
 		</ul>
 		
 		<h1> Popular Quizzes</h1>
+		
+		<ol>
+		<%
+		for(int i = 0; i < popularQuizzes.size(); i++){
+			%>
+			<li>
+			<h3><%= popularQuizzes.get(i).getQuizName() %></h3>
+			<p><%= popularQuizzes.get(i).getQuizDescription() %></p>
+			
+			</li> 
+			
+			<%
+		}
+		
+		%>
+		</ol>
+		
 		<h1> Recently Created</h1>
 		<h1> Recently Taken</h1>
 		<h1> My Quizzes</h1>

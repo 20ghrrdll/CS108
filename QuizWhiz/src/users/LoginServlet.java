@@ -51,7 +51,6 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			request.getSession().setAttribute("currentUser", matchingUser);
 			response.sendRedirect("index.jsp?");
-
 		}
 		
 	}
