@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS quiz (
 	name VARCHAR(255) NOT NULL,
 	description TEXT,
 	created DATETIME NOT NULL,
-	creatorId INT NOT NULL,
+	creatorId VARCHAR(255) NOT NULL,
 	practiceMode BOOLEAN DEFAULT false,
 	pages BOOLEAN DEFAULT false,
 	random BOOLEAN DEFAULT false,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS quiz (
 */
 CREATE TABLE IF NOT EXISTS quiz_question(
 	quizId INT NOT NULL,
-	userId INT NOT NULL,
+	userId VARCHAR(255) NOT NULL,
 	questionId INT NOT NULL,
 	questionText VARCHAR(8000) NOT NULL,
 	correctAnswer VARCHAR(255) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS question_answers(
 */
 CREATE TABLE IF NOT EXISTS quiz_records (
 	quizId INT NOT NULL,
-	userId INT NOT NULL,
+	userId VARCHAR(255) NOT NULL,
 	start_time DATETIME NOT NULL,
 	end_time DATETIME NOT NULL,
 	score SMALLINT NOT NULL
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS quiz_records (
 CREATE TABLE IF NOT EXISTS quiz_question_records (
 	quizId INT NOT NULL,
 	questionId INT NOT NULL,
-	userId INT NOT NULL,
+	userId VARCHAR(255) NOT NULL,
 	response TEXT,
 	correct BOOLEAN,
 	answered BOOLEAN
@@ -74,19 +74,19 @@ CREATE TABLE IF NOT EXISTS quiz_question_records (
 CREATE TABLE IF NOT EXISTS user (
 	username VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
-	admin BOOLEAN,
+	admin BOOLEAN DEFAULT false,
 	cookie VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS achievements (
-	userId INT NOT NULL,
+	userId VARCHAR(255) NOT NULL,
 	acievementId INT NOT NULL,
 	timeAchieved DATETIME NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS announcements (
   announcementId INT NOT NULL AUTO_INCREMENT,
-  userId INT NOT NULL,
+  userId VARCHAR(255) NOT NULL,
   posted datetime NOT NULL,
   subject VARCHAR(8000) NOT NULL,
   body VARCHAR(8000) NOT NULL,
@@ -95,21 +95,21 @@ CREATE TABLE IF NOT EXISTS announcements (
 );
 
 CREATE TABLE IF NOT EXISTS friends(
-  user1 INT NOT NULL,
-  user2 INT NOT NULL,
+  user1 VARCHAR(255) NOT NULL,
+  user2 VARCHAR(255) NOT NULL,
   established datetime NOT NULL,
   UNIQUE KEY user1 (user1,user2),
   UNIQUE KEY user2 (user2,user1)
 ); 
 
 CREATE TABLE IF NOT EXISTS friend_requests (
-  userToId INT NOT NULL,
-  userFromId INT NOT NULL
+  userToId VARCHAR(255) NOT NULL,
+  userFromId VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS messages (
   messageId INT NOT NULL AUTO_INCREMENT,
-  senderId INT NOT NULL,
+  senderId VARCHAR(255) NOT NULL,
   recipientId INT NOT NULL,
   timeSent datetime NOT NULL,
   unread INT(4) NOT NULL,
@@ -135,3 +135,9 @@ INSERT INTO question_answers (quizId, questionId, answer) VALUES
 ('1', '1', 'Yes'),
 ('1', '1', 'No');
 
+INSERT INTO user (username, password) VALUES
+('Max', '123');
+
+INSERT INTO announcements (announcementId, userId, posted, subject, body) VALUE
+('1', 'Max','2016-02-27 13:41:00', 'Super important!', 'First announcement woohoo!'),
+('2', 'Neel','2016-02-27 13:41:00', 'Another Announcement', 'Second announcement woohoo!');

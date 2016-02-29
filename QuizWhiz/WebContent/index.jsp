@@ -18,15 +18,15 @@ System.out.println(announcements.size());
 	<ul class="nav" >
 	  	<% if(user != null) { %>
 			<li class="navListTitle">
-				<strong class="navItem">Hello <% out.print(user.getUsername()); %>!</strong>
+				<a href="index.jsp?"><strong class="navItem">Hello <% out.print(user.getUsername()); %>!</strong></a>
 			</li>
 		<% } else {
 				response.sendRedirect("login-page.jsp?");
 		}%>
-		<li class="navList" ><a class="navItem" href="#contact"><img class="icon" src="Icons/settings_filled.png"></a></li>
-		<li class="navList" ><a class="navItem" href="#about"><img class="icon" src="Icons/medal.png"></a></li>
-		<li class="navList" ><a class="navItem" href="#about"><img class="icon" src="Icons/new_message.png"></a></li>
-  		<li class="navList" ><a class="navItem" href="#news"><img class="icon" src="Icons/groups_filled.png"></a></li>
+		<li class="navList" ><a class="navItem" href="#settings"><img class="icon" src="Icons/settings_filled.png"></a></li>
+		<li class="navList" ><a class="navItem" href="#achievements"><img class="icon" src="Icons/medal.png"></a></li>
+		<li class="navList" ><a class="navItem" href="#messages"><img class="icon" src="Icons/new_message.png"></a></li>
+  		<li class="navList" ><a class="navItem" href="#friends"><img class="icon" src="Icons/groups_filled.png"></a></li>
   		
 	</ul>
 	<div class="content">
