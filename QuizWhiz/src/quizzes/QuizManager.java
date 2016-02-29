@@ -44,11 +44,6 @@ public class QuizManager {
 		Statement stmt = con.createStatement();
 		String query = "SELECT * FROM " + MyDBInfo.QUESTION_TABLE +" WHERE quizId='" + quizId + "';";
 		ResultSet rs = stmt.executeQuery(query);
-//		quizId INT NOT NULL,
-//		questionId INT NOT NULL,
-//		questionText VARCHAR(8000) NOT NULL,
-//		correctAnswer VARCHAR(255) NOT NULL,
-//		order INT,
 		while (rs.next()) {
 			int quizID = rs.getInt("quizId");
 			int questionId = rs.getInt("questionId");
@@ -58,7 +53,6 @@ public class QuizManager {
 			Question question = new Question(quizID, questionId, questionText, correctAnswer, order);
 			questions.add(question);
 		}
-
 		return questions;
 	}
 	/**
@@ -119,8 +113,6 @@ public class QuizManager {
 		
 		return quizzes;
 	} 
-	
-	
 	
 	public void closeConnection() {
 		DBConnector.closeConnection();
