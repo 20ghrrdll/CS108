@@ -3,6 +3,7 @@ package users;
 public class User {
 
 	private String username, password;
+	private boolean isAdmin;
 	
 	
 	public User(String username, String password) {
@@ -10,20 +11,16 @@ public class User {
 		this.password = password;
 	}
 	
-	
-	/**
-	 * @return username associated with a user
-	 */
 	public String getUsername() {
 		return username;
 	}
 	
-	
-	/**
-	 * @return hashed password associated with a user
-	 */
 	public String getPassword() {
 		return password;
+	}
+	
+	public boolean isAdmin() {
+		return isAdmin;
 	}
 	
 }

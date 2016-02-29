@@ -15,18 +15,6 @@ public class UserManager {
 	}
 	
 	
-	/*public ArrayList<User> getAllUsers() {
-		ArrayList<User> users = new ArrayList<User>();
-		try {
-			Statement stmt = con.createStatement();
-		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
-		}
-		
-		return users;
-	}*/
-	
-	
 	/**
 	 * Returns a User object associated with the given username from the 
 	 * MySQL database and null if no user with the given username exists.

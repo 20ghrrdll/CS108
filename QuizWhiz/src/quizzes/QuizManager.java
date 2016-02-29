@@ -34,8 +34,8 @@ public class QuizManager {
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
-				quizzes.add(quiz);
+				//Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				//quizzes.add(quiz);
 			}
 			DBConnector.closeConnection();
 		} catch (SQLException e) {
