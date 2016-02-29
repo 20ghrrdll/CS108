@@ -54,9 +54,6 @@ System.out.println(announcements.size());
 		<h1> Friend Activities</h1>
 	</div>
 
-</div>
-
-
 
 </body>
 </html>
