@@ -39,6 +39,7 @@ public class QuizManager {
 		return quiz;
 	}
 	
+	
 	/**
 	 * Returns Quiz objects for every quiz currently stored in the database.
 	 * @return ArrayList of Quiz objects
