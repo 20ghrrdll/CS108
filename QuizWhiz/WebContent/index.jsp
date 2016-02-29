@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Homepage</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css" />
 <%
 User user = (User) session.getAttribute("currentUser");
@@ -18,20 +18,24 @@ System.out.println(announcements.size());
 	<ul class="nav" >
 	  	<% if(user != null) { %>
 			<li class="navListTitle">
-				<a href="index.jsp?"><strong class="navItem">Hello <% out.print(user.getUsername()); %>!</strong></a>
+				<a href="index.jsp?" ><strong class="navItem">Hello <% out.print(user.getUsername()); %>!</strong></a>
 			</li>
 		<% } else {
 				response.sendRedirect("login-page.jsp?");
 		}%>
-		<li class="navList" ><a class="navItem" href="#settings"><img class="icon" src="Icons/settings_filled.png"></a></li>
+		<li class="navList" >
+			<a class="navItem" href="#">
+			<img class="icon" src="Icons/settings_filled.png">
+			</a>
+		</li>
 		<li class="navList" ><a class="navItem" href="#achievements"><img class="icon" src="Icons/medal.png"></a></li>
 		<li class="navList" ><a class="navItem" href="#messages"><img class="icon" src="Icons/new_message.png"></a></li>
   		<li class="navList" ><a class="navItem" href="#friends"><img class="icon" src="Icons/groups_filled.png"></a></li>
   		
 	</ul>
 	<div class="content">
-		<h1> Announcements</h1>
-<ul>
+		<h1 id="announcement"> Announcements</h1>
+		<ul>
 		<%
 		for(int i = 0; i < announcements.size(); i++){
 			%>
