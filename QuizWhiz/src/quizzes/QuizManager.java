@@ -27,6 +27,15 @@ public class QuizManager {
 			while (rs.next()) {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
+				String description = rs.getString("description");
+				// TODO: change to updated id String creator = rs.getString("creator");
+				// TODO: String type = 
+				boolean practiceMode = rs.getBoolean("practiceMode");
+				boolean multiplePages = rs.getBoolean("pages");
+				boolean random = rs.getBoolean("random");
+				boolean immediateCorrection = rs.getBoolean("correction");
+				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				quizzes.add(quiz);
 			}
 			DBConnector.closeConnection();
 		} catch (SQLException e) {
