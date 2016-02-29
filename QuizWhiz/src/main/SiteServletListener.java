@@ -26,11 +26,11 @@ public class SiteServletListener implements ServletContextListener {
      */
     public void contextDestroyed(ServletContextEvent arg0)  { 
     	ServletContext context = arg0.getServletContext();
-    	AnnouncementManager announcementManager = new AnnouncementManager();
+    	AnnouncementManager announcementManager = (AnnouncementManager) context.getAttribute("announcementManager");
     	announcementManager.closeConnection();
     	UserManager userManager = (UserManager) context.getAttribute("userManager");
     	userManager.closeConnection();
-    	QuizManager quizManager = new QuizManager();
+    	QuizManager quizManager = (QuizManager) context.getAttribute("quizManager");
     	quizManager.closeConnection();
     }
 
