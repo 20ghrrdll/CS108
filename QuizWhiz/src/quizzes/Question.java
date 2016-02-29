@@ -1,25 +1,19 @@
 package quizzes;
 
-import java.util.ArrayList;
-
 public class Question {
-//	
-//	quizId INT NOT NULL,
-//	userId VARCHAR(255) NOT NULL,
-//	questionId INT NOT NULL,
-//	questionText VARCHAR(8000) NOT NULL,
-//	correctAnswer VARCHAR(255) NOT NULL,
+
 	private int quizId;
 	private int questionId;
 	private String questionText;
 	private String correctAnswer;
-	//private ArrayList<String> answers;
+	private int order;
 	
-	public Question(int quiz_id, int question_id, String question_text, String correct_answer){
+	public Question(int quiz_id, int question_id, String question_text, String correct_answer, int questionOrder){
 		this.quizId = quiz_id;
 		this.questionId = question_id;
 		this.questionText = question_text;
 		this.questionText = correct_answer;
+		this.order = questionOrder;
 	}
 	
 	public String getQuestionText(){
@@ -36,6 +30,10 @@ public class Question {
 	
 	public int getQuestionId(){
 		return this.questionId;
+	}
+	
+	public int getOrder(){
+		return this.order;
 	}
 
 }
