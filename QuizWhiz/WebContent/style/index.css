@@ -6,7 +6,6 @@
     background-color: #333;
     position:fixed;
     top:0px;
-    left:0px;
     right:0px;
     margin:auto; 
     z-index:100000;
@@ -14,9 +13,17 @@
 }
 
 .navList {
-    float: left;
+    float: right;
 }
 
+.navListTitle {
+	float: left;
+}
+
+.icon {
+	height: 20px;
+	width: 20px;
+}
 .navItem {
 	display: inline-block;
     color: white;

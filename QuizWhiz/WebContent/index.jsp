@@ -16,18 +16,18 @@ System.out.println(announcements.size());
 </head>
 <body>
 	<ul class="nav" >
-  		<li class="navList" ><a class="active navItem" href="#home">Home</a></li>
-  		<li class="navList" ><a class="navItem" href="#news">Friends</a></li>
- 	 	<li class="navList" ><a class="navItem" href="#contact">Messages</a></li>
-  		<li class="navList" ><a class="navItem" href="#about">Achievements</a></li>
-  		<li class="navList" ><a class="navItem" href="#about">Privacy Settings</a></li>
-  		<% if(user != null) { %>
-			<li class="navList">
+	  	<% if(user != null) { %>
+			<li class="navListTitle">
 				<strong class="navItem">Hello <% out.print(user.getUsername()); %>!</strong>
 			</li>
 		<% } else {
 				response.sendRedirect("login-page.jsp?");
 		}%>
+		<li class="navList" ><a class="navItem" href="#contact"><img class="icon" src="Icons/settings_filled.png"></a></li>
+		<li class="navList" ><a class="navItem" href="#about"><img class="icon" src="Icons/medal.png"></a></li>
+		<li class="navList" ><a class="navItem" href="#about"><img class="icon" src="Icons/new_message.png"></a></li>
+  		<li class="navList" ><a class="navItem" href="#news"><img class="icon" src="Icons/groups_filled.png"></a></li>
+  		
 	</ul>
 	<div class="content">
 		<h1> Announcements</h1>
