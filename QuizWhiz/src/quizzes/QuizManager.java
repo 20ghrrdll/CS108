@@ -51,12 +51,7 @@ public class QuizManager {
 	public ArrayList<Quiz> getPopularQuizzes(){
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		try {
-			Statement stmt = con.createStatement();
-			
-//			SELECT column_name, column_name
-//			FROM table_name
-//			ORDER BY column_name ASC|DESC, column_name ASC|DESC;
-			
+			Statement stmt = con.createStatement();		
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" ORDER BY amountTaken DESC;";
 			ResultSet rs = stmt.executeQuery(query);
 			
@@ -80,6 +75,10 @@ public class QuizManager {
 		}
 		
 		return quizzes;
+	}
+	
+	public void closeConnection() {
+		DBConnector.closeConnection();
 	}
 	
 }

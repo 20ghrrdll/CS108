@@ -28,6 +28,8 @@ public class SiteServletListener implements ServletContextListener {
     	ServletContext context = arg0.getServletContext();
     	UserManager userManager = (UserManager) context.getAttribute("userManager");
     	userManager.closeConnection();
+    	QuizManager quizManager = new QuizManager();
+    	quizManager.closeConnection();
     }
 
 	/**
