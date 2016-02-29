@@ -12,17 +12,16 @@ import users.User;
 
 public class AnnouncementManager {
 
-	private static Connection con = null;
+	private static Connection con;
 
 	public AnnouncementManager(){
-
+		con = DBConnector.getConnection();
 	}
 
 	public ArrayList<Announcement> getAnnouncements(){
 		Announcement announcement = null;
 		ArrayList<Announcement> announcements = new ArrayList<Announcement>();
 		try {
-			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + MyDBInfo.ANNOUNCEMENTS_TABLE + ";";
 			ResultSet rs = stmt.executeQuery(query);
@@ -35,7 +34,6 @@ public class AnnouncementManager {
 				announcements.add(announcement);
 				
 			}
-			DBConnector.closeConnection();
 			return announcements;
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
@@ -43,5 +41,8 @@ public class AnnouncementManager {
 		return null;
 	}
 	
+	public void closeConnection() {
+		DBConnector.closeConnection();
+	}
 
 }
