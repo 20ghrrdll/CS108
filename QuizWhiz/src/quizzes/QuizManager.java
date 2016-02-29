@@ -12,9 +12,55 @@ public class QuizManager {
 	
 	public QuizManager() {
 		con = DBConnector.getConnection();
-
 	}
 	
+	public Quiz getQuiz(int quizId){
+		Quiz quiz = null;
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE + " WHERE quizId='" + quizId + "';";
+			System.out.println(query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int quizID = rs.getInt("quizID");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				String creator = rs.getString("creatorId");
+				String type = rs.getString("type");
+				boolean practiceMode = rs.getBoolean("practiceMode");
+				boolean multiplePages = rs.getBoolean("pages");
+				boolean random = rs.getBoolean("random");
+				boolean immediateCorrection = rs.getBoolean("correction");
+				quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return quiz;
+	}
+	
+	public ArrayList<Question> getQuestions(int quizId) throws SQLException{
+		ArrayList<Question> questions = new ArrayList<Question>();
+		Statement stmt = con.createStatement();
+		String query = "SELECT * FROM " + MyDBInfo.QUESTION_TABLE +" WHERE quizId='" + quizId + "';";
+		ResultSet rs = stmt.executeQuery(query);
+//		quizId INT NOT NULL,
+//		questionId INT NOT NULL,
+//		questionText VARCHAR(8000) NOT NULL,
+//		correctAnswer VARCHAR(255) NOT NULL,
+//		order INT,
+		while (rs.next()) {
+			int quizID = rs.getInt("quizId");
+			int questionId = rs.getInt("questionId");
+			String questionText = rs.getString("questionText");
+			String correctAnswer = rs.getString("correctAnswer");
+			int order = rs.getInt("order");
+			Question question = new Question(quizID, questionId, questionText, correctAnswer, order);
+			questions.add(question);
+		}
+
+		return questions;
+	}
 	/**
 	 * Returns Quiz objects for every quiz currently stored in the database.
 	 * @return ArrayList of Quiz objects
@@ -23,16 +69,14 @@ public class QuizManager {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		try {
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE;
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +";";
 			ResultSet rs = stmt.executeQuery(query);
 			
 			while (rs.next()) {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
-				// TODO: change to updated id String creator = rs.getString("creator");
-				// TODO: String type = 
-				String creator = rs.getString("creator");
+				String creator = rs.getString("creatorId");
 				String type = rs.getString("type");
 				boolean practiceMode = rs.getBoolean("practiceMode");
 				boolean multiplePages = rs.getBoolean("pages");
@@ -44,7 +88,6 @@ public class QuizManager {
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
-		
 		return quizzes;
 	}
 	
@@ -75,7 +118,9 @@ public class QuizManager {
 		}
 		
 		return quizzes;
-	}
+	} 
+	
+	
 	
 	public void closeConnection() {
 		DBConnector.closeConnection();

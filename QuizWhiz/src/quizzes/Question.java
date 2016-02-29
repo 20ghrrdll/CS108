@@ -1,24 +1,39 @@
 package quizzes;
 
-public interface Question {
+public class Question {
 
-	/**
-	 * @return The text for a question
-	 */
-	public String getQuestion();
+	private int quizId;
+	private int questionId;
+	private String questionText;
+	private String correctAnswer;
+	private int order;
 	
+	public Question(int quiz_id, int question_id, String question_text, String correct_answer, int questionOrder){
+		this.quizId = quiz_id;
+		this.questionId = question_id;
+		this.questionText = question_text;
+		this.questionText = correct_answer;
+		this.order = questionOrder;
+	}
 	
-	/**
-	 * @return One of the answers
-	 */
-	public String getAnswer();
+	public String getQuestionText(){
+		return this.questionText;
+	}
 	
+	public String getCorrectAnswer(){
+		return this.correctAnswer;
+	}
 	
-	/**
-	 * Checks whether the user's answer matches one of the correct answers
-	 * @param what the user has typed in as the potential answer
-	 * @return true if the user's answer matches one of the correct answers
-	 */
-	public boolean checkAnswer(String input);
+	public int getQuizId(){
+		return this.quizId;
+	}
 	
+	public int getQuestionId(){
+		return this.questionId;
+	}
+	
+	public int getOrder(){
+		return this.order;
+	}
+
 }
