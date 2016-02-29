@@ -8,10 +8,11 @@ import java.util.ArrayList;
 
 public class QuizManager {
 
-	private static Connection con = null;
+	private static Connection con;;
 	
 	public QuizManager() {
-		
+		con = DBConnector.getConnection();
+
 	}
 	
 	/**
@@ -21,7 +22,6 @@ public class QuizManager {
 	public ArrayList<Quiz> getAllQuizzes() {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		try {
-			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE;
 			ResultSet rs = stmt.executeQuery(query);
@@ -41,7 +41,6 @@ public class QuizManager {
 				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 				quizzes.add(quiz);
 			}
-			DBConnector.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
@@ -52,7 +51,6 @@ public class QuizManager {
 	public ArrayList<Quiz> getPopularQuizzes(){
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		try {
-			con = DBConnector.getConnection();
 			Statement stmt = con.createStatement();
 			
 //			SELECT column_name, column_name
@@ -77,7 +75,6 @@ public class QuizManager {
 				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 				quizzes.add(quiz);
 			}
-			DBConnector.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
