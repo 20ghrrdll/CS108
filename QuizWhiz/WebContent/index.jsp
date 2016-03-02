@@ -12,11 +12,9 @@
 	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="http://www.w3schools.com/lib/w3-theme-indigo.css">
-<script>
-function myFunction(id) {
-    document.getElementById(id).classList.toggle("w3-show");
-}
-</script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
+
 <%
 User user = (User) session.getAttribute("currentUser");
 AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext().getAttribute("announcementManager");
@@ -24,6 +22,7 @@ ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
+ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 
 %>
 </head>
@@ -73,7 +72,7 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 
 			<ol class="w3-ul w3-hoverable">
 				<%
-		for(int i = 0; i < popularQuizzes.size(); i++){
+		for(int i = 0; i < popularQuizzes.size() && i < 5; i++){
 			%>
 				<li><a
 				<% String id = String.valueOf(popularQuizzes.get(i).getQuizID()); %>
@@ -83,20 +82,31 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 				</a></li>
 				<%
 		}
+<<<<<<< HEAD
 				
+=======
+>>>>>>> 3f0eccd410c293e7eebe057c87db3f232563c0eb
 		%>
 			</ol>
 		</div>
-		<div class="w3-container w3-half">
-
-			<h1 class="center-title w3-theme ">Recently Created</h1>
-			<ul class="w3-ul w3-hoverable">
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-			</ul>
-
+		  <div class="w3-container w3-half">
+		
+		<h1 class="center-title w3-theme "> Recently Created</h1>
+		<ol class="w3-ul w3-hoverable">
+		<%
+		for(int i = 0; i < recentQuizzes.size() && i < 5; i++){
+			%>
+			<li>
+			<h4><%= recentQuizzes.get(i).getQuizName() %></h4>
+			<p><%= recentQuizzes.get(i).getQuizDescription() %></p>	
+			</li> 
+			
+			<%
+		}
+		
+		%>
+		</ol>
+		
 		</div>
 	</div>
 	<div class="w3-row">
