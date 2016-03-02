@@ -22,7 +22,13 @@ ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
-ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
+ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
+ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
+ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
+if(user != null){
+String userName = user.getUsername();
+	myQuizzes = quizManager.getMyQuizzes(userName);
+}
 
 %>
 </head>
@@ -77,7 +83,7 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 				<li><a
 				<% String id = String.valueOf(popularQuizzes.get(i).getQuizID()); %>
 					href="quiz-summary-page.jsp?id=<%=id%>" STYLE="text-decoration:none">
-						<h3><%= popularQuizzes.get(i).getQuizName()%></h3>
+						<h4><%= popularQuizzes.get(i).getQuizName()%></h4>
 						<p><%= popularQuizzes.get(i).getQuizDescription() %></p>
 				</a></li>
 				<%
@@ -109,22 +115,38 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 		<div class="w3-container w3-half">
 
 			<h1 class="center-title w3-theme">Recently Taken</h1>
-			<ul class="w3-ul w3-hoverable">
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-			</ul>
+			<ol class="w3-ul w3-hoverable">
+		<%
+		for(int i = 0; i < recentlyTakenQuizzes.size() && i < 5; i++){
+			%>
+			<li>
+			<h4><%= recentlyTakenQuizzes.get(i).getQuizName() %></h4>
+			<p><%= recentlyTakenQuizzes.get(i).getQuizDescription() %></p>	
+			</li> 
+			
+			<%
+		}
+		
+		%>
+		</ol>
 		</div>
 		<div class="w3-container w3-half">
 
 			<h1 class="center-title w3-theme">My Quizzes</h1>
-			<ul class="w3-ul w3-hoverable">
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-			</ul>
+			<ol class="w3-ul w3-hoverable">
+		<%
+		for(int i = 0; i < myQuizzes.size() && i < 5; i++){
+			%>
+			<li>
+			<h4><%= myQuizzes.get(i).getQuizName() %></h4>
+			<p><%= myQuizzes.get(i).getQuizDescription() %></p>	
+			</li> 
+			
+			<%
+		}
+		
+		%>
+		</ol>
 		</div>
 	</div>
 	<h1 class="center-title w3-theme">Friend Activities</h1>

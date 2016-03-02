@@ -23,7 +23,6 @@ public class QuizManager {
 		try {
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE + " WHERE quizId='" + quizId + "';";
-			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				int quizID = rs.getInt("quizID");
@@ -125,7 +124,7 @@ public class QuizManager {
 		return quizzes;
 	}
 	
-	public ArrayList<Quiz> getRecentQuizzes() throws SQLException {
+	public ArrayList<Quiz> getRecentlyCreatedQuizzes() throws SQLException {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 			Statement stmt = con.createStatement();		
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" ORDER BY created DESC;";
@@ -146,6 +145,66 @@ public class QuizManager {
 			}
 		return quizzes;
 	}
+	
+	public ArrayList<Quiz> getRecentlyTakenQuizzes() throws SQLException {
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+			Statement stmt = con.createStatement();		
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" ORDER BY end_time DESC;";
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				int quizID = rs.getInt("quizID");
+				Quiz quiz = getQuiz(quizID);
+				quizzes.add(quiz);
+			}
+		return quizzes;
+	}
+	
+	public ArrayList<Quiz> getMyQuizzes(String username) throws SQLException {
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE creatorId='"+username +"' ORDER BY 'end_time' DESC;";
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				int quizID = rs.getInt("quizID");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				String creator = rs.getString("creatorId");
+				String type = rs.getString("type");
+				boolean practiceMode = rs.getBoolean("practiceMode");
+				boolean multiplePages = rs.getBoolean("pages");
+				boolean random = rs.getBoolean("random");
+				boolean immediateCorrection = rs.getBoolean("correction");
+				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				quizzes.add(quiz);
+			}
+		return quizzes;
+	}
+	
+	public ArrayList<Quiz> getMyRecentQuizzes(String username) throws SQLException {
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+			Statement stmt = con.createStatement();		
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE creatorId='"+username +"';";
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				int quizID = rs.getInt("quizID");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				String creator = rs.getString("creatorId");
+				String type = rs.getString("type");
+				boolean practiceMode = rs.getBoolean("practiceMode");
+				boolean multiplePages = rs.getBoolean("pages");
+				boolean random = rs.getBoolean("random");
+				boolean immediateCorrection = rs.getBoolean("correction");
+				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				quizzes.add(quiz);
+			}
+		return quizzes;
+	}
+	
+	
 	
 	
 	
