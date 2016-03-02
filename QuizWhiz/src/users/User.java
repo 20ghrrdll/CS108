@@ -1,17 +1,20 @@
 package users;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class User {
 
 	private String username, password;
 	private boolean isAdmin;
+	private Date joined;
 	
 	
-	public User(String username, String password, boolean isAdmin) {
+	public User(String username, String password, boolean isAdmin, Date time) {
 		this.username = username;
 		this.password = password;
 		this.isAdmin = isAdmin;
+		this.joined = time;
 	}
 	
 	public String getUsername() {
@@ -24,6 +27,10 @@ public class User {
 	
 	public boolean isAdmin() {
 		return isAdmin;
+	}
+	
+	public Date getJoinDate(){
+		return joined;
 	}
 	
 	@Override
