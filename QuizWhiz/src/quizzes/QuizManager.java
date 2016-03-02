@@ -57,7 +57,7 @@ public class QuizManager {
 			int questionId = rs.getInt("questionId");
 			String questionText = rs.getString("questionText");
 			String correctAnswer = rs.getString("correctAnswer");
-			int order = rs.getInt("order");
+			int order = rs.getInt("questionOrder");
 			Question question = new Question(quizID, questionId, questionText, correctAnswer, order);
 			questions.add(question);
 		}

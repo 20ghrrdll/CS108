@@ -137,7 +137,9 @@ INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken) VA
 ('8','Eighth Quiz', 'Our 8th quiz', '2016-02-27 13:41:07', 'Max', 3);
 
 INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, questionOrder) VALUES
-('1', '1', 'Does this work?', 'Yes', '1');
+(1, 1, 'How many knees do elephants have?', '2', 1);
+(1, 2, "Who has more neck vertabrae: humans, giraffes or they both have the same number?", "they both have the same number", 0);
+
 
 INSERT INTO question_answers (quizId, questionId, answer) VALUES
 ('1', '1', 'Yes'),
