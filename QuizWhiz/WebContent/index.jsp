@@ -25,8 +25,9 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
 ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
 ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
+Set<User> friends;
 if(user != null){
-String userName = user.getUsername();
+	String userName = user.getUsername();
 	myQuizzes = quizManager.getMyQuizzes(userName);
 }
 
@@ -35,7 +36,7 @@ String userName = user.getUsername();
 <body class="w3-theme-light standards">
 	<ul class="w3-navbar w3-theme-dark w3-border">
 		<% if(user != null) { %>
-		<li><a href="index.jsp?">Hello <% out.print(user.getUsername()); %>!
+		<li><a href="index.jsp?">QuizWhiz!
 		</a></li>
 		<% } else {
 				response.sendRedirect("login-page.jsp?");
@@ -53,10 +54,16 @@ String userName = user.getUsername();
 			<li><a href="#">Achievements</a></li>
 		</ul>
 	</ul>
-	<div class="w3-accordion">
-		<h1 id="announcement" class="center-title w3-theme"
-			onclick="myFunction('Demo1')">Announcements</h1>
-		<div id="Demo1" class="w3-accordion-content">
+		<div class="w3-row">
+		<div class="w3-col" style="width:20%">
+		<% if(user != null) { %>
+			<h1><%=user.getUsername() %></h1>
+		<% }%>
+		
+		</div>
+	
+	<div class="w3-col" style="width:80%">
+		<h1 id="announcement" class="center-title w3-theme">Announcements</h1>
 			<ul class="w3-ul w3-hoverable">
 				<%
 		for(int i = 0; i < announcements.size(); i++){
@@ -73,6 +80,7 @@ String userName = user.getUsername();
 		%>
 			</ul>
 		</div>
+	</div>
 	</div>
 	<div class="w3-row">
 		<div class="w3-container w3-half">
