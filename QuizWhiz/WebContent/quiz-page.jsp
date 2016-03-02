@@ -4,6 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css" />
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-indigo.css">
+<script>
+function myFunction(id) {
+    document.getElementById(id).classList.toggle("w3-show");
+}
+</script>
 <title><% 
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager"); 
 Quiz toDisplay = quizManager.getQuiz(Integer.valueOf("1"));
@@ -41,6 +51,7 @@ out.print(quizName);
 			</div>				
 		<% } %>
 		<br>
+		
 		<input type="submit" />
 	</form>
 
