@@ -14,6 +14,10 @@ public class QuizManager {
 		con = DBConnector.getConnection();
 	}
 	
+	/**
+	 * Returns a Quiz with the given quizId
+	 * @return Quiz
+	 */
 	public Quiz getQuiz(int quizId){
 		Quiz quiz = null;
 		try {
@@ -39,6 +43,11 @@ public class QuizManager {
 		return quiz;
 	}
 	
+	/**
+	 * Returns an ArrayList of questions associated with the given quizId
+	 * @param quizId
+	 * @return ArrayList of Question objects
+	 */
 	public ArrayList<Question> getQuestions(int quizId) throws SQLException{
 		ArrayList<Question> questions = new ArrayList<Question>();
 		Statement stmt = con.createStatement();
@@ -85,6 +94,10 @@ public class QuizManager {
 		return quizzes;
 	}
 	
+	/**
+	 * Returns an array list of the most popular quizes
+	 * @return ArrayList of Quiz objects
+	 */
 	public ArrayList<Quiz> getPopularQuizzes(){
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 		try {
@@ -96,8 +109,6 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
-				// TODO: change to updated id String creator = rs.getString("creator");
-				// TODO: String type = 
 				String creator = rs.getString("creatorId");
 				String type = rs.getString("type");
 				boolean practiceMode = rs.getBoolean("practiceMode");
@@ -112,7 +123,31 @@ public class QuizManager {
 		}
 		
 		return quizzes;
-	} 
+	}
+	
+	public ArrayList<Quiz> getRecentQuizzes() throws SQLException {
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+			Statement stmt = con.createStatement();		
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" ORDER BY created DESC;";
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				int quizID = rs.getInt("quizID");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				String creator = rs.getString("creatorId");
+				String type = rs.getString("type");
+				boolean practiceMode = rs.getBoolean("practiceMode");
+				boolean multiplePages = rs.getBoolean("pages");
+				boolean random = rs.getBoolean("random");
+				boolean immediateCorrection = rs.getBoolean("correction");
+				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				quizzes.add(quiz);
+			}
+		return quizzes;
+	}
+	
+	
 	
 	public void closeConnection() {
 		DBConnector.closeConnection();
