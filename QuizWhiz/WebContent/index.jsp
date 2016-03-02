@@ -83,7 +83,7 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 				</a></li>
 				<%
 		}
-		
+				
 		%>
 			</ol>
 		</div>
@@ -122,6 +122,5 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 		</div>
 	</div>
 	<h1 class="center-title w3-theme">Friend Activities</h1>
-
 </body>
 </html>

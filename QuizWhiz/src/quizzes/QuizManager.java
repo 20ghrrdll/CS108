@@ -19,7 +19,7 @@ public class QuizManager {
 		try {
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE + " WHERE quizId='" + quizId + "';";
-			System.out.println(query);
+			//System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				int quizID = rs.getInt("quizID");
