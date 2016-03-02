@@ -60,7 +60,7 @@ if(user != null){
 			<h1 class="centerTitle"><%=user.getUsername() %></h1>
 			<ul>
 				<li>Date joined: <%=user.getJoinDate() %></li>
-				<li>Number of quizzes made: <%=myQuizzes.size() %><li>
+				<li>Number of quizzes made: <%=myQuizzes.size() %></li>
 			</ul>
 		<% }%>
 		
