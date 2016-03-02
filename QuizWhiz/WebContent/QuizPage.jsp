@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><% 
-//QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager"); 
-//Quiz toDisplay = quizManager.getQuiz(1);
-String quizName = "TestQuiz";
-//out.print(toDisplay.getQuizName());
+QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager"); 
+Quiz toDisplay = quizManager.getQuiz(1);
+String quizName = toDisplay.getQuizName();
 out.print(quizName);
+//out.print(quizName);
 //quizManager.getQuiz(session.getAttribute("quizid"));
 %>
 </title>
@@ -30,12 +30,14 @@ out.print(quizName);
 	%>
 	<form>
 		<%
+		QuestionManager qManager = new QuestionManager();
+		String quizType = toDisplay.getQuizType();
 		for(int a = 0; a < numQuestions; a++){ 
 			Question toPrint = questions.get(a);
 		%>
 			<div class="question_info">
-				<h3><% out.println(toPrint.getQuestionText()); %></h3>
-				<div class="answer">Answer: </div><input type="text" name="answer" />
+				<% out.println(qManager.QuestionHTML(quizType, toPrint.getQuestionText())); %>
+				<div class="answer">Answer: </div><% out.println(qManager.AnswerHTML(quizType));%>
 			</div>				
 		<% } %>
 		<br>
