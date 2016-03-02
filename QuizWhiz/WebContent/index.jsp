@@ -88,6 +88,10 @@ String userName = user.getUsername();
 				</a></li>
 				<%
 		}
+<<<<<<< HEAD
+				
+=======
+>>>>>>> 3f0eccd410c293e7eebe057c87db3f232563c0eb
 		%>
 			</ol>
 		</div>
@@ -150,6 +154,5 @@ String userName = user.getUsername();
 		</div>
 	</div>
 	<h1 class="center-title w3-theme">Friend Activities</h1>
-
 </body>
 </html>
