@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><% 
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager"); 
-Quiz toDisplay = quizManager.getQuiz(1);
+Quiz toDisplay = quizManager.getQuiz(Integer.valueOf("1"));
 String quizName = toDisplay.getQuizName();
 out.print(quizName);
 //out.print(quizName);

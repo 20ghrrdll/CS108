@@ -6,11 +6,16 @@ public class QuestionManager {
 	}
 	
 	public String QuestionHTML(String type, String RawQuestion){
-		String questionhtml = "<h3>This is the question</h3>";
+		//String questionhtml = "<h3>This is the question</h3>";
 		if(type.equals("FillIn")){
 			return fillIn(RawQuestion);
 		}
-		return questionhtml;
+		else if(type.equals("QuestionResponse")){
+			return "<h3>" + RawQuestion + "</h3>";
+		}
+		else return "<h3>"+type +"</h3>";
+		
+		//return questionhtml;
 	}
 	
 	public String AnswerHTML(String type){
@@ -19,15 +24,15 @@ public class QuestionManager {
 			return "";
 		}
 		else if(type.equals("QuestionResponse")){
-			answerhtml = QR();
+			answerhtml = QRAnswer();
 		}
 			
 		return answerhtml;
 	}
 	
-	private String QR(){
-		//<input type="text" name="answer" />
-		return null;
+	private String QRAnswer(){
+		String html = "<input type="+'"'+"text" +"name="+'"'+"answer"+'"'+" />";
+		return html;
 	}
 	
 	private String fillIn(String infoToFill){
