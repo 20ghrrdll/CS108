@@ -42,8 +42,7 @@ CREATE TABLE IF NOT EXISTS quiz_question(
 	questionId INT NOT NULL,
 	questionText VARCHAR(8000) NOT NULL,
 	correctAnswer VARCHAR(255) NOT NULL,
-	questionOrder INT,
-	PRIMARY KEY (quizId)
+	questionOrder INT
 );
 /* Creating the question answers table. This stores the answer associated with a question
 */
@@ -127,26 +126,35 @@ All tables loaded. Now we load initial quiz data
 */
 
 INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken) VALUES
-('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', '1', 10),
-('2','Second Quiz', 'Our 2nd quiz', '2016-02-27 13:41:01', '1', 9),
-('3','Third Quiz', 'Our 3rd quiz', '2016-02-27 13:41:02', '1', 8),
-('4','Fourth Quiz', 'Our 4th  quiz', '2016-02-27 13:41:03', '1', 7),
-('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', '1', 6),
-('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', '1', 5),
-('7','Seventh Quiz', 'Our 7th quiz', '2016-02-27 13:41:06', '1', 4),
-('8','Eighth Quiz', 'Our 8th quiz', '2016-02-27 13:41:07', '1', 3);
+('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', 'Max', 10),
+('2','Second Quiz', 'Our 2nd quiz', '2016-02-27 13:41:01', 'Max', 9),
+('3','Third Quiz', 'Our 3rd quiz', '2016-02-27 13:41:02', 'Max', 8),
+('4','Fourth Quiz', 'Our 4th  quiz', '2016-02-27 13:41:03', 'Max', 7),
+('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', 'Max', 6),
+('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', 'Max', 5),
+('7','Seventh Quiz', 'Our 7th quiz', '2016-02-27 13:41:06', 'Max', 4),
+('8','Eighth Quiz', 'Our 8th quiz', '2016-02-27 13:41:07', 'Max', 3);
 
 INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, questionOrder) VALUES
-('1', '1', 'Does this work?', 'Yes', '1');
+(1, 1, 'How many knees do elephants have?', '2', 1),
+(1, 2, 'Who has more neck vertabrae: humans, giraffes or they both have the same number?', 'they both have the same number', 0);
+
 
 INSERT INTO question_answers (quizId, questionId, answer) VALUES
 ('1', '1', 'Yes'),
 ('1', '1', 'No');
 
 INSERT INTO user (username, password) VALUES
-('Max', '123');
+('Max', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
+('Carah', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
+('Regina', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
+('Neel', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 
-INSERT INTO announcements (announcementId, userId, posted, subject, body) VALUE
+INSERT INTO announcements (announcementId, userId, posted, subject, body) VALUES
 ('1', 'Max','2016-02-27 13:41:00', 'Super important!', 'First announcement woohoo!'),
 ('2', 'Neel','2016-02-27 13:41:00', 'Another Announcement', 'Second announcement woohoo!');
 
+INSERT INTO quiz_records (quizId, userId, start_time, end_time, score) VALUES
+('1', 'Max', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '100'),
+('2', 'Max', '2016-03-01 20:41:00', '2016-03-01 20:50:00', '90'),
+('3', 'Max', '2016-03-01 21:41:00', '2016-03-01 21:50:00', '80');

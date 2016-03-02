@@ -22,14 +22,21 @@ ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
-ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
+ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
+ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
+ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
+Set<User> friends;
+if(user != null){
+	String userName = user.getUsername();
+	myQuizzes = quizManager.getMyQuizzes(userName);
+}
 
 %>
 </head>
 <body class="w3-theme-light standards">
 	<ul class="w3-navbar w3-theme-dark w3-border">
 		<% if(user != null) { %>
-		<li><a href="index.jsp?">Hello <% out.print(user.getUsername()); %>!
+		<li><a href="index.jsp?">QuizWhiz!
 		</a></li>
 		<% } else {
 				response.sendRedirect("login-page.jsp?");
@@ -39,15 +46,28 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 			<li><a href="#">Messages</a></li>
 			<li class="w3-dropdown-hover"><a href="#">Settings</a>
 				<div class="w3-dropdown-content w3-white w3-card-4">
-					<a href="#">Privacy Options</a> <a href="#">Log out</a>
+					<a href="#">Privacy Options</a>
+					<form action="LogoutServlet" method="post">
+					<a href="#">Log out</a>
+					<input type="submit" /></form>
 				</div></li>
 			<li><a href="#">Achievements</a></li>
 		</ul>
 	</ul>
-	<div class="w3-accordion">
-		<h1 id="announcement" class="center-title w3-theme"
-			onclick="myFunction('Demo1')">Announcements</h1>
-		<div id="Demo1" class="w3-accordion-content">
+		<div class="w3-row">
+		<div class="w3-col" style="width:20%">
+		<% if(user != null) { %>
+			<h1 class="centerTitle"><%=user.getUsername() %></h1>
+			<ul>
+				<li>Date joined: <%=user.getJoinDate() %></li>
+				<li>Number of quizzes made: <%=myQuizzes.size() %></li>
+			</ul>
+		<% }%>
+		
+		</div>
+	
+	<div class="w3-col" style="width:80%">
+		<h1 id="announcement" class="center-title w3-theme">Announcements</h1>
 			<ul class="w3-ul w3-hoverable">
 				<%
 		for(int i = 0; i < announcements.size(); i++){
@@ -65,6 +85,7 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 			</ul>
 		</div>
 	</div>
+	</div>
 	<div class="w3-row">
 		<div class="w3-container w3-half">
 
@@ -77,12 +98,11 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 				<li><a
 				<% String id = String.valueOf(popularQuizzes.get(i).getQuizID()); %>
 					href="quiz-summary-page.jsp?id=<%=id%>" STYLE="text-decoration:none">
-						<h3><%= popularQuizzes.get(i).getQuizName()%></h3>
+						<h4><%= popularQuizzes.get(i).getQuizName()%></h4>
 						<p><%= popularQuizzes.get(i).getQuizDescription() %></p>
 				</a></li>
 				<%
 		}
-				
 		%>
 			</ol>
 		</div>
@@ -110,22 +130,38 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 		<div class="w3-container w3-half">
 
 			<h1 class="center-title w3-theme">Recently Taken</h1>
-			<ul class="w3-ul w3-hoverable">
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-			</ul>
+			<ol class="w3-ul w3-hoverable">
+		<%
+		for(int i = 0; i < recentlyTakenQuizzes.size() && i < 5; i++){
+			%>
+			<li>
+			<h4><%= recentlyTakenQuizzes.get(i).getQuizName() %></h4>
+			<p><%= recentlyTakenQuizzes.get(i).getQuizDescription() %></p>	
+			</li> 
+			
+			<%
+		}
+		
+		%>
+		</ol>
 		</div>
 		<div class="w3-container w3-half">
 
 			<h1 class="center-title w3-theme">My Quizzes</h1>
-			<ul class="w3-ul w3-hoverable">
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-				<li><a href="#">Test List</a></li>
-			</ul>
+			<ol class="w3-ul w3-hoverable">
+		<%
+		for(int i = 0; i < myQuizzes.size() && i < 5; i++){
+			%>
+			<li>
+			<h4><%= myQuizzes.get(i).getQuizName() %></h4>
+			<p><%= myQuizzes.get(i).getQuizDescription() %></p>	
+			</li> 
+			
+			<%
+		}
+		
+		%>
+		</ol>
 		</div>
 	</div>
 	<h1 class="center-title w3-theme">Friend Activities</h1>

@@ -12,7 +12,7 @@ public class Question {
 		this.quizId = quiz_id;
 		this.questionId = question_id;
 		this.questionText = question_text;
-		this.questionText = correct_answer;
+		this.correctAnswer = correct_answer;
 		this.order = questionOrder;
 	}
 	

@@ -20,7 +20,7 @@ public class MyDBInfo {
 	public static final String QUIZ_RECORDS_TABLE = "quiz_records";
 	public static final String QUESTION_RECORDS_TABLE = "quiz_question_records";
 	public static final String USER_TABLE = "user";
-	public static final String ACHIEVEMENTS_TABLE = "acievements";
+	public static final String ACHIEVEMENTS_TABLE = "achievements";
 	public static final String ANNOUNCEMENTS_TABLE = "announcements";
 	public static final String FRIENDS_TABLE = "friends";
 	public static final String FRIEND_REQUEST_TABLE = "friend_requests";
