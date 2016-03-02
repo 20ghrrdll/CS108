@@ -82,10 +82,7 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 				</a></li>
 				<%
 		}
-<<<<<<< HEAD
 				
-=======
->>>>>>> 3f0eccd410c293e7eebe057c87db3f232563c0eb
 		%>
 			</ol>
 		</div>
