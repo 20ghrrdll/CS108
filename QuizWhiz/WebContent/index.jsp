@@ -12,11 +12,9 @@
 	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="http://www.w3schools.com/lib/w3-theme-indigo.css">
-<script>
-function myFunction(id) {
-    document.getElementById(id).classList.toggle("w3-show");
-}
-</script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
+
 <%
 User user = (User) session.getAttribute("currentUser");
 AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext().getAttribute("announcementManager");
@@ -76,13 +74,6 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 				<%
 		for(int i = 0; i < popularQuizzes.size() && i < 5; i++){
 			%>
-			<li>
-			<h4><%= popularQuizzes.get(i).getQuizName() %></h4>
-			<p><%= popularQuizzes.get(i).getQuizDescription() %></p>
-			
-			</li> 
-			
-			<%
 				<li><a
 				<% String id = String.valueOf(popularQuizzes.get(i).getQuizID()); %>
 					href="quiz-summary-page.jsp?id=<%=id%>" STYLE="text-decoration:none">
@@ -91,7 +82,6 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 				</a></li>
 				<%
 		}
-		
 		%>
 			</ol>
 		</div>
@@ -104,8 +94,7 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentQuizzes();
 			%>
 			<li>
 			<h4><%= recentQuizzes.get(i).getQuizName() %></h4>
-			<p><%= recentQuizzes.get(i).getQuizDescription() %></p>
-			
+			<p><%= recentQuizzes.get(i).getQuizDescription() %></p>	
 			</li> 
 			
 			<%
