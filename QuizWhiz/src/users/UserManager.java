@@ -6,6 +6,7 @@ import java.util.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 public class UserManager {
 
@@ -29,7 +30,7 @@ public class UserManager {
 			String query = "SELECT * FROM " + MyDBInfo.USER_TABLE + " WHERE username=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs.next()) {
-				user = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"));
+				user = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"), rs.getDate("joinDate"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
@@ -47,9 +48,15 @@ public class UserManager {
 	 */
 	public void addUser(String username, String password) {
 		String hashedPassword = generateHashedPassword(password);
+		java.util.Date dt = new java.util.Date();
+
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String currentTime = sdf.format(dt);
 		try {
 			Statement stmt = con.createStatement();
-			String update = "INSERT INTO " + MyDBInfo.USER_TABLE + " (username, password)" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\");";
+			String update = "INSERT INTO " + MyDBInfo.USER_TABLE + " (username, password, joinDate)" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\", \"" + currentTime + "\");";
 			stmt.executeUpdate(update);
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
@@ -69,7 +76,7 @@ public class UserManager {
 			String query = "SELECT * FROM " + MyDBInfo.FRIENDS_TABLE + " WHERE user1=\"" + username + "\" OR user2=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				User friend = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"));
+				User friend = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"), rs.getDate("joinDate"));
 				friends.add(friend);
 			}
 		} catch (SQLException e) {

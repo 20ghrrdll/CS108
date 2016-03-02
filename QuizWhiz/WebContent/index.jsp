@@ -36,8 +36,8 @@ if(user != null){
 <body class="w3-theme-light standards">
 	<ul class="w3-navbar w3-theme-dark w3-border">
 		<% if(user != null) { %>
-		<li><h1><a href="index.jsp?">QuizWhiz!
-		</a></h1></li>
+		<li><a href="index.jsp?">QuizWhiz!
+		</a></li>
 		<% } else {
 				response.sendRedirect("login-page.jsp?");
 		}%>
@@ -57,7 +57,11 @@ if(user != null){
 		<div class="w3-row">
 		<div class="w3-col" style="width:20%">
 		<% if(user != null) { %>
-			<h1><%=user.getUsername() %></h1>
+			<h1 class="centerTitle"><%=user.getUsername() %></h1>
+			<ul>
+				<li>Date joined: <%=user.getJoinDate() %></li>
+				<li>Number of quizzes made: <%=myQuizzes.size() %><li>
+			</ul>
 		<% }%>
 		
 		</div>
