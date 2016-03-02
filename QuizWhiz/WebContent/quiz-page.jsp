@@ -26,19 +26,19 @@ out.print(quizName);
 </head>
 <body>
 	<h1><% out.print(quizName); %></h1>
-	<% ArrayList<Question> questions = new ArrayList<Question>(2);
-	//ArrayList<Question> questions = quizManager.getQuestions(toDisplay.getQuizId());
-	Question testQ1 = new Question(1, 1, "How many knees do elephants have?", 
+	<% //ArrayList<Question> questions = new ArrayList<Question>(2);
+	ArrayList<Question> questions = quizManager.getQuestions(toDisplay.getQuizID());
+	/*Question testQ1 = new Question(1, 1, "How many knees do elephants have?", 
 			"0", 1);
 	questions.add(testQ1);
 	Question testQ2 = new Question(1, 2, "Who has more neck vertabrae: humans, giraffes or they both have the same number?",
 			"they both have the same number", 0);
-	questions.add(testQ2);
+	questions.add(testQ2);*/
 	//int numQuestions = questions.size();
 	
-	int numQuestions = 2;
+	int numQuestions = questions.size();
 	%>
-	<form>
+	<form action="QuizResultServlet" method="post">
 		<%
 		QuestionManager qManager = new QuestionManager();
 		String quizType = toDisplay.getQuizType();
