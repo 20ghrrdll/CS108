@@ -36,8 +36,8 @@ if(user != null){
 <body class="w3-theme-light standards">
 	<ul class="w3-navbar w3-theme-dark w3-border">
 		<% if(user != null) { %>
-		<li><a href="index.jsp?">QuizWhiz!
-		</a></li>
+		<li><h1><a href="index.jsp?">QuizWhiz!
+		</a></h1></li>
 		<% } else {
 				response.sendRedirect("login-page.jsp?");
 		}%>

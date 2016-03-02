@@ -42,8 +42,7 @@ CREATE TABLE IF NOT EXISTS quiz_question(
 	questionId INT NOT NULL,
 	questionText VARCHAR(8000) NOT NULL,
 	correctAnswer VARCHAR(255) NOT NULL,
-	questionOrder INT,
-	PRIMARY KEY (quizId)
+	questionOrder INT
 );
 /* Creating the question answers table. This stores the answer associated with a question
 */
@@ -137,8 +136,8 @@ INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken) VA
 ('8','Eighth Quiz', 'Our 8th quiz', '2016-02-27 13:41:07', 'Max', 3);
 
 INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, questionOrder) VALUES
-(1, 1, 'How many knees do elephants have?', '2', 1);
-(1, 2, "Who has more neck vertabrae: humans, giraffes or they both have the same number?", "they both have the same number", 0);
+(1, 1, 'How many knees do elephants have?', '2', 1),
+(1, 2, 'Who has more neck vertabrae: humans, giraffes or they both have the same number?', 'they both have the same number', 0);
 
 
 INSERT INTO question_answers (quizId, questionId, answer) VALUES
