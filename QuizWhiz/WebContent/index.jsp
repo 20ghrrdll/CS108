@@ -45,7 +45,10 @@ String userName = user.getUsername();
 			<li><a href="#">Messages</a></li>
 			<li class="w3-dropdown-hover"><a href="#">Settings</a>
 				<div class="w3-dropdown-content w3-white w3-card-4">
-					<a href="#">Privacy Options</a> <a href="#">Log out</a>
+					<a href="#">Privacy Options</a>
+					<form action="LogoutServlet" method="post">
+					<a href="#">Log out</a>
+					<input type="submit" /></form>
 				</div></li>
 			<li><a href="#">Achievements</a></li>
 		</ul>
