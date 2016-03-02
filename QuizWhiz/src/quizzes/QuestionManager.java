@@ -3,19 +3,20 @@ package quizzes;
 public class QuestionManager {
 	
 	public QuestionManager(){
+		
 	}
 	
+	//String questionhtml = "<h3>This is the question</h3>";	
 	public String QuestionHTML(String type, String RawQuestion){
-		//String questionhtml = "<h3>This is the question</h3>";
+		System.out.println("I am printing the question html now!");
 		if(type.equals("FillIn")){
 			return fillIn(RawQuestion);
 		}
 		else if(type.equals("QuestionResponse")){
 			return "<h3>" + RawQuestion + "</h3>";
 		}
-		else return "<h3>"+type +"</h3>";
+		else return "<h3>"+type +" has not been handled yet</h3>";
 		
-		//return questionhtml;
 	}
 	
 	public String AnswerHTML(String type){
