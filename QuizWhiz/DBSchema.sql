@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS achievements (
 	userId VARCHAR(255) NOT NULL,
-	acievementId INT NOT NULL,
+	achievementId INT NOT NULL,
 	timeAchieved DATETIME NOT NULL
 );
 

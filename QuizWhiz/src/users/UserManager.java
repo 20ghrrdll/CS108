@@ -1,6 +1,7 @@
 package users;
 
 import main.MyDBInfo;
+import main.FinalConstants;
 import main.DBConnector;
 import java.util.*;
 import java.security.MessageDigest;
@@ -64,6 +65,25 @@ public class UserManager {
 	}
 	
 	
+	// TODO: make sure there are no links to deleted users' profiles? like its just name, no link
+	// TODO: delete announcements?
+	/**
+	 * Deletes a given user from relevant tables in the database including 
+	 * the users table, friends table, etc.
+	 * @param username
+	 */
+	public void deleteUser(String username) {
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.USER_TABLE + " WHERE username=\"" + username + "\";");
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.FRIENDS_TABLE + " WHERE user1=\"" + username + "\" OR user2=\"" + username + "\";");
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.ACHIEVEMENTS_TABLE + " where userId=\"" + username + "\";");
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+	}
+	
+	
 	/**
 	 * Queries the database to find all friends of a given username.
 	 * @param username
@@ -83,6 +103,60 @@ public class UserManager {
 			e.printStackTrace(); // TODO: what to do here
 		}
 		return friends;
+	}
+	
+	
+	/**
+	 * Adds the friendship for two given users to the database
+	 * @param user1
+	 * @param user2
+	 * @param data - SimpleDataFormat of when they became friends
+	 */
+	public void addFriends(String user1, String user2, String date) {
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 + "\", \"" + date + "\");");		
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+	}
+	
+	
+	/**
+	 * Adds a given achievement ID for a given user
+	 * @param username
+	 * @param achievementID
+	 * @param data - SimpleDataFormat of when the achievement was unlocked
+	 */
+	public void addAchievement(String username, String achievementID, String date) {
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.ACHIEVEMENTS_TABLE + " VALUES(\"" + username + "\", \"" + achievementID + "\", \"" + date + "\");");		
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+	}
+	
+	
+	/**
+	 * Returns a set of achievements for a given user
+	 * @param username
+	 * @return a set of achievements for a given user
+	 */
+	public Set<Achievement> getAchievements(String username) {
+		Set<Achievement> userAchievements = new HashSet<Achievement>();
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.ACHIEVEMENTS_TABLE + " WHERE userId=\"" + username + "\";";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				Achievement a = FinalConstants.ACHIEVEMENTS.get(rs.getString("achievementId")); // TODO FIX MYSQL SO STRING?
+				userAchievements.add(a);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return userAchievements;
 	}
 	
 	

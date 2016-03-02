@@ -22,4 +22,11 @@ public class Achievement {
 		return description;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		Achievement other = (Achievement) obj;
+		if (!other.getName().equals(this.name)) return false;
+		return true;
+	}
 }
