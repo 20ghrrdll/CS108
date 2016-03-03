@@ -42,6 +42,7 @@ public class QuizManager {
 		return quiz;
 	}
 	
+	
 	/**
 	 * Returns an ArrayList of questions associated with the given quizId
 	 * @param quizId
@@ -63,6 +64,8 @@ public class QuizManager {
 		}
 		return questions;
 	}
+	
+	
 	/**
 	 * Returns Quiz objects for every quiz currently stored in the database.
 	 * @return ArrayList of Quiz objects
@@ -92,6 +95,7 @@ public class QuizManager {
 		}
 		return quizzes;
 	}
+	
 	
 	/**
 	 * Returns an array list of the most popular quizes
@@ -124,6 +128,12 @@ public class QuizManager {
 		return quizzes;
 	}
 	
+	
+	/**
+	 * Returns a list of recently created quizzes.
+	 * @return ArrayList of recently created quizzes
+	 * @throws SQLException
+	 */
 	public ArrayList<Quiz> getRecentlyCreatedQuizzes() throws SQLException {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 			Statement stmt = con.createStatement();		
@@ -146,6 +156,12 @@ public class QuizManager {
 		return quizzes;
 	}
 	
+	
+	/**
+	 * Returns a list of quizzes that have been recently taken by users
+	 * @return ArrayList of recently taken quizzes
+	 * @throws SQLException
+	 */
 	public ArrayList<Quiz> getRecentlyTakenQuizzes() throws SQLException {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 			Statement stmt = con.createStatement();		
@@ -160,6 +176,13 @@ public class QuizManager {
 		return quizzes;
 	}
 	
+	
+	/**
+	 * Returns a list of quizzes created by a given user
+	 * @param username
+	 * @return ArrayList of quizzes created by a given user
+	 * @throws SQLException
+	 */
 	public ArrayList<Quiz> getMyQuizzes(String username) throws SQLException {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 			Statement stmt = con.createStatement();
