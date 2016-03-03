@@ -26,7 +26,6 @@ UserManager userManager = (UserManager) request.getServletContext().getAttribute
 
 <h1 class="center-title w3-theme"><% out.println(username); %></h1>
 
-<!-- if not friends, add friend request and message buttons here -->
 <center>
 <%
 if (!currentUser.getUsername().equals(username)) {

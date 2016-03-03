@@ -23,7 +23,7 @@ public class Achievement {
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) {		// TODO: check if needed bc userManager.getAchievements returns a set of Strings not Achievements
 		if (obj == null) return false;
 		Achievement other = (Achievement) obj;
 		if (!other.getName().equals(this.name)) return false;
