@@ -20,37 +20,61 @@ UserManager userManager = (UserManager) request.getServletContext().getAttribute
 	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="http://www.w3schools.com/lib/w3-theme-indigo.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <body class="w3-theme-light standards">
 
 <h1 class="center-title w3-theme"><% out.println(username); %></h1>
 
 <!-- if not friends, add friend request and message buttons here -->
+<center>
+<%
+if (!currentUser.getUsername().equals(username)) {
+	Set<String> currentUserFriends = userManager.getFriends(currentUser.getUsername());
+	out.println("<table>");
+	if (!currentUserFriends.contains(username)) {
+%>
+		<a href="#"><td><center><i class="glyphicon glyphicon-plus"></i>
+		<br>Add Friend</center></td></a>
+<%
+	} %>
+	<a href="#"><td><center><i class="glyphicon glyphicon-envelope"></i>
+	<br>Message</center></td></a>
+	</table>
+<% 	
+}
+%>
+</center>
+
 
 <h2 class="center-title w3-theme">Achievements</h2>
 <%
 Set<Achievement> userAchievements = userManager.getAchievements(username);
-Iterator<Achievement> achievementsIt = userAchievements.iterator();
-while (achievementsIt.hasNext()) {
-	Achievement a = achievementsIt.next();
-	%>
-	<div class="w3-tooltip">
-		<b><% out.print(a.getName()); %>:</b><br>
-		<% out.println(a.getDescription()); %>
-		<img src="<% out.print(a.getImageUrl()); %>">
-	</div>
-<% 
+if (userAchievements.size() == 0) { %>
+	<h4>No achievements to display.</h4>
+<% } else {
+	Iterator<Achievement> achievementsIt = userAchievements.iterator();
+	while (achievementsIt.hasNext()) {
+		Achievement a = achievementsIt.next();
+		%>
+		<div class="w3-tooltip">
+			<b><% out.print(a.getName()); %>:</b><br>
+			<% out.println(a.getDescription()); %>
+			<img src="<% out.print(a.getImageUrl()); %>">
+		</div>
+	<% 
+	}
 }
 %>
 
 
 
-<h2 class="center-title w3-theme">>Recent Performance</h2>
+<h2 class="center-title w3-theme">Recent Performance</h2>
 <ol class="w3-ul w3-hoverable">
 <%
 ArrayList<Quiz> quizzesTaken = quizManager.getMyRecentlyTakenQuizzes(username);
 if (quizzesTaken.size() == 0) { %>
-	<h4>No recent activity to display.</h4>
+<h4>No recent activity to display.</h4>
 <% 	
 } else {
 	for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {

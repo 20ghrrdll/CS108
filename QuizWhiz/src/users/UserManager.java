@@ -89,15 +89,14 @@ public class UserManager {
 	 * @param username
 	 * @return ArrayList of Users that are friends with the given username
 	 */
-	public Set<User> getFriends(String username) {
-		Set<User> friends = new HashSet<User>();
+	public Set<String> getFriends(String username) {
+		Set<String> friends = new HashSet<String>();
 		try {
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + MyDBInfo.FRIENDS_TABLE + " WHERE user1=\"" + username + "\" OR user2=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				User friend = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"), rs.getDate("joinDate"));
-				friends.add(friend);
+				friends.add(rs.getString("username"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
