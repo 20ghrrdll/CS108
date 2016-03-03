@@ -27,7 +27,7 @@ UserManager userManager = (UserManager) request.getServletContext().getAttribute
 
 <!-- if not friends, add friend request and message buttons here -->
 
-<h2>Achievements</h2>
+<h2 class="center-title w3-theme">Achievements</h2>
 <%
 Set<Achievement> userAchievements = userManager.getAchievements(username);
 Iterator<Achievement> achievementsIt = userAchievements.iterator();
@@ -43,11 +43,53 @@ while (achievementsIt.hasNext()) {
 }
 %>
 
-<h2>Recent Performance</h2>
 
 
-<h2>Quizzes Created</h2>
+<h2 class="center-title w3-theme">>Recent Performance</h2>
+<ol class="w3-ul w3-hoverable">
+<%
+ArrayList<Quiz> quizzesTaken = quizManager.getMyRecentTakenQuizzes(username);
+if (quizzesTaken.size() == 0) { %>
+	<h4>No recent activity to display.</h4>
+<% 	
+} else {
+	for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {
+	%>
+		<li><a
+			<% String id = String.valueOf(quizzesTaken.get(i).getQuizID()); %>
+				href="quiz-summary-page.jsp?id=<%=id%>" STYLE="text-decoration:none">
+				<h4><%= quizzesTaken.get(i).getQuizName()%></h4>
+				<p><%= quizzesTaken.get(i).getQuizDescription() %></p>
+		</a></li>
+<% 
+	}
+}
+%>
+</ol>
 
+
+
+<h2 class="center-title w3-theme">Quizzes Created</h2>
+<ol class="w3-ul w3-hoverable">
+<%
+ArrayList<Quiz> quizzesCreated = quizManager.getMyQuizzes(username);
+if (quizzesCreated.size() == 0) { %>
+	<h4>No quizzes created.</h4>
+<% 
+} else {
+	for (int i = 0; i < quizzesCreated.size(); i++) {
+	%>
+		<li><a
+			<% String id = String.valueOf(quizzesCreated.get(i).getQuizID()); %>
+				href="quiz-summary-page.jsp?id=<%=id%>" STYLE="text-decoration:none">
+				<h4><%= quizzesCreated.get(i).getQuizName()%></h4>
+				<p><%= quizzesCreated.get(i).getQuizDescription() %></p>
+		</a></li>
+<% 
+	}
+}
+%>
+</ol>
 
 </body>
 </html>
