@@ -48,7 +48,7 @@ while (achievementsIt.hasNext()) {
 <h2 class="center-title w3-theme">>Recent Performance</h2>
 <ol class="w3-ul w3-hoverable">
 <%
-ArrayList<Quiz> quizzesTaken = quizManager.getMyRecentTakenQuizzes(username);
+ArrayList<Quiz> quizzesTaken = quizManager.getMyRecentlyTakenQuizzes(username);
 if (quizzesTaken.size() == 0) { %>
 	<h4>No recent activity to display.</h4>
 <% 	

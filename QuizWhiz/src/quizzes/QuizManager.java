@@ -163,7 +163,7 @@ public class QuizManager {
 	public ArrayList<Quiz> getMyQuizzes(String username) throws SQLException {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE creatorId='"+username +"' ORDER BY 'end_time' DESC;";
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE creatorId='"+username +"';";
 			ResultSet rs = stmt.executeQuery(query);
 			
 			while (rs.next()) {
@@ -185,7 +185,7 @@ public class QuizManager {
 	public ArrayList<Quiz> getMyRecentQuizzes(String username) throws SQLException {
 		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
 			Statement stmt = con.createStatement();		
-			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE creatorId='"+username +"';";
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE creatorId='"+username +"' ORDER BY 'end_time' DESC;";
 			ResultSet rs = stmt.executeQuery(query);
 			
 			while (rs.next()) {
@@ -199,6 +199,20 @@ public class QuizManager {
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
 				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				quizzes.add(quiz);
+			}
+		return quizzes;
+	}
+	
+	public ArrayList<Quiz> getMyRecentlyTakenQuizzes(String username) throws SQLException {
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+			Statement stmt = con.createStatement();		
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" WHERE userId='" + username + "' ORDER BY end_time DESC;";
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				int quizID = rs.getInt("quizID");
+				Quiz quiz = getQuiz(quizID);
 				quizzes.add(quiz);
 			}
 		return quizzes;
