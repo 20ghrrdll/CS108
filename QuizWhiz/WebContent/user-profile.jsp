@@ -20,8 +20,9 @@ UserManager userManager = (UserManager) request.getServletContext().getAttribute
 	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="http://www.w3schools.com/lib/w3-theme-indigo.css">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-</head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      </head>
 <body class="w3-theme-light standards">
 
 <h1 class="center-title w3-theme"><% out.println(username); %></h1>
@@ -33,11 +34,11 @@ if (!currentUser.getUsername().equals(username)) {
 	out.println("<table>");
 	if (!currentUserFriends.contains(username)) {
 %>
-		<a href="#"><td><center><i class="glyphicon glyphicon-plus"></i>
+		<a href="#"><td><center><i class="material-icons">add</i>
 		<br>Add Friend</center></td></a>
 <%
 	} %>
-	<a href="#"><td><center><i class="glyphicon glyphicon-envelope"></i>
+	<a href="#"><td><center><i class="material-icons">email</i>
 	<br>Message</center></td></a>
 	</table>
 <% 	

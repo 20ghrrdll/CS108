@@ -115,6 +115,8 @@ public class UserManager {
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 + "\", \"" + date + "\");");		
+			if (getFriends(user1).size() == 25) addAchievement(user1, FinalConstants.FRIENDS_10, date);
+			if (getFriends(user2).size() == 25) addAchievement(user2, FinalConstants.FRIENDS_10, date);
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
