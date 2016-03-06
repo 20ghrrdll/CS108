@@ -81,11 +81,7 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS achievements (
 	userId VARCHAR(255) NOT NULL,
-<<<<<<< HEAD
 	achievementId VARCHAR(255) NOT NULL,
-=======
-	acievementId INT NOT NULL,
->>>>>>> 249b4981453df4935cbcf146894983e35c02588a
 	timeAchieved DATETIME NOT NULL
 );
 
