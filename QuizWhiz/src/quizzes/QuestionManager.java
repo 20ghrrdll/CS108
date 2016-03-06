@@ -32,7 +32,8 @@ public class QuestionManager {
 	}
 	
 	private String QRAnswer(String id){
-		String html = "<input type="+'"'+"text" +"name="+'"'+id+'"'+" />";
+		String html = "<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+" />";
+		System.out.println(html);
 		return html;
 	}
 	

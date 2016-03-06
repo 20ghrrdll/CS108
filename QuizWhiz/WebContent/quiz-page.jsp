@@ -38,7 +38,7 @@ out.print(quizName);
 	
 	int numQuestions = questions.size();
 	%>
-	<form action="QuizResultServlet" method="POST">
+	<form action="QuizResultServlet" method="post">
 		<%
 		QuestionManager qManager = new QuestionManager();
 		request.setAttribute("questions", questions);

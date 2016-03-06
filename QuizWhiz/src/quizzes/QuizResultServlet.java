@@ -1,6 +1,7 @@
 package quizzes;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -42,32 +43,41 @@ public class QuizResultServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 Enumeration paramNames = request.getParameterNames();
-		 HttpSession session = request.getSession();
-		 ArrayList<Question> questions = (ArrayList<Question>)session.getAttribute("questions");
-		 int score = 0;
-		 int maxScore = 0;
-		 
-		 int numQs = questions.size();
-		   while(paramNames.hasMoreElements()) {
-		      String paramName = (String)paramNames.nextElement();
-		      //out.print("<b>" + paramName + ":</b>\n");
-		      String paramValue = request.getHeader(paramName);
-		      //out.println(paramValue);
-		      for(int a = 0; a < numQs; a++){
-		    	  Question currQ = questions.get(a);
-		    	  if(currQ.getQuestionId() == Integer.parseInt(paramName)){
-		    		  if(currQ.isCorrect(paramValue)) score ++;
-		    	  }
-		      }
-		      maxScore++;
-		   }
-		   
-		   request.setAttribute("score", score);
-		   request.setAttribute("maxScore", maxScore);
+		 //HttpSession session = request.getSession();
+		 QuizManager manager = new QuizManager();
+		 ArrayList<Question> questions;
+		try {
+			questions = manager.getQuestions(Integer.valueOf("1"));
+			
+			 System.out.println(questions.toString());
+			 
+			 int score = 0;
+			 int maxScore = 0;
+			 
+			 int numQs = questions.size();
+			   for(int a = 0; a < numQs; a++) {
+				  Question currQ = questions.get(a);
+				   
+			      String paramValue = request.getParameter(Integer.toString(currQ.getQuestionId()));
+			      System.out.println("Looking for paramName "+ currQ.getQuestionId());
+			      if(currQ.isCorrect(paramValue)) score ++;
+			      maxScore++;
+			   }
+			   System.out.print("Your score is " + score);
+			   request.getSession().setAttribute("score", score);
+			   request.getSession().setAttribute("maxScore", maxScore);
 
-		   RequestDispatcher dispatch =
-				   request.getRequestDispatcher("quiz-results.jsp");
-				   dispatch.forward(request, response);
+			   RequestDispatcher dispatch =
+					   request.getRequestDispatcher("quiz-results.jsp");
+			   dispatch.forward(request, response);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

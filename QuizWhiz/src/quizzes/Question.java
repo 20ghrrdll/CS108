@@ -33,6 +33,8 @@ public class Question {
 	
 	//Will have to do some wiggling to figure out how to handle questions w/ multiple parts...
 	public boolean isCorrect(String response){
+		System.out.println("the user response is " + response);
+		System.out.println("the correct answer is " + this.correctAnswer);
 		if(response.equals(this.correctAnswer)) return true;
 		return false;
 	}

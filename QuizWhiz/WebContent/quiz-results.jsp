@@ -9,7 +9,7 @@
 <body>
 
 	<h1>Results:</h1>
-	
+	<h4>You scored <%out.print(session.getAttribute("score")); %>/<%out.print(session.getAttribute("maxScore")); %></h4>
 
 </body>
 </html>

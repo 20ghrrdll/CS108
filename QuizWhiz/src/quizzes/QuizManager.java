@@ -41,16 +41,21 @@ public class QuizManager {
 	
 	public ArrayList<Question> getQuestions(int quizId) throws SQLException{
 		ArrayList<Question> questions = new ArrayList<Question>();
+		try {
 		Statement stmt = con.createStatement();
-		String query = "SELECT * FROM " + MyDBInfo.QUESTION_TABLE +" WHERE quizId='" + quizId + "';";
-		ResultSet rs = stmt.executeQuery(query);
-		while (rs.next()) {
-			int quizID = rs.getInt("quizId");
-			int questionId = rs.getInt("questionId");
-			String questionText = rs.getString("questionText");
-			String correctAnswer = rs.getString("correctAnswer");
-			Question question = new Question(quizID, questionId, questionText, correctAnswer);
-			questions.add(question);
+			String query = "SELECT * FROM " + MyDBInfo.QUESTION_TABLE +" WHERE quizId='" + quizId + "';";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int quizID = rs.getInt("quizId");
+				int questionId = rs.getInt("questionId");
+				String questionText = rs.getString("questionText");
+				String correctAnswer = rs.getString("correctAnswer");
+				Question question = new Question(quizID, questionId, questionText, correctAnswer);
+				questions.add(question);
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
 		}
 		return questions;
 	}
