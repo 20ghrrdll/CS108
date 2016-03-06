@@ -49,8 +49,7 @@ public class QuizManager {
 			int questionId = rs.getInt("questionId");
 			String questionText = rs.getString("questionText");
 			String correctAnswer = rs.getString("correctAnswer");
-			int order = rs.getInt("order");
-			Question question = new Question(quizID, questionId, questionText, correctAnswer, order);
+			Question question = new Question(quizID, questionId, questionText, correctAnswer);
 			questions.add(question);
 		}
 		return questions;

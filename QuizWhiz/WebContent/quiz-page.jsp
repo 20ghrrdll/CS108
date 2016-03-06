@@ -26,28 +26,30 @@ out.print(quizName);
 </head>
 <body>
 	<h1><% out.print(quizName); %></h1>
-	<% ArrayList<Question> questions = new ArrayList<Question>(2);
-	//ArrayList<Question> questions = quizManager.getQuestions(toDisplay.getQuizId());
-	Question testQ1 = new Question(1, 1, "How many knees do elephants have?", 
+	<% //ArrayList<Question> questions = new ArrayList<Question>(2);
+	ArrayList<Question> questions = quizManager.getQuestions(toDisplay.getQuizID());
+	/*Question testQ1 = new Question(1, 1, "How many knees do elephants have?", 
 			"0", 1);
 	questions.add(testQ1);
 	Question testQ2 = new Question(1, 2, "Who has more neck vertabrae: humans, giraffes or they both have the same number?",
 			"they both have the same number", 0);
 	questions.add(testQ2);
-	//int numQuestions = questions.size();
+	int numQuestions = questions.size();*/
 	
-	int numQuestions = 2;
+	int numQuestions = questions.size();
 	%>
-	<form>
+	<form action="QuizResultServlet" method="POST">
 		<%
 		QuestionManager qManager = new QuestionManager();
+		request.setAttribute("questions", questions);
 		String quizType = toDisplay.getQuizType();
 		for(int a = 0; a < numQuestions; a++){ 
 			Question toPrint = questions.get(a);
 		%>
 			<div class="question_info">
 				<% out.println(qManager.QuestionHTML(quizType, toPrint.getQuestionText())); %>
-				<div class="answer">Answer: </div><% out.println(qManager.AnswerHTML(quizType));%>
+				<div class="answer">Answer: </div><% out.println(qManager.AnswerHTML(quizType,
+						Integer.toString(toPrint.getQuestionId())));%>
 			</div>				
 		<% } %>
 		<br>
