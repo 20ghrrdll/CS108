@@ -24,7 +24,7 @@ UserManager userManager =(UserManager) request.getServletContext().getAttribute(
 MessageManager messageManager =(MessageManager) request.getServletContext().getAttribute("messageManager");
 
 ArrayList<Message> messages = messageManager.getMessages(user.getUsername(), false);
-ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(), false);
+ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(), true);
 
 
 %>
@@ -38,7 +38,7 @@ ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(
 		}%>
 		<ul class="w3-right">
 			<li><a href="#">Friends</a></li>
-			<li><a href="#">Messages<span class="w3-badge w3-green"><%=unreadMessages.size()%></span></a></li>
+			<li><a href="#">Messages<% if(unreadMessages.size() > 0) {%><span class="w3-badge w3-green"><%=unreadMessages.size()%></span><%}%></a></li>
 			<li class="w3-dropdown-hover"><a href="#">Settings</a>
 				<div class="w3-dropdown-content w3-white w3-card-4">
 					<a href="#">Privacy Options</a>
@@ -50,7 +50,7 @@ ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(
 		</ul>
 	</ul>
 
-<div style="margin-left:20%">
+<div>
 
 		<% for(int i= 0; i < messages.size(); i++){ 
 			if(!messages.get(i).isUnread()){ %>
@@ -61,14 +61,23 @@ ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(
 			<% } else if(messages.get(i).getType().equals("NOTE")){%>
 		<div class="w3-container w3-pale-blue w3-leftbar w3-border-blue">
 			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
-			<p><%= messages.get(i).getBody() %></p>
-			<form action="MessageServlet" method="post"><button class="w3-btn w3-white w3-border w3-round "type="submit" value="note">Mark as read</button></form>
+			<p><%= messages.get(i).getBody() %></p>			
+			<form action="MessageServlet" method="post">
+				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
+				<input type="hidden" name="note">		
+				<button class="w3-btn w3-white w3-border w3-round "type="submit" value="note">Mark as read</button>
+			</form>
 		</div>
 		<%} else { %>
 		<div class="w3-container w3-pale-red w3-leftbar w3-border-red">
 			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
 			<p><%= messages.get(i).getBody() %></p>
-			<form action="MessageServlet" method="post"><button class="w3-btn w3-white w3-border w3-round" type="submit" value="challenge">Accept Challenge</button></form>
+			<form action="MessageServlet" method="post">
+				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
+				<input type="hidden" name="quizId" value="<%= messages.get(i).getQuizId()%>">		
+				<input type="hidden" name="challenge">
+				<button class="w3-btn w3-white w3-border w3-round" type="submit">Accept Challenge</button>
+			</form>
 		</div>
 		<%} %>
 		<br>

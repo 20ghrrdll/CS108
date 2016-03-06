@@ -50,13 +50,13 @@ if(user != null){
 		}%>
 		<ul class="w3-right">
 			<li><a href="#">Friends</a></li>
-			<li><a href="messages.jsp?">Messages<span class="w3-badge w3-green"><%=unreadMessages.size() %></span></a></li>
+			<li><a href="messages.jsp?">Messages<%if(unreadMessages.size()>0){%><span class="w3-badge w3-green"><%=unreadMessages.size() %></span><%}%></a></li>
 			<li class="w3-dropdown-hover"><a href="#">Settings</a>
 				<div class="w3-dropdown-content w3-white w3-card-4">
 					<a href="#">Privacy Options</a>
-					<form action="LogoutServlet" method="post">
-					<a href="#">Log out</a>
-					<input type="submit" /></form>
+					<form action="LogoutServlet" method="post" id="settings">
+					<a href="#" onclick="document.getElementById('settings').submit()">Log out</a>
+					</form>
 				</div></li>
 			<li><a href="#">Achievements</a></li>
 		</ul>
