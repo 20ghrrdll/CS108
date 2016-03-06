@@ -159,6 +159,35 @@ public class UserManager {
 		}
 		return userAchievements;
 	}
+
+	/**
+	 * Returns all of the messages sent to a given user
+	 * @param username
+	 * @return an arraylist of messages for a given user
+	 */
+	public ArrayList<Message> getMessages(String username, boolean unread) {
+		ArrayList<Message> userMessages = new ArrayList<Message>();
+		try {
+			Statement stmt = con.createStatement();
+			String query;
+			if(unread){
+				query = "SELECT * FROM " + MyDBInfo.MESSAGE_TABLE + " WHERE recipientId=\"" + username + "\" and unread=true;";
+			} else {
+				query = "SELECT * FROM " + MyDBInfo.MESSAGE_TABLE + " WHERE recipientId=\"" + username + "\" ORDER BY timeSent;";
+			}
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				//Message a = FinalConstants.ACHIEVEMENTS.get(rs.getString("achievementId")); // TODO FIX MYSQL SO STRING?
+				Message message = new Message(rs.getString("subject"), rs.getString("body"), rs.getString("type"));
+				userMessages.add(message);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return userMessages;
+	}
+	
+	
 	
 	
 	/**
