@@ -111,9 +111,9 @@ CREATE TABLE IF NOT EXISTS friend_requests (
 CREATE TABLE IF NOT EXISTS messages (
   messageId INT NOT NULL AUTO_INCREMENT,
   senderId VARCHAR(255) NOT NULL,
-  recipientId INT NOT NULL,
+  recipientId VARCHAR(255) NOT NULL,
   timeSent datetime NOT NULL,
-  unread INT(4) NOT NULL,
+  unread BOOLEAN DEFAULT true,
   subject VARCHAR(8000) NOT NULL,
   body VARCHAR(8000) NOT NULL,
   quizId INT DEFAULT NULL,
@@ -159,3 +159,18 @@ INSERT INTO quiz_records (quizId, userId, start_time, end_time, score) VALUES
 ('1', 'Max', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '100'),
 ('2', 'Max', '2016-03-01 20:41:00', '2016-03-01 20:50:00', '90'),
 ('3', 'Max', '2016-03-01 21:41:00', '2016-03-01 21:50:00', '80');
+
+INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, type) VALUES
+('1', 'max', 'neel', '2016-03-05 15:41:00', 'A test message', 'interesting stuff', 'NOTE'),
+('2', 'max', 'regina', '2016-03-05 15:42:00', 'A test message', 'interesting stuff', 'NOTE'),
+('3', 'max', 'carah', '2016-03-05 15:43:00', 'A test message', 'interesting stuff', 'NOTE'),
+('4', 'neel', 'max', '2016-03-05 15:44:00', 'A test message', 'interesting stuff', 'NOTE'),
+('5', 'regina', 'neel', '2016-03-05 15:45:00', 'A test message', 'interesting stuff', 'NOTE');
+
+INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, quizId, type) VALUES
+('6', 'max', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 1,'CHALLENGE'),
+('7', 'max', 'regina', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 2, 'CHALLENGE'),
+('8', 'max', 'carah', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 3, 'CHALLENGE'),
+('9', 'carah', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 4, 'CHALLENGE'),
+('10', 'regina', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 5, 'CHALLENGE'),
+('11', 'neel', 'max', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 6 ,'CHALLENGE');
