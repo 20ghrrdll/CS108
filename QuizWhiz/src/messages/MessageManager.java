@@ -46,7 +46,10 @@ public class MessageManager {
 		return userMessages;
 	}
 	
-
+	public void setAsRead(String username){
+		
+	}
+	
 	public void closeConnection() {
 		DBConnector.closeConnection();
 	}

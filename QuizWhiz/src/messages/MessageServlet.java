@@ -35,7 +35,27 @@ public class MessageServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+//		 MyClass myClass = new MyClass();
+//
+//	        if (request.getParameter("button1") != null) {
+//	            myClass.method1();
+//	        } else if (request.getParameter("button2") != null) {
+//	            myClass.method2();
+//	        } else if (request.getParameter("button3") != null) {
+//	            myClass.method3();
+//	        } else {
+//	            // ???
+//	        }
+		MessageManager messageManager = (MessageManager) getServletContext().getAttribute("messageManager");
+		
+		if(request.getParameter("note") != null){
+			response.sendRedirect("messages.jsp?");
+			return;
+		} else if( request.getParameter("challenge") != null){
+			System.out.println("challenge");
+		} else {
+			System.out.println("nada");
+		}
 	}
 
 }
