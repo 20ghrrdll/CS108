@@ -16,7 +16,7 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
 </head>
-<body>
+<body class="w3-theme-light standards">
 <%
 User user = (User) session.getAttribute("currentUser");
 
@@ -47,16 +47,20 @@ ArrayList<Message> unreadMessages = userManager.getMessages(user.getUsername(), 
 			<li><a href="#">Achievements</a></li>
 		</ul>
 	</ul>
-		</div>
 		<% for(int i= 0; i < messages.size(); i++){ 
-			if(messages.get(i).getType().equals("NOTE")){%>
+			if(!messages.get(i).isUnread()){ %>
+			<div class="w3-container">
+			<h2><i><%=messages.get(i).getTitle() %> - <%=messages.get(i).getSender()%></i></h2>
+			<p><i><%= messages.get(i).getBody() %></i></p>
+		</div>
+			<% } else if(messages.get(i).getType().equals("NOTE")){%>
 		<div class="w3-container w3-pale-blue w3-leftbar w3-border-blue">
-			<h2><%=messages.get(i).getTitle() %></h2>
+			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
 			<p><%= messages.get(i).getBody() %></p>
 		</div>
 		<%} else { %>
 		<div class="w3-container w3-pale-red w3-leftbar w3-border-red">
-			<h2><%=messages.get(i).getTitle() %></h2>
+			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
 			<p><%= messages.get(i).getBody() %></p>
 		</div>
 		<%} %>
