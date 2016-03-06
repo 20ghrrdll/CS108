@@ -48,11 +48,18 @@ ArrayList<Message> unreadMessages = userManager.getMessages(user.getUsername(), 
 		</ul>
 	</ul>
 		</div>
-		<% for(int i= 0; i < messages.size(); i++){ %>
+		<% for(int i= 0; i < messages.size(); i++){ 
+			if(messages.get(i).getType().equals("NOTE")){%>
 		<div class="w3-container w3-pale-blue w3-leftbar w3-border-blue">
 			<h2><%=messages.get(i).getTitle() %></h2>
 			<p><%= messages.get(i).getBody() %></p>
 		</div>
+		<%} else { %>
+		<div class="w3-container w3-pale-red w3-leftbar w3-border-red">
+			<h2><%=messages.get(i).getTitle() %></h2>
+			<p><%= messages.get(i).getBody() %></p>
+		</div>
+		<%} %>
 		<br>
 		<%} %>
 
