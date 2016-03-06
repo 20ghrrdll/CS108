@@ -34,9 +34,9 @@ public class MessageManager {
 			while (rs.next()) {
 				Message message;
 				if(rs.getString("type").equals("NOTE")){
-					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"));
+					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"), rs.getShort("messageId"));
 				} else {
-					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"), rs.getInt("quizId"));
+					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"), rs.getInt("quizId"), rs.getShort("messageId"));
 				}
 				userMessages.add(message);
 			}
@@ -46,8 +46,14 @@ public class MessageManager {
 		return userMessages;
 	}
 	
-	public void setAsRead(String username){
-		
+	public void setAsRead(int messageId){
+		try {
+			Statement stmt = con.createStatement();
+			String query = "UPDATE " + MyDBInfo.MESSAGE_TABLE + " SET unread=false WHERE messageId='" + messageId +"';";
+			stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void closeConnection() {
