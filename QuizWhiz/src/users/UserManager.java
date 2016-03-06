@@ -50,10 +50,8 @@ public class UserManager {
 	public void addUser(String username, String password) {
 		String hashedPassword = generateHashedPassword(password);
 		java.util.Date dt = new java.util.Date();
-
 		java.text.SimpleDateFormat sdf = 
 		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 		String currentTime = sdf.format(dt);
 		try {
 			Statement stmt = con.createStatement();
@@ -111,12 +109,15 @@ public class UserManager {
 	 * @param user2
 	 * @param data - SimpleDataFormat of when they became friends
 	 */
-	public void addFriends(String user1, String user2, String date) {
+	public void addFriends(String user1, String user2) {
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = sdf.format(dt);
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 + "\", \"" + date + "\");");		
-			if (getFriends(user1).size() == 25) addAchievement(user1, FinalConstants.FRIENDS_10, date);
-			if (getFriends(user2).size() == 25) addAchievement(user2, FinalConstants.FRIENDS_10, date);
+			if (getFriends(user1).size() == 25) addAchievement(user1, FinalConstants.FRIENDS_10);
+			if (getFriends(user2).size() == 25) addAchievement(user2, FinalConstants.FRIENDS_10);
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
@@ -129,7 +130,10 @@ public class UserManager {
 	 * @param achievementID
 	 * @param data - SimpleDataFormat of when the achievement was unlocked
 	 */
-	public void addAchievement(String username, String achievementID, String date) {
+	public void addAchievement(String username, String achievementID) {
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = sdf.format(dt);
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.ACHIEVEMENTS_TABLE + " VALUES(\"" + username + "\", \"" + achievementID + "\", \"" + date + "\");");		

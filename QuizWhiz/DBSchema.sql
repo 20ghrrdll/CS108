@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS achievements (
 	userId VARCHAR(255) NOT NULL,
-	achievementId INT NOT NULL,
+	achievementId VARCHAR(255) NOT NULL,
 	timeAchieved DATETIME NOT NULL
 );
 
@@ -158,3 +158,6 @@ INSERT INTO quiz_records (quizId, userId, start_time, end_time, score) VALUES
 ('1', 'Max', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '100'),
 ('2', 'Max', '2016-03-01 20:41:00', '2016-03-01 20:50:00', '90'),
 ('3', 'Max', '2016-03-01 21:41:00', '2016-03-01 21:50:00', '80');
+
+INSERT INTO achievements (userId, achievementId) VALUES 
+('Max', 'CREATE_1');
