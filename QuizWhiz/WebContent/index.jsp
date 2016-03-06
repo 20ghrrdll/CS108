@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*, main.*"%>
+	pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,6 +22,7 @@ ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 UserManager userManager =(UserManager) request.getServletContext().getAttribute("userManager");
+MessageManager messageManager = (MessageManager) request.getServletContext().getAttribute("messageManager");
 
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
@@ -34,7 +35,7 @@ if(user != null){
 	String userName = user.getUsername();
 	myQuizzes = quizManager.getMyQuizzes(userName);
 	myAchievements = userManager.getAchievements(user.getUsername());
-	unreadMessages = userManager.getMessages(user.getUsername(), true);
+	unreadMessages = messageManager.getMessages(user.getUsername(), true);
 }
 
 %>
