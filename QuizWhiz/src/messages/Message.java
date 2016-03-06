@@ -1,4 +1,4 @@
-package users;
+package messages;
 
 public class Message {
 	

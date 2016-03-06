@@ -39,7 +39,7 @@
 
 <label class="w3-label">Password</label>
 <input class="w3-input w3-round" type="password" name="password" >
-<button class="w3-btn w3-white w3-border w3-round "type="submit">Login</button>
+<button class="w3-btn w3-white w3-border w3-round" type="submit">Login</button>
 
 <div class="createAccount">
 Don't have an account? <br>

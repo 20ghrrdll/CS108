@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*, main.*"%>
+    pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,8 +21,10 @@
 User user = (User) session.getAttribute("currentUser");
 
 UserManager userManager =(UserManager) request.getServletContext().getAttribute("userManager");
-ArrayList<Message> messages = userManager.getMessages(user.getUsername(), false);
-ArrayList<Message> unreadMessages = userManager.getMessages(user.getUsername(), false);
+MessageManager messageManager =(MessageManager) request.getServletContext().getAttribute("messageManager");
+
+ArrayList<Message> messages = messageManager.getMessages(user.getUsername(), false);
+ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(), false);
 
 
 %>
@@ -59,16 +61,17 @@ Message or challenge one of your friends!
 		<% for(int i= 0; i < messages.size(); i++){ 
 			if(!messages.get(i).isUnread()){ %>
 			<div class="w3-container">
-			<h2><i><%=messages.get(i).getTitle() %> - <%=messages.get(i).getSender()%></i></h2>
-			<p><i><%= messages.get(i).getBody() %></i></p>
-		</div>
+				<h2><i><%=messages.get(i).getTitle() %> - <%=messages.get(i).getSender()%></i></h2>
+				<p><i><%= messages.get(i).getBody() %></i></p>
+			</div>
 			<% } else if(messages.get(i).getType().equals("NOTE")){%>
-		<div class="w3-container w3-pale-blue w3-leftbar w3-border-blue">
+		<div class="w3-container w3-pale-blue w3-leftbar w3-border-blue" action="MessageServlet" method="post">
 			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
 			<p><%= messages.get(i).getBody() %></p>
+			<button class="w3-btn w3-white w3-border w3-round "type="submit">Mark as read</button>
 		</div>
 		<%} else { %>
-		<div class="w3-container w3-pale-red w3-leftbar w3-border-red">
+		<div class="w3-container w3-pale-red w3-leftbar w3-border-red" action="MessageServlet" method="post">
 			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
 			<p><%= messages.get(i).getBody() %></p>
 			<button class="w3-btn w3-white w3-border w3-round">Accept Challenge</button>
