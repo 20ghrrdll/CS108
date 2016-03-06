@@ -8,12 +8,11 @@ public class Question {
 	private String correctAnswer;
 	private int order;
 	
-	public Question(int quiz_id, int question_id, String question_text, String correct_answer, int questionOrder){
+	public Question(int quiz_id, int question_id, String question_text, String correct_answer){
 		this.quizId = quiz_id;
 		this.questionId = question_id;
 		this.questionText = question_text;
 		this.correctAnswer = correct_answer;
-		this.order = questionOrder;
 	}
 	
 	public String getQuestionText(){
@@ -32,8 +31,12 @@ public class Question {
 		return this.questionId;
 	}
 	
-	public int getOrder(){
-		return this.order;
+	//Will have to do some wiggling to figure out how to handle questions w/ multiple parts...
+	public boolean isCorrect(String response){
+		System.out.println("the user response is " + response);
+		System.out.println("the correct answer is " + this.correctAnswer);
+		if(response.equals(this.correctAnswer)) return true;
+		return false;
 	}
 
 }

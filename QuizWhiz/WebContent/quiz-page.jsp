@@ -33,21 +33,25 @@ out.print(quizName);
 	questions.add(testQ1);
 	Question testQ2 = new Question(1, 2, "Who has more neck vertabrae: humans, giraffes or they both have the same number?",
 			"they both have the same number", 0);
+<<<<<<< HEAD
 	questions.add(testQ2);*/
 	//int numQuestions = questions.size();
+
 	
 	int numQuestions = questions.size();
 	%>
 	<form action="QuizResultServlet" method="post">
 		<%
 		QuestionManager qManager = new QuestionManager();
+		request.setAttribute("questions", questions);
 		String quizType = toDisplay.getQuizType();
 		for(int a = 0; a < numQuestions; a++){ 
 			Question toPrint = questions.get(a);
 		%>
 			<div class="question_info">
 				<% out.println(qManager.QuestionHTML(quizType, toPrint.getQuestionText())); %>
-				<div class="answer">Answer: </div><% out.println(qManager.AnswerHTML(quizType));%>
+				<div class="answer">Answer: </div><% out.println(qManager.AnswerHTML(quizType,
+						Integer.toString(toPrint.getQuestionId())));%>
 			</div>				
 		<% } %>
 		<br>

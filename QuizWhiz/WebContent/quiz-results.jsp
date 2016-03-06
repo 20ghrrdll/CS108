@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Results</title>
 </head>
 <body>
+
+	<h1>Results:</h1>
+	<h4>You scored <%out.print(session.getAttribute("score")); %>/<%out.print(session.getAttribute("maxScore")); %></h4>
 
 </body>
 </html>

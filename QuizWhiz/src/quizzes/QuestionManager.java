@@ -18,21 +18,22 @@ public class QuestionManager {
 		else return "<h3>"+type +" has not been handled yet</h3>";
 		
 	}
-	
-	public String AnswerHTML(String type){
+	//input 
+	public String AnswerHTML(String type, String id){
 		String answerhtml = "<h3>There is no question of this type!</h3>";
 		if(type.equals("FillIn")){
 			return "";
 		}
 		else if(type.equals("QuestionResponse")){
-			answerhtml = QRAnswer();
+			answerhtml = QRAnswer(id);
 		}
 			
 		return answerhtml;
 	}
 	
-	private String QRAnswer(){
-		String html = "<input type="+'"'+"text" +"name="+'"'+"answer"+'"'+" />";
+	private String QRAnswer(String id){
+		String html = "<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+" />";
+		System.out.println(html);
 		return html;
 	}
 	
