@@ -25,6 +25,7 @@ UserManager userManager = (UserManager) request.getServletContext().getAttribute
       </head>
 <body class="w3-theme-light standards">
 
+<div class="w3-container">
 <h1 class="center-title w3-theme"><% out.println(username); %></h1>
 
 <center>
@@ -45,30 +46,36 @@ if (!currentUser.getUsername().equals(username)) {
 }
 %>
 </center>
+</div>
 
-
+<div class="w3-container">
 <h2 class="center-title w3-theme">Achievements</h2>
 <%
 Set<Achievement> userAchievements = userManager.getAchievements(username);
 if (userAchievements.size() == 0) { %>
 	<h4>No achievements to display.</h4>
+	<div style="position: relative">
 <% } else {
 	Iterator<Achievement> achievementsIt = userAchievements.iterator();
 	while (achievementsIt.hasNext()) {
 		Achievement a = achievementsIt.next();
 		%>
-		<div class="w3-tooltip">
-			<b><% out.print(a.getName()); %>:</b><br>
-			<% out.println(a.getDescription()); %>
-			<img src="<% out.print(a.getImageUrl()); %>">
+		<div class="w3-tooltip w3-third" style="display: inline-block; float: left; text-align: center">
+			<img src="<% out.print(a.getImageUrl()); %>"><br>
+			<p class="w3-text"><b><% out.print(a.getName()); %>:</b>
+			<% out.println(a.getDescription()); %></p><br>
 		</div>
+		
 	<% 
-	}
+	} %>
+	</div>
+<% 
 }
 %>
+</div>
 
 
-
+<div class="w3-container">
 <h2 class="center-title w3-theme">Recent Performance</h2>
 <ol class="w3-ul w3-hoverable">
 <%
@@ -90,9 +97,9 @@ if (quizzesTaken.size() == 0) { %>
 }
 %>
 </ol>
+</div>
 
-
-
+<div class="w3-container">
 <h2 class="center-title w3-theme">Quizzes Created</h2>
 <ol class="w3-ul w3-hoverable">
 <%
@@ -113,7 +120,7 @@ if (quizzesCreated.size() == 0) { %>
 	}
 }
 %>
-</ol>
+</ol></div>
 
 </body>
 </html>
