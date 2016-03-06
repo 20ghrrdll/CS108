@@ -47,6 +47,15 @@ ArrayList<Message> unreadMessages = userManager.getMessages(user.getUsername(), 
 			<li><a href="#">Achievements</a></li>
 		</ul>
 	</ul>
+	
+<nav class="w3-sidenav w3-light-grey w3-card-2" style="width:20%">
+Message or challenge one of your friends!
+<a class="w3-border-bottom" href="#">Link 1</a> 
+  <a class="w3-border-bottom" href="#">Link 2</a> 
+  <a href="#">Link 3</a> 
+</nav>
+<div style="margin-left:20%">
+
 		<% for(int i= 0; i < messages.size(); i++){ 
 			if(!messages.get(i).isUnread()){ %>
 			<div class="w3-container">
@@ -62,10 +71,12 @@ ArrayList<Message> unreadMessages = userManager.getMessages(user.getUsername(), 
 		<div class="w3-container w3-pale-red w3-leftbar w3-border-red">
 			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
 			<p><%= messages.get(i).getBody() %></p>
+			<button class="w3-btn w3-white w3-border w3-round">Accept Challenge</button>
 		</div>
 		<%} %>
 		<br>
 		<%} %>
+		</div>
 
 </body>
 </html>

@@ -177,8 +177,12 @@ public class UserManager {
 			}
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				//Message a = FinalConstants.ACHIEVEMENTS.get(rs.getString("achievementId")); // TODO FIX MYSQL SO STRING?
-				Message message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"));
+				Message message;
+				if(rs.getString("type").equals("NOTE")){
+					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"));
+				} else {
+					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"), rs.getInt("quizId"));
+				}
 				userMessages.add(message);
 			}
 		} catch (SQLException e) {
