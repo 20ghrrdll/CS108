@@ -21,14 +21,20 @@ AnnouncementManager announcementManager = (AnnouncementManager) request.getServl
 ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
+UserManager userManager =(UserManager) request.getServletContext().getAttribute("userManager");
+
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
 ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
 ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
+ArrayList<Message> unreadMessages = new ArrayList<Message>();
+Set<Achievement> myAchievements;
 Set<User> friends;
 if(user != null){
 	String userName = user.getUsername();
 	myQuizzes = quizManager.getMyQuizzes(userName);
+	myAchievements = userManager.getAchievements(user.getUsername());
+	unreadMessages = userManager.getMessages(user.getUsername(), true);
 }
 
 %>
@@ -43,7 +49,7 @@ if(user != null){
 		}%>
 		<ul class="w3-right">
 			<li><a href="#">Friends</a></li>
-			<li><a href="#">Messages</a></li>
+			<li><a href="messages.jsp?">Messages<span class="w3-badge w3-green"><%=unreadMessages.size() %></span></a></li>
 			<li class="w3-dropdown-hover"><a href="#">Settings</a>
 				<div class="w3-dropdown-content w3-white w3-card-4">
 					<a href="#">Privacy Options</a>

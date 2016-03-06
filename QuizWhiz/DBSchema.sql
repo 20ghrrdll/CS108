@@ -75,12 +75,17 @@ CREATE TABLE IF NOT EXISTS user (
 	username VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
 	admin BOOLEAN DEFAULT false,
+	joinDate DATETIME NOT NULL,
 	cookie VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS achievements (
 	userId VARCHAR(255) NOT NULL,
+<<<<<<< HEAD
 	achievementId VARCHAR(255) NOT NULL,
+=======
+	acievementId INT NOT NULL,
+>>>>>>> 249b4981453df4935cbcf146894983e35c02588a
 	timeAchieved DATETIME NOT NULL
 );
 
@@ -110,9 +115,9 @@ CREATE TABLE IF NOT EXISTS friend_requests (
 CREATE TABLE IF NOT EXISTS messages (
   messageId INT NOT NULL AUTO_INCREMENT,
   senderId VARCHAR(255) NOT NULL,
-  recipientId INT NOT NULL,
+  recipientId VARCHAR(255) NOT NULL,
   timeSent datetime NOT NULL,
-  unread INT(4) NOT NULL,
+  unread BOOLEAN DEFAULT true,
   subject VARCHAR(8000) NOT NULL,
   body VARCHAR(8000) NOT NULL,
   quizId INT DEFAULT NULL,
@@ -144,11 +149,11 @@ INSERT INTO question_answers (quizId, questionId, answer) VALUES
 ('1', '1', 'Yes'),
 ('1', '1', 'No');
 
-INSERT INTO user (username, password) VALUES
-('Max', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
-('Carah', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
-('Regina', '40bd001563085fc35165329ea1ff5c5ecbdbbeef'),
-('Neel', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+INSERT INTO user (username, password, joinDate) VALUES
+('Max', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00'),
+('Carah', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00'),
+('Regina', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00'),
+('Neel', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00');
 
 INSERT INTO announcements (announcementId, userId, posted, subject, body) VALUES
 ('1', 'Max','2016-02-27 13:41:00', 'Super important!', 'First announcement woohoo!'),
@@ -161,3 +166,28 @@ INSERT INTO quiz_records (quizId, userId, start_time, end_time, score) VALUES
 
 INSERT INTO achievements (userId, achievementId) VALUES 
 ('Max', 'CREATE_1');
+
+-- Inserting unread messages (notes)
+INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, type) VALUES
+('1', 'max', 'neel', '2016-03-05 15:41:00', 'A test message', 'interesting stuff', 'NOTE'),
+('2', 'max', 'regina', '2016-03-05 15:42:00', 'A test message', 'interesting stuff', 'NOTE'),
+('3', 'max', 'carah', '2016-03-05 15:43:00', 'A test message', 'interesting stuff', 'NOTE'),
+('4', 'neel', 'max', '2016-03-05 15:44:00', 'A test message', 'interesting stuff', 'NOTE'),
+('5', 'regina', 'neel', '2016-03-05 15:45:00', 'A test message', 'interesting stuff', 'NOTE');
+
+-- Inserting challege messages
+INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, quizId, type) VALUES
+('6', 'max', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 1,'CHALLENGE'),
+('7', 'max', 'regina', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 2, 'CHALLENGE'),
+('8', 'max', 'carah', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 3, 'CHALLENGE'),
+('9', 'carah', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 4, 'CHALLENGE'),
+('10', 'regina', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 5, 'CHALLENGE'),
+('11', 'neel', 'max', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 6 ,'CHALLENGE');
+
+-- Inserting read notes
+INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, unread, type) VALUES
+('12', 'max', 'neel', '2016-03-05 15:41:00', 'A read message', 'interesting stuff', 'false',  'NOTE'),
+('13', 'max', 'regina', '2016-03-05 15:42:00', 'A test message', 'interesting stuff', 'false','NOTE'),
+('14', 'max', 'carah', '2016-03-05 15:43:00', 'A test message', 'interesting stuff', 'false','NOTE'),
+('15', 'neel', 'max', '2016-03-05 15:44:00', 'A test message', 'interesting stuff', 'false','NOTE'),
+('16', 'regina', 'neel', '2016-03-05 15:45:00', 'A test message', 'interesting stuff', 'false','NOTE');
