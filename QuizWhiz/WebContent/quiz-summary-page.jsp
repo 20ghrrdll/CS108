@@ -20,12 +20,11 @@
 	User currentUser = (User) session.getAttribute("currentUser");
 	String username = currentUser.getUsername();
 	Quiz quiz = quizManager.getQuiz(Integer.valueOf(id));
-	request.setAttribute("quizID", id);
 %>
 
 <body class="w3-theme-light standards">
 
-<p> <a href="quiz-page.jsp">Start Quiz</a> </p>
+<p> <a href="quiz-page.jsp?id=<%=id%>">Start Quiz</a> </p>
 
 	<h1 class="center-title w3-theme">Quiz Description</h1>
 	<p><%=quiz.getQuizDescription()%></p>
@@ -138,13 +137,17 @@
 	
 	<h1 class="center-title w3-theme">Summary Statistics</h1>
 	<%
+		int scoreTotal = 0;
+		long timeTotal = 0;
 		for (int i = 0; i < scores.size(); i++) {
-			
-			
+			scoreTotal += scores.get(i).getScore();
+			timeTotal += scores.get(i).getTotalTime();
 		}
-	
+		int avgScore = scoreTotal/scores.size();
+		long avgTime = timeTotal/scores.size();
 	
 	%>
+	<p>Average Score: </p>
 	<ol class="w3-ul w3-hoverable">
 		
 	</ol>
