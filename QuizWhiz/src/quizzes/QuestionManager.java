@@ -22,7 +22,7 @@ public class QuestionManager {
 	public String AnswerHTML(String type, String id){
 		String answerhtml = "<h3>There is no question of this type!</h3>";
 		if(type.equals("FillIn")){
-			return "";
+			return "You should not be calling me!";
 		}
 		else if(type.equals("QuestionResponse")){
 			answerhtml = QRAnswer(id);
@@ -38,7 +38,10 @@ public class QuestionManager {
 	}
 	
 	private String fillIn(String infoToFill){
-		return null;
+		String delims = "[|]+";
+		String[] tokens = infoToFill.split(delims);
+		String html = "";
+		return html;
 	}
 
 }

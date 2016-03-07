@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href=”bootstrap/css/bootstrap.min.css” rel=”stylesheet”
-	type=”text/css” />
-<script type=”text/javascript” src=”bootstrap/js/bootstrap.min.js”></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/results.css" />
+<link
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
 <script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <title>Results</title>
@@ -25,15 +27,19 @@
 		else{
 			out.print("Test User");
 		}
-		%>, You scored
+		%>, you scored
 		<%
 			out.print(session.getAttribute("score"));
 		%>/<%
 			out.print(session.getAttribute("maxScore"));
 		%>
+		 points.
 	</h4>
 
-		<button>Return to Quiz Summary</button>
+		<div class="wrapper">
+			<button class="btn btn-default">Return to Quiz Summary</button>
+		</div>
+		
 		<script>
 			$("button").click(function(){
 				window.location.href = "quiz-summary-page.jsp?id=<%=id%>";
