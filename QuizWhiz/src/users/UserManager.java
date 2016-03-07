@@ -84,7 +84,6 @@ public class UserManager {
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
-		System.out.println(friends);
 		return friends;
 	}
 	
