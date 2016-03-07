@@ -25,6 +25,13 @@
 <body class="w3-theme-light standards">
 
 <p> <a href="quiz-page.jsp?id=<%=id%>">Start Quiz</a> </p>
+<%
+	if (username.equals(quiz.getQuizCreator())) {
+%>
+	<p>EDIT QUIZ - LINK THIS </p>
+<%
+	}
+%>
 
 	<h1 class="center-title w3-theme">Quiz Description</h1>
 	<p><%=quiz.getQuizDescription()%></p>
@@ -136,6 +143,7 @@
 	</ol>
 	
 	<h1 class="center-title w3-theme">Summary Statistics</h1>
+	<ol class="w3-ul w3-hoverable">
 	<%
 		int scoreTotal = 0;
 		long timeTotal = 0;
@@ -145,10 +153,11 @@
 		}
 		int avgScore = scoreTotal/scores.size();
 		long avgTime = timeTotal/scores.size();
-	
+		long avgMins = avgTime / 60;
+		long avgSecs = avgTime % 60;
 	%>
-	<p>Average Score: </p>
-	<ol class="w3-ul w3-hoverable">
+	<p>Average Score: <%=avgScore%> </p>
+	<p>Average Time Taken: <%=avgMins%> mins, <%=avgSecs%> secs</p>
 		
 	</ol>
 

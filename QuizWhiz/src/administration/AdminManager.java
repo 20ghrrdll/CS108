@@ -40,10 +40,57 @@ public class AdminManager {
 	 * @return number of quizzes that have been taken by users
 	 */
 	public int getNumQuizzesTaken() {
+		int numQuizzesTaken = 0;
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT count( DISTINCT(quizId) ) FROM " + MyDBInfo.QUIZ_RECORDS_TABLE + ";");
+			if (rs.next()) {
+				numQuizzesTaken = rs.getInt(0);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
 		
+		return numQuizzesTaken;
 	}
 	
 	
+	/**
+	 * @return number of quizzes created
+	 */
+	public int getNumQuizzesCreated() {
+		int numQuizzesCreated = 0;
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT count( DISTINCT(quizId) ) FROM " + MyDBInfo.QUIZ_TABLE + ";");
+			if (rs.next()) {
+				numQuizzesCreated = rs.getInt(0);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		
+		return numQuizzesCreated;
+	}
+	
+	
+	/**
+	 * Creates an announcement to be displayed on the homepage
+	 * @param title
+	 * @param text
+	 */
+	public void createAnnouncement(String username, String subject, String body) {
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = sdf.format(dt);
+		
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.ANNOUNCEMENTS_TABLE + "(userId, posted, subject, body) VALUES('" + username + "', '" + date + "', '" + subject + "', '" + body + "');");
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+	}
 	
 	
 	// TODO: make sure there are no links to deleted users' profiles? like its just name, no link
@@ -63,6 +110,54 @@ public class AdminManager {
 			e.printStackTrace(); // TODO: what to do here
 		}
 	}
+	
+	
+	/**
+	 * Deletes a given quiz from the database, including any records
+	 * @param quizId
+	 */
+	public void deleteQuiz(int quizId) {
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUIZ_TABLE + " WHERE quizId=" + quizId + ";");
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUIZ_RECORDS_TABLE + " WHERE quizId=" + quizId + ";");
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=" + quizId + ";");
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUESTION_TABLE + " WHERE quizId=" + quizId + ";");
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUESTION_RECORDS_TABLE + " WHERE quizId=" + quizId + ";");
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+	}
+	
+	
+	/**
+	 * Clears all history information for a given quiz
+	 * @param quizId
+	 */
+	public void clearQuizHistory(int quizId) {
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUIZ_RECORDS_TABLE + " WHERE quizId=" + quizId + ";");
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUESTION_RECORDS_TABLE + " WHERE quizId=" + quizId + ";");
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+	}
+	
+	
+	/**
+	 * Makes a given user an admin
+	 * @param username
+	 */
+	public void makeAdmin(String username) {
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("UPDATE " + MyDBInfo.USER_TABLE + " SET admin='true' WHERE username='" + username + "';");
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+	}
+	
 	
 	public void closeConnection() {
 		DBConnector.closeConnection();
