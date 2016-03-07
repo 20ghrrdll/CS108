@@ -3,6 +3,7 @@ package quizzes;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
+import users.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,8 +43,7 @@ public class QuizResultServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 Enumeration paramNames = request.getParameterNames();
-		 //HttpSession session = request.getSession();
+		 HttpSession session = request.getSession();
 		 QuizManager manager = new QuizManager();
 		 ArrayList<Question> questions;
 		try {
@@ -63,9 +63,13 @@ public class QuizResultServlet extends HttpServlet {
 			      if(currQ.isCorrect(paramValue)) score ++;
 			      maxScore++;
 			   }
-			   System.out.print("Your score is " + score);
-			   request.getSession().setAttribute("score", score);
-			   request.getSession().setAttribute("maxScore", maxScore);
+			   
+			   session.setAttribute("score", score);
+			   session.setAttribute("maxScore", maxScore);
+			   User user = (User)session.getAttribute("currentUser");
+			   if(user != null){
+				   //add info to quiz record table
+			   }
 
 			   RequestDispatcher dispatch =
 					   request.getRequestDispatcher("quiz-results.jsp");
