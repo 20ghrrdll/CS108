@@ -65,6 +65,26 @@ public class UserManager {
 	
 	
 	/**
+	 * Returns true if a given user is an admin
+	 * @param username
+	 * @return true if a user is an admin
+	 */
+	public boolean isAdmin(String username) {
+		boolean admin = false;
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT admin FROM " + MyDBInfo.USER_TABLE + " WHERE username='" + username + "';");
+			if (rs.next()) {
+				admin = rs.getBoolean(0);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return admin;
+	}
+	
+	
+	/**
 	 * Queries the database to find all friends of a given username.
 	 * @param username
 	 * @return ArrayList of Users that are friends with the given username
