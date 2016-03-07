@@ -19,11 +19,11 @@
 </script>
 <title>
 	<%
-		Object quizID = request.getParameter("id");
-		System.out.println("The quiz id is " + quizID);
+		int quizID = Integer.parseInt(request.getParameter("id"));
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
-		Quiz toDisplay = quizManager.getQuiz((Integer)quizID);
+		Quiz toDisplay = quizManager.getQuiz(quizID);
 		String quizName = toDisplay.getQuizName();
+		session.setAttribute("currQuizId", quizID);
 		User user = (User)session.getAttribute("currentUser");
 		
 		out.print(quizName);

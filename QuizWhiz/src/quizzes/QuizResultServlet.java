@@ -49,7 +49,6 @@ public class QuizResultServlet extends HttpServlet {
 		try {
 			questions = manager.getQuestions(Integer.valueOf("1"));
 			
-			 System.out.println(questions.toString());
 			 
 			 int score = 0;
 			 int maxScore = 0;
@@ -59,20 +58,19 @@ public class QuizResultServlet extends HttpServlet {
 				  Question currQ = questions.get(a);
 				   
 			      String paramValue = request.getParameter(Integer.toString(currQ.getQuestionId()));
-			      System.out.println("Looking for paramName "+ currQ.getQuestionId());
 			      if(currQ.isCorrect(paramValue)) score ++;
 			      maxScore++;
 			   }
 			   
 			   session.setAttribute("score", score);
 			   session.setAttribute("maxScore", maxScore);
+			   //int quizId = (Integer)session.getAttribute("quizId");
 			   User user = (User)session.getAttribute("currentUser");
 			   if(user != null){
 				   //add info to quiz record table
 			   }
 
-			   RequestDispatcher dispatch =
-					   request.getRequestDispatcher("quiz-results.jsp");
+			   RequestDispatcher dispatch = request.getRequestDispatcher("quiz-results.jsp");
 			   dispatch.forward(request, response);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

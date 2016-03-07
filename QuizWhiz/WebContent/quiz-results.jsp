@@ -7,17 +7,17 @@
 <link href=”bootstrap/css/bootstrap.min.css” rel=”stylesheet”
 	type=”text/css” />
 <script type=”text/javascript” src=”bootstrap/js/bootstrap.min.js”></script>
+<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <title>Results</title>
 </head>
 <body>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="bootstrap/js/bootstrap.min.js"></script>
 
 	<h1 class="text-center">Results:</h1>
 	<h4 class="text-center">
 		<%
+			System.out.println(session.getAttribute("currQuizId"));
+			int id = (Integer)session.getAttribute("currQuizId");
 			User user = (User) session.getAttribute("currentUser");
 		if(user != null){
 			out.print(user.getUsername());
@@ -33,9 +33,13 @@
 		%>
 	</h4>
 
-	<form action="quiz-summary-page.jsp" method="post">
-		<button type="submit">Return to Quiz Summary</button>
-	</form>
+		<button>Return to Quiz Summary</button>
+		<script>
+			$("button").click(function(){
+				window.location.href = "quiz-summary-page.jsp?id=<%=id%>";
+			});
+		</script>
+
 
 </body>
 </html>
