@@ -42,4 +42,8 @@ public class QuizPerformance {
 		return ((d.substring(5, 7) + "/" + d.substring(8, 10) + "/" + d.substring(0, 4)));
 	}
 	
+	public long getTotalTime() {
+		return endTime.getTime() - startTime.getTime();
+	}
+	
 }
