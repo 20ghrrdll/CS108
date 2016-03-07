@@ -101,7 +101,7 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div>
-	<form>
+	<form >
 		<div class="form-group">
 			<label >Send to</label> <input
 				type="test" class="form-control" id="exampleInputEmail1"
