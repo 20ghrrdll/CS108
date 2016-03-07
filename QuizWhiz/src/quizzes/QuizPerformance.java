@@ -43,7 +43,7 @@ public class QuizPerformance {
 	}
 	
 	public long getTotalTime() {
-		return endTime.getTime() - startTime.getTime();
+		return (endTime.getTime() - startTime.getTime())/1000;
 	}
 	
 }
