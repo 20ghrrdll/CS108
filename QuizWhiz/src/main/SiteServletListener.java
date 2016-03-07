@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebListener;
 import messages.MessageManager;
 import quizzes.QuizManager;
 import users.UserManager;
+import administration.AdminManager;
 
 /**
  * Application Lifecycle Listener implementation class SiteServletListener
@@ -35,6 +36,8 @@ public class SiteServletListener implements ServletContextListener {
     	quizManager.closeConnection();
         MessageManager messageManager = (MessageManager) context.getAttribute("messageManager");
         messageManager.closeConnection();
+        AdminManager adminManager = (AdminManager) context.getAttribute("adminManager");
+        adminManager.closeConnection();
     }
 
 	/**
@@ -45,11 +48,13 @@ public class SiteServletListener implements ServletContextListener {
     	AnnouncementManager announcementManager = new AnnouncementManager();
     	QuizManager quizManager = new QuizManager();
         MessageManager messageManager = new MessageManager();
+        AdminManager adminManager = new AdminManager();
     	ServletContext context = arg0.getServletContext();
     	context.setAttribute("userManager", userManager);
     	context.setAttribute("announcementManager", announcementManager);
     	context.setAttribute("quizManager", quizManager);
         context.setAttribute("messageManager", messageManager);
+        context.setAttribute("adminManager", adminManager);
         context.setAttribute("ctx", context.getContextPath());
     }
 	

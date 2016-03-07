@@ -64,25 +64,6 @@ public class UserManager {
 	}
 	
 	
-	// TODO: make sure there are no links to deleted users' profiles? like its just name, no link
-	// TODO: delete announcements?
-	/**
-	 * Deletes a given user from relevant tables in the database including 
-	 * the users table, friends table, etc.
-	 * @param username
-	 */
-	public void deleteUser(String username) {
-		try {
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate("DELETE FROM " + MyDBInfo.USER_TABLE + " WHERE username=\"" + username + "\";");
-			stmt.executeUpdate("DELETE FROM " + MyDBInfo.FRIENDS_TABLE + " WHERE user1=\"" + username + "\" OR user2=\"" + username + "\";");
-			stmt.executeUpdate("DELETE FROM " + MyDBInfo.ACHIEVEMENTS_TABLE + " where userId=\"" + username + "\";");
-		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
-		}
-	}
-	
-	
 	/**
 	 * Queries the database to find all friends of a given username.
 	 * @param username
