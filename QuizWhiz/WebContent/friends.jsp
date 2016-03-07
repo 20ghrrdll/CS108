@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
+	pageEncoding="UTF-8"
+	import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,57 +17,73 @@
 	src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
 </head>
 <body class="w3-theme-light standards">
-<%
-User user = (User) session.getAttribute("currentUser");
+	<%
+		User user = (User) session.getAttribute("currentUser");
 
-UserManager userManager =(UserManager) request.getServletContext().getAttribute("userManager");
-MessageManager messageManager =(MessageManager) request.getServletContext().getAttribute("messageManager");
+		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+		MessageManager messageManager = (MessageManager) request.getServletContext().getAttribute("messageManager");
 
-ArrayList<Message> messages = messageManager.getMessages(user.getUsername(), false);
-ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(), true);
+		ArrayList<Message> messages = new ArrayList<Message>();
+		ArrayList<Message> unreadMessages = new ArrayList<Message>();
+		Set<String> friends = new HashSet<String>();
+		if(user!= null){
+			messages = messageManager.getMessages(user.getUsername(), false);
 
-Set<String> friends = userManager.getFriends(user.getUsername());
+			unreadMessages = messageManager.getMessages(user.getUsername(), true);
 
-%>
-<ul class="w3-navbar w3-theme-dark w3-border">
-		<% if(user != null) { %>
-		<li><a href="index.jsp?">QuizWhiz!
-		</a></li>
-		<% } else {
+			friends = userManager.getFriends(user.getUsername());
+		}
+		
+	%>
+	<ul class="w3-navbar w3-theme-dark w3-border">
+		<%
+			if (user != null) {
+		%>
+		<li><a href="index.jsp?">QuizWhiz! </a></li>
+		<%
+			} else {
 				response.sendRedirect("login-page.jsp?");
-		}%>
+			}
+		%>
 		<ul class="w3-right">
-			<li><a href="#">Friends</a></li>
-			<li><a href="#">Messages<% if(unreadMessages.size() > 0) {%><span class="w3-badge w3-green"><%=unreadMessages.size()%></span><%}%></a></li>
+			<li><a href="friends.jsp">Friends</a></li>
+			<li><a href="messages.jsp">Messages<%
+				if (unreadMessages.size() > 0) {
+			%><span
+					class="w3-badge w3-green"><%=unreadMessages.size()%></span>
+					<%
+						}
+					%></a></li>
 			<li class="w3-dropdown-hover"><a href="#">Settings</a>
 				<div class="w3-dropdown-content w3-white w3-card-4">
 					<a href="#">Privacy Options</a>
 					<form action="LogoutServlet" method="post">
-					<a href="#">Log out</a>
-					<input type="submit" /></form>
+						<a href="#">Log out</a> <input type="submit" />
+					</form>
 				</div></li>
 			<li><a href="#">Achievements</a></li>
 		</ul>
 	</ul>
-	
-<%-- 	<div class="w3-container">
 
-			<h1 class="center-title w3-theme">Popular Quizzes</h1>
+	<div class="w3-container">
 
-			<ol class="w3-ul w3-hoverable">
-				<%
-		for(String username: friends){
+		<h1 class="center-title w3-theme">Friends</h1>
+
+		<ol class="w3-ul w3-hoverable">
+			<%
+				for (String username : friends) {
 			%>
-				<li><a href="quiz-summary-page.jsp?username=<%=username%>" STYLE="text-decoration:none">
-						<h4><%= username%></h4>
-				</a></li>
-				<%
-		}
-		%>
-			</ol>
-		</div> --%>
-	
-	
+			<li><a href="user-profile.jsp?username=<%=username%>"
+				STYLE="text-decoration: none">
+					<h4><%=username%></h4>
+			</a></li>
+			<%
+				}
+			%>
+		</ol>
+	</div>
+
+
 
 </body>
 </html>

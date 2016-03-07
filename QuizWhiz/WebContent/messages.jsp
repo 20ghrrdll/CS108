@@ -37,8 +37,8 @@ ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(
 				response.sendRedirect("login-page.jsp?");
 		}%>
 		<ul class="w3-right">
-			<li><a href="#">Friends</a></li>
-			<li><a href="#">Messages<% if(unreadMessages.size() > 0) {%><span class="w3-badge w3-green"><%=unreadMessages.size()%></span><%}%></a></li>
+			<li><a href="friends.jsp">Friends</a></li>
+			<li><a href="messages.jsp">Messages<% if(unreadMessages.size() > 0) {%><span class="w3-badge w3-green"><%=unreadMessages.size()%></span><%}%></a></li>
 			<li class="w3-dropdown-hover"><a href="#">Settings</a>
 				<div class="w3-dropdown-content w3-white w3-card-4">
 					<a href="#">Privacy Options</a>
@@ -65,9 +65,11 @@ ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(
 			<form action="MessageServlet" method="post">
 				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
 				<input type="hidden" name="note">		
-				<button class="w3-btn w3-white w3-border w3-round "type="submit" value="note">Mark as read</button>
+				<div>
+					<button class="w3-btn w3-white w3-border w3-round "type="submit" value="note">Mark as read</button>
+					<button class="w3-btn w3-white w3-border w3-round"> Reply</button>
+				</div>
 			</form>
-			<button class="w3-btn w3-white w3-border w3-round"> Reply</button>
 		</div>
 		<%} else { %>
 		<div class="w3-container w3-pale-red w3-leftbar w3-border-red">
