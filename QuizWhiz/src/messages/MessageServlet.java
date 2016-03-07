@@ -56,8 +56,13 @@ public class MessageServlet extends HttpServlet {
 			messageManager.setAsRead(Integer.parseInt(request.getParameter("messageId")));
 			response.sendRedirect("quiz-page.jsp?quizId="+request.getParameter("quizId"));
 
-		} else {
-			System.out.println("nada");
+		} else if(request.getParameter("username") != null){
+			
+			System.out.println(request.getParameter("username"));
+			System.out.println(request.getParameter("subject"));
+			System.out.println(request.getParameter("body"));
+			response.sendRedirect("messages.jsp?");
+
 		}
 	}
 

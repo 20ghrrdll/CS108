@@ -81,7 +81,7 @@ if(user!= null){
 				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
 				<input type="hidden" name="quizId" value="<%= messages.get(i).getQuizId()%>">		
 				<input type="hidden" name="challenge">
-				<button class="w3-btn w3-white w3-border w3-round" type="submit">Accept Challenge</button>
+				<button class="w3-btn w3-white w3-border w3-round" type="submit" value="challenge">Accept Challenge</button>
 			</form>
 		</div>
 		<%} %>

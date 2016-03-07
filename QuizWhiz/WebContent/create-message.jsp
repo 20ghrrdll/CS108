@@ -25,42 +25,16 @@
 
 		ArrayList<Message> messages = new ArrayList<Message>();
 		ArrayList<Message> unreadMessages = new ArrayList<Message>();
+		Set<String> friends = new HashSet<String>();
+
 		if (user != null) {
 			messages = messageManager.getMessages(user.getUsername(), false);
 
 			unreadMessages = messageManager.getMessages(user.getUsername(), true);
+			friends = userManager.getFriends(user.getUsername());
+
 		}
 	%>
-<%-- 	<ul class="w3-navbar w3-theme-dark w3-border">
-		<%
-			if (user != null) {
-		%>
-		<li><a href="index.jsp?">QuizWhiz! </a></li>
-		<%
-			} else {
-				response.sendRedirect("login-page.jsp?");
-			}
-		%>
-		<ul class="w3-right">
-			<li><a href="friends.jsp">Friends</a></li>
-			<li><a href="messages.jsp">Messages<%
-				if (unreadMessages.size() > 0) {
-			%><span
-					class="w3-badge w3-green"><%=unreadMessages.size()%></span>
-					<%
-						}
-					%></a></li>
-			<li class="w3-dropdown-hover"><a href="#">Settings</a>
-				<div class="w3-dropdown-content w3-white w3-card-4">
-					<a href="#">Privacy Options</a>
-					<form action="LogoutServlet" method="post">
-						<a href="#">Log out</a> <input type="submit" />
-					</form>
-				</div></li>
-			<li><a href="#">Achievements</a></li>
-		</ul>
-	</ul> --%>
-	
 	<nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -101,21 +75,22 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div>
-	<form >
+	<form action="MessageServlet" method="post">
 		<div class="form-group">
 			<label >Send to</label> <input
-				type="test" class="form-control" id="exampleInputEmail1"
+				type="test" class="form-control" name="username"
 				placeholder="Username" >
 		</div>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Subject</label> <input
-				type="test" class="form-control" id="exampleInputEmail1"
+				type="test" class="form-control" name="subject"
 				placeholder="Subject">
 		</div>
-		<label for="exampleInputEmail1">Body</label>
-		<textarea class="form-control" rows="3" placeholder="message..."></textarea>
-
-		<button type="submit" class="btn btn-default">Submit</button>
+		<div class="form=group">
+			<label for="exampleInputEmail1">Body</label>
+			<textarea class="form-control" rows="3" placeholder="message..." name="body"></textarea>
+		</div>
+		<button type="submit" class="btn btn-default" value="send">Submit</button>
 	</form>
 	</div>
 </body>
