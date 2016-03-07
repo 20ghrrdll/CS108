@@ -15,8 +15,10 @@ function myFunction(id) {
 }
 </script>
 <title><% 
+int quizID = Integer.getInteger((String)request.getAttribute("quizID"));
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager"); 
-Quiz toDisplay = quizManager.getQuiz(Integer.valueOf("1"));
+Quiz toDisplay = quizManager.getQuiz(quizID);
+System.out.println(toDisplay);
 String quizName = toDisplay.getQuizName();
 out.print(quizName);
 //out.print(quizName);
