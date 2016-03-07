@@ -34,20 +34,7 @@ public class MessageServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		 MyClass myClass = new MyClass();
-//
-//	        if (request.getParameter("button1") != null) {
-//	            myClass.method1();
-//	        } else if (request.getParameter("button2") != null) {
-//	            myClass.method2();
-//	        } else if (request.getParameter("button3") != null) {
-//	            myClass.method3();
-//	        } else {
-//	            // ???
-//	        }
 		MessageManager messageManager = (MessageManager) getServletContext().getAttribute("messageManager");
-		
 		if(request.getParameter("note") != null){
 			messageManager.setAsRead(Integer.parseInt(request.getParameter("messageId")));
 			response.sendRedirect("messages.jsp?");
@@ -55,14 +42,9 @@ public class MessageServlet extends HttpServlet {
 		} else if( request.getParameter("challenge") != null){
 			messageManager.setAsRead(Integer.parseInt(request.getParameter("messageId")));
 			response.sendRedirect("quiz-page.jsp?quizId="+request.getParameter("quizId"));
-
 		} else if(request.getParameter("username") != null){
-			
-			System.out.println(request.getParameter("username"));
-			System.out.println(request.getParameter("subject"));
-			System.out.println(request.getParameter("body"));
+			messageManager.sendMessage(request.getParameter("senderId"), request.getParameter("username"), request.getParameter("subject"), request.getParameter("body"));
 			response.sendRedirect("messages.jsp?");
-
 		}
 	}
 

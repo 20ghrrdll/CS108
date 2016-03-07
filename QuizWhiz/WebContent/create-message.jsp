@@ -14,25 +14,22 @@
 	rel="stylesheet" type="text/css" />
 </head>
 <body>
-
 	<%
 		User user = (User) session.getAttribute("currentUser");
 		if(user == null)
 			response.sendRedirect("login-page.jsp?");
-
+		String username = request.getParameter("replyTo");
+		if(username == null)
+			username = "";
 		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 		MessageManager messageManager = (MessageManager) request.getServletContext().getAttribute("messageManager");
-
 		ArrayList<Message> messages = new ArrayList<Message>();
 		ArrayList<Message> unreadMessages = new ArrayList<Message>();
 		Set<String> friends = new HashSet<String>();
-
 		if (user != null) {
 			messages = messageManager.getMessages(user.getUsername(), false);
-
 			unreadMessages = messageManager.getMessages(user.getUsername(), true);
 			friends = userManager.getFriends(user.getUsername());
-
 		}
 	%>
 	<nav class="navbar navbar-default">
@@ -45,7 +42,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Quiz Whiz</a>
+      <a class="navbar-brand" href="index.jsp?">Quiz Whiz</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -74,12 +71,12 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div>
+<div class="container">
 	<form action="MessageServlet" method="post">
 		<div class="form-group">
 			<label >Send to</label> <input
 				type="test" class="form-control" name="username"
-				placeholder="Username" >
+				placeholder="Username" value="<%=username %>" >
 		</div>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Subject</label> <input
@@ -90,6 +87,7 @@
 			<label for="exampleInputEmail1">Body</label>
 			<textarea class="form-control" rows="3" placeholder="message..." name="body"></textarea>
 		</div>
+		<input type="hidden" name="senderId" value="<%=user.getUsername()%>">
 		<button type="submit" class="btn btn-default" value="send">Submit</button>
 	</form>
 	</div>

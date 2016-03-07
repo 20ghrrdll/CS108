@@ -97,9 +97,9 @@ public class UserManager {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				if(rs.getString("user1").equals(username))
-					friends.add(rs.getString("user2"));
+					friends.add(rs.getString("user2").toLowerCase());
 				else
-					friends.add(rs.getString("user1"));
+					friends.add(rs.getString("user1").toLowerCase());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here

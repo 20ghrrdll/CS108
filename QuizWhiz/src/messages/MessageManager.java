@@ -45,7 +45,17 @@ public class MessageManager {
 		}
 		return userMessages;
 	}
-	
+
+	public void sendMessage(String sender, String username, String subject, String body){
+		try {
+			Statement stmt = con.createStatement();
+			String query = "INSERT INTO  " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, subject, body, type) VALUES ('" + sender +"','" + username +"', '" + subject +"','" + body +"','NOTE');";
+			stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+	}
+
 	public void setAsRead(int messageId){
 		try {
 			Statement stmt = con.createStatement();
