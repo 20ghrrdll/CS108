@@ -23,9 +23,13 @@ User user = (User) session.getAttribute("currentUser");
 UserManager userManager =(UserManager) request.getServletContext().getAttribute("userManager");
 MessageManager messageManager =(MessageManager) request.getServletContext().getAttribute("messageManager");
 
-ArrayList<Message> messages = messageManager.getMessages(user.getUsername(), false);
-ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(), true);
+ArrayList<Message> messages = new ArrayList<Message>();
+ArrayList<Message> unreadMessages = new ArrayList<Message>();
+if(user!= null){
+	messages = messageManager.getMessages(user.getUsername(), false);
 
+	unreadMessages = messageManager.getMessages(user.getUsername(), true);
+}
 
 %>
 
