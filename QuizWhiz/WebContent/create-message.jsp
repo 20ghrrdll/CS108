@@ -77,8 +77,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="friends.jsp?">Friends</li>
-        <li class="active"><a href="messages.jsp?">Messages<%
+        <li><a href="friends.jsp?">Friends</a></li>
+        <li><a href="messages.jsp?">Messages <%
 				if (unreadMessages.size() > 0) {
 			%><span
 					class="badge"><%=unreadMessages.size()%></span>
@@ -86,33 +86,37 @@
 						}
 					%></a></li>
       </ul>
-      
+      <form action="LogoutServlet" method="post" id="logout" type="hidden"></form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Privacy</a></li>
             <li role="separator" class="divider"></li>
-            <li><form action="LogoutServlet" method="post">
-						<a href="#">Log out</a><input type="submit" />
-					</form></li>
+            <li><a onclick="document.getElementById('logout').submit()">Logout</a></li>
           </ul>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<!-- 
+<div>
 	<form>
 		<div class="form-group">
-			<label for="exampleInputEmail1">Email address</label> <input
-				type="email" class="form-control" id="exampleInputEmail1"
-				placeholder="Email">
+			<label >Send to</label> <input
+				type="test" class="form-control" id="exampleInputEmail1"
+				placeholder="Username" >
 		</div>
-		<textarea class="form-control" rows="3"></textarea>
+		<div class="form-group">
+			<label for="exampleInputEmail1">Subject</label> <input
+				type="test" class="form-control" id="exampleInputEmail1"
+				placeholder="Subject">
+		</div>
+		<label for="exampleInputEmail1">Body</label>
+		<textarea class="form-control" rows="3" placeholder="message..."></textarea>
 
 		<button type="submit" class="btn btn-default">Submit</button>
-	</form> -->
+	</form>
+	</div>
 </body>
 </html>
