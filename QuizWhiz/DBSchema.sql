@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS achievements (
 	userId VARCHAR(255) NOT NULL,
-	achievementId VARCHAR(255) NOT NULL,
+	acievementId INT NOT NULL,
 	timeAchieved DATETIME NOT NULL
 );
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS messages (
   messageId INT NOT NULL AUTO_INCREMENT,
   senderId VARCHAR(255) NOT NULL,
   recipientId VARCHAR(255) NOT NULL,
-  timeSent datetime NOT NULL,
+  timeSent TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   unread BOOLEAN DEFAULT true,
   subject VARCHAR(8000) NOT NULL,
   body VARCHAR(8000) NOT NULL,
@@ -173,12 +173,6 @@ INSERT INTO quiz_records (quizId, userId, start_time, end_time, score) VALUES
 ('1', 'Regina', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '25'),
 ('1', 'Regina', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '99');
 
-
-
-
-INSERT INTO achievements (userId, achievementId) VALUES 
-('Max', 'CREATE_1');
-
 -- Inserting unread messages (notes)
 INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, type) VALUES
 ('1', 'max', 'neel', '2016-03-05 15:41:00', 'A test message', 'interesting stuff', 'NOTE'),
@@ -199,7 +193,12 @@ INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body,
 -- Inserting read notes
 INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, unread, type) VALUES
 ('12', 'max', 'neel', '2016-03-05 15:41:00', 'A read message', 'interesting stuff', 'false',  'NOTE'),
-('13', 'max', 'regina', '2016-03-05 15:42:00', 'A test message', 'interesting stuff', 'false','NOTE'),
-('14', 'max', 'carah', '2016-03-05 15:43:00', 'A test message', 'interesting stuff', 'false','NOTE'),
-('15', 'neel', 'max', '2016-03-05 15:44:00', 'A test message', 'interesting stuff', 'false','NOTE'),
-('16', 'regina', 'neel', '2016-03-05 15:45:00', 'A test message', 'interesting stuff', 'false','NOTE');
+('13', 'max', 'regina', '2016-03-05 15:42:00', 'A read message', 'interesting stuff', 'false','NOTE'),
+('14', 'max', 'carah', '2016-03-05 15:43:00', 'A read message', 'interesting stuff', 'false','NOTE'),
+('15', 'neel', 'max', '2016-03-05 15:44:00', 'A read message', 'interesting stuff', 'false','NOTE'),
+('16', 'regina', 'neel', '2016-03-05 15:45:00', 'A read message', 'interesting stuff', 'false','NOTE');
+
+INSERT INTO friends (user1, user2, established) VALUES
+('Max', 'Carah', '2016-03-04 20:45:00'),
+('Max', 'Neel', '2016-03-04 20:45:00'),
+('Max', 'Regina', '2016-03-04 20:45:00');
