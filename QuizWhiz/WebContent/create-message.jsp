@@ -21,7 +21,6 @@
 		String username = request.getParameter("replyTo");
 		if(username == null)
 			username = "";
-		String disabled = "";
 		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 		MessageManager messageManager = (MessageManager) request.getServletContext().getAttribute("messageManager");
 		ArrayList<Message> messages = new ArrayList<Message>();
@@ -72,18 +71,13 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div>
+<div class="container">
 	<form action="MessageServlet" method="post">
 		<div class="form-group">
 			<label >Send to</label> <input
 				type="test" class="form-control" name="username"
 				placeholder="Username" value="<%=username %>" >
 		</div>
-		<% if(!friends.contains(username)) { disabled = "disabled"; %>
-		<div class="alert alert-danger">
-  			<strong>Oops!</strong> Looks like this user isnt one of your friends
-		</div>
-		<%} %>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Subject</label> <input
 				type="test" class="form-control" name="subject"
@@ -94,7 +88,7 @@
 			<textarea class="form-control" rows="3" placeholder="message..." name="body"></textarea>
 		</div>
 		<input type="hidden" name="senderId" value="<%=user.getUsername()%>">
-		<button type="submit" class="btn btn-default <%=disabled %>" value="send">Submit</button>
+		<button type="submit" class="btn btn-default" value="send">Submit</button>
 	</form>
 	</div>
 </body>
