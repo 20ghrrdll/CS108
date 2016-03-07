@@ -4,8 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Messages</title>
-
+<title>Friends</title>
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/index.css" />
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
@@ -26,9 +25,9 @@ MessageManager messageManager =(MessageManager) request.getServletContext().getA
 ArrayList<Message> messages = messageManager.getMessages(user.getUsername(), false);
 ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(), true);
 
+Set<String> friends = userManager.getFriends(user.getUsername());
 
 %>
-
 <ul class="w3-navbar w3-theme-dark w3-border">
 		<% if(user != null) { %>
 		<li><a href="index.jsp?">QuizWhiz!
@@ -49,41 +48,25 @@ ArrayList<Message> unreadMessages = messageManager.getMessages(user.getUsername(
 			<li><a href="#">Achievements</a></li>
 		</ul>
 	</ul>
+	
+<%-- 	<div class="w3-container">
 
-<div>
+			<h1 class="center-title w3-theme">Popular Quizzes</h1>
 
-		<% for(int i= 0; i < messages.size(); i++){ 
-			if(!messages.get(i).isUnread()){ %>
-			<div class="w3-container">
-				<h2><i><%=messages.get(i).getTitle() %> - <%=messages.get(i).getSender()%></i></h2>
-				<p><i><%= messages.get(i).getBody() %></i></p>
-			</div>
-			<% } else if(messages.get(i).getType().equals("NOTE")){%>
-		<div class="w3-container w3-pale-blue w3-leftbar w3-border-blue">
-			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
-			<p><%= messages.get(i).getBody() %></p>			
-			<form action="MessageServlet" method="post">
-				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
-				<input type="hidden" name="note">		
-				<button class="w3-btn w3-white w3-border w3-round "type="submit" value="note">Mark as read</button>
-			</form>
-			<button class="w3-btn w3-white w3-border w3-round"> Reply</button>
-		</div>
-		<%} else { %>
-		<div class="w3-container w3-pale-red w3-leftbar w3-border-red">
-			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
-			<p><%= messages.get(i).getBody() %></p>
-			<form action="MessageServlet" method="post">
-				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
-				<input type="hidden" name="quizId" value="<%= messages.get(i).getQuizId()%>">		
-				<input type="hidden" name="challenge">
-				<button class="w3-btn w3-white w3-border w3-round" type="submit">Accept Challenge</button>
-			</form>
-		</div>
-		<%} %>
-		<br>
-		<%} %>
-		</div>
+			<ol class="w3-ul w3-hoverable">
+				<%
+		for(String username: friends){
+			%>
+				<li><a href="quiz-summary-page.jsp?username=<%=username%>" STYLE="text-decoration:none">
+						<h4><%= username%></h4>
+				</a></li>
+				<%
+		}
+		%>
+			</ol>
+		</div> --%>
+	
+	
 
 </body>
 </html>

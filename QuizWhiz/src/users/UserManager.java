@@ -95,11 +95,15 @@ public class UserManager {
 			String query = "SELECT * FROM " + MyDBInfo.FRIENDS_TABLE + " WHERE user1=\"" + username + "\" OR user2=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				friends.add(rs.getString("username"));
+				if(rs.getString("user1").equals(username))
+					friends.add(rs.getString("user2"));
+				else
+					friends.add(rs.getString("user1"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
+		System.out.println(friends);
 		return friends;
 	}
 	
