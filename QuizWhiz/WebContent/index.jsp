@@ -49,7 +49,7 @@ if(user != null){
 				response.sendRedirect("login-page.jsp?");
 		}%>
 		<ul class="w3-right">
-			<li><a href="#">Friends</a></li>
+			<li><a href="friends.jsp">Friends</a></li>
 			<li><a href="messages.jsp?">Messages<%if(unreadMessages.size()>0){%><span class="w3-badge w3-green"><%=unreadMessages.size() %></span><%}%></a></li>
 			<li class="w3-dropdown-hover"><a href="#">Settings</a>
 				<div class="w3-dropdown-content w3-white w3-card-4">
