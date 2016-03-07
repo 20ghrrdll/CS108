@@ -34,9 +34,7 @@ public class MessageServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		MessageManager messageManager = (MessageManager) getServletContext().getAttribute("messageManager");
-		
 		if(request.getParameter("note") != null){
 			messageManager.setAsRead(Integer.parseInt(request.getParameter("messageId")));
 			response.sendRedirect("messages.jsp?");
@@ -44,12 +42,9 @@ public class MessageServlet extends HttpServlet {
 		} else if( request.getParameter("challenge") != null){
 			messageManager.setAsRead(Integer.parseInt(request.getParameter("messageId")));
 			response.sendRedirect("quiz-page.jsp?quizId="+request.getParameter("quizId"));
-
 		} else if(request.getParameter("username") != null){
-			
 			messageManager.sendMessage(request.getParameter("senderId"), request.getParameter("username"), request.getParameter("subject"), request.getParameter("body"));
 			response.sendRedirect("messages.jsp?");
-
 		}
 	}
 
