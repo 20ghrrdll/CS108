@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class EditUserServlet
+ * Servlet implementation class EditQuizServelt
  */
-@WebServlet("/EditUserServlet")
-public class EditUserServlet extends HttpServlet {
+@WebServlet("/EditQuizServelt")
+public class EditQuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditUserServlet() {
+    public EditQuizServlet() {
         super();
     }
 
@@ -25,7 +25,6 @@ public class EditUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -33,20 +32,20 @@ public class EditUserServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdminManager adminManager = (AdminManager) getServletContext().getAttribute("adminManager");
-		String usernames = request.getParameter("usernames");
+		String quizIDs = request.getParameter("quizIDs");
 		String buttonAction = request.getParameter("buttonAction");
-		if(usernames.trim().isEmpty()) {
-			response.sendRedirect("admin-page.jsp?invalidUsers=empty");
+		if(quizIDs.trim().isEmpty()) {
+			response.sendRedirect("admin-page.jsp?invalidQuizzes=empty");
 			return;
 		}
 		
-		String[] usernamesList = usernames.split("\n");
-		for (String username : usernamesList) {
-			username = username.trim();
+		String[] quizIDList = buttonAction.split("\n");
+		for (String quiz : quizIDList) {
+			int quizId = Integer.parseInt(quiz.trim());
 			if (buttonAction.equals("delete")) {
-				adminManager.deleteUser(username);
-			} else if (buttonAction.equals("admin")) {
-				adminManager.makeAdmin(username);
+				adminManager.deleteQuiz(quizId);
+			} else if (buttonAction.equals("clearHistory")) {
+				adminManager.clearQuizHistory(quizId);
 			}
 		}
 		response.sendRedirect("admin-page.jsp?");

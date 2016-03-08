@@ -95,7 +95,7 @@ public class UserManager {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT admin FROM " + MyDBInfo.USER_TABLE + " WHERE username='" + username + "';");
 			if (rs.next()) {
-				admin = rs.getBoolean(0);
+				admin = rs.getBoolean("admin");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here

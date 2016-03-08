@@ -8,13 +8,65 @@
 <script type="${pageContext.request.contextPath}/text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Admin Portal</title>
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/style/index.css" />
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="http://www.w3schools.com/lib/w3-theme-indigo.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
 </head>
 <body>
 
 <% 
 User user = (User) session.getAttribute("currentUser");
+AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext().getAttribute("announcementManager");
+ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
+
+QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
+UserManager userManager =(UserManager) request.getServletContext().getAttribute("userManager");
+MessageManager messageManager = (MessageManager) request.getServletContext().getAttribute("messageManager");
 AdminManager adminManager = (AdminManager) request.getServletContext().getAttribute("adminManager");
+
+ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
+ArrayList<Message> unreadMessages = new ArrayList<Message>();
+Set<Achievement> myAchievements;
+Set<User> friends;
+if(user != null){
+	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
+	myAchievements = userManager.getAchievements(user.getUsername());
+	unreadMessages = messageManager.getMessages(user.getUsername(), true);
+}
  %>
+ 
+ <ul class="w3-navbar w3-theme-dark w3-border">
+	<% 	if (user == null) {
+			response.sendRedirect("login-page.jsp?");
+		} else if (!userManager.isAdmin(user.getUsername())) {
+			response.sendRedirect("index.jsp?"); 
+		} else {
+	%>
+		<li><a href="index.jsp?">QuizWhiz!
+		</a></li>
+		<ul class="w3-right">
+			<li><a href="friends.jsp">Friends</a></li>
+			<li><a href="messages.jsp?">Messages<%if(unreadMessages.size()>0){%><span class="w3-badge w3-green"><%=unreadMessages.size() %></span><%}%></a></li>
+			<li class="w3-dropdown-hover"><a href="#">Settings</a>
+				<div class="w3-dropdown-content w3-white w3-card-4">
+					<a href="#">Privacy Options</a>
+					<form action="LogoutServlet" method="post" id="settings">
+					<a href="#" onclick="document.getElementById('settings').submit()">Log out</a>
+					</form>
+				</div></li>
+			<li><a href="#">Achievements</a></li>
+			<% if (userManager.isAdmin(user.getUsername())) { %>
+				<li><a href="admin-page.jsp?">Admin Portal</a></li>
+			<% } %>
+		</ul>
+	<% } %>
+	</ul>
 
 <div class="container-fluid">
 	<h1>Site Statistics</h1>
@@ -77,11 +129,10 @@ AdminManager adminManager = (AdminManager) request.getServletContext().getAttrib
 			</div>
 			<% } %>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Usernames</label>
 				<textarea class="form-control" rows="4" name="usernames"></textarea>
 			</div>
-			<button type="submit" class="btn btn-default" value="delete" onclick="action=this.value">Delete</button>
-			<button type="submit" class="btn btn-default" value="admin" onclick="action=this.value">Make Admin</button>
+			<button type="submit" class="btn btn-default" name="buttonAction" value="delete">Delete</button>
+			<button type="submit" class="btn btn-default" name="buttonAction" value="admin">Make Admin</button>
 		</form>
       </div>
   </div>
@@ -93,7 +144,19 @@ AdminManager adminManager = (AdminManager) request.getServletContext().getAttrib
       </h4>
     </div>
       <div class="panel-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+		Enter quiz IDs (one per line and should be numbers) to modify.<br>
+		<form action="EditQuizServlet" method="post">
+			<% if("empty".equals(request.getParameter("invalidQuizzes"))) { %>
+			<div class="alert alert-danger" role="alert">
+				<strong>Empty Field </strong> Please enter at least one quiz ID.
+			</div>
+			<% } %>
+			<div class="form-group">
+				<textarea class="form-control" rows="4" name="quizIDs"></textarea>
+			</div>
+			<button type="submit" class="btn btn-default" name="buttonAction" value="delete">Delete</button>
+			<button type="submit" class="btn btn-default" name="buttonAction" value="clearHistory">Clear History</button>
+		</form>
       </div>
   </div>
 </div>

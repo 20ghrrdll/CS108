@@ -152,7 +152,7 @@ public class AdminManager {
 	public void makeAdmin(String username) {
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("UPDATE " + MyDBInfo.USER_TABLE + " SET admin='true' WHERE username='" + username + "';");
+			stmt.executeUpdate("UPDATE " + MyDBInfo.USER_TABLE + " SET admin=TRUE WHERE username='" + username + "';");
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}

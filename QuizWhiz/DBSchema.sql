@@ -151,11 +151,11 @@ INSERT INTO question_answers (quizId, questionId, answer) VALUES
 ('1', '1', 'Yes'),
 ('1', '1', 'No');
 
-INSERT INTO user (username, password, joinDate) VALUES
-('Max', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00'),
-('Carah', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00'),
-('Regina', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00'),
-('Neel', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00');
+INSERT INTO user (username, password, joinDate, admin) VALUES
+('Max', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),
+('Carah', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),
+('Regina', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),
+('Neel', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE);
 
 INSERT INTO announcements (announcementId, userId, posted, subject, body) VALUES
 ('1', 'Max','2016-02-27 13:41:00', 'Super important!', 'First announcement woohoo!'),
