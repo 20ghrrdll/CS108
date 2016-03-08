@@ -27,7 +27,7 @@ public class AdminManager {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM " + MyDBInfo.USER_TABLE + ";");
 			if (rs.next()) {
-				numUsers = rs.getInt(0);
+				numUsers = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
@@ -45,7 +45,7 @@ public class AdminManager {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT count( DISTINCT(quizId) ) FROM " + MyDBInfo.QUIZ_RECORDS_TABLE + ";");
 			if (rs.next()) {
-				numQuizzesTaken = rs.getInt(0);
+				numQuizzesTaken = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
@@ -64,7 +64,7 @@ public class AdminManager {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT count( DISTINCT(quizId) ) FROM " + MyDBInfo.QUIZ_TABLE + ";");
 			if (rs.next()) {
-				numQuizzesCreated = rs.getInt(0);
+				numQuizzesCreated = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
