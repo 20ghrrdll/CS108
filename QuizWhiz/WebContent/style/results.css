@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+h1{
+	padding-bottom: 15px;
+}
+
+.wrapper{
+	text-align: center;
+	padding: 50px 50px 50px 50px;
+}

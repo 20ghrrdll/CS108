@@ -69,7 +69,7 @@ if(user!= null){
 			<form action="MessageServlet" method="post" id="message">
 				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
 				<input type="hidden" name="note">
-				<a class="w3-btn w3-white w3-border w3-round" href="create-message.jsp">Reply</a>	
+				<a class="w3-btn w3-white w3-border w3-round" href="create-message.jsp?replyTo=<%=messages.get(i).getSender()%>">Reply</a>	
 				<button class="w3-btn w3-white w3-border w3-round "type="submit" value="note">Mark as read</button>				
 			</form>
 		</div>
@@ -81,7 +81,7 @@ if(user!= null){
 				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
 				<input type="hidden" name="quizId" value="<%= messages.get(i).getQuizId()%>">		
 				<input type="hidden" name="challenge">
-				<button class="w3-btn w3-white w3-border w3-round" type="submit">Accept Challenge</button>
+				<button class="w3-btn w3-white w3-border w3-round" type="submit" value="challenge">Accept Challenge</button>
 			</form>
 		</div>
 		<%} %>

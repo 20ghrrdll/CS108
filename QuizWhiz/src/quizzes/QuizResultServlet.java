@@ -3,6 +3,7 @@ package quizzes;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
+import users.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,14 +43,12 @@ public class QuizResultServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 Enumeration paramNames = request.getParameterNames();
-		 //HttpSession session = request.getSession();
+		 HttpSession session = request.getSession();
 		 QuizManager manager = new QuizManager();
 		 ArrayList<Question> questions;
 		try {
 			questions = manager.getQuestions(Integer.valueOf("1"));
 			
-			 System.out.println(questions.toString());
 			 
 			 int score = 0;
 			 int maxScore = 0;
@@ -59,16 +58,19 @@ public class QuizResultServlet extends HttpServlet {
 				  Question currQ = questions.get(a);
 				   
 			      String paramValue = request.getParameter(Integer.toString(currQ.getQuestionId()));
-			      System.out.println("Looking for paramName "+ currQ.getQuestionId());
 			      if(currQ.isCorrect(paramValue)) score ++;
 			      maxScore++;
 			   }
-			   System.out.print("Your score is " + score);
-			   request.getSession().setAttribute("score", score);
-			   request.getSession().setAttribute("maxScore", maxScore);
+			   
+			   session.setAttribute("score", score);
+			   session.setAttribute("maxScore", maxScore);
+			   //int quizId = (Integer)session.getAttribute("quizId");
+			   User user = (User)session.getAttribute("currentUser");
+			   if(user != null){
+				   //add info to quiz record table
+			   }
 
-			   RequestDispatcher dispatch =
-					   request.getRequestDispatcher("quiz-results.jsp");
+			   RequestDispatcher dispatch = request.getRequestDispatcher("quiz-results.jsp");
 			   dispatch.forward(request, response);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
