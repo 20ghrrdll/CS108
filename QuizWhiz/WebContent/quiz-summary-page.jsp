@@ -35,19 +35,23 @@
 		<div class="panel-heading"><h2 class="panel-title">Summary Statistics</h2></div>
 		<div class="panel-body">
 			<ol>
-			<% int scoreTotal = 0;
+			<% if(scores.size() != 0){
+				int scoreTotal = 0;
 				long timeTotal = 0;
 				for (int i = 0; i < scores.size(); i++) {
 					scoreTotal += scores.get(i).getScore();
 					timeTotal += scores.get(i).getTotalTime();
 				}
+			
 				int avgScore = scoreTotal/scores.size();
 				long avgTime = timeTotal/scores.size();
 				long avgMins = avgTime / 60;
 				long avgSecs = avgTime % 60;
+			
 			%>
 			<p>Average Score: <%=avgScore%> </p>
 			<p>Average Time Taken: <%=avgMins%> mins, <%=avgSecs%> secs</p>
+			<%} %>
 			</ol>
 		</div>
 	</div></div>
