@@ -18,7 +18,6 @@ public class QuestionManager {
 	
 	//String questionhtml = "<h3>This is the question</h3>";	
 	public String QuestionHTML(String type, String RawQuestion, String id){
-		System.out.println("I am printing the question html now!");
 		if(type.equals("FillIn")){
 			return fillIn(RawQuestion, id);
 		}
@@ -27,7 +26,6 @@ public class QuestionManager {
 					"<div class="+'"'+"answer"+'"'+">Answer:"+
 					AnswerHTML(type,id)+
 					"</div>";
-			System.out.println(qRHtml);
 			return qRHtml;
 		}
 		else return fillIn(RawQuestion, id);
@@ -47,8 +45,7 @@ public class QuestionManager {
 	}
 	
 	private String QRAnswer(String id){
-		String html = "<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+" />";
-		System.out.println(html);
+		String html = "<input type="+"\"text\" name=\""+id+"\"/>";
 		return html;
 	}
 	
@@ -58,7 +55,9 @@ public class QuestionManager {
 		String html = "<p>";
 		for(int a = 0; a < tokens.length-1; a++){
 			html+=tokens[a];
-			html+="<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"-"+a+"/>";
+			String input = "<input type=\"text\" name=\""+id+"-"+a+"\"/>";
+			System.out.println(input);
+			html+=input;
 		}
 		
 		html +=tokens[tokens.length-1];
@@ -66,7 +65,6 @@ public class QuestionManager {
 			html+="<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"-"+(tokens.length -1)+"/>";
 		
 		html+="</p><br>";
-		System.out.println(html);
 		return html;
 	}
 	
@@ -75,13 +73,17 @@ public class QuestionManager {
 		ArrayList<String> answers = new ArrayList<String>();
 		try {
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=\"" + quizID + 
+			String query = "SELECT answer FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=\"" + quizID + 
 					"\" AND questionId = \""+questionID+"\";";
+			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
+				System.out.println("There is a next!");
 				String answer = rs.getString("answer");
+				System.out.println(answer);
 				answers.add(answer);
 			}
+			return answers;
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}

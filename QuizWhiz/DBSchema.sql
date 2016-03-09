@@ -160,7 +160,7 @@ INSERT INTO question_answers (quizId, questionId, answer) VALUES
 ('2', '3', 'welfare'),
 ('2', '4', 'liberty'),
 ('2', '4', 'our posterity'),
-('2', '5', 'ordain')
+('2', '5', 'ordain'),
 ('2', '5', 'establish');
 
 INSERT INTO user (username, password, joinDate, admin) VALUES
