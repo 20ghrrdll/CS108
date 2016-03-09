@@ -7,6 +7,8 @@
 
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/index.css" />
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/style/quizPage.css" />
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet"
 	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -58,18 +60,18 @@
 			for (int a = 0; a < numQuestions; a++) {
 				Question toPrint = questions.get(a);
 				String qId = Integer.toString(toPrint.getQuestionId());
-				out.print(Integer.toString(a)+'.');
 		%>
 		<div class="question_info">
 			<%
-				out.println(Integer.toString(a)+"."+
-						qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId));
+				out.println("<div class = \"question\">"+
+						qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId)+"</div>");
 			%>
 		</div>
 		<%
 			}
+			out.println("<input name=\"quizType\" type = \"hidden\" value = \"" + quizType+"\"/>");
 		%>
-		<br> <input type="submit" />
+		<br> <div class="submit"><input type="submit" /></div>
 	</form>
 
 </body>
