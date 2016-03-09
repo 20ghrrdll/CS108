@@ -19,46 +19,50 @@ String usernameToView = request.getParameter("username");
 
 
 <div class="container-fluid">
-<h1><% out.println(usernameToView); %></h1>
-<% if (!user.getUsername().equals(usernameToView)) {
-	Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
-	out.println("<div class=\"row\" style=\"text-align: center\">");
-	if (!currentUserFriends.contains(usernameToView)) {
-%>
-		<a href="#"><div class="col-md-4"><center><i class="material-icons">add</i>
-		<br>Add Friend</center></div></a>
-<%
-	} %>
-	<a href="#"><div class="col-md-4"><center><i class="material-icons">email</i>
-	<br>Message</center></div></a></div>
-	
-	<% if (userManager.isAdmin(user.getUsername())) { %>
+<div class="row"><div class="col-md-5"><div class="panel panel-default">
+<div class="panel-heading"><h1><% out.println(usernameToView); %></h1></div>
+<div class="panel-body" style="text-align: center">
+	<% if (!user.getUsername().equals(usernameToView)) {
+		Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
+		out.println("<div class=\"row\" style=\"text-align: center\">");
+		if (!currentUserFriends.contains(usernameToView)) {
+	%>
+			<a href="#"><div class="col-md-3"><center><i class="material-icons">add</i>
+			<br>Add Friend</center></div></a>
+	<%
+		} %>
+		<a href="#"><div class="col-md-3"><center><i class="material-icons">email</i>
+		<br>Message</center></div></a></div>
 		
-		<form action="EditUserServlet" method="post">
-			<input type="hidden" name="usernames" value="<% out.print(usernameToView); %>">
-			<center><div class="row" style="text-align: center">
-				<div class="col-md-4">
-					<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
-						<i class="material-icons">delete</i>
-						<br>Delete
-					</button>
-				</div>
-				<div class="col-md-4" style="text-align: center">
-					<button type="submit" class="btn btn-link" name="buttonAction" value="admin">
-						<i class="material-icons">grade</i>
-						<br>Make Admin</button>
-				</div>
-			</div></center>
-		</form>
-	<% } %>
+		<% if (userManager.isAdmin(user.getUsername())) { %>
+			
+			<form action="EditUserServlet" method="post">
+				<input type="hidden" name="usernames" value="<% out.print(usernameToView); %>">
+				<center><div class="row" style="text-align: center">
+					<div class="col-md-3">
+						<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
+							<i class="material-icons">delete</i>
+							<br>Delete
+						</button>
+					</div>
+					<div class="col-md-3" style="text-align: center">
+						<button type="submit" class="btn btn-link" name="buttonAction" value="admin">
+							<i class="material-icons">grade</i>
+							<br>Make Admin</button>
+					</div>
+				</div></center>
+			</form>
+		<% } %>
+	
+	<% 	
+	}
+	%>
+</div></div></div></div></div>
 
-<% 	
-}
-%>
-</div>
-
-<div class="container-fluid">
-<h2>Achievements</h2>
+<div class="container-fluid"><div class="row"><div class="col-md-12">
+<div class="panel panel-default">
+<div class="panel-heading"><h1 class="panel-title">Achievements</h1></div>
+<div class="panel-body">
 <%
 Set<Achievement> userAchievements = userManager.getAchievements(usernameToView);
 if (userAchievements.size() == 0) { %>
@@ -78,11 +82,40 @@ if (userAchievements.size() == 0) { %>
 <% 
 }
 %>
-</div>
+</div></div>
+</div></div></div>
 
 
 <div class="container-fluid">
-<h2>Recent Performance</h2>
+<div class="row">
+<div class="col-md-6"><div class="panel panel-default">
+<div class="panel-heading"><h1 class="panel-title">Quizzes Created</h1></div>
+<div class="panel-body">
+<ol>
+<%
+ArrayList<Quiz> quizzesCreated = quizManager.getMyQuizzes(usernameToView);
+if (quizzesCreated.size() == 0) { %>
+	<h4>No quizzes created.</h4>
+<% 
+} else {
+	for (int i = 0; i < quizzesCreated.size(); i++) {
+	%>
+		<li><a
+			<% String id = String.valueOf(quizzesCreated.get(i).getQuizID()); %>
+				href="quiz-summary-page.jsp?id=<%=id%>" STYLE="text-decoration:none">
+				<h4><%= quizzesCreated.get(i).getQuizName()%></h4>
+				<p><%= quizzesCreated.get(i).getQuizDescription() %></p>
+		</a></li>
+<% 
+	}
+}
+%>
+</ol>
+</div></div></div>
+
+<div class="col-md-6"><div class="panel panel-default">
+<div class="panel-heading"><h1 class="panel-title">Recent Performance</h1></div>
+<div class="panel-body">
 <ol>
 <%
 ArrayList<Quiz> quizzesTaken = quizManager.getMyRecentlyTakenQuizzes(usernameToView);
@@ -103,30 +136,8 @@ if (quizzesTaken.size() == 0) { %>
 }
 %>
 </ol>
-</div>
-
-<div class="container-fluid">
-<h2>Quizzes Created</h2>
-<ol>
-<%
-ArrayList<Quiz> quizzesCreated = quizManager.getMyQuizzes(usernameToView);
-if (quizzesCreated.size() == 0) { %>
-	<h4>No quizzes created.</h4>
-<% 
-} else {
-	for (int i = 0; i < quizzesCreated.size(); i++) {
-	%>
-		<li><a
-			<% String id = String.valueOf(quizzesCreated.get(i).getQuizID()); %>
-				href="quiz-summary-page.jsp?id=<%=id%>" STYLE="text-decoration:none">
-				<h4><%= quizzesCreated.get(i).getQuizName()%></h4>
-				<p><%= quizzesCreated.get(i).getQuizDescription() %></p>
-		</a></li>
-<% 
-	}
-}
-%>
-</ol></div>
+</div></div></div>
+</div></div>
 
 </body>
 

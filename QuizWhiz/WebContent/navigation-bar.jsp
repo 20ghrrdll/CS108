@@ -4,13 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/style/index.css" />
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <script type="${pageContext.request.contextPath}/text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
 </head>
 <body>
 
@@ -20,6 +18,7 @@ QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute
 UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 MessageManager messageManager = (MessageManager) request.getServletContext().getAttribute("messageManager");
 AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext().getAttribute("announcementManager");
+AdminManager adminManager = (AdminManager) request.getServletContext().getAttribute("adminManager");
 
 ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
@@ -27,11 +26,14 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
 ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
 ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
 ArrayList<Message> unreadMessages = new ArrayList<Message>();
+ArrayList<Message> messages = new ArrayList<Message>();
+
 Set<Achievement> myAchievements;
 Set<User> friends;
 if(user != null){
 	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
 	myAchievements = userManager.getAchievements(user.getUsername());
+	messages = messageManager.getMessages(user.getUsername(), false);
 	unreadMessages = messageManager.getMessages(user.getUsername(), true);
 } else {
 	response.sendRedirect("login-page.jsp?");
