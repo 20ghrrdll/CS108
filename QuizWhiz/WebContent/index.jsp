@@ -32,8 +32,7 @@ ArrayList<Message> unreadMessages = new ArrayList<Message>();
 Set<Achievement> myAchievements;
 Set<User> friends;
 if(user != null){
-	String userName = user.getUsername();
-	myQuizzes = quizManager.getMyQuizzes(userName);
+	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
 	myAchievements = userManager.getAchievements(user.getUsername());
 	unreadMessages = messageManager.getMessages(user.getUsername(), true);
 }
@@ -59,6 +58,9 @@ if(user != null){
 					</form>
 				</div></li>
 			<li><a href="#">Achievements</a></li>
+			<% if (user != null && userManager.isAdmin(user.getUsername())) { %>
+				<li><a href="admin-page.jsp?">Admin Portal</a></li>
+			<% } %>
 		</ul>
 	</ul>
 		<div class="w3-row">

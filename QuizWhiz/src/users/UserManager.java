@@ -43,6 +43,26 @@ public class UserManager {
 	
 	
 	/**
+	 * Returns an ArrayList of all usernames (essentially all users)
+	 * @return ArrayList of all usernames in the database
+	 */
+	public ArrayList<String> getAllUsernames() {
+		ArrayList<String> usernames = new ArrayList<String>();
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT username FROM " + MyDBInfo.USER_TABLE + ";";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				usernames.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return usernames;
+	}
+	
+	
+	/**
 	 * Hashes the given password then adds that and the associated 
 	 * username to the database.
 	 * @param username
@@ -75,7 +95,7 @@ public class UserManager {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT admin FROM " + MyDBInfo.USER_TABLE + " WHERE username='" + username + "';");
 			if (rs.next()) {
-				admin = rs.getBoolean(0);
+				admin = rs.getBoolean("admin");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
