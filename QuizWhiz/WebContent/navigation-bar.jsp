@@ -4,11 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css" />
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<script type="${pageContext.request.contextPath}/text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
+  <link type="text/css" rel="stylesheet"
+  	href="${pageContext.request.contextPath}/style/index.css" />
+ <script
+ 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ <!-- Include all compiled plugins (below), or include individual files as needed -->
+ <script
+ 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+ <link
+ 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
+ 	rel="stylesheet" type="text/css" />
+  <script type="text/javascript"
+  	src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
 </head>
 <body>
 
