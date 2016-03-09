@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+h1{
+	text-align: center;
+}
+
+.submit{
+	text-align: center;
+}
+
+.question{
+	padding-left: 5%;
+}

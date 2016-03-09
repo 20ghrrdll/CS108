@@ -13,7 +13,7 @@ public class QuestionManager {
 			return fillIn(RawQuestion, id);
 		}
 		else if(type.equals("QuestionResponse")){
-			String qRHtml =  "<h3>" + RawQuestion + "</h3>"+'\n'+
+			String qRHtml = "<p>"+RawQuestion +"</p><br>"+'\n'+
 					"<div class="+'"'+"answer"+'"'+">Answer:"+
 					AnswerHTML(type,id)+
 					"</div>";

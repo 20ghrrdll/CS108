@@ -28,6 +28,7 @@
 						</ul>
 					</div>
 				</div>
+				<a class="btn btn-primary" href="make-quiz.jsp" role="button">Make Quiz</a>
 			</div>
 			<div class="col-md-8">
 
