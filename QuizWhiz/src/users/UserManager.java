@@ -200,8 +200,8 @@ public class UserManager {
 			System.out.print(query);
 			stmt.executeUpdate(query);
 			if(decision){
-				stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + userName + "\", \"" + userFriend +  "\");");	
-				System.out.print("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + userName + "\", \"" + userFriend +  "\");");
+				stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " (user1, user2) VALUES(\"" + userName + "\", \"" + userFriend +  "\");");	
+				System.out.print("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " (user1, user2) VALUES(\"" + userName + "\", \"" + userFriend +  "\");");
 
 			}
 		} catch (SQLException e) {

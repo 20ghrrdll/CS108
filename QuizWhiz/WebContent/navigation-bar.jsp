@@ -37,11 +37,13 @@ ArrayList<Message> messages = new ArrayList<Message>();
 
 ArrayList<String> myAchievements;
 Set<User> friends;
+Set<String> requests;
 if(user != null){
 	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
 	myAchievements = userManager.getAchievements(user.getUsername());
 	messages = messageManager.getMessages(user.getUsername(), false);
 	unreadMessages = messageManager.getMessages(user.getUsername(), true);
+	requests = userManager.getFriendRequests(user.getUsername());
 } else {
 	response.sendRedirect("login-page.jsp?");
 	return;
@@ -64,7 +66,13 @@ if(user != null){
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="friends.jsp?">Friends</a></li>
+        <li><a href="friends.jsp?">Friends <%
+				if (requests.size() > 0) {
+			%><span
+					class="badge"><%=requests.size()%></span>
+					<%
+						}
+					%></a></li>
         <li><a href="messages.jsp?">Messages <%
 				if (unreadMessages.size() > 0) {
 			%><span
