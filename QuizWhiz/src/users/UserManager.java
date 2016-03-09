@@ -168,7 +168,7 @@ public class UserManager {
 	}
 	
 	/**
-	 * Queries the database to find all friends of a given username.
+	 * Queries the database to find all friends requests of a given username.
 	 * @param username
 	 * @return ArrayList of Users that are friends with the given username
 	 */
@@ -180,6 +180,26 @@ public class UserManager {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				friends.add(rs.getString("userFromId").toLowerCase());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return friends;
+	}
+	
+	/**
+	 * Queries the database to find all friends requested by a given username.
+	 * @param username
+	 * @return ArrayList of Users that are friends with the given username
+	 */
+	public Set<String> getSentRequests(String username) {
+		Set<String> friends = new HashSet<String>();
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE userFromId=\"" + username + "\";";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				friends.add(rs.getString("userToId").toLowerCase());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
