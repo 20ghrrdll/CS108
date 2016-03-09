@@ -305,6 +305,36 @@ public class QuizManager {
 		return highScores;
 	} 
 
+	
+	public void insertQuiz(String name, String description, Timestamp created, String creatorId, boolean practice, boolean pages, boolean random, boolean correction, QuizType quizType) {
+		/* String query = "INSERT INTO " + MyDBInfo.QUIZ_TABLE + " (name, description, created, creatorId"
+				+ ", practiceMode, pages, random, correction, type, amountTaken)" + 
+				" VALUES ("+ '"+name+"' + ", " + description + ", " + created + ", " + creatorId + ", " + practice + ", " +
+				pages + ", " + random + ", " + correction + ", " + quizType + ", 0);"; */
+		String query = "INSERT INTO " + MyDBInfo.QUIZ_TABLE + " (name, description, created, creatorId"
+				+ ", practiceMode, pages, random, correction, type, amountTaken)" + 
+				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		System.out.println(query);
+		try {
+			PreparedStatement s = con.prepareStatement(query);
+			s.setString(1, name);
+			s.setString(2, description);
+			s.setTimestamp(3, created);
+			s.setString(4, creatorId);
+			s.setBoolean(5, practice);
+			s.setBoolean(6, pages);
+			s.setBoolean(7, random);
+			s.setBoolean(8, correction);
+			s.setString(9, quizType.name());
+			s.setInt(10, 0);
+			System.out.println(s.toString());
+			s.executeUpdate();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
 	public void closeConnection() {
 		DBConnector.closeConnection();
