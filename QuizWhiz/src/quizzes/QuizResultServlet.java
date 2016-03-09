@@ -105,7 +105,12 @@ public class QuizResultServlet extends HttpServlet {
 	
 	private int multiAnswer(Question currQ, HttpServletRequest request){
 		
-		int numAnswers = 1;
+		int numAnswers = currQ.getNumAnswers();
+		ArrayList<String> userAnswers = new ArrayList<String>(numAnswers);
+		String qId = Integer.toString(currQ.getQuestionId());
+		for(int a = 0; a <= numAnswers; a++){
+			request.getParameter(qId+"-"+Integer.toString(a));
+		}
 		return 0;
 	}
 

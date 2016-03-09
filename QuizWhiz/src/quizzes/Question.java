@@ -6,13 +6,14 @@ public class Question {
 	private int questionId;
 	private String questionText;
 	private String correctAnswer;
-	private int order;
+	private int numAnswers;
 	
-	public Question(int quiz_id, int question_id, String question_text, String correct_answer){
+	public Question(int quiz_id, int question_id, String question_text, String correct_answer, int num_answers){
 		this.quizId = quiz_id;
 		this.questionId = question_id;
 		this.questionText = question_text;
 		this.correctAnswer = correct_answer;
+		this.numAnswers = num_answers;
 	}
 	
 	public String getQuestionText(){
@@ -29,6 +30,10 @@ public class Question {
 	
 	public int getQuestionId(){
 		return this.questionId;
+	}
+	
+	public int getNumAnswers(){
+		return this.numAnswers;
 	}
 	
 	//Will have to do some wiggling to figure out how to handle questions w/ multiple parts...

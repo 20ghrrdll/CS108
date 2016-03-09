@@ -140,14 +140,14 @@ INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken, ty
 	type enum('FillIn', 'QuestionResponse') DEFAULT 'QuestionResponse',
 */
 
-INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, questionOrder) VALUES
+INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numAnswers) VALUES
 (1, 1, 'How many knees do elephants have?', '2', 1),
-(1, 2, 'Who has more neck vertabrae: humans, giraffes or they both have the same number?', 'they both have the same number', 0),
-(2, 1, 'We the | in order to form a more | union', 'go to question_answers', 0),
-(2, 2, 'Establish |, ensure domestic |', 'go to question_answers', 0),
-(2, 3, 'Provide for the commmon |, promote the general |', 'go to question_answers', 0),
-(2, 4, ' and ensure the blessings of | to ourselves and |,', 'go to question_answers', 0),
-(2, 5, ' do | and | this constitution for the United States of America.', 'go to question_answers', 0);
+(1, 2, 'Who has more neck vertabrae: humans, giraffes or they both have the same number?', 'they both have the same number', 1),
+(2, 1, 'We the | in order to form a more | union', 'go to question_answers', 2),
+(2, 2, 'Establish |, ensure domestic |', 'go to question_answers', 2),
+(2, 3, 'Provide for the commmon |, promote the general |', 'go to question_answers', 2),
+(2, 4, ' and ensure the blessings of | to ourselves and |,', 'go to question_answers', 2),
+(2, 5, ' do | and | this constitution for the United States of America.', 'go to question_answers', 2);
 
 
 
