@@ -58,14 +58,12 @@
 			for (int a = 0; a < numQuestions; a++) {
 				Question toPrint = questions.get(a);
 				String qId = Integer.toString(toPrint.getQuestionId());
+				out.print(Integer.toString(a)+'.');
 		%>
 		<div class="question_info">
 			<%
-				out.println(qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId));
-			%>
-			<div class="answer">Answer:</div>
-			<%
-				out.println(qManager.AnswerHTML(quizType, qId));
+				out.println(Integer.toString(a)+"."+
+						qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId));
 			%>
 		</div>
 		<%
