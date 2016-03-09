@@ -141,7 +141,7 @@ public class UserManager {
 		String date = sdf.format(dt);
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 + "\", \"" + date + "\");");		
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 +"\");");		
 			if (getFriends(user1).size() == 25) addAchievement(user1, FinalConstants.FRIENDS_10);
 			if (getFriends(user2).size() == 25) addAchievement(user2, FinalConstants.FRIENDS_10);
 		} catch (SQLException e) {
@@ -161,9 +161,7 @@ public class UserManager {
 		String date = sdf.format(dt);
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIEND_REQUEST_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 + "\");");		
-			if (getFriends(user1).size() == 25) addAchievement(user1, FinalConstants.FRIENDS_10);
-			if (getFriends(user2).size() == 25) addAchievement(user2, FinalConstants.FRIENDS_10);
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIEND_REQUEST_TABLE + " VALUES(\"" + user2 + "\", \"" + user1 + "\");");		
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
@@ -178,10 +176,10 @@ public class UserManager {
 		Set<String> friends = new HashSet<String>();
 		try {
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE user1=\"" + username + "\";";
+			String query = "SELECT * FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE userToId=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				friends.add(rs.getString("user2").toLowerCase());
+				friends.add(rs.getString("userFromId").toLowerCase());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
@@ -189,7 +187,28 @@ public class UserManager {
 		return friends;
 	}
 	
-	
+	/**
+	 * Updates the database to handle friend accept/ignore
+	 * @param username
+	 * @return ArrayList of Users that are friends with the given username
+	 */
+	public Set<String> handleFriendResponse(String userFriend, String userName, boolean decision) {
+		Set<String> friends = new HashSet<String>();
+		try {
+			Statement stmt = con.createStatement();
+			String query  = "DELETE FROM " + MyDBInfo.FRIEND_REQUEST_TABLE +  " WHERE userToId=\"" + userName + "\" AND userFromId=\"" + userFriend + "\";";
+			System.out.print(query);
+			stmt.executeUpdate(query);
+			if(decision){
+				stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + userName + "\", \"" + userFriend +  "\");");	
+				System.out.print("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + userName + "\", \"" + userFriend +  "\");");
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return friends;
+	}
 	
 	
 	/**

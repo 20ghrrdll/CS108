@@ -51,6 +51,8 @@
 			%>
 			<p>Average Score: <%=avgScore%> </p>
 			<p>Average Time Taken: <%=avgMins%> mins, <%=avgSecs%> secs</p>
+			<%}  else { %>
+			<p>This quiz hasn't been taken yet!</p>
 			<%} %>
 			</ol>
 		</div>
