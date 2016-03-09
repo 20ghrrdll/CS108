@@ -11,8 +11,28 @@
 <body>
 <%
 	Set<String> friendsNames = new HashSet<String>();
-	if(user!= null) friendsNames = userManager.getFriends(user.getUsername());
+	Set<String> friendRequests = new HashSet<String>();
+
+	if(user!= null){
+		friendsNames = userManager.getFriends(user.getUsername());
+		friendRequests = userManager.getFriendRequests(user.getUsername());
+	}
 %>
+
+<%if(!friendRequests.isEmpty()) {%>
+<div class="container-fluid"><div class="col-md-12"><div class="panel panel-default">
+	<div class="panel-heading"><h1 class="panel-title">Friends</h1></div>
+	<div class="panel-body">
+	<ol><% for (String username : friendRequests) { %>
+			<li><a href="user-profile.jsp?username=<%=username%>"
+				STYLE="text-decoration: none">
+					<h4><%=username%></h4>
+			</a></li>
+		<% } %>
+	</ol>
+	</div>
+</div></div></div>
+<%} %>
 	
 <div class="container-fluid"><div class="col-md-12"><div class="panel panel-default">
 	<div class="panel-heading"><h1 class="panel-title">Friends</h1></div>
@@ -25,7 +45,7 @@
 		<% } %>
 	</ol>
 	</div>
-</div></div>
+</div></div></div>
 
 
 

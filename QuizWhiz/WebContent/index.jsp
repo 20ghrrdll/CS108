@@ -10,7 +10,7 @@
 <%@include file="navigation-bar.jsp" %>
 
 </head>
-<body class="w3-theme-light standards">
+<body class="standards">
 
 	<div class="container-fluid">
 		<div class="row">

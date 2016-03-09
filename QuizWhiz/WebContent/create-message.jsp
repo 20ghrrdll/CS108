@@ -35,6 +35,7 @@
 			<textarea class="form-control" rows="3" placeholder="message..." name="body"></textarea>
 		</div>
 		<input type="hidden" name="senderId" value="<%=user.getUsername()%>">
+		<input type="hidden" name="sendNote" value="<%=user.getUsername()%>">
 		<button type="submit" class="btn btn-default" value="send">Submit</button>
 	</form>
 	</div>

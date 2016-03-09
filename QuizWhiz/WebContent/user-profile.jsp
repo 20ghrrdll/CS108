@@ -25,8 +25,8 @@ String usernameToView = request.getParameter("username");
 		if (!currentUserFriends.contains(usernameToView)) {
 	%>
 			<form action="FriendRequestServlet" method="post">
-				<input type="hidden" name="user1" value="<% user.getUsername(); %>">
-				<input type="hidden" name="user2" value="<% out.print(usernameToView); %>">
+				<input type="hidden" name="user1" value="<%= user.getUsername() %>">
+				<input type="hidden" name="user2" value="<%= usernameToView %>">
 				<div class="col-md-3" style="float: left">
 					<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
 						<i class="material-icons">add</i>
@@ -37,16 +37,16 @@ String usernameToView = request.getParameter("username");
 	<%
 		} %>
 		
-		<form action="MessageServlet" method="post" id="message">
+<%-- 		<form action="MessageServlet" method="post" id="message">
 			<input type="hidden" name="note">
-			<input type="hidden" name="senderId" value="<%=user.getUsername()%>">
+			<input type="hidden" name="senderId" value="<%=user.getUsername()%>"> --%>
 			<div class="col-md-3" style="float: left">
-				<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
+				<a class="btn btn-link" name="buttonAction" value="delete"  href="create-message.jsp?replyTo=<%=usernameToView%>">
 					<i class="material-icons">email</i>
 					<br>Message
-				</button>	
+				</a>	
 			</div>	
-		</form>
+		<!-- </form> -->
 		
 		<% if (userManager.isAdmin(user.getUsername())) { %>
 			<form action="EditUserServlet" method="post">
