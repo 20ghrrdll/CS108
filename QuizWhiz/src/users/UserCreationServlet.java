@@ -45,7 +45,7 @@ public class UserCreationServlet extends HttpServlet {
 			response.sendRedirect("create-user.jsp?invalid=exists");
 			return;
 		} else {
-			userManager.addUser(username, password);
+			if (!userManager.addUser(username, password)) request.getSession().setAttribute("mySQLError", "An error has occurred");
 			request.getSession().setAttribute("currentUser", userManager.getUser(username));
 			response.sendRedirect("index.jsp");
 			// TODO: forward to user welcome homepage; add user somewhere else?

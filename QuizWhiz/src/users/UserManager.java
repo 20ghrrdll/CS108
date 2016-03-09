@@ -68,7 +68,7 @@ public class UserManager {
 	 * @param username
 	 * @param password - plain password
 	 */
-	public void addUser(String username, String password) {
+	public boolean addUser(String username, String password) {
 		String hashedPassword = generateHashedPassword(password);
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = 
@@ -79,8 +79,9 @@ public class UserManager {
 			String update = "INSERT INTO " + MyDBInfo.USER_TABLE + " (username, password, joinDate)" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\", \"" + currentTime + "\");";
 			stmt.executeUpdate(update);
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false;
 		}
+		return true;
 	}
 	
 	
