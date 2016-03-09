@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS achievements (
 	userId VARCHAR(255) NOT NULL,
-	acievementId INT NOT NULL,
+	achievementId VARCHAR(255) NOT NULL,
 	timeAchieved DATETIME NOT NULL
 );
 
@@ -212,3 +212,6 @@ INSERT INTO friends (user1, user2, established) VALUES
 ('Max', 'Carah', '2016-03-04 20:45:00'),
 ('Max', 'Neel', '2016-03-04 20:45:00'),
 ('Max', 'Regina', '2016-03-04 20:45:00');
+
+INSERT INTO achievements (userId, achievementId) VALUES
+('Max', 'CREATE_1');
