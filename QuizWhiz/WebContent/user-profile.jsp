@@ -69,13 +69,14 @@ if (userAchievements.size() == 0) { %>
 	<h4>No achievements to display.</h4>
 	<div style="position: relative">
 <% } else {
-		Achievement a = FinalConstants.ACHIEVEMENTS.get(a);
+		for (int i = 0; i < userAchievements.size(); i++) {
+			Achievement a = FinalConstants.ACHIEVEMENTS.get(userAchievements.get(i));
 		%>
 		<img src="<% out.print(a.getImageUrl()); %>" 
 			data-toggle="tool-tip" data-placement="bottom" 
 			title="<% out.print(a.getName()); %>: <% out.println(a.getDescription()); %>">
-	<% 
-	} %>
+		<% 
+		} %>
 	</div>
 <% 
 }

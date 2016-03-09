@@ -28,7 +28,7 @@ ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
 ArrayList<Message> unreadMessages = new ArrayList<Message>();
 ArrayList<Message> messages = new ArrayList<Message>();
 
-Set<Achievement> myAchievements;
+ArrayList<String> myAchievements;
 Set<User> friends;
 if(user != null){
 	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
