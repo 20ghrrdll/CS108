@@ -25,8 +25,8 @@ String usernameToView = request.getParameter("username");
 		if (!currentUserFriends.contains(usernameToView)) {
 	%>
 			<form action="FriendRequestServlet" method="post">
-				<input type="hidden" name="user1" value="<% user.getUsername(); %>">
-				<input type="hidden" name="user2" value="<% out.print(usernameToView); %>">
+				<input type="hidden" name="user1" value="<%= user.getUsername() %>">
+				<input type="hidden" name="user2" value="<%= usernameToView %>">
 				<div class="col-md-3" style="float: left">
 					<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
 						<i class="material-icons">add</i>
