@@ -66,6 +66,14 @@ public class QuizResultServlet extends HttpServlet {
 					maxScore++;
 				}
 			}
+			else{
+				for (int a = 0; a < numQs; a++) {
+					// Question currQ = questions.get(a);
+					score += oneAnswer(questions.get(a), request);
+					maxScore++;
+				}
+				
+			}
 
 			session.setAttribute("score", score);
 			session.setAttribute("maxScore", maxScore);
@@ -92,6 +100,12 @@ public class QuizResultServlet extends HttpServlet {
 		String paramValue = request.getParameter(Integer.toString(currQ.getQuestionId()));
 		if (currQ.isCorrect(paramValue))
 			return 1;
+		return 0;
+	}
+	
+	private int multiAnswer(Question currQ, HttpServletRequest request){
+		
+		int numAnswers = currQ.
 		return 0;
 	}
 

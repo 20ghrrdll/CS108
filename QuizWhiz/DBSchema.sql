@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS quiz_question(
 	questionId INT NOT NULL,
 	questionText VARCHAR(8000) NOT NULL,
 	correctAnswer VARCHAR(255) NOT NULL,
-	questionOrder INT
+	numAnswers INT
 );
 /* Creating the question answers table. This stores the answer associated with a question
 */
@@ -126,15 +126,19 @@ CREATE TABLE IF NOT EXISTS messages (
 All tables loaded. Now we load initial quiz data
 */
 
-INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken) VALUES
-('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', 'Max', 10),
-('2','Second Quiz', 'Our 2nd quiz', '2016-02-27 13:41:01', 'Max', 9),
-('3','Third Quiz', 'Our 3rd quiz', '2016-02-27 13:41:02', 'Max', 8),
-('4','Fourth Quiz', 'Our 4th  quiz', '2016-02-27 13:41:03', 'Max', 7),
-('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', 'Max', 6),
-('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', 'Max', 5),
-('7','Seventh Quiz', 'Our 7th quiz', '2016-02-27 13:41:06', 'Max', 4),
-('8','Eighth Quiz', 'Our 8th quiz', '2016-02-27 13:41:07', 'Max', 3);
+INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken, type) VALUES
+('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', 'Max', 10, 'QuestionResponse'),
+('2','Second Quiz', 'Our 2nd quiz', '2016-02-27 13:41:01', 'Max', 9, 'FillIn'),
+('3','Third Quiz', 'Our 3rd quiz', '2016-02-27 13:41:02', 'Max', 8, 'QuestionResponse'),
+('4','Fourth Quiz', 'Our 4th  quiz', '2016-02-27 13:41:03', 'Max', 7, 'QuestionResponse'),
+('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', 'Max', 6, 'QuestionResponse'),
+('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', 'Max', 5, 'QuestionResponse'),
+('7','Seventh Quiz', 'Our 7th quiz', '2016-02-27 13:41:06', 'Max', 4, 'QuestionResponse'),
+('8','Eighth Quiz', 'Our 8th quiz', '2016-02-27 13:41:07', 'Max', 3, 'QuestionResponse');
+
+/*
+	type enum('FillIn', 'QuestionResponse') DEFAULT 'QuestionResponse',
+*/
 
 INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, questionOrder) VALUES
 (1, 1, 'How many knees do elephants have?', '2', 1),
