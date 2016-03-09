@@ -7,10 +7,10 @@ public class QuestionManager {
 	}
 	
 	//String questionhtml = "<h3>This is the question</h3>";	
-	public String QuestionHTML(String type, String RawQuestion){
+	public String QuestionHTML(String type, String RawQuestion, String id){
 		System.out.println("I am printing the question html now!");
 		if(type.equals("FillIn")){
-			return fillIn(RawQuestion);
+			return fillIn(RawQuestion, id);
 		}
 		else if(type.equals("QuestionResponse")){
 			return "<h3>" + RawQuestion + "</h3>";
@@ -37,10 +37,15 @@ public class QuestionManager {
 		return html;
 	}
 	
-	private String fillIn(String infoToFill){
+	private String fillIn(String infoToFill, String id){
 		String delims = "[|]+";
 		String[] tokens = infoToFill.split(delims);
-		String html = "";
+		String html = "<p>";
+		for(int a = 0; a < tokens.length; a++){
+			html.concat(tokens[a]);
+			html.concat("<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"_"+a+"/>");
+		}
+		html.concat("</p>");
 		return html;
 	}
 
