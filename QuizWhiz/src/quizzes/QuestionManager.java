@@ -7,19 +7,24 @@ public class QuestionManager {
 	}
 	
 	//String questionhtml = "<h3>This is the question</h3>";	
-	public String QuestionHTML(String type, String RawQuestion){
+	public String QuestionHTML(String type, String RawQuestion, String id){
 		System.out.println("I am printing the question html now!");
 		if(type.equals("FillIn")){
-			return fillIn(RawQuestion);
+			return fillIn(RawQuestion, id);
 		}
 		else if(type.equals("QuestionResponse")){
-			return "<h3>" + RawQuestion + "</h3>";
+			String qRHtml =  "<h3>" + RawQuestion + "</h3>"+'\n'+
+					"<div class="+'"'+"answer"+'"'+">Answer:"+
+					AnswerHTML(type,id)+
+					"</div>";
+			System.out.println(qRHtml);
+			return qRHtml;
 		}
-		else return "<h3>"+type +" has not been handled yet</h3>";
+		else return fillIn(RawQuestion, id);
 		
 	}
 	//input 
-	public String AnswerHTML(String type, String id){
+	private String AnswerHTML(String type, String id){
 		String answerhtml = "<h3>There is no question of this type!</h3>";
 		if(type.equals("FillIn")){
 			return "You should not be calling me!";
@@ -37,10 +42,21 @@ public class QuestionManager {
 		return html;
 	}
 	
-	private String fillIn(String infoToFill){
+	private String fillIn(String infoToFill, String id){
 		String delims = "[|]+";
 		String[] tokens = infoToFill.split(delims);
-		String html = "";
+		String html = "<p>";
+		for(int a = 0; a < tokens.length-1; a++){
+			html+=tokens[a];
+			html+="<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"_"+a+"/>";
+		}
+		
+		html +=tokens[tokens.length-1];
+		if(infoToFill.charAt(infoToFill.length()-1) == '|')
+			html+="<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"_"+(tokens.length -1)+"/>";
+		
+		html+="</p><br>";
+		System.out.println(html);
 		return html;
 	}
 

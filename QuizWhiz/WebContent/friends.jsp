@@ -32,6 +32,7 @@
 			unreadMessages = messageManager.getMessages(user.getUsername(), true);
 
 			friends = userManager.getFriends(user.getUsername());
+			System.out.println(friends.toString());
 		}
 		
 	%>
