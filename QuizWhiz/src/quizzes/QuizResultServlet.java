@@ -105,7 +105,7 @@ public class QuizResultServlet extends HttpServlet {
 	
 	private int multiAnswer(Question currQ, HttpServletRequest request){
 		
-		int numAnswers = currQ.
+		int numAnswers = 1;
 		return 0;
 	}
 
