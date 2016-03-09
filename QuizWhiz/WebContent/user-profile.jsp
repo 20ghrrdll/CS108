@@ -16,50 +16,61 @@ String usernameToView = request.getParameter("username");
 </head>
 <body>
 
-
-
 <div class="container-fluid">
 <div class="row"><div class="col-md-5"><div class="panel panel-default">
 <div class="panel-heading"><h1><% out.println(usernameToView); %></h1></div>
 <div class="panel-body" style="text-align: center">
 	<% if (!user.getUsername().equals(usernameToView)) {
 		Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
-		out.println("<div class=\"row\" style=\"text-align: center\">");
 		if (!currentUserFriends.contains(usernameToView)) {
 	%>
-			<a href="#"><div class="col-md-3"><center><i class="material-icons">add</i>
-			<br>Add Friend</center></div></a>
+			<form action="FriendRequestServlet" method="post">
+				<input type="hidden" name="user1" value="<% user.getUsername(); %>">
+				<input type="hidden" name="user2" value="<% out.print(usernameToView); %>">
+				<div class="col-md-3" style="float: left">
+					<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
+						<i class="material-icons">add</i>
+						<br>Add Friend
+					</button>
+				</div>
+			</form>
 	<%
 		} %>
-		<a href="#"><div class="col-md-3"><center><i class="material-icons">email</i>
-		<br>Message</center></div></a></div>
+		
+		<form action="MessageServlet" method="post" id="message">
+			<input type="hidden" name="note">
+			<input type="hidden" name="senderId" value="<%=user.getUsername()%>">
+			<div class="col-md-3" style="float: left">
+				<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
+					<i class="material-icons">email</i>
+					<br>Message
+				</button>	
+			</div>	
+		</form>
 		
 		<% if (userManager.isAdmin(user.getUsername())) { %>
-			
 			<form action="EditUserServlet" method="post">
 				<input type="hidden" name="usernames" value="<% out.print(usernameToView); %>">
-				<center><div class="row" style="text-align: center">
-					<div class="col-md-3">
+					<div class="col-md-3" style="float: left">
 						<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
 							<i class="material-icons">delete</i>
 							<br>Delete
 						</button>
 					</div>
-					<div class="col-md-3" style="text-align: center">
+					<div class="col-md-3" style="float: left">
 						<button type="submit" class="btn btn-link" name="buttonAction" value="admin">
 							<i class="material-icons">grade</i>
 							<br>Make Admin</button>
 					</div>
-				</div></center>
 			</form>
 		<% } %>
 	
 	<% 	
 	}
 	%>
-</div></div></div></div></div>
+</div></div></div></div>
 
-<div class="container-fluid"><div class="row"><div class="col-md-12">
+<div class="row"><div class="col-md-12">
 <div class="panel panel-default">
 <div class="panel-heading"><h1 class="panel-title">Achievements</h1></div>
 <div class="panel-body">
@@ -67,25 +78,25 @@ String usernameToView = request.getParameter("username");
 ArrayList<String> userAchievements = userManager.getAchievements(usernameToView);
 if (userAchievements.size() == 0) { %>
 	<h4>No achievements to display.</h4>
-	<div style="position: relative">
 <% } else {
 		for (int i = 0; i < userAchievements.size(); i++) {
 			Achievement a = FinalConstants.ACHIEVEMENTS.get(userAchievements.get(i));
 		%>
-		<img src="<% out.print(a.getImageUrl()); %>" 
-			data-toggle="tool-tip" data-placement="bottom" 
-			title="<% out.print(a.getName()); %>: <% out.println(a.getDescription()); %>">
+	  		<div class="col-md-2" style="float: left"><div class="thumbnail">
+				<img src="<% out.print(a.getImageUrl()); %>">
+			    <div class="caption" style="text-align: center">
+			    	<h3><% out.print(a.getName()); %></h3>
+			        <p><% out.println(a.getDescription()); %></p>
+			    </div>
+			</div></div>
 		<% 
-		} %>
-	</div>
-<% 
-}
+		} 
+	}
 %>
 </div></div>
-</div></div></div>
+</div></div>
 
 
-<div class="container-fluid">
 <div class="row">
 <div class="col-md-6"><div class="panel panel-default">
 <div class="panel-heading"><h1 class="panel-title">Quizzes Created</h1></div>
@@ -136,7 +147,7 @@ if (quizzesTaken.size() == 0) { %>
 %>
 </ol>
 </div></div></div>
-</div></div>
+</div>
 
 </body>
 
