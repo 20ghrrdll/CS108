@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Calendar;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,6 +65,13 @@ public class QuizMakerServlet extends HttpServlet {
 
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		quizManager.insertQuiz(quizName, quizDescription, created, quizCreator, hasPracticeMode, hasMultiplePages, hasRandomOrder, hasImmediateCorrection, quizType);
+	
+		RequestDispatcher d = request.getRequestDispatcher("add-questions.jsp");
+		d.forward(request, response);
+
 	}
+
+			
+	
 
 }
