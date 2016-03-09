@@ -42,7 +42,6 @@
 						<li>
 							<h3><%=announcements.get(i).getSubject()%></h3>
 							<p><%=announcements.get(i).getBody()%></p>
-
 						</li>
 						<% } %>
 					</ul>
