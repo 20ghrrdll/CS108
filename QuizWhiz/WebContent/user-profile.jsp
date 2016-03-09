@@ -24,6 +24,9 @@ if(currentUser != null){
 	myQuizzes = quizManager.getMyQuizzes(currentUser.getUsername());
 	myAchievements = userManager.getAchievements(currentUser.getUsername());
 	unreadMessages = messageManager.getMessages(currentUser.getUsername(), true);
+} else {
+	response.sendRedirect("login-page.jsp?");
+	return;
 }
 %>
 <title><% out.print(username); %>'s Profile</title>

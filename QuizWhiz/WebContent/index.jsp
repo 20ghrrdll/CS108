@@ -21,8 +21,10 @@
 
 <%
 	User user = (User) session.getAttribute("currentUser");
-	if (user == null)
+	if (user == null) {
 		response.sendRedirect("login-page.jsp?");
+		return;
+	}
 
 	AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext()
 			.getAttribute("announcementManager");
@@ -69,8 +71,11 @@
 				<li><a href="messages.jsp?">Messages <%
 					if (unreadMessages.size() > 0) {
 				%><span class="badge"><%=unreadMessages.size()%></span> <%
- 	}
- %></a></li>
+ 					}
+				 %></a></li>
+ 				<% if (userManager.isAdmin(user.getUsername())) { %>
+					<li><a href="admin-page.jsp?">Admin Portal</a></li>
+				<% } %>
 			</ul>
 			<form action="LogoutServlet" method="post" id="logout" type="hidden"></form>
 			<ul class="nav navbar-nav navbar-right">

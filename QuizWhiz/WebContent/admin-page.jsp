@@ -35,8 +35,9 @@ if(user != null){
 	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
 	myAchievements = userManager.getAchievements(user.getUsername());
 	unreadMessages = messageManager.getMessages(user.getUsername(), true);
-} else if(user == null) {
+} else if (user == null) {
 	response.sendRedirect("login-page.jsp?");
+	return;
 }
  %>
  
