@@ -68,7 +68,7 @@ public class UserManager {
 	 * @param username
 	 * @param password - plain password
 	 */
-	public void addUser(String username, String password) {
+	public boolean addUser(String username, String password) {
 		String hashedPassword = generateHashedPassword(password);
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = 
@@ -79,8 +79,9 @@ public class UserManager {
 			String update = "INSERT INTO " + MyDBInfo.USER_TABLE + " (username, password, joinDate)" + " VALUES(\"" + username + "\",\"" + hashedPassword + "\", \"" + currentTime + "\");";
 			stmt.executeUpdate(update);
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false;
 		}
+		return true;
 	}
 	
 	
@@ -147,6 +148,48 @@ public class UserManager {
 			e.printStackTrace(); // TODO: what to do here
 		}
 	}
+	
+	/**
+	 * Sends a friend request
+	 * @param user1
+	 * @param user2
+	 * @param data - SimpleDataFormat of when they became friends
+	 */
+	public void sendFriendRequest(String user1, String user2) {
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = sdf.format(dt);
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIEND_REQUEST_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 + "\");");		
+			if (getFriends(user1).size() == 25) addAchievement(user1, FinalConstants.FRIENDS_10);
+			if (getFriends(user2).size() == 25) addAchievement(user2, FinalConstants.FRIENDS_10);
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+	}
+	
+	/**
+	 * Queries the database to find all friends of a given username.
+	 * @param username
+	 * @return ArrayList of Users that are friends with the given username
+	 */
+	public Set<String> getFriendRequests(String username) {
+		Set<String> friends = new HashSet<String>();
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE user1=\"" + username + "\";";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				friends.add(rs.getString("user2").toLowerCase());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return friends;
+	}
+	
+	
 	
 	
 	/**
