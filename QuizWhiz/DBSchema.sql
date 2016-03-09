@@ -128,7 +128,7 @@ All tables loaded. Now we load initial quiz data
 
 INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken, type) VALUES
 ('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', 'Max', 10, 'QuestionResponse'),
-('2','Second Quiz', 'Our 2nd quiz', '2016-02-27 13:41:01', 'Max', 9, 'FillIn'),
+('2','The Preamble', 'How well do you know the first sentence of the constitution?', '2016-02-27 13:41:01', 'Max', 9, 'FillIn'),
 ('3','Third Quiz', 'Our 3rd quiz', '2016-02-27 13:41:02', 'Max', 8, 'QuestionResponse'),
 ('4','Fourth Quiz', 'Our 4th  quiz', '2016-02-27 13:41:03', 'Max', 7, 'QuestionResponse'),
 ('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', 'Max', 6, 'QuestionResponse'),
@@ -152,8 +152,16 @@ INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numA
 
 
 INSERT INTO question_answers (quizId, questionId, answer) VALUES
-('1', '1', 'Yes'),
-('1', '1', 'No');
+('2', '1', 'people of the United States of America'),
+('2', '1', 'perfect'),
+('2', '2', 'justice'),
+('2', '2', 'tranquility'),
+('2', '3', 'defence'),
+('2', '3', 'welfare'),
+('2', '4', 'liberty'),
+('2', '4', 'our posterity'),
+('2', '5', 'ordain')
+('2', '5', 'establish');
 
 INSERT INTO user (username, password, joinDate, admin) VALUES
 ('Max', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),

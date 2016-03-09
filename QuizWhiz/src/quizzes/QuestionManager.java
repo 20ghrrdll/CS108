@@ -1,9 +1,19 @@
 package quizzes;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import main.DBConnector;
+import main.MyDBInfo;
+
 public class QuestionManager {
+	private static Connection con;
 	
 	public QuestionManager(){
-		
+		con = DBConnector.getConnection();
 	}
 	
 	//String questionhtml = "<h3>This is the question</h3>";	
@@ -27,7 +37,7 @@ public class QuestionManager {
 	private String AnswerHTML(String type, String id){
 		String answerhtml = "<h3>There is no question of this type!</h3>";
 		if(type.equals("FillIn")){
-			return "You should not be calling me!";
+			answerhtml =  "You should not be calling me!";
 		}
 		else if(type.equals("QuestionResponse")){
 			answerhtml = QRAnswer(id);
@@ -48,16 +58,34 @@ public class QuestionManager {
 		String html = "<p>";
 		for(int a = 0; a < tokens.length-1; a++){
 			html+=tokens[a];
-			html+="<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"_"+a+"/>";
+			html+="<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"-"+a+"/>";
 		}
 		
 		html +=tokens[tokens.length-1];
 		if(infoToFill.charAt(infoToFill.length()-1) == '|')
-			html+="<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"_"+(tokens.length -1)+"/>";
+			html+="<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"-"+(tokens.length -1)+"/>";
 		
 		html+="</p><br>";
 		System.out.println(html);
 		return html;
+	}
+	
+	
+	ArrayList<String> getAllAnswers(String quizID, String questionID){
+		ArrayList<String> answers = new ArrayList<String>();
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=\"" + quizID + 
+					"\" AND questionId = \""+questionID+"\";";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				String answer = rs.getString("answer");
+				answers.add(answer);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return answers;
 	}
 
 }

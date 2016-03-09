@@ -62,15 +62,15 @@ public class QuizResultServlet extends HttpServlet {
 			if (!quizType.equals("FillIn")) {
 				for (int a = 0; a < numQs; a++) {
 					// Question currQ = questions.get(a);
-					score += oneAnswer(questions.get(a), request);
+					score+= oneAnswer(questions.get(a), request);
 					maxScore++;
 				}
 			}
 			else{
 				for (int a = 0; a < numQs; a++) {
-					// Question currQ = questions.get(a);
-					score += oneAnswer(questions.get(a), request);
-					maxScore++;
+					Question currQ = questions.get(a);
+					score += multiAnswer(currQ, request);
+					maxScore+= currQ.getNumAnswers();
 				}
 				
 			}
@@ -95,7 +95,7 @@ public class QuizResultServlet extends HttpServlet {
 
 	}
 
-	private int oneAnswer(Question currQ, HttpServletRequest request) {
+	public int oneAnswer(Question currQ, HttpServletRequest request) {
 
 		String paramValue = request.getParameter(Integer.toString(currQ.getQuestionId()));
 		if (currQ.isCorrect(paramValue))
@@ -105,13 +105,20 @@ public class QuizResultServlet extends HttpServlet {
 	
 	private int multiAnswer(Question currQ, HttpServletRequest request){
 		
+		int numCorrect = 0;
 		int numAnswers = currQ.getNumAnswers();
 		ArrayList<String> userAnswers = new ArrayList<String>(numAnswers);
 		String qId = Integer.toString(currQ.getQuestionId());
 		for(int a = 0; a <= numAnswers; a++){
-			request.getParameter(qId+"-"+Integer.toString(a));
+			String answer = request.getParameter(qId+"-"+Integer.toString(a));
+			System.out.println(answer);
+			userAnswers.add(answer);
 		}
-		return 0;
+		ArrayList<Boolean> results = currQ.areCorrect(userAnswers);
+		for(int b = 0; b <= results.size(); b++){
+			if(results.get(b) == true) numCorrect++;
+		}
+		return numCorrect;
 	}
 
 }
