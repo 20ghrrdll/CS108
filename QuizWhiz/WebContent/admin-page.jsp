@@ -10,13 +10,10 @@
 <title>Admin Portal</title>
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/index.css" />
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet"
-	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="http://www.w3schools.com/lib/w3-theme-indigo.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
+	<link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<script type="${pageContext.request.contextPath}/text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -38,35 +35,55 @@ if(user != null){
 	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
 	myAchievements = userManager.getAchievements(user.getUsername());
 	unreadMessages = messageManager.getMessages(user.getUsername(), true);
+} else if (user == null) {
+	response.sendRedirect("login-page.jsp?");
+	return;
 }
  %>
  
- <ul class="w3-navbar w3-theme-dark w3-border">
-	<% 	if (user == null) {
-			response.sendRedirect("login-page.jsp?");
-		} else if (!userManager.isAdmin(user.getUsername())) {
-			response.sendRedirect("index.jsp?"); 
-		} else {
-	%>
-		<li><a href="index.jsp?">QuizWhiz!
-		</a></li>
-		<ul class="w3-right">
-			<li><a href="friends.jsp">Friends</a></li>
-			<li><a href="messages.jsp?">Messages<%if(unreadMessages.size()>0){%><span class="w3-badge w3-green"><%=unreadMessages.size() %></span><%}%></a></li>
-			<li class="w3-dropdown-hover"><a href="#">Settings</a>
-				<div class="w3-dropdown-content w3-white w3-card-4">
-					<a href="#">Privacy Options</a>
-					<form action="LogoutServlet" method="post" id="settings">
-					<a href="#" onclick="document.getElementById('settings').submit()">Log out</a>
-					</form>
-				</div></li>
-			<li><a href="#">Achievements</a></li>
-			<% if (userManager.isAdmin(user.getUsername())) { %>
+ 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.jsp?">Quiz Whiz</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="friends.jsp?">Friends</a></li>
+        <li><a href="messages.jsp?">Messages <%
+				if (unreadMessages.size() > 0) {
+			%><span
+					class="badge"><%=unreadMessages.size()%></span>
+					<%
+						}
+					%></a></li>
+		<% if (userManager.isAdmin(user.getUsername())) { %>
 				<li><a href="admin-page.jsp?">Admin Portal</a></li>
 			<% } %>
-		</ul>
-	<% } %>
-	</ul>
+      </ul>
+      <form action="LogoutServlet" method="post" id="logout" type="hidden"></form>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Privacy</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a onclick="document.getElementById('logout').submit()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
 <div class="container-fluid">
 	<h1>Site Statistics</h1>
@@ -83,6 +100,7 @@ if(user != null){
 	</div>
 </div>
 
+<br><br>
 <div class="container-fluid">
 <h1>Administrative Functions</h1>
 
@@ -117,7 +135,7 @@ if(user != null){
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
-			Edit Users
+			Quick Edit Users
       </h4>
     </div>
       <div class="panel-body">
@@ -140,7 +158,7 @@ if(user != null){
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
-          Edit Quizzes
+          Quick Edit Quizzes
       </h4>
     </div>
       <div class="panel-body">
