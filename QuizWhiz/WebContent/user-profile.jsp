@@ -64,14 +64,12 @@ String usernameToView = request.getParameter("username");
 <div class="panel-heading"><h1 class="panel-title">Achievements</h1></div>
 <div class="panel-body">
 <%
-Set<Achievement> userAchievements = userManager.getAchievements(usernameToView);
+ArrayList<String> userAchievements = userManager.getAchievements(usernameToView);
 if (userAchievements.size() == 0) { %>
 	<h4>No achievements to display.</h4>
 	<div style="position: relative">
 <% } else {
-	Iterator<Achievement> achievementsIt = userAchievements.iterator();
-	while (achievementsIt.hasNext()) {
-		Achievement a = achievementsIt.next();
+		Achievement a = FinalConstants.ACHIEVEMENTS.get(a);
 		%>
 		<img src="<% out.print(a.getImageUrl()); %>" 
 			data-toggle="tool-tip" data-placement="bottom" 

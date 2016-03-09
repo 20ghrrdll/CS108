@@ -171,17 +171,16 @@ public class UserManager {
 	/**
 	 * Returns a set of achievements for a given user
 	 * @param username
-	 * @return a set of achievements for a given user
+	 * @return a set of achievement names for a given user
 	 */
-	public Set<Achievement> getAchievements(String username) {
-		Set<Achievement> userAchievements = new HashSet<Achievement>();
+	public ArrayList<String> getAchievements(String username) {
+		ArrayList<String> userAchievements = new ArrayList<String>();
 		try {
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM " + MyDBInfo.ACHIEVEMENTS_TABLE + " WHERE userId=\"" + username + "\";";
+			String query = "SELECT DISTINCT achievementId FROM " + MyDBInfo.ACHIEVEMENTS_TABLE + " WHERE userId=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				Achievement a = FinalConstants.ACHIEVEMENTS.get(rs.getString("achievementId")); // TODO FIX MYSQL SO STRING?
-				userAchievements.add(a);
+				userAchievements.add(rs.getString("achievementId"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
