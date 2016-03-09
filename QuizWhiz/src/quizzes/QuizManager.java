@@ -8,10 +8,12 @@ import java.util.ArrayList;
 
 public class QuizManager {
 
-	private static Connection con;;
+	private static Connection con;
+	private QuestionManager questionManager;
 
 	public QuizManager() {
 		con = DBConnector.getConnection();
+		questionManager = new QuestionManager();
 	}
 
 	/**
@@ -56,11 +58,16 @@ public class QuizManager {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				int quizID = rs.getInt("quizId");
-				int questionId = rs.getInt("questionId");
+				int questionID = rs.getInt("questionId");
 				String questionText = rs.getString("questionText");
 				String correctAnswer = rs.getString("correctAnswer");
 				int numAnswers = rs.getInt("numAnswers");
-				Question question = new Question(quizID, questionId, questionText, correctAnswer, numAnswers);
+				ArrayList<String> correctAnswers;
+				if(numAnswers > 1){
+					correctAnswers = questionManager.getAllAnswers(Integer.toString(quizID), Integer.toString(questionID));
+				}
+				else correctAnswers = null;
+				Question question = new Question(quizID, questionID, questionText, correctAnswer, numAnswers, correctAnswers);
 				questions.add(question);
 			}
 		}
