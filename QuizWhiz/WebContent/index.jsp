@@ -76,9 +76,13 @@
 			<div class="panel-body">
 				<ol>
 					<% for (int i = 0; i < recentQuizzes.size() && i < 5; i++) { %>
-						<li>
+						<li><a
+							<%String id = String.valueOf(popularQuizzes.get(i).getQuizID());%>
+							href="quiz-summary-page.jsp?id=<%=id%>"
+							STYLE="text-decoration: none">
 							<h4><%=recentQuizzes.get(i).getQuizName()%></h4>
 							<p><%=recentQuizzes.get(i).getQuizDescription()%></p>
+							</a>
 						</li>
 					<% } %>
 				</ol>
@@ -89,9 +93,13 @@
 			<div class="panel-body">
 				<ol>
 					<% for (int i = 0; i < recentlyTakenQuizzes.size() && i < 5; i++) { %>
-						<li>
+						<li><a
+							<%String id = String.valueOf(popularQuizzes.get(i).getQuizID());%>
+							href="quiz-summary-page.jsp?id=<%=id%>"
+							STYLE="text-decoration: none">
 							<h4><%=recentlyTakenQuizzes.get(i).getQuizName()%></h4>
 							<p><%=recentlyTakenQuizzes.get(i).getQuizDescription()%></p>
+							</a>
 						</li>
 					<% } %>
 				</ol>
@@ -106,9 +114,13 @@
 		<div class="panel-body">
 			<ol>
 				<% for (int i = 0; i < myQuizzes.size() && i < 5; i++) { %>
-					<li>
+					<li> <a
+							<%String id = String.valueOf(popularQuizzes.get(i).getQuizID());%>
+							href="quiz-summary-page.jsp?id=<%=id%>"
+							STYLE="text-decoration: none">
 						<h4><%=myQuizzes.get(i).getQuizName()%></h4>
 						<p><%=myQuizzes.get(i).getQuizDescription()%></p>
+						</a>
 					</li>
 				<% } %>
 			</ol>
