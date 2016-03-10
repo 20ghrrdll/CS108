@@ -8,6 +8,8 @@ public class FinalConstants {
 
 	public static final String ERROR_MSG = "An error has occurred. Please try again.";
 	
+	public static int MAX_RATING = 5;
+	
 	/* Achievements */
 	public static final String CREATE_1 = "CREATE_1";
 	public static final String CREATE_5 = "CREATE_5";
