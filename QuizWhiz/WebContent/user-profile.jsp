@@ -20,9 +20,8 @@ if (userManager.getUser(usernameToView) == null) { %>
 	  <strong>Error!</strong> <%=usernameToView %> does not exist.
 	</div>
 <% } else {
-
-requests = userManager.getSentRequests(user.getUsername());
-System.out.println(requests.toString());
+	requests = userManager.getSentRequests(user.getUsername());
+	System.out.println(requests.toString());
 %>
 
 <title><% out.print(usernameToView); %>'s Profile</title>

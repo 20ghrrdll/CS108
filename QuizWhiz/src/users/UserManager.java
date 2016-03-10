@@ -189,8 +189,8 @@ public class UserManager {
 	 * @param username
 	 * @return ArrayList of Users that are friends with the given username
 	 */
-	public Set<String> getSentRequests(String username) {
-		Set<String> friends = new HashSet<String>();
+	public ArrayList<String> getSentRequests(String username) {
+		ArrayList<String> friends = new ArrayList<String>();
 		try {
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE userFromId=\"" + username + "\";";
@@ -199,7 +199,6 @@ public class UserManager {
 				friends.add(rs.getString("userToId").toLowerCase());
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 		return friends;
 	}
