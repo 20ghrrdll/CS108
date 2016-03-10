@@ -6,8 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link type="text/css" rel="stylesheet"
   	href="${pageContext.request.contextPath}/style/index.css" />
- <script
- 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  	      <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  	
+  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!--  <script
+ 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
  <!-- Include all compiled plugins (below), or include individual files as needed -->
  <script
  	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
