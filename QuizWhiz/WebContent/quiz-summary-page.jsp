@@ -135,7 +135,7 @@
 							<% } else {
 						for (int i = 0; i < highScores.size() && i < 5; i++) {
 							String highScoreUser = highScores.get(i).getUserName();
-							if (!userManager.getAchievements(highScoreUser).contains(FinalConstants.HIGHEST_SCORE)) {
+							if (i == 0 && !userManager.getAchievements(highScoreUser).contains(FinalConstants.HIGHEST_SCORE)) {
 								userManager.addAchievement(highScoreUser, FinalConstants.HIGHEST_SCORE);
 							}
 							String score = String.valueOf(highScores.get(i).getScore()); %>
