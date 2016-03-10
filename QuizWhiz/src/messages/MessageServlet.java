@@ -48,8 +48,12 @@ public class MessageServlet extends HttpServlet {
 		//Handles sending a note to a user
 		} else if(request.getParameter("sendNote") != null){
 			System.out.println("Hello");
-			messageManager.sendMessage(request.getParameter("senderId"), request.getParameter("username"), request.getParameter("subject"), request.getParameter("body"));
-			response.sendRedirect("messages.jsp?");
+			if(!messageManager.sendMessage(request.getParameter("senderId"), request.getParameter("username"), request.getParameter("subject"), request.getParameter("body"))) {
+				request.setAttribute("error", 1);
+				response.sendRedirect("index.jsp");
+			} else {
+				response.sendRedirect("messages.jsp?");
+			}
 		} else if(request.getParameter("sendChallenge") != null){
 			
 		}

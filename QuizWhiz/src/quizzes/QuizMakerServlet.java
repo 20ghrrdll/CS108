@@ -26,7 +26,6 @@ public class QuizMakerServlet extends HttpServlet {
 	 */
 	public QuizMakerServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

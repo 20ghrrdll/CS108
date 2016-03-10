@@ -15,6 +15,13 @@
 %>
 
 <body>
+
+<% if(quiz == null) { %> 
+<div class="alert alert-danger">
+  <strong>Error!</strong> Quiz does not exist.
+</div>
+<% } else { %>
+
 <div class="container-fluid">
 	<div class="row">
 	<div class="col-md-7"><div class="panel panel-default">
@@ -168,6 +175,7 @@
 	
 
 </div>
+<% } %>
 </body>
 </html>
 

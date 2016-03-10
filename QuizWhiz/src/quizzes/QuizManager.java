@@ -39,7 +39,6 @@ public class QuizManager {
 				quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 		return quiz;
 	}
@@ -104,7 +103,6 @@ public class QuizManager {
 				quizzes.add(quiz);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 		return quizzes;
 	}
@@ -135,7 +133,6 @@ public class QuizManager {
 				quizzes.add(quiz);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 
 		return quizzes;
