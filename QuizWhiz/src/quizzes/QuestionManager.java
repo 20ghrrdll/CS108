@@ -18,16 +18,22 @@ public class QuestionManager {
 	
 	//String questionhtml = "<h3>This is the question</h3>";	
 	public String QuestionHTML(String type, String RawQuestion, String questionID, String quizID, int qNum){
-		if(type.equals("FillIn")){
-			return fillIn(RawQuestion, questionID, qNum);
-		}
-		else if(type.equals("QuestionResponse") || type.equals("MultipleChoice")){
+		if(type.equals("QuestionResponse") || type.equals("MultipleChoice")){
 			String qRHtml = poseRawQuestion(RawQuestion, qNum)+
 					"<div class="+'"'+"answer"+'"'+">Answer:"+
 					AnswerHTML(type,questionID, quizID)+
 					"</div>";
 			return qRHtml;
 		}
+		else if(type.equals("PictureResponse")){
+			return pictureResponse(RawQuestion, qNum)+
+					"<div class="+'"'+"answer"+'"'+">Answer:"+
+					AnswerHTML(type,questionID, quizID)+
+					"</div>";
+		}
+		else if(type.equals("FillIn")){
+			return fillIn(RawQuestion, questionID, qNum);
+		} 
 		else return type+" is not one of the types of questions I support!";
 		
 	}
@@ -37,7 +43,7 @@ public class QuestionManager {
 		if(type.equals("FillIn")){
 			answerhtml =  "You should not be calling me!";
 		}
-		else if(type.equals("QuestionResponse")){
+		else if(type.equals("QuestionResponse")|| type.equals("PictureResponse")){
 			answerhtml = "<input type="+"\"text\" name=\""+questionID+"\"/>";
 		}
 		else if(type.equals("MultipleChoice")){
@@ -60,7 +66,13 @@ public class QuestionManager {
 		return rawQHtml;
 	}
 	
-	
+	private String pictureResponse(String rawQ, int qNum){
+		String delims = "[|]+";
+		String[] tokens = rawQ.split(delims);
+		String prHtml = poseRawQuestion(tokens[0], qNum) + "\n"+
+				"<img src=\""+tokens[1]+"\" alt=\"image not found!\" style=\"width:60%;height:30%;\"><br>";
+		return prHtml;
+	}
 	private String fillIn(String infoToFill, String id, int qNum){
 		String delims = "[|]+";
 		String[] tokens = infoToFill.split(delims);
