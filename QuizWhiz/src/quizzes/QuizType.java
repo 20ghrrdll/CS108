@@ -1,5 +1,5 @@
 package quizzes;
 
 public enum QuizType {
-	FillIn, QuestionResponse, MultipleChoice
+	FillIn, QuestionResponse, MultipleChoice, PictureResponse
 }

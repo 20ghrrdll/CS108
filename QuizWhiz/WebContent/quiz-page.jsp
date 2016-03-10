@@ -40,7 +40,7 @@
 	</h1>
 	<%
 		//ArrayList<Question> questions = new ArrayList<Question>(2);
-		ArrayList<Question> questions = quizManager.getQuestions(toDisplay.getQuizID());
+		ArrayList<Question> questions = quizManager.getQuestions(quizID);
 		/*Question testQ1 = new Question(1, 1, "How many knees do elephants have?", 
 				"0", 1);
 		questions.add(testQ1);
@@ -63,8 +63,9 @@
 		%>
 		<div class="question_info">
 			<%
+				System.out.println("answering question number "+ qId+"!!");
 				out.println("<div class = \"question\">"+
-						qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, a+1)+"</div>");
+						qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, Integer.toString(quizID), a+1)+"</div>");
 			%>
 		</div>
 		<%

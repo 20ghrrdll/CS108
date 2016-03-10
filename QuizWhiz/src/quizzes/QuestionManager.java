@@ -17,14 +17,14 @@ public class QuestionManager {
 	}
 	
 	//String questionhtml = "<h3>This is the question</h3>";	
-	public String QuestionHTML(String type, String RawQuestion, String id, int qNum){
+	public String QuestionHTML(String type, String RawQuestion, String questionID, String quizID, int qNum){
 		if(type.equals("FillIn")){
-			return fillIn(RawQuestion, id, qNum);
+			return fillIn(RawQuestion, questionID, qNum);
 		}
-		else if(type.equals("QuestionResponse")){
-			String qRHtml = "<p>"+qNum+". "+RawQuestion +"</p><br>"+'\n'+
+		else if(type.equals("QuestionResponse") || type.equals("MultipleChoice")){
+			String qRHtml = poseRawQuestion(RawQuestion, qNum)+
 					"<div class="+'"'+"answer"+'"'+">Answer:"+
-					AnswerHTML(type,id)+
+					AnswerHTML(type,questionID, quizID)+
 					"</div>";
 			return qRHtml;
 		}
@@ -32,22 +32,34 @@ public class QuestionManager {
 		
 	}
 	//input 
-	private String AnswerHTML(String type, String id){
+	private String AnswerHTML(String type, String questionID, String quizID){
 		String answerhtml = "<h3>There is no question of this type!</h3>";
 		if(type.equals("FillIn")){
 			answerhtml =  "You should not be calling me!";
 		}
 		else if(type.equals("QuestionResponse")){
-			answerhtml = QRAnswer(id);
+			answerhtml = "<input type="+"\"text\" name=\""+questionID+"\"/>";
+		}
+		else if(type.equals("MultipleChoice")){
+			ArrayList<String> choices = getAllAnswers(quizID, questionID);
+			System.out.println(choices);
+			answerhtml = "";
+			for(int a = 0; a < choices.size(); a++){
+				String choice = choices.get(a);
+				answerhtml += "<br><input type = \"radio\" name = \""+questionID+
+						"\"  value=\""+choice+"\">"+" "+choice;
+			}
+			
 		}
 			
 		return answerhtml;
 	}
 	
-	private String QRAnswer(String id){
-		String html = "<input type="+"\"text\" name=\""+id+"\"/>";
-		return html;
+	private String poseRawQuestion(String rawQ, int qNum){
+		String rawQHtml = "<p>"+qNum+". "+rawQ +"</p><br>";
+		return rawQHtml;
 	}
+	
 	
 	private String fillIn(String infoToFill, String id, int qNum){
 		String delims = "[|]+";
@@ -79,12 +91,10 @@ public class QuestionManager {
 			Statement stmt = con.createStatement();
 			String query = "SELECT answer FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=\"" + quizID + 
 					"\" AND questionId = \""+questionID+"\";";
-			System.out.println(query);
+			//System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
-			while (rs.next()) {
-				System.out.println("There is a next!");
+			while (rs.next()){ 
 				String answer = rs.getString("answer");
-				System.out.println(answer);
 				answers.add(answer);
 			}
 			return answers;
