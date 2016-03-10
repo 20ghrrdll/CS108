@@ -169,8 +169,8 @@ public class UserManager {
 	 * @param username
 	 * @return ArrayList of Users that are friends with the given username
 	 */
-	public Set<String> getFriendRequests(String username) {
-		Set<String> friends = new HashSet<String>();
+	public ArrayList<String> getFriendRequests(String username) {
+		ArrayList<String> friends = new ArrayList<String>();
 		try {
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE userToId=\"" + username + "\";";
@@ -293,6 +293,20 @@ public class UserManager {
 		return buff.toString();
 	}
 	
+	public static String toJavascriptArray(Set<String> arr){
+	    StringBuffer sb = new StringBuffer();
+	    sb.append("[");
+	    int i = 0;
+	    for(String user: arr){
+	        sb.append("\"").append(user).append("\"");
+	        if(i < arr.size()){
+	            sb.append(",");
+	        }
+	        i++;
+	    }
+	    sb.append("]");
+	    return sb.toString();
+	}
 	
 	public void closeConnection() {
 		DBConnector.closeConnection();
