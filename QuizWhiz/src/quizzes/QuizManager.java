@@ -389,7 +389,7 @@ public class QuizManager {
 	}
 	
 	public void addSingleAnswerQuestion(int quizId, int questionId, String question, String answer, int numAnswers) {
-		String query = "INSERT INTO " + MyDBInfo.QUESTION_TABLE + " (quizId, questionId, questionText, correctAnswers"
+		String query = "INSERT INTO " + MyDBInfo.QUESTION_TABLE + " (quizId, questionId, questionText, correctAnswer"
 				+ ", numAnswers)" + 
 				" VALUES (?, ?, ?, ?, ?)";
 		System.out.println(query);
@@ -399,8 +399,8 @@ public class QuizManager {
 			s.setInt(1, quizId);
 			s.setInt(2, questionId);
 			s.setString(3, question);
-			s.setString(3, answer);
-			s.setInt(3, numAnswers);
+			s.setString(4, answer);
+			s.setInt(5, numAnswers);
 			System.out.println(s.toString());
 			s.executeUpdate();
 		} catch (SQLException e1) {

@@ -61,7 +61,6 @@ public class AddQuestionsServlet extends HttpServlet {
 				if (!answers[i].contains("|")) {
 					answer = answers[i];
 					numAnswers = 1;
-					
 					quizManager.addSingleAnswerQuestion(quizId, i+1, question, answer, numAnswers);
 				}
 			//more than one answer
@@ -70,6 +69,7 @@ public class AddQuestionsServlet extends HttpServlet {
 					answer = "go to question_answers";
 					String[] questionAnswers = answers[i].trim().split("[\\|\\s]+");
 					numAnswers = questionAnswers.length;
+					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, numAnswers, questionAnswers);
 				}
 		}
 	}
