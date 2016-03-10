@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -54,7 +55,10 @@ public class AddQuestionsServlet extends HttpServlet {
 			int numAnswers = 0;
 
 			if (quizType == QuizType.MultipleChoice) {
-
+				 numAnswers = 4;
+				 String[] questionAnswers = answers[i].trim().split("[|]+");
+				 answer = questionAnswers[0];
+					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, numAnswers, questionAnswers, true);
 			} 
 			else 
 				//one answer
@@ -67,11 +71,16 @@ public class AddQuestionsServlet extends HttpServlet {
 				else {
 					//if the type is multiple choice, then this doesnt happen
 					answer = "go to question_answers";
-					String[] questionAnswers = answers[i].trim().split("[\\|\\s]+");
+					String[] questionAnswers = answers[i].trim().split("[|]+");
+					System.out.println("Question Answers: " + questionAnswers);
 					numAnswers = questionAnswers.length;
-					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, numAnswers, questionAnswers);
+					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, numAnswers, questionAnswers, false);
 				}
 		}
+		
+		String url = "quiz-summary-page.jsp?id="+quizId;
+		RequestDispatcher d = request.getRequestDispatcher(url);
+		d.forward(request, response); 
 	}
 
 }

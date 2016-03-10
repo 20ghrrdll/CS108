@@ -409,6 +409,35 @@ public class QuizManager {
 		}
 		
 	}
+	
+	public void addMultipleAnswerQuestion(int quizId, int questionId, String question, String answer, int numAnswers, String[] questionAnswers, boolean mcQuestion) {
+		addSingleAnswerQuestion(quizId, questionId, question, answer, numAnswers);
+		
+		int i = 0;
+		if (mcQuestion) i = 1;
+		for (; i < questionAnswers.length; i++) {
+			String query = "INSERT INTO " + MyDBInfo.ANSWERS_TABLE + " (quizId, questionId, answer)" + 
+					" VALUES (?, ?, ?)";
+			System.out.println(query);
+			
+			try {
+				PreparedStatement s = con.prepareStatement(query);
+				s.setInt(1, quizId);
+				s.setInt(2, questionId);
+				s.setString(3, questionAnswers[i]);
+				System.out.println(s.toString());
+				s.executeUpdate();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	/*
+	public void addMultipleChoiceQuestion(int quizId, int questionId, String question, String answer, int numAnswers, String[] questionAnswers) {
+		addSingleAnswerQuestion(quizId, questionId, question, answer, numAnswers);
+		
+	} */
 
 	
 	public ArrayList<Review> getReviews(int quizId) {

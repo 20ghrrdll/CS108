@@ -11,6 +11,7 @@
 
 <%
 	int id = Integer.valueOf(request.getParameter("id"));
+System.out.println(id);
 	System.out.println(id);
 	Quiz quiz = quizManager.getQuiz(Integer.valueOf(id));
 	ArrayList<QuizPerformance> scores = quizManager.getQuizPerformances(id);

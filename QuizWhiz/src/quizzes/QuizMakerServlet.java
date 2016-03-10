@@ -57,6 +57,8 @@ public class QuizMakerServlet extends HttpServlet {
 		//TODO: Expand to all quiz types
 		if (request.getParameter("quizType").equals("QuestionResponse")) quizType = QuizType.QuestionResponse;
 		if (request.getParameter("quizType").equals("FillIn")) quizType = QuizType.FillIn;
+		if (request.getParameter("quizType").equals("MultipleChoice")) quizType = QuizType.MultipleChoice;
+		if (request.getParameter("quizType").equals("PictureResponse")) quizType = QuizType.PictureResponse;
 
 
 		boolean hasPracticeMode = false;
