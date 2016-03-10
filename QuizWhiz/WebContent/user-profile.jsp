@@ -6,15 +6,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%
-String usernameToView = request.getParameter("username");
-%>
-
 <%@include file="navigation-bar.jsp" %>
+<% String usernameToView = request.getParameter("username"); %>
 
 <title><% out.print(usernameToView); %>'s Profile</title>
 </head>
 <body>
+
+<% if(userManager.getUser(usernameToView) == null) { %> 
+<div class="alert alert-danger">
+  <strong>Error!</strong> User does not exist.
+</div>
+<% } else { %>
 
 <div class="container-fluid">
 <div class="row"><div class="col-md-5"><div class="panel panel-default">
@@ -148,13 +151,7 @@ if (quizzesTaken.size() == 0) { %>
 </ol>
 </div></div></div>
 </div>
-
+<% } %>
 </body>
-
-<script type="text/javascript">
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-</script>
 
 </html>

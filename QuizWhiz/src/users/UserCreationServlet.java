@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import main.FinalConstants;
 
 /**
  * Servlet implementation class UserCreationServlet
@@ -45,10 +46,14 @@ public class UserCreationServlet extends HttpServlet {
 			response.sendRedirect("create-user.jsp?invalid=exists");
 			return;
 		} else {
-			if (!userManager.addUser(username, password)) request.getSession().setAttribute("mySQLError", "An error has occurred");
-			request.getSession().setAttribute("currentUser", userManager.getUser(username));
-			response.sendRedirect("index.jsp");
-			// TODO: forward to user welcome homepage; add user somewhere else?
+			if (userManager.addUser(username, password)) {
+				request.getSession().setAttribute("currentUser", userManager.getUser(username));
+				response.sendRedirect("index.jsp");
+			} else {
+				request.setAttribute("error", 1);
+				response.sendRedirect("create-user.jsp");
+
+			}
 		}
 	}
 

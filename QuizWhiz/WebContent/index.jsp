@@ -12,6 +12,12 @@
 </head>
 <body class="standards">
 
+<% if(request.getParameter("error") != null) { %>
+	<div class="alert alert-danger">
+  		<strong>Error:</strong> <% out.print(FinalConstants.ERROR_MSG); %>
+	</div>
+<% } %>
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-4">
