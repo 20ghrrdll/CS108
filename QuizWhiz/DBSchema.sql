@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS quiz_question;
 DROP TABLE IF EXISTS question_answers;
 DROP TABLE IF EXISTS quiz_records;
 DROP TABLE IF EXISTS quiz_question_records;
+DROP TABLE IF EXISTS quiz_ratings;
 
 DROP TABLE IF EXISTS user;
 
@@ -31,7 +32,7 @@ CREATE TABLE IF NOT EXISTS quiz (
 	pages BOOLEAN DEFAULT false,
 	random BOOLEAN DEFAULT false,
 	correction BOOLEAN DEFAULT false,
-	type enum('FillIn', 'QuestionResponse') DEFAULT 'QuestionResponse',
+	type enum('FillIn', 'QuestionResponse', 'MultipleChoice', 'PictureResponse') DEFAULT 'QuestionResponse',
 	amountTaken INT,
 	PRIMARY KEY (quizId)
 );
@@ -119,7 +120,15 @@ CREATE TABLE IF NOT EXISTS messages (
   quizId INT DEFAULT NULL,
   type enum('CHALLENGE','NOTE') NOT NULL,
   PRIMARY KEY (messageId)
-)  ;
+);
+
+CREATE TABLE IF NOT EXISTS quiz_ratings (
+	quizId INT NOT NULL,
+	userId VARCHAR(255) NOT NULL,
+	created DATETIME NOT NULL,
+	rating INT NOT NULL,
+	review VARCHAR(8000) NOT NULL
+);
 
 
 /*  ----------------------------------
@@ -129,8 +138,8 @@ All tables loaded. Now we load initial quiz data
 INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken, type) VALUES
 ('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', 'Max', 10, 'QuestionResponse'),
 ('2','The Preamble', 'How well do you know the first sentence of the constitution?', '2016-02-27 13:41:01', 'Max', 9, 'FillIn'),
-('3','Third Quiz', 'Our 3rd quiz', '2016-02-27 13:41:02', 'Max', 8, 'QuestionResponse'),
-('4','Fourth Quiz', 'Our 4th  quiz', '2016-02-27 13:41:03', 'Max', 7, 'QuestionResponse'),
+('3','Disney', 'Put your knowledge of childlike whimsy to the test!', '2016-02-27 13:41:02', 'Max', 8, 'MultipleChoice'),
+('4','Cute Animals', "Do you struggle to identify animals when they're cute? Practice here!", '2016-02-27 13:41:03', 'Max', 7, 'PictureResponse'),
 ('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', 'Max', 6, 'QuestionResponse'),
 ('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', 'Max', 5, 'QuestionResponse'),
 ('7','Seventh Quiz', 'Our 7th quiz', '2016-02-27 13:41:06', 'Max', 4, 'QuestionResponse'),
@@ -147,7 +156,15 @@ INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numA
 (2, 2, 'Establish |, ensure domestic |', 'go to question_answers', 2),
 (2, 3, 'Provide for the commmon |, promote the general |', 'go to question_answers', 2),
 (2, 4, ' and ensure the blessings of | to ourselves and |,', 'go to question_answers', 2),
-(2, 5, ' do | and | this constitution for the United States of America.', 'go to question_answers', 2);
+(2, 5, ' do | and | this constitution for the United States of America.', 'go to question_answers', 2),
+(3, 1, 'A classic silent Disney character shares a name with a planet. How many planets are there between that planet and the sun?', '8', 4),
+(3, 2, "A winged character in Aladdin shares his name with a character from a Shakesperean Play. What is that play's name?", 'Othello', 3),
+(3, 3, 'In the Little Mermaid, Ariel needs to convince the prince to marry her so she can stay with him on land. In the book that inspired
+	this story, what will happen to her if she doesnt succeed?', 'She will turn into sea foam', 4),
+(4, 1, "What kind of animal is this?|https://s-media-cache-ak0.pinimg.com/736x/7b/7b/7f/7b7b7fac88ead0c1b89573c781123b0f.jpg", "Giraffe", 1),
+(4, 1, "What kind of animal is this?|http://inspirationseek.com/wp-content/uploads/2016/02/Cute-Dog-Golden-Retriever-Pictures.jpg", "Dog", 1),
+(4, 1, "What kind of animal is this?|http://cdn-img.people.com/emstag/i/2015/pets/news/150316/quokka-1024.jpg?ppl_tok=6c2950da2fa29610296cb843a46bf64b", "Quokka", 1);
+
 
 
 
@@ -160,8 +177,20 @@ INSERT INTO question_answers (quizId, questionId, answer) VALUES
 ('2', '3', 'welfare'),
 ('2', '4', 'liberty'),
 ('2', '4', 'our posterity'),
-('2', '5', 'ordain')
-('2', '5', 'establish');
+('2', '5', 'ordain'),
+('2', '5', 'establish'),
+('3', '1', '8'),
+('3', '1', '9'),
+('3', '1', '7'),
+('3', '1', '10'),
+('3', '2', 'Othello'),
+('3', '2', 'Romeo and Juliet'),
+('3', '2', 'Macbeth'),
+('3', '3', 'She will turn into sea foam'),
+('3', '3', 'Her legs will turn back into fins'),
+('3', '3', 'The witch will eat her'),
+('3', '3', 'She will turn back into a pumpkin');
+
 
 INSERT INTO user (username, password, joinDate, admin) VALUES
 ('Max', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),
@@ -223,3 +252,6 @@ INSERT INTO friends (user1, user2, established) VALUES
 
 INSERT INTO achievements (userId, achievementId) VALUES
 ('Max', 'CREATE_1');
+
+INSERT INTO quiz_ratings (quizId, userId, created, rating, review) VALUES 
+('1', 'Regina', '2016-03-04 20:45:00', 4, 'Great');

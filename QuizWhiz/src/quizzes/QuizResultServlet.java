@@ -39,10 +39,6 @@ public class QuizResultServlet extends HttpServlet {
 	}
 
 	/**
-	 * Creds to
-	 * http://www.java2s.com/Tutorials/Java/JSP/0090__JSP_Form_Processing.htm
-	 * for the info on how to read all form parameters
-	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -52,7 +48,8 @@ public class QuizResultServlet extends HttpServlet {
 		QuizManager manager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		ArrayList<Question> questions;
 		try {
-			questions = manager.getQuestions(Integer.valueOf("1"));
+			int quizId = (Integer)session.getAttribute("currQuizId");
+			questions = manager.getQuestions(quizId);
 
 			int score = 0;
 			int maxScore = 0;
@@ -109,13 +106,15 @@ public class QuizResultServlet extends HttpServlet {
 		int numAnswers = currQ.getNumAnswers();
 		ArrayList<String> userAnswers = new ArrayList<String>(numAnswers);
 		String qId = Integer.toString(currQ.getQuestionId());
-		for(int a = 0; a <= numAnswers; a++){
-			String answer = request.getParameter(qId+"-"+Integer.toString(a));
-			System.out.println(answer);
+		for(int a = 0; a < numAnswers; a++){
+			String answerID = qId+"-"+Integer.toString(a);
+			//System.out.println(answerID);
+			String answer = request.getParameter(answerID);
+			//System.out.println(answer);
 			userAnswers.add(answer);
 		}
 		ArrayList<Boolean> results = currQ.areCorrect(userAnswers);
-		for(int b = 0; b <= results.size(); b++){
+		for(int b = 0; b < results.size(); b++){
 			if(results.get(b) == true) numCorrect++;
 		}
 		return numCorrect;

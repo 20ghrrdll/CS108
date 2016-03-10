@@ -241,7 +241,7 @@ public class UserManager {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.ACHIEVEMENTS_TABLE + " VALUES(\"" + username + "\", \"" + achievementID + "\", \"" + date + "\");");		
 		} catch (SQLException e) {
-			return false; // TODO: what to do here
+			return false; 
 		}
 		
 		return true;

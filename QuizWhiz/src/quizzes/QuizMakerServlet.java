@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import users.User;
 import users.UserManager;
+import main.FinalConstants;
 
 /**
  * Servlet implementation class QuizMakerServlet
@@ -27,7 +28,6 @@ public class QuizMakerServlet extends HttpServlet {
 	 */
 	public QuizMakerServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -47,8 +47,8 @@ public class QuizMakerServlet extends HttpServlet {
 		String quizName = request.getParameter("quizName");
 		String quizDescription = request.getParameter("quizDescription");
 		System.out.println("QUIZ DESCRIPTION: " + quizDescription);
-		
-		
+
+
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("currentUser");
 		String quizCreator = user.getUsername();
@@ -58,7 +58,7 @@ public class QuizMakerServlet extends HttpServlet {
 		if (request.getParameter("quizType").equals("QuestionResponse")) quizType = QuizType.QuestionResponse;
 		if (request.getParameter("quizType").equals("FillIn")) quizType = QuizType.FillIn;
 
-		
+
 		boolean hasPracticeMode = false;
 		if (request.getParameter("practice").equals("y")) hasPracticeMode = true;
 		boolean hasMultiplePages = false;
@@ -70,16 +70,33 @@ public class QuizMakerServlet extends HttpServlet {
 
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		Quiz quiz = new Quiz(quizName, quizDescription, created, quizCreator, quizType, hasPracticeMode, hasMultiplePages, hasRandomOrder, hasImmediateCorrection);
+
 		int quizId = quizManager.insertQuiz(quiz);
-		System.out.println("QuizMakerServlet: " + quizId);
-		
-		request.setAttribute("quiz", quiz);
-		RequestDispatcher d = request.getRequestDispatcher("add-questions.jsp");
-		d.forward(request, response); 
-  
+		if (quizId == -1) {
+			request.setAttribute("error", 1);
+			response.sendRedirect("admin-page.jsp?");
+		} else {
+			System.out.println("QuizMakerServlet: " + quizId);
+			quiz.setQuizId(quizId);
+
+
+			UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+			if (quizManager.getMyQuizzes(quizCreator).size() == 1) {
+				userManager.addAchievement(quizCreator, FinalConstants.CREATE_1);
+			} else if (quizManager.getMyQuizzes(quizCreator).size() == 5) {
+				userManager.addAchievement(quizCreator, FinalConstants.CREATE_5);
+			} else if (quizManager.getMyQuizzes(quizCreator).size() == 10) {
+				userManager.addAchievement(quizCreator, FinalConstants.CREATE_10);
+			}
+
+			request.setAttribute("quiz", quiz);
+			RequestDispatcher d = request.getRequestDispatcher("add-questions.jsp");
+			d.forward(request, response); 
+		}
+
 	}
 
-			
-	
+
+
 
 }

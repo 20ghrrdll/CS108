@@ -18,9 +18,20 @@
 
 <body>
 
+
+<% if(quiz == null) { %> 
+	<div class="alert alert-danger">
+	  <strong>Error!</strong> Quiz does not exist.
+	</div>
+<% } else if(request.getParameter("error") != null) { %>
+	<div class="alert alert-danger">
+		<strong>Error:</strong> <% out.print(FinalConstants.ERROR_MSG); %>
+	</div>
+<% } else { %>
+
 <div class="container-fluid">
 	<div class="row">
-	<div class="col-md-7"><div class="panel panel-default">
+	<div class="col-md-6"><div class="panel panel-default">
 		<div class="panel-heading"><h1 class="panel-title">Quiz Description</h1></div>
 		<div class="panel-body">
 			<%=quiz.getQuizDescription()%>
@@ -52,7 +63,7 @@
 		</div>
 	</div></div>
 	
-	<div class="col-md-5"><div class="panel panel-default">
+	<div class="col-md-6"><div class="panel panel-default">
 		<div class="panel-heading"><h2 class="panel-title">Summary Statistics</h2></div>
 		<div class="panel-body">
 			<ol>
@@ -80,6 +91,7 @@
 			
 			</ol>
 		</div>
+		</div></div></div>
 
 		<div class="row">
 			<div class="col-md-12">
@@ -123,6 +135,9 @@
 							<% } else {
 						for (int i = 0; i < highScores.size() && i < 5; i++) {
 							String highScoreUser = highScores.get(i).getUserName();
+							if (!userManager.getAchievements(highScoreUser).contains(FinalConstants.HIGHEST_SCORE)) {
+								userManager.addAchievement(highScoreUser, FinalConstants.HIGHEST_SCORE);
+							}
 							String score = String.valueOf(highScores.get(i).getScore()); %>
 							<p>
 							<li><a href="user-profile.jsp?username=<%=highScoreUser%>">
@@ -166,8 +181,6 @@
 			</div>
 		</div>
 
-
-
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
@@ -179,14 +192,14 @@
 							<% if (scores.size() == 0) { %>
 							<p>This quiz hasn't been taken yet!</p>
 							<% } else {
-						for (int i = 0; i < scores.size() && i < 5; i++) {
-							String scoreUser = scores.get(i).getUserName();
-							String score = String.valueOf(scores.get(i).getScore()); %>
-							<p>
-							<li><a href="user-profile.jsp?username=<%=scoreUser%>">
-									<%=scoreUser%></a>, Score: <%=score%></li>
-							</p>
-<%}
+								for (int i = 0; i < scores.size() && i < 5; i++) {
+									String scoreUser = scores.get(i).getUserName();
+									String score = String.valueOf(scores.get(i).getScore()); %>
+									<p>
+									<li><a href="user-profile.jsp?username=<%=scoreUser%>">
+											<%=scoreUser%></a>, Score: <%=score%></li>
+									</p>
+								<%}
 						}
 						%>
 						</ol>
@@ -196,8 +209,63 @@
 		</div>
 
 
-
+	<% if (user.getUsername().equals(quiz.getQuizCreator())) { 
+			out.println("<div class=\"row\"><div class=\"col-md-12\">");
+		} else {
+			out.println("<div class=\"row\"><div class=\"col-md-6\">");
+		} %> 
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2 class="panel-title">Ratings and Reviews</h2></div>
+			<div class="panel-body">
+				<% ArrayList<Review> reviews = quizManager.getReviews(id);
+				if (reviews.size() == 0) {
+					out.println("No reviews yet.");
+				} else { 
+					for (int i = 0; i < reviews.size(); i++) { 
+						Review review = reviews.get(i); %>		
+						<div class="panel panel-primary">
+						  <div class="panel-heading"><% out.print(review.getRating() + "/" + FinalConstants.MAX_RATING + " - " + review.getReviewer() + " - " + review.getCreated()); %></div>
+						  <div class="panel-body">
+						    <% out.println(review.getReview()); %>
+						  </div>
+						</div>
+				<% } 
+				} %>
+			</div>
+		</div>
+		</div>
+		
+		<% if (!user.getUsername().equals(quiz.getQuizCreator())) { %>
+			<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h2 class="panel-title">Write A Review</h2></div>
+				<div class="panel-body">
+					<form action="ReviewServlet" method="post">
+						<label for="exampleInputEmail1">Rating</label><br>
+						<% for (int i = 1; i <= FinalConstants.MAX_RATING; i++) { %>
+							<label class="radio-inline">
+								<input type="radio" name="rating" value="<%=i%>"> <%=i%> 
+							</label>
+						<% } %>
+						<br><br><div class="form-group">
+							<label for="exampleInputEmail1">Review</label>
+							<textarea class="form-control" rows="3" name="review"></textarea>
+						</div>
+						<input type="hidden" name="quizId" value="<%=id%>">
+						<input type="hidden" name="reviewer" value="<%=user.getUsername()%>">
+						<br><button type="submit" class="btn btn-default">Submit</button>
+					</form>
+				</div>
+			</div>
+			</div> 
+		<% } %>
+	
 	</div>
+	</div>
+</div>
+
+<% } %>
+
 </body>
 </html>
 

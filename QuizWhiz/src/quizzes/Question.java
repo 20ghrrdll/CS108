@@ -52,11 +52,15 @@ public class Question {
 		ArrayList<Boolean> results = new ArrayList<Boolean>(this.numAnswers);
 		for(int a = 0; a < this.numAnswers; a++){
 			String userAnswer = userAnswers.get(a);
-			if(userAnswer.equals(this.correctAnswers.get(a))){
+			System.out.println("The user answer is "+ userAnswer);
+			System.out.println(this.correctAnswers);
+			System.out.println(this.correctAnswers.get(a));
+			if(userAnswer != null && userAnswer.equals(this.correctAnswers.get(a))){
 				results.add(true);
 			}
 			else results.add(false);
 		}
+		System.out.println("The results are "+ results);
 		return results;
 		
 	}
