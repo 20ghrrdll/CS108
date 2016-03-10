@@ -20,14 +20,20 @@
 %>
 
 <%if(!friendRequests.isEmpty()) {%>
-<div class="container-fluid"><div class="col-md-12"><div class="panel panel-default">
-	<div class="panel-heading"><h1 class="panel-title">Friends</h1></div>
+<div class="container-fluid"><div class="col-md-12"><div class="panel panel-success">
+	<div class="panel-heading"><h1 class="panel-title">Friend Requests</h1></div>
 	<div class="panel-body">
 	<ol><% for (String username : friendRequests) { %>
-			<li><a href="user-profile.jsp?username=<%=username%>"
-				STYLE="text-decoration: none">
-					<h4><%=username%></h4>
-			</a></li>
+			<li>
+					<h4><b><a href="user-profile.jsp?username=<%=username%>"
+							STYLE="text-decoration: none"><%=username%></a></b></h4>
+								<form action="FriendRequestServlet" method="post">
+							<input type="hidden" name="id" value="<%=username%>"/>
+							<input type="hidden" name="userId" value="<%=user.getUsername()%>">
+							<button  class="btn btn-default"  type="submit" name="Accept">Accept</button>
+							<button  class="btn btn-default"  type="submit" name="Ignore">Ignore</button>
+							</form>
+			</li>
 		<% } %>
 	</ol>
 	</div>
