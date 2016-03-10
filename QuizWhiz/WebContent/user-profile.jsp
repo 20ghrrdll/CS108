@@ -10,8 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <%
-//User user = (User) session.getAttribute("currentUser");
-//UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 if(user == null){
 	response.sendRedirect("login-page.jsp?");
 	return;
@@ -177,7 +175,8 @@ if (quizzesTaken.size() == 0) { %>
 </ol>
 </div></div></div>
 </div>
-<% } %>
+<% }
+}%>
 </body>
 
 </html>
