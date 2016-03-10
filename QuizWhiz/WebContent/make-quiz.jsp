@@ -32,8 +32,8 @@ import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
 		<br><h5>Quiz Type:</h5> 
 		<input type="radio" name="quizType" value="QuestionResponse"> Question Response<br>
 		<input type="radio" name="quizType" value="FillIn"> Fill in the Blank <br>
-		<input type="radio" name="quizType" value="mc"> Multiple Choice <br>
-		<input type="radio" name="quizType" value="pic"> Picture-Response <br>
+		<input type="radio" name="quizType" value="MultipleChoice"> Multiple Choice <br>
+		<input type="radio" name="quizType" value="PictureResponse"> Picture-Response <br>
 		
 		<br><h5>Allow Randomized Order?</h5> 
 		<input type="radio" name="randomOrder" value="y"> Yes<br>
