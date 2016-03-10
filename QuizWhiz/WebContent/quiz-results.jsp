@@ -4,48 +4,37 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/results.css" />
-<link
-	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
-<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<%@include file="navigation-bar.jsp"%>
+
 <title>Results</title>
 </head>
 <body>
+	<% System.out.println(session.getAttribute("currQuizId"));
+		int id = (Integer)session.getAttribute("currQuizId"); %>
 
-	<h1 class="text-center">Results:</h1>
+	<h1 class="text-center">Results</h1>
 	<h4 class="text-center">
-		<%
-			System.out.println(session.getAttribute("currQuizId"));
-			int id = (Integer)session.getAttribute("currQuizId");
-			User user = (User) session.getAttribute("currentUser");
-		if(user != null){
-			out.print(user.getUsername());
-		}
-		else{
-			out.print("Test User");
-		}
-		%>, you scored
-		<%
-			out.print(session.getAttribute("score"));
-		%>/<%
-			out.print(session.getAttribute("maxScore"));
-		%>
+		<% out.print(user.getUsername()); %>, you scored
+		<% out.print(session.getAttribute("score")); %>/<% out.print(session.getAttribute("maxScore")); %>
 		 points.
 	</h4>
-
-		<div class="wrapper">
-			<button class="btn btn-default">Return to Quiz Summary</button>
-		</div>
-		
-		<script>
-			$("button").click(function(){
-				window.location.href = "quiz-summary-page.jsp?id=<%=id%>";
-			});
-		</script>
-
+	
+	<br>
+	<center><a href="quiz-summary-page.jsp?id=<%=id%>">
+		<button type="button" class="btn btn-default">Return to Quiz Summary</button>
+	</a></center>
+	
+	<br><br>
+	<div class="container-fluid">
+	
+	<div class="col-md-6"><div class="panel panel-default">
+	<div class="panel-heading"><h1 class="panel-title">header</h1></div>
+	<div class="panel-body">
+		test
+	</div></div></div>
+	
+	</div>
 
 </body>
 </html>

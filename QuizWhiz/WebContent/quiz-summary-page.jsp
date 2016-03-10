@@ -87,6 +87,7 @@
 			
 			</ol>
 		</div>
+		</div></div></div>
 
 		<div class="row">
 			<div class="col-md-12">
@@ -130,6 +131,9 @@
 							<% } else {
 						for (int i = 0; i < highScores.size() && i < 5; i++) {
 							String highScoreUser = highScores.get(i).getUserName();
+							if (!userManager.getAchievements(highScoreUser).contains(FinalConstants.HIGHEST_SCORE)) {
+								userManager.addAchievement(highScoreUser, FinalConstants.HIGHEST_SCORE);
+							}
 							String score = String.valueOf(highScores.get(i).getScore()); %>
 							<p>
 							<li><a href="user-profile.jsp?username=<%=highScoreUser%>">
@@ -173,8 +177,6 @@
 			</div>
 		</div>
 
-
-
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
@@ -186,14 +188,14 @@
 							<% if (scores.size() == 0) { %>
 							<p>This quiz hasn't been taken yet!</p>
 							<% } else {
-						for (int i = 0; i < scores.size() && i < 5; i++) {
-							String scoreUser = scores.get(i).getUserName();
-							String score = String.valueOf(scores.get(i).getScore()); %>
-							<p>
-							<li><a href="user-profile.jsp?username=<%=scoreUser%>">
-									<%=scoreUser%></a>, Score: <%=score%></li>
-							</p>
-<%}
+								for (int i = 0; i < scores.size() && i < 5; i++) {
+									String scoreUser = scores.get(i).getUserName();
+									String score = String.valueOf(scores.get(i).getScore()); %>
+									<p>
+									<li><a href="user-profile.jsp?username=<%=scoreUser%>">
+											<%=scoreUser%></a>, Score: <%=score%></li>
+									</p>
+								<%}
 						}
 						%>
 						</ol>
@@ -202,14 +204,23 @@
 			</div>
 		</div>
 
-<<<<<<< HEAD
+
+	<div class="row"><div class="col-md-7">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2 class="panel-title">Ratings and Reviews</h2></div>
+			<div class="panel-body">
+				<% ArrayList<Review> reviews = quizManager.getReviews(id);
+				if (reviews.size() == 0) {
+					out.println("No reviews yet.");
+				} else { %>		
+			</div>
+		</div>
+	</div></div>
+
 </div>
+
 <% } %>
-=======
 
-
-	</div>
->>>>>>> 9bf0b83d7e987f1424ced014de73f6918dbd266a
 </body>
 </html>
 

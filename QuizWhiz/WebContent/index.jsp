@@ -150,42 +150,5 @@
 		</div>
 	</div>
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h1 class="panel-title">My Quizzes</h1>
-					</div>
-					<div class="panel-body">
-						<ol>
-							<%
-								for (int i = 0; i < myQuizzes.size() && i < 5; i++) {
-							%>
-							<li><a
-								<%String id = String.valueOf(myQuizzes.get(i).getQuizID());%>
-								href="quiz-summary-page.jsp?id=<%=id%>"
-								STYLE="text-decoration: none">
-									<h4><%=myQuizzes.get(i).getQuizName()%></h4>
-									<p><%=myQuizzes.get(i).getQuizDescription()%></p></li>
-							<%
-								}
-							%>
-						</ol>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h1 class="panel-title">Friend Activities</h1>
-					</div>
-					<div class="panel-body">tbd</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 </body>
 </html>
