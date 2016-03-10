@@ -40,6 +40,10 @@ public class Question {
 		return this.numAnswers;
 	}
 	
+	public ArrayList<String> getCorrectAnswers() {
+		return correctAnswers;
+	}
+	
 	//Will have to do some wiggling to figure out how to handle questions w/ multiple parts...
 	public boolean isCorrect(String response){
 		System.out.println("the user response is " + response);
