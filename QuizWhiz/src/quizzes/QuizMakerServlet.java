@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import users.User;
 import users.UserManager;
+import main.FinalConstants;
 
 /**
  * Servlet implementation class QuizMakerServlet
@@ -67,11 +68,23 @@ public class QuizMakerServlet extends HttpServlet {
 
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		Quiz quiz = new Quiz(quizName, quizDescription, created, quizCreator, quizType, hasPracticeMode, hasMultiplePages, hasRandomOrder, hasImmediateCorrection);
-		quizManager.insertQuiz(quiz);
-		
-		request.setAttribute("quiz", quiz);
-		RequestDispatcher d = request.getRequestDispatcher("add-questions.jsp");
-		d.forward(request, response); 
+		if (!quizManager.insertQuiz(quiz)) {
+			request.setAttribute("error", 1);
+			response.sendRedirect("admin-page.jsp?");
+		} else {
+			UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+			if (quizManager.getMyQuizzes(quizCreator).size() == 1) {
+				userManager.addAchievement(quizCreator, FinalConstants.CREATE_1);
+			} else if (quizManager.getMyQuizzes(quizCreator).size() == 5) {
+				userManager.addAchievement(quizCreator, FinalConstants.CREATE_5);
+			} else if (quizManager.getMyQuizzes(quizCreator).size() == 10) {
+				userManager.addAchievement(quizCreator, FinalConstants.CREATE_10);
+			}
+			
+			request.setAttribute("quiz", quiz);
+			RequestDispatcher d = request.getRequestDispatcher("add-questions.jsp");
+			d.forward(request, response); 
+		}
 
 	}
 
