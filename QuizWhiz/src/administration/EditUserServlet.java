@@ -44,9 +44,13 @@ public class EditUserServlet extends HttpServlet {
 		for (String username : usernamesList) {
 			username = username.trim();
 			if (buttonAction.equals("delete")) {
-				adminManager.deleteUser(username);
+				if (!adminManager.deleteUser(username)) {
+					request.setAttribute("error", 1);
+				}
 			} else if (buttonAction.equals("admin")) {
-				adminManager.makeAdmin(username);
+				if (!adminManager.makeAdmin(username)) {
+					request.setAttribute("error", 1);
+				}
 			}
 		}
 		response.sendRedirect("admin-page.jsp?");

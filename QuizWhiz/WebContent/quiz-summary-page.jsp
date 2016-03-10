@@ -27,7 +27,24 @@
 			<br><br><a class="btn btn-primary" href="quiz-page.jsp?id=<%=id%>" role="button">Start Quiz</a>
 			<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
 				<p>EDIT QUIZ - LINK THIS </p>
-			<% } %>
+			<% } 
+			
+			if (userManager.isAdmin(user.getUsername())) { %>
+			<form action="EditQuizServlet" method="post">
+				<input type="hidden" name="quizIDs" value="<% out.print(quiz.getQuizID()); %>">
+					<div class="col-md-3" style="float: left">
+						<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
+							<i class="material-icons">delete</i>
+							<br>Delete
+						</button>
+					</div>
+					<div class="col-md-3" style="float: left">
+						<button type="submit" class="btn btn-link" name="buttonAction" value="clearHistory">
+							<i class="material-icons">history</i>
+							<br>Clear History</button>
+					</div>
+			</form>
+		<% } %>
 		</div>
 	</div></div>
 	

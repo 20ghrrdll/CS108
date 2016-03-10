@@ -9,7 +9,6 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<%@include file="navigation-bar.jsp" %>
 <%
 //User user = (User) session.getAttribute("currentUser");
 //UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");

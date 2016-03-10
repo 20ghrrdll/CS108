@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import main.FinalConstants;
 
 /**
  * Servlet implementation class FriendRequestServlet
@@ -46,6 +47,14 @@ public class FriendRequestServlet extends HttpServlet {
 			System.out.println("Accept");
 			System.out.println(request.getParameter("id"));
 			userManager.handleFriendResponse(request.getParameter("id"), request.getParameter("userId"), true);
+			if (userManager.getFriends(request.getParameter("userId")).size() == 10) {
+				userManager.addAchievement(request.getParameter("userId"), FinalConstants.FRIENDS_10);
+				request.setAttribute("achievement", FinalConstants.FRIENDS_10);
+			}
+			if (userManager.getFriends(request.getParameter("id")).size() == 10) {
+				userManager.addAchievement(request.getParameter("id"), FinalConstants.FRIENDS_10);
+			}
+			
 			response.sendRedirect("friends.jsp?");
 			return;
 		} else if(request.getParameter("Ignore") != null){
@@ -57,9 +66,14 @@ public class FriendRequestServlet extends HttpServlet {
 		} else {
 			String user1 = request.getParameter("user1");
 			String user2 = request.getParameter("user2");
-			userManager.sendFriendRequest(user1, user2);
-			response.sendRedirect("user-profile.jsp?username="+user2);
-			return;
+			if (userManager.getUser(user2) != null) {
+				userManager.sendFriendRequest(user1, user2);
+				response.sendRedirect("user-profile.jsp?username="+user2);
+				return;
+			} else {
+				request.setAttribute("error", 1);
+				response.sendRedirect("index.jsp");
+			}
 		}
 	}
 
