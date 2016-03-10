@@ -60,6 +60,7 @@ public class Question {
 			}
 			else results.add(false);
 		}
+		System.out.println("The results are "+ results);
 		return results;
 		
 	}

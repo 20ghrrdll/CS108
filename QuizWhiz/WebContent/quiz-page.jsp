@@ -64,7 +64,7 @@
 		<div class="question_info">
 			<%
 				out.println("<div class = \"question\">"+
-						qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId)+"</div>");
+						qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, a+1)+"</div>");
 			%>
 		</div>
 		<%

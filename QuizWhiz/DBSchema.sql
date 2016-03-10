@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS quiz (
 	pages BOOLEAN DEFAULT false,
 	random BOOLEAN DEFAULT false,
 	correction BOOLEAN DEFAULT false,
-	type enum('FillIn', 'QuestionResponse') DEFAULT 'QuestionResponse',
+	type enum('FillIn', 'QuestionResponse', 'MultipleChoice') DEFAULT 'QuestionResponse',
 	amountTaken INT,
 	PRIMARY KEY (quizId)
 );
@@ -129,7 +129,7 @@ All tables loaded. Now we load initial quiz data
 INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken, type) VALUES
 ('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', 'Max', 10, 'QuestionResponse'),
 ('2','The Preamble', 'How well do you know the first sentence of the constitution?', '2016-02-27 13:41:01', 'Max', 9, 'FillIn'),
-('3','Third Quiz', 'Our 3rd quiz', '2016-02-27 13:41:02', 'Max', 8, 'QuestionResponse'),
+('3','Disney Characters', 'Put your knowledge of childlike whimsy to the test!', '2016-02-27 13:41:02', 'Max', 8, 'MultipleChoice'),
 ('4','Fourth Quiz', 'Our 4th  quiz', '2016-02-27 13:41:03', 'Max', 7, 'QuestionResponse'),
 ('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', 'Max', 6, 'QuestionResponse'),
 ('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', 'Max', 5, 'QuestionResponse'),
@@ -147,7 +147,12 @@ INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numA
 (2, 2, 'Establish |, ensure domestic |', 'go to question_answers', 2),
 (2, 3, 'Provide for the commmon |, promote the general |', 'go to question_answers', 2),
 (2, 4, ' and ensure the blessings of | to ourselves and |,', 'go to question_answers', 2),
-(2, 5, ' do | and | this constitution for the United States of America.', 'go to question_answers', 2);
+(2, 5, ' do | and | this constitution for the United States of America.', 'go to question_answers', 2),
+(3, 1, 'A classic silent Disney character shares a name with a planet. How many planets between that planet and the sun?', '8', 4),
+(3, 1, "A winged character in Aladdin shares his name with a character from a Shakesperean Play. What is that play's name?", 'Othello', 3),
+(3, 1, 'In the Little Mermaid, Ariel needs to convince the prince to marry her so she can stay with him on land. In the book that inspired
+	this story, what will happen to her if she doesnt suceed?', 'She will turn into sea foam', 5);
+
 
 
 
@@ -161,7 +166,19 @@ INSERT INTO question_answers (quizId, questionId, answer) VALUES
 ('2', '4', 'liberty'),
 ('2', '4', 'our posterity'),
 ('2', '5', 'ordain'),
-('2', '5', 'establish');
+('2', '5', 'establish'),
+('3', '1', '8'),
+('3', '1', '9'),
+('3', '1', '7'),
+('3', '1', '10'),
+('3', '2', 'Othello'),
+('3', '2', 'Romeo and Juliet'),
+('3', '2', 'Macbeth'),
+('3', '3', 'She will turn into sea foam'),
+('3', '3', 'Her legs will turn back into fins'),
+('3', '3', 'The witch will eat her'),
+('3', '3', 'She will turn back into a pumpkin');
+
 
 INSERT INTO user (username, password, joinDate, admin) VALUES
 ('Max', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),

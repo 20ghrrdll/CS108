@@ -17,18 +17,18 @@ public class QuestionManager {
 	}
 	
 	//String questionhtml = "<h3>This is the question</h3>";	
-	public String QuestionHTML(String type, String RawQuestion, String id){
+	public String QuestionHTML(String type, String RawQuestion, String id, int qNum){
 		if(type.equals("FillIn")){
-			return fillIn(RawQuestion, id);
+			return fillIn(RawQuestion, id, qNum);
 		}
 		else if(type.equals("QuestionResponse")){
-			String qRHtml = "<p>"+RawQuestion +"</p><br>"+'\n'+
+			String qRHtml = "<p>"+qNum+". "+RawQuestion +"</p><br>"+'\n'+
 					"<div class="+'"'+"answer"+'"'+">Answer:"+
 					AnswerHTML(type,id)+
 					"</div>";
 			return qRHtml;
 		}
-		else return fillIn(RawQuestion, id);
+		else return type+" is not one of the types of questions I support!";
 		
 	}
 	//input 
@@ -49,10 +49,10 @@ public class QuestionManager {
 		return html;
 	}
 	
-	private String fillIn(String infoToFill, String id){
+	private String fillIn(String infoToFill, String id, int qNum){
 		String delims = "[|]+";
 		String[] tokens = infoToFill.split(delims);
-		String html = "<p>";
+		String html = "<p>"+qNum+". ";
 		for(int a = 0; a < tokens.length-1; a++){
 			html+=tokens[a];
 			String input = "<input type=\"text\" name=\""+id+"-"+a+"\"/>";
@@ -62,7 +62,7 @@ public class QuestionManager {
 		
 		html +=tokens[tokens.length-1];
 		if(infoToFill.charAt(infoToFill.length()-1) == '|')
-			html+="<input type="+'"'+"text" +'"'+" name="+'"'+id+'"'+"-"+(tokens.length -1)+"/>";
+			html+="<input type="+'"'+"text" +'"'+" name=\""+id+"-"+(tokens.length -1)+"\"/>";
 		
 		html+="</p><br>";
 		return html;
