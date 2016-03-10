@@ -9,6 +9,12 @@
 </head>
 <body>
 
+<% if(request.getParameter("error") != null) { %>
+	<div class="alert alert-danger">
+  		<strong>Error:</strong> <% out.print(FinalConstants.ERROR_MSG); %>
+	</div>
+<% } %>
+
 <div class="container-fluid">
 	<h1>Site Statistics</h1>
 	<div class="row">

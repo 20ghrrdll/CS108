@@ -6,6 +6,9 @@ import users.Achievement;
 
 public class FinalConstants {
 
+	public static final String ERROR_MSG = "An error has occurred. Please try again.";
+	
+	/* Achievements */
 	public static final String CREATE_1 = "CREATE_1";
 	public static final String CREATE_5 = "CREATE_5";
 	public static final String CREATE_10 = "CREATE_10";

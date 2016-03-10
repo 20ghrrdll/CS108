@@ -5,16 +5,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%
-String usernameToView = request.getParameter("username");
-%>
-
 <%@include file="navigation-bar.jsp" %>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<%
+if(user == null){
+	response.sendRedirect("login-page.jsp?");
+	return;
+}
+String usernameToView = request.getParameter("username");
+if (userManager.getUser(usernameToView) == null) { %>
+	<div class="alert alert-danger">
+	  <strong>Error!</strong> <%=usernameToView %> does not exist.
+	</div>
+<% } else {
+
+Set<String> sentRequests = userManager.getSentRequests(user.getUsername());
+System.out.println(requests.toString());
+%>
 
 <title><% out.print(usernameToView); %>'s Profile</title>
 </head>
 <body>
+
+<% if(userManager.getUser(usernameToView) == null) { %> 
+<div class="alert alert-danger">
+  <strong>Error!</strong> User does not exist.
+</div>
+<% } else { %>
 
 <div class="container-fluid">
 <div class="row"><div class="col-md-5"><div class="panel panel-default">
@@ -22,7 +41,8 @@ String usernameToView = request.getParameter("username");
 <div class="panel-body" style="text-align: center">
 	<% if (!user.getUsername().equals(usernameToView)) {
 		Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
-		if (!currentUserFriends.contains(usernameToView)) {
+		if (!currentUserFriends.contains(usernameToView.toLowerCase())) {
+			if(!sentRequests.contains(usernameToView.toLowerCase())){
 	%>
 			<form action="FriendRequestServlet" method="post">
 				<input type="hidden" name="user1" value="<%= user.getUsername() %>">
@@ -34,7 +54,14 @@ String usernameToView = request.getParameter("username");
 					</button>
 				</div>
 			</form>
-	<%
+	<%} else {%>
+		<div class="col-md-3" style="float: left">
+					<button type="submit" class="btn btn-link disabled" name="buttonAction" value="delete">
+						<i class="material-icons">add</i>
+						<br><i>Request Sent</i>
+					</button>
+				</div>
+	<% }
 		} %>
 		
 <%-- 		<form action="MessageServlet" method="post" id="message">
@@ -148,13 +175,8 @@ if (quizzesTaken.size() == 0) { %>
 </ol>
 </div></div></div>
 </div>
-
+<% }
+}%>
 </body>
-
-<script type="text/javascript">
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-</script>
 
 </html>

@@ -43,9 +43,13 @@ public class EditQuizServlet extends HttpServlet {
 		for (String quiz : quizIDList) {
 			int quizId = Integer.parseInt(quiz.trim());
 			if (buttonAction.equals("delete")) {
-				adminManager.deleteQuiz(quizId);
+				if (!adminManager.deleteQuiz(quizId)) {
+					request.setAttribute("error", 1);
+				}
 			} else if (buttonAction.equals("clearHistory")) {
-				adminManager.clearQuizHistory(quizId);
+				if (!adminManager.clearQuizHistory(quizId)) {
+					request.setAttribute("error", 1);
+				}
 			}
 		}
 		response.sendRedirect("admin-page.jsp?");

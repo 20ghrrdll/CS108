@@ -39,6 +39,11 @@
 	<div class="warning">
 		<strong>Exists!</strong> Sorry, a user with that name already exists.
 	</div>
+	<% } else if(request.getParameter("error") != null) {
+	%>
+		<div class="alert alert-danger">
+  		<strong>Error:</strong> <% out.println(request.getParameter("error")); %>
+		</div>
 	<% } %>
 		<div class="form-group">
 			<label>Username</label> <input

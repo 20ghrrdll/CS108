@@ -35,9 +35,8 @@ public class UserManager {
 				user = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"), rs.getDate("joinDate"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return null;
 		}
-		
 		return user;
 	}
 	
@@ -56,7 +55,7 @@ public class UserManager {
 				usernames.add(rs.getString(1));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			e.printStackTrace(); 
 		}
 		return usernames;
 	}
@@ -99,7 +98,7 @@ public class UserManager {
 				admin = rs.getBoolean("admin");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			e.printStackTrace(); 
 		}
 		return admin;
 	}
@@ -123,7 +122,7 @@ public class UserManager {
 					friends.add(rs.getString("user1").toLowerCase());
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			e.printStackTrace(); 
 		}
 		return friends;
 	}
@@ -142,8 +141,6 @@ public class UserManager {
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 + "\", \"" + date + "\");");		
-			if (getFriends(user1).size() == 25) addAchievement(user1, FinalConstants.FRIENDS_10);
-			if (getFriends(user2).size() == 25) addAchievement(user2, FinalConstants.FRIENDS_10);
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
@@ -161,27 +158,68 @@ public class UserManager {
 		String date = sdf.format(dt);
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIEND_REQUEST_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 + "\");");		
-			if (getFriends(user1).size() == 25) addAchievement(user1, FinalConstants.FRIENDS_10);
-			if (getFriends(user2).size() == 25) addAchievement(user2, FinalConstants.FRIENDS_10);
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIEND_REQUEST_TABLE + " VALUES(\"" + user2 + "\", \"" + user1 + "\");");		
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
 	}
 	
 	/**
-	 * Queries the database to find all friends of a given username.
+	 * Queries the database to find all friends requests of a given username.
 	 * @param username
 	 * @return ArrayList of Users that are friends with the given username
 	 */
-	public Set<String> getFriendRequests(String username) {
+	public ArrayList<String> getFriendRequests(String username) {
+		ArrayList<String> friends = new ArrayList<String>();
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE userToId=\"" + username + "\";";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				friends.add(rs.getString("userFromId").toLowerCase());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); 
+		}
+		return friends;
+	}
+	
+	/**
+	 * Queries the database to find all friends requested by a given username.
+	 * @param username
+	 * @return ArrayList of Users that are friends with the given username
+	 */
+	public Set<String> getSentRequests(String username) {
 		Set<String> friends = new HashSet<String>();
 		try {
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE user1=\"" + username + "\";";
+			String query = "SELECT * FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE userFromId=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				friends.add(rs.getString("user2").toLowerCase());
+				friends.add(rs.getString("userToId").toLowerCase());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+		return friends;
+	}
+	
+	/**
+	 * Updates the database to handle friend accept/ignore
+	 * @param username
+	 * @return ArrayList of Users that are friends with the given username
+	 */
+	public Set<String> handleFriendResponse(String userFriend, String userName, boolean decision) {
+		Set<String> friends = new HashSet<String>();
+		try {
+			Statement stmt = con.createStatement();
+			String query  = "DELETE FROM " + MyDBInfo.FRIEND_REQUEST_TABLE +  " WHERE userToId=\"" + userName + "\" AND userFromId=\"" + userFriend + "\";";
+			System.out.print(query);
+			stmt.executeUpdate(query);
+			if(decision){
+				stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " (user1, user2) VALUES(\"" + userName + "\", \"" + userFriend +  "\");");	
+				System.out.print("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " (user1, user2) VALUES(\"" + userName + "\", \"" + userFriend +  "\");");
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
@@ -190,15 +228,13 @@ public class UserManager {
 	}
 	
 	
-	
-	
 	/**
 	 * Adds a given achievement ID for a given user
 	 * @param username
 	 * @param achievementID
 	 * @param data - SimpleDataFormat of when the achievement was unlocked
 	 */
-	public void addAchievement(String username, String achievementID) {
+	public boolean addAchievement(String username, String achievementID) {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = sdf.format(dt);
@@ -206,8 +242,10 @@ public class UserManager {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.ACHIEVEMENTS_TABLE + " VALUES(\"" + username + "\", \"" + achievementID + "\", \"" + date + "\");");		
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false; // TODO: what to do here
 		}
+		
+		return true;
 	}
 	
 	
@@ -226,7 +264,7 @@ public class UserManager {
 				userAchievements.add(rs.getString("achievementId"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			e.printStackTrace();
 		}
 		return userAchievements;
 	}
@@ -255,6 +293,20 @@ public class UserManager {
 		return buff.toString();
 	}
 	
+	public static String toJavascriptArray(Set<String> arr){
+	    StringBuffer sb = new StringBuffer();
+	    sb.append("[");
+	    int i = 0;
+	    for(String user: arr){
+	        sb.append("\"").append(user).append("\"");
+	        if(i < arr.size()){
+	            sb.append(",");
+	        }
+	        i++;
+	    }
+	    sb.append("]");
+	    return sb.toString();
+	}
 	
 	public void closeConnection() {
 		DBConnector.closeConnection();

@@ -30,7 +30,7 @@ public class AdminManager {
 				numUsers = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return 0;
 		}
 		
 		return numUsers;
@@ -48,7 +48,6 @@ public class AdminManager {
 				numQuizzesTaken = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 		
 		return numQuizzesTaken;
@@ -67,7 +66,6 @@ public class AdminManager {
 				numQuizzesCreated = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 		
 		return numQuizzesCreated;
@@ -79,7 +77,7 @@ public class AdminManager {
 	 * @param title
 	 * @param text
 	 */
-	public void createAnnouncement(String username, String subject, String body) {
+	public boolean createAnnouncement(String username, String subject, String body) {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = sdf.format(dt);
@@ -88,27 +86,28 @@ public class AdminManager {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.ANNOUNCEMENTS_TABLE + "(userId, posted, subject, body) VALUES('" + username + "', '" + date + "', '" + subject + "', '" + body + "');");
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false;
 		}
+		return true;
 	}
 	
 	
-	// TODO: make sure there are no links to deleted users' profiles? like its just name, no link
-	// TODO: delete announcements?
 	/**
 	 * Deletes a given user from relevant tables in the database including 
 	 * the users table, friends table, etc.
 	 * @param username
 	 */
-	public void deleteUser(String username) {
+	public boolean deleteUser(String username) {
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("DELETE FROM " + MyDBInfo.USER_TABLE + " WHERE username=\"" + username + "\";");
 			stmt.executeUpdate("DELETE FROM " + MyDBInfo.FRIENDS_TABLE + " WHERE user1=\"" + username + "\" OR user2=\"" + username + "\";");
 			stmt.executeUpdate("DELETE FROM " + MyDBInfo.ACHIEVEMENTS_TABLE + " where userId=\"" + username + "\";");
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.FRIEND_REQUEST_TABLE + " WHERE userToId=\"" + username + "\" OR userFromId=\"" + username + "\";");
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false;
 		}
+		return true;
 	}
 	
 	
@@ -116,7 +115,7 @@ public class AdminManager {
 	 * Deletes a given quiz from the database, including any records
 	 * @param quizId
 	 */
-	public void deleteQuiz(int quizId) {
+	public boolean deleteQuiz(int quizId) {
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUIZ_TABLE + " WHERE quizId=" + quizId + ";");
@@ -125,8 +124,9 @@ public class AdminManager {
 			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUESTION_TABLE + " WHERE quizId=" + quizId + ";");
 			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUESTION_RECORDS_TABLE + " WHERE quizId=" + quizId + ";");
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false;
 		}
+		return true;
 	}
 	
 	
@@ -134,14 +134,15 @@ public class AdminManager {
 	 * Clears all history information for a given quiz
 	 * @param quizId
 	 */
-	public void clearQuizHistory(int quizId) {
+	public boolean clearQuizHistory(int quizId) {
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUIZ_RECORDS_TABLE + " WHERE quizId=" + quizId + ";");
 			stmt.executeUpdate("DELETE FROM " + MyDBInfo.QUESTION_RECORDS_TABLE + " WHERE quizId=" + quizId + ";");
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false;
 		}
+		return true;
 	}
 	
 	
@@ -149,13 +150,14 @@ public class AdminManager {
 	 * Makes a given user an admin
 	 * @param username
 	 */
-	public void makeAdmin(String username) {
+	public boolean makeAdmin(String username) {
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("UPDATE " + MyDBInfo.USER_TABLE + " SET admin=TRUE WHERE username='" + username + "';");
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false;
 		}
+		return true;
 	}
 	
 	

@@ -17,68 +17,67 @@
 %>
 
 <body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-7">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h1 class="panel-title">Quiz Description</h1>
-					</div>
-					<div class="panel-body">
-						<%=quiz.getQuizDescription()%>
-						<p>
-							<i> created by <a
-								href="user-profile.jsp?username=<%=quiz.getQuizCreator()%>">
-									<%=quiz.getQuizCreator()%></a></i>
-						</p>
-						<br>
-						<br>
-						<a class="btn btn-primary" href="quiz-page.jsp?id=<%=id%>"
-							role="button">Start Quiz</a>
-						<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
-						<p>EDIT QUIZ - LINK THIS</p>
-						<% } %>
-					</div>
-				</div>
-			</div>
 
-			<div class="col-md-5">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h2 class="panel-title">Summary Statistics</h2>
+<div class="container-fluid">
+	<div class="row">
+	<div class="col-md-7"><div class="panel panel-default">
+		<div class="panel-heading"><h1 class="panel-title">Quiz Description</h1></div>
+		<div class="panel-body">
+			<%=quiz.getQuizDescription()%>
+			<p> <i> created by <a
+			href="user-profile.jsp?username=<%=quiz.getQuizCreator()%>"> <%=quiz.getQuizCreator()%></a></i>
+			</p>
+			<br><br><a class="btn btn-primary" href="quiz-page.jsp?id=<%=id%>" role="button">Start Quiz</a>
+			<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
+				<p>EDIT QUIZ - LINK THIS </p>
+			<% } 
+			
+			if (userManager.isAdmin(user.getUsername())) { %>
+			<form action="EditQuizServlet" method="post">
+				<input type="hidden" name="quizIDs" value="<% out.print(quiz.getQuizID()); %>">
+					<div class="col-md-3" style="float: left">
+						<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
+							<i class="material-icons">delete</i>
+							<br>Delete
+						</button>
 					</div>
-					<div class="panel-body">
-						<ol>
-							<% int scoreTotal = 0;
-				long timeTotal = 0;
+					<div class="col-md-3" style="float: left">
+						<button type="submit" class="btn btn-link" name="buttonAction" value="clearHistory">
+							<i class="material-icons">history</i>
+							<br>Clear History</button>
+					</div>
+			</form>
+		<% } %>
+		</div>
+	</div></div>
+	
+	<div class="col-md-5"><div class="panel panel-default">
+		<div class="panel-heading"><h2 class="panel-title">Summary Statistics</h2></div>
+		<div class="panel-body">
+			<ol>
+			<% 
 				 if (scores.size() == 0) { %>
-							<p>No high scores from today to display.</p>
+							<p>This quiz hasn't been taken yet!</p>
 							<% } else {
+								int scoreTotal = 0;
+								long timeTotal = 0;
 				for (int i = 0; i < scores.size(); i++) {
 					scoreTotal += scores.get(i).getScore();
 					timeTotal += scores.get(i).getTotalTime();
 				}
-				System.out.println(scoreTotal);
+
 				int avgScore = scoreTotal/scores.size();
 				long avgTime = timeTotal/scores.size();
 				long avgMins = avgTime / 60;
 				long avgSecs = avgTime % 60;
+			
 			%>
-							<p>
-								Average Score:
-								<%=avgScore%>
-							</p>
-							<p>
-								Average Time Taken:
-								<%=avgMins%>
-								mins,
-								<%=avgSecs%>
-								secs
-							</p>
-						</ol>
-					</div>
-				</div>
-			</div>
+
+			<p>Average Score: <%=avgScore%> </p>
+			<p>Average Time Taken: <%=avgMins%> mins, <%=avgSecs%> secs</p>
+			<% } %>
+			
+			</ol>
 		</div>
 
 		<div class="row">
@@ -177,7 +176,7 @@
 					<div class="panel-body">
 						<ol>
 							<% if (scores.size() == 0) { %>
-							<p>No high scores from today to display.</p>
+							<p>This quiz hasn't been taken yet!</p>
 							<% } else {
 						for (int i = 0; i < scores.size() && i < 5; i++) {
 							String scoreUser = scores.get(i).getUserName();
@@ -188,7 +187,7 @@
 							</p>
 <%}
 						}
-						}%>
+						%>
 						</ol>
 					</div>
 				</div>

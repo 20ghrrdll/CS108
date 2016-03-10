@@ -7,27 +7,64 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Friends</title>
 <%@include file="navigation-bar.jsp" %>
-</head>
-<body>
+
 <%
 	Set<String> friendsNames = new HashSet<String>();
-	Set<String> friendRequests = new HashSet<String>();
+	ArrayList<String> friendRequests = new ArrayList<String>();
 
 	if(user!= null){
 		friendsNames = userManager.getFriends(user.getUsername());
 		friendRequests = userManager.getFriendRequests(user.getUsername());
 	}
 %>
+ <script>
+ $(function() {
+			var myArray = <%= userManager.toJavascriptArray(friendsNames) %>;         
+            var availableTutorials = [
+               "ActionScript",
+               "Boostrap",
+               "C",
+               "C++",
+            ];
+            $( "#automplete-1" ).autocomplete({
+               source: myArray,
+               select: function( event , ui ) {
+            	   if(ui.item.label != null)
+            	   	window.location.replace("user-profile.jsp?username="+ui.item.label);
+               }
+            });
+         });
+      </script>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="panel panel-success">
+		<div class="ui-widget">
+         	<p>Search for a friend</p>
+         	<label for="automplete-1">Username: </label>
+         	<form action="FriendRequestServlet" method="post">
+         		<input id="automplete-1" name="Search">
+         		<button type="submit">Search</button>
+         	</form>
+    	</div>
+	</div>
+</div>
 
 <%if(!friendRequests.isEmpty()) {%>
-<div class="container-fluid"><div class="col-md-12"><div class="panel panel-default">
-	<div class="panel-heading"><h1 class="panel-title">Friends</h1></div>
+<div class="container-fluid"><div class="col-md-12"><div class="panel panel-success">
+	<div class="panel-heading"><h1 class="panel-title">Friend Requests</h1></div>
 	<div class="panel-body">
 	<ol><% for (String username : friendRequests) { %>
-			<li><a href="user-profile.jsp?username=<%=username%>"
-				STYLE="text-decoration: none">
-					<h4><%=username%></h4>
-			</a></li>
+			<li>
+					<h4><b><a href="user-profile.jsp?username=<%=username%>"
+							STYLE="text-decoration: none"><%=username%></a></b></h4>
+								<form action="FriendRequestServlet" method="post">
+							<input type="hidden" name="id" value="<%=username%>"/>
+							<input type="hidden" name="userId" value="<%=user.getUsername()%>">
+							<button  class="btn btn-default"  type="submit" name="Accept">Accept</button>
+							<button  class="btn btn-default"  type="submit" name="Ignore">Ignore</button>
+							</form>
+			</li>
 		<% } %>
 	</ol>
 	</div>

@@ -42,7 +42,9 @@ public class AnnouncementCreationServlet extends HttpServlet {
 			return;
 		}
 		AdminManager adminManager = (AdminManager) getServletContext().getAttribute("adminManager");
-		adminManager.createAnnouncement(username, subject, body);
+		if (!adminManager.createAnnouncement(username, subject, body)) {
+			request.setAttribute("error", 1);
+		}
 		response.sendRedirect("admin-page.jsp?");		
 	}
 
