@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS quiz_question;
 DROP TABLE IF EXISTS question_answers;
 DROP TABLE IF EXISTS quiz_records;
 DROP TABLE IF EXISTS quiz_question_records;
+DROP TABLE IF EXISTS quiz_ratings;
 
 DROP TABLE IF EXISTS user;
 
@@ -119,7 +120,15 @@ CREATE TABLE IF NOT EXISTS messages (
   quizId INT DEFAULT NULL,
   type enum('CHALLENGE','NOTE') NOT NULL,
   PRIMARY KEY (messageId)
-)  ;
+);
+
+CREATE TABLE IF NOT EXISTS quiz_ratings (
+	quizId INT NOT NULL,
+	userId VARCHAR(255) NOT NULL,
+	created DATETIME NOT NULL,
+	rating INT NOT NULL,
+	review VARCHAR(8000) NOT NULL
+);
 
 
 /*  ----------------------------------
@@ -240,3 +249,6 @@ INSERT INTO friends (user1, user2, established) VALUES
 
 INSERT INTO achievements (userId, achievementId) VALUES
 ('Max', 'CREATE_1');
+
+INSERT INTO quiz_ratings (quizId, userId, created, rating, review) VALUES 
+('1', 'Regina', '2016-03-04 20:45:00', 4, 'Great');
