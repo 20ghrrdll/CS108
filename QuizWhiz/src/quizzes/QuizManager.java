@@ -373,7 +373,8 @@ public class QuizManager {
 		ArrayList<Review> reviews = new ArrayList<Review>();
 		try {
 			Statement stmt = con.createStatement();		
-			ResultSet rs = stmt.executeQuery("SELECT * FROM " + MyDBInfo.QUIZ_RATINGS +" WHERE quizId='" + quizId);
+			System.out.println("SELECT * FROM " + MyDBInfo.QUIZ_RATINGS +" WHERE quizId='" + quizId + "';");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM " + MyDBInfo.QUIZ_RATINGS +" WHERE quizId='" + quizId + ";");
 			while (rs.next()) {
 				Review r = new Review(rs.getInt("quizId"), rs.getString("userId"), rs.getInt("rating"), rs.getString("review"), rs.getTimestamp("created"));
 				reviews.add(r);

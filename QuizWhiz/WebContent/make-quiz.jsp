@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
-    pageEncoding="UTF-8" 	
-    import="java.util.*, quizzes.*, users.*, main.*, messages.*, administration.*"%>
-    
-=======
     pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*, main.*, messages.*, administration.*" %>
->>>>>>> a9ba208783b2a5f867b0d6f0027a72bba2596372
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,14 +14,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
-<<<<<<< HEAD
-<h1>Make Quiz</h1>
 
-	<form action="QuizMakerServlet" method="post">
-		Quiz Name: <input type="text" name="quizName"> <br>
-		Quiz Description: <textarea name ="quizDescription" rows="4" cols="50"> </textarea> <br>
-		Quiz Type: <br>
-=======
 </head>
 <body>
 
@@ -42,7 +29,6 @@
 		<textarea class="form-control" rows="5" id="quizDescription"></textarea>
 		
 		<br><h5>Quiz Type:</h5> 
->>>>>>> a9ba208783b2a5f867b0d6f0027a72bba2596372
 		<input type="radio" name="quizType" value="QuestionResponse"> Question Response<br>
 		<input type="radio" name="quizType" value="FillIn"> Fill in the Blank <br>
 		<input type="radio" name="quizType" value="mc"> Multiple Choice <br>

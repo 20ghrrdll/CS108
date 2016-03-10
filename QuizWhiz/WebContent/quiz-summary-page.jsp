@@ -212,7 +212,17 @@
 				<% ArrayList<Review> reviews = quizManager.getReviews(id);
 				if (reviews.size() == 0) {
 					out.println("No reviews yet.");
-				} else { %>		
+				} else { 
+					for (int i = 0; i < reviews.size(); i++) { 
+						Review review = reviews.get(i); %>		
+						<div class="panel panel-primary">
+						  <div class="panel-heading"><% out.print(review.getRating() + "/" + FinalConstants.MAX_RATING + " - " + review.getReviewer() + " - " + review.getCreated()); %></div>
+						  <div class="panel-body">
+						    <% out.println(review.getReview()); %>
+						  </div>
+						</div>
+				<% } 
+				} %>
 			</div>
 		</div>
 	</div></div>
