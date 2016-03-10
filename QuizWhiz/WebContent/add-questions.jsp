@@ -22,9 +22,7 @@ function addQuestions() {
     
     var text2 = document.createTextNode("Response: ");
     element2.setAttribute("type", "text");
-    element2.setAttribute("name", "answer");
-    
-    
+    element2.setAttribute("name", "answer");    
     
     
     var br = document.createElement("BR");
