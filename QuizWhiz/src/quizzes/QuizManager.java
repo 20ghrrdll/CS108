@@ -373,8 +373,7 @@ public class QuizManager {
 		ArrayList<Review> reviews = new ArrayList<Review>();
 		try {
 			Statement stmt = con.createStatement();		
-			System.out.println("SELECT * FROM " + MyDBInfo.QUIZ_RATINGS +" WHERE quizId='" + quizId + "';");
-			ResultSet rs = stmt.executeQuery("SELECT * FROM " + MyDBInfo.QUIZ_RATINGS +" WHERE quizId='" + quizId + ";");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM " + MyDBInfo.QUIZ_RATINGS +" WHERE quizId='" + quizId + "' ORDER BY created DESC;");
 			while (rs.next()) {
 				Review r = new Review(rs.getInt("quizId"), rs.getString("userId"), rs.getInt("rating"), rs.getString("review"), rs.getTimestamp("created"));
 				reviews.add(r);
@@ -386,8 +385,11 @@ public class QuizManager {
 	}
 	
 	
-	public boolean addReview(int quizId, String userId, int rating, String review, Timestamp created) {
+	public boolean addReview(String quizId, String userId, String rating, String review) {
 		try {
+			java.util.Date dt = new java.util.Date();
+			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String created = sdf.format(dt);
 			Statement stmt = con.createStatement();		
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.QUIZ_RATINGS + " VALUES('" + quizId + "', '" + userId + "', '" + created + "', '" + rating + "', '" + review + "');");
 		} catch (SQLException e1) {

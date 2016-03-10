@@ -76,6 +76,10 @@
 			<div class="panel-body">
 				<ol>
 					<% for (int i = 0; i < popularQuizzes.size() && i < 5; i++) { %>
+						<% if (!userManager.getAchievements(popularQuizzes.get(i).getQuizCreator()).contains(FinalConstants.POPULAR_QUIZ)) {
+							userManager.addAchievement(popularQuizzes.get(i).getQuizCreator(), FinalConstants.POPULAR_QUIZ);
+						} %> 
+						
 						<li><a
 							<%String id = String.valueOf(popularQuizzes.get(i).getQuizID());%>
 							href="quiz-summary-page.jsp?id=<%=id%>"
@@ -86,6 +90,8 @@
 					<% } %>
 				</ol>
 			</div></div></div>
+			
+			
 			
 		<div class="col-md-4"><div class="panel panel-default">
 			<div class="panel-heading"><h1 class="panel-title">Recently Created</h1></div>
