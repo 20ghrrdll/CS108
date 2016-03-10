@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Messages</title>
 <%@include file="navigation-bar.jsp" %>
+
 </head>
 <body>
 

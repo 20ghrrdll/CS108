@@ -135,7 +135,40 @@
 		<div class="panel-heading"><h1 class="panel-title">My Quizzes</h1></div>
 		<div class="panel-body">
 			<ol>
-				<% for (int i = 0; i < myQuizzes.size() && i < 5; i++) { %>
+				<% 
+					if (myQuizzes.size() == 0) {
+						out.println("No quizzes created. ");
+						out.println("<a href=\"make-quiz.jsp\">Make a quiz now!</a>");
+					} else {
+						for (int i = 0; i < myQuizzes.size() && i < 5; i++) { %>
+						<li> <a
+								<%String id = String.valueOf(popularQuizzes.get(i).getQuizID());%>
+								href="quiz-summary-page.jsp?id=<%=id%>"
+								STYLE="text-decoration: none">
+							<h4><%=myQuizzes.get(i).getQuizName()%></h4>
+							<p><%=myQuizzes.get(i).getQuizDescription()%></p>
+							</a>
+						</li>
+					<% } 
+					}%>
+			</ol>
+		</div>
+	</div></div>
+	
+	<div class="col-md-6"><div class="panel panel-default">
+		<div class="panel-heading"><h1 class="panel-title">Friend Activities</h1></div>
+		<div class="panel-body">
+			<ol>
+				<% for (int i = 0; i < recentActivity.size() && i < 5; i++) { 
+					 if(recentActivity.get(i).getType().equals("taken")){%>
+					<li> <h4><%=recentActivity.get(i).getUserId() %> has taken a quiz</h4>
+					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
+							STYLE="text-decoration: none" class="button">
+						<h4><%=myQuizzes.get(i).getQuizName()%></h4>
+						<p><%=myQuizzes.get(i).getQuizDescription()%></p>
+						</a>
+					</li>
+					<%} else {%>
 					<li> <a
 							<%String id = String.valueOf(myQuizzes.get(i).getQuizID());%>
 							href="quiz-summary-page.jsp?id=<%=id%>"
@@ -144,15 +177,8 @@
 						<p><%=myQuizzes.get(i).getQuizDescription()%></p>
 						</a>
 					</li>
-				<% } %>
+				<% } }%>
 			</ol>
-		</div>
-	</div></div>
-	
-	<div class="col-md-6"><div class="panel panel-default">
-		<div class="panel-heading"><h1 class="panel-title">Friend Activities</h1></div>
-		<div class="panel-body">
-			tbd
 		</div>
 	</div>
 

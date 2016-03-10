@@ -74,7 +74,6 @@
 	<div class="col-md-6"><div class="panel panel-default">
 		<div class="panel-heading"><h2 class="panel-title">Summary Statistics</h2></div>
 		<div class="panel-body">
-			<ol>
 			<% 
 				 if (scores.size() == 0) { %>
 							<p>This quiz hasn't been taken yet!</p>
@@ -93,11 +92,19 @@
 			
 			%>
 
-			<p>Average Score: <%=avgScore%> </p>
-			<p>Average Time Taken: <%=avgMins%> mins, <%=avgSecs%> secs</p>
+			<b>Average Score:</b> <%=avgScore%> <br>
+			<b>Average Time Taken:</b> <%=avgMins%> mins, <%=avgSecs%> secs<br>
 			<% } %>
 			
-			</ol>
+			<b>Average Rating: </b>
+			<% double avgRating = quizManager.getAverageRating(id); 
+			if (avgRating == 0) {
+				out.println("Quiz has not been rated yet.<br>");
+			} else {
+				out.println(String.format( "%.1f", avgRating) + "/" + FinalConstants.MAX_RATING);
+			}
+			%>
+			
 		</div>
 		</div></div></div>
 
@@ -232,7 +239,16 @@
 					for (int i = 0; i < reviews.size(); i++) { 
 						Review review = reviews.get(i); %>		
 						<div class="panel panel-primary">
-						  <div class="panel-heading"><% out.print(review.getRating() + "/" + FinalConstants.MAX_RATING + " - " + review.getReviewer() + " - " + review.getCreated()); %></div>
+						  <div class="panel-heading"><% 
+						  int rating = review.getRating();
+						  for (int r = 0; r < rating; r++) {
+							  out.print("★");
+						  }
+						  for (int r = 0; r < FinalConstants.MAX_RATING - rating; r++) {
+							  out.print("☆");
+						  }
+						  out.print(" - " + review.getReviewer() + " - " + review.getCreated()); 
+						  %></div>
 						  <div class="panel-body">
 						    <% out.println(review.getReview()); %>
 						  </div>
