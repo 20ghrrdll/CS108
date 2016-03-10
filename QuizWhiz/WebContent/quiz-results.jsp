@@ -18,6 +18,12 @@
 		<% out.print(user.getUsername()); %>, you scored
 		<% out.print(session.getAttribute("score")); %>/<% out.print(session.getAttribute("maxScore")); %>
 		 points.
+		 
+		 <% if (session.getAttribute("score").equals(session.getAttribute("maxScore"))) {
+			 if (!userManager.getAchievements(user.getUsername()).contains(FinalConstants.PERFECT_SCORE)) {
+			 	userManager.addAchievement(user.getUsername(), FinalConstants.PERFECT_SCORE);
+			 }
+		 }%>
 	</h4>
 	
 	<br>

@@ -21,6 +21,7 @@ public class FinalConstants {
 	public static final String FRIENDS_10 = "FRIENDS_10";
 	public static final String CHALLENGER = "CHALLENGER";
 	public static final String PERFECT_SCORE = "PERFECT_SCORE";
+	public static final String POPULAR_QUIZ = "POPULAR_QUIZ";
 	
 	public static final Map<String, Achievement> ACHIEVEMENTS;
 	static {
@@ -35,6 +36,7 @@ public class FinalConstants {
 		ACHIEVEMENTS.put(FRIENDS_10, new Achievement("Social Butterfly", "achievement-icons/chat-icon.png", "Has 10+ friends."));
 		ACHIEVEMENTS.put(CHALLENGER, new Achievement("Challenger", "achievement-icons/racing-flags-icon.png", "Challenged someone to take a quiz."));
 		ACHIEVEMENTS.put(PERFECT_SCORE, new Achievement("The Next Einstein", "achievement-icons/brightness-icon.png", "Achieved a perfect score on a quiz."));
+		ACHIEVEMENTS.put(POPULAR_QUIZ, new Achievement("Appealing to the Masses", "achievement-icons/megaphone-2-icon.png", "Had a popular quiz."));
 	}
 	
 }

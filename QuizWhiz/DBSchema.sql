@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS question_answers;
 DROP TABLE IF EXISTS quiz_records;
 DROP TABLE IF EXISTS quiz_question_records;
 DROP TABLE IF EXISTS quiz_ratings;
+DROP TABLE IF EXISTS reported_quizzes;
 
 DROP TABLE IF EXISTS user;
 
@@ -130,6 +131,12 @@ CREATE TABLE IF NOT EXISTS quiz_ratings (
 	review VARCHAR(8000) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS reported_quizzes (
+	quizId INT NOT NULL,
+	reportedBy VARCHAR(255) NOT NULL,
+	reportedDate DATETIME NOT NULL
+);
+
 
 /*  ----------------------------------
 All tables loaded. Now we load initial quiz data
@@ -162,8 +169,8 @@ INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numA
 (3, 3, 'In the Little Mermaid, Ariel needs to convince the prince to marry her so she can stay with him on land. In the book that inspired
 	this story, what will happen to her if she doesnt succeed?', 'She will turn into sea foam', 4),
 (4, 1, "What kind of animal is this?|https://s-media-cache-ak0.pinimg.com/736x/7b/7b/7f/7b7b7fac88ead0c1b89573c781123b0f.jpg", "Giraffe", 1),
-(4, 1, "What kind of animal is this?|http://inspirationseek.com/wp-content/uploads/2016/02/Cute-Dog-Golden-Retriever-Pictures.jpg", "Dog", 1),
-(4, 1, "What kind of animal is this?|http://cdn-img.people.com/emstag/i/2015/pets/news/150316/quokka-1024.jpg?ppl_tok=6c2950da2fa29610296cb843a46bf64b", "Quokka", 1);
+(4, 2, "What kind of animal is this?|http://www.pamperedpetz.net/wp-content/uploads/2015/09/Puppy1.jpg", "Dog", 1),
+(4, 3, "What kind of animal is this?|http://cdn-img.people.com/emstag/i/2015/pets/news/150316/quokka-1024.jpg?ppl_tok=6c2950da2fa29610296cb843a46bf64b", "Quokka", 1);
 
 
 
@@ -255,3 +262,6 @@ INSERT INTO achievements (userId, achievementId) VALUES
 
 INSERT INTO quiz_ratings (quizId, userId, created, rating, review) VALUES 
 ('1', 'Regina', '2016-03-04 20:45:00', 4, 'Great');
+
+INSERT INTO reported_quizzes(quizId, reportedBy, reportedDate) VALUES 
+('1', 'Regina', '2016-03-04 20:45:00');
