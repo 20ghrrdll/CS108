@@ -108,9 +108,9 @@ public class QuizResultServlet extends HttpServlet {
 		String qId = Integer.toString(currQ.getQuestionId());
 		for(int a = 0; a < numAnswers; a++){
 			String answerID = qId+"-"+Integer.toString(a);
-			System.out.println(answerID);
+			//System.out.println(answerID);
 			String answer = request.getParameter(answerID);
-			System.out.println(answer);
+			//System.out.println(answer);
 			userAnswers.add(answer);
 		}
 		ArrayList<Boolean> results = currQ.areCorrect(userAnswers);
