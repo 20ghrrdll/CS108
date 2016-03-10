@@ -486,6 +486,25 @@ public class QuizManager {
 		return true;
 	}
 	
+	
+	public double getAverageRating(int quizId) {
+		double total = 0;
+		double numRatings = 0;
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM " + MyDBInfo.QUIZ_RATINGS + " WHERE quizId='" + quizId + "';");
+			while (rs.next()) {
+				numRatings++;
+				total += rs.getDouble("rating");
+			}
+		} catch (SQLException e1) {
+		}
+		
+		if (numRatings == 0) return 0;
+		return total / numRatings;
+	}
+	
+	
 	public void closeConnection() {
 		DBConnector.closeConnection();
 	}
