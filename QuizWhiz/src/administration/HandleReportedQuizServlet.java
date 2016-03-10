@@ -33,18 +33,20 @@ public class HandleReportedQuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
+		AdminManager adminManager = (AdminManager) request.getServletContext().getAttribute("adminManager");
 		String buttonAction = request.getParameter("buttonAction");
 		int quizId = Integer.parseInt(request.getParameter("quizId"));
 		
 		if (buttonAction.equals("delete")) {
-			if (!quizManager.deleteReportedQuiz(quizId)) {
+			if (!adminManager.deleteReportedQuiz(quizId)) {
 				request.setAttribute("error", 1);
 			}
 		} else if (buttonAction.equals("ignore")) {
-		
+			if (!adminManager.ignoreReportedQuiz(quizId)) {
+				request.setAttribute("error", 1);
+			}
 		}
-
+		response.sendRedirect("admin-page.jsp?");		
 	}
 
 }

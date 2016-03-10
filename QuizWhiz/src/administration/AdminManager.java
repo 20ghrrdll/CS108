@@ -2,6 +2,7 @@ package administration;
 
 import main.MyDBInfo;
 import messages.Message;
+import quizExtras.ReportedQuiz;
 import main.FinalConstants;
 import main.DBConnector;
 import java.util.*;
@@ -158,6 +159,58 @@ public class AdminManager {
 			return false;
 		}
 		return true;
+	}
+	
+	
+	/**
+	 * Deletes a reported quiz from the database and removes from list of reported quiz
+	 * @param quizId
+	 * @return
+	 */
+	public boolean deleteReportedQuiz(int quizId) {
+		try {
+			Statement stmt = con.createStatement();		
+			deleteQuiz(quizId);
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.REPORTED_QUIZZES + " WHERE quizId='" + quizId + "';");
+		} catch (SQLException e1) {
+			return false;
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Removes a quiz from the reported quiz list without deleting it
+	 * @param quizId
+	 * @return
+	 */
+	public boolean ignoreReportedQuiz(int quizId) {
+		try {
+			Statement stmt = con.createStatement();		
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.REPORTED_QUIZZES + " WHERE quizId='" + quizId + "';");
+		} catch (SQLException e1) {
+			return false;
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Returns a list of quizzes that have been reported. Multiples are allowed.
+	 * @return
+	 */
+	public ArrayList<ReportedQuiz> getReportedQuizzes() {
+		ArrayList<ReportedQuiz> quizzes = new ArrayList<ReportedQuiz>();
+		try {
+			Statement stmt = con.createStatement();		
+			ResultSet rs = stmt.executeQuery("SELECT * FROM " + MyDBInfo.REPORTED_QUIZZES + " ORDER BY reportedDate DESC;");
+			while (rs.next()) {
+				ReportedQuiz r = new ReportedQuiz(rs.getInt("quizId"), rs.getString("reportedBy"), rs.getTimestamp("reportedDate"));
+				quizzes.add(r);
+			}
+		} catch (SQLException e1) {
+		}
+		return quizzes;
 	}
 	
 	

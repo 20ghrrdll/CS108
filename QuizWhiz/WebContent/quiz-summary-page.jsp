@@ -42,15 +42,15 @@ System.out.println(id);
 			<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
 				<p>EDIT QUIZ - LINK THIS </p>
 			<% } else { %>
-				<form action="ReportQuizServlet" method="post">
+				<br><br><form action="ReportQuizServlet" method="post">
 					<input type="hidden" name="quizId" value="<%=id%>">
 					<input type="hidden" name="reporter" value="<%=user.getUsername()%>">
-					<button type="submit" class="btn btn-primary">Report Quiz</button>
+					<button type="submit" class="btn btn-danger">Report Quiz</button>
 				</form>
 			<% }
 			
 			if (userManager.isAdmin(user.getUsername())) { %>
-			<br>
+			<br><br><b>Admin Functions:</b>
 			<form action="EditQuizServlet" method="post">
 				<input type="hidden" name="quizIDs" value="<% out.print(quiz.getQuizID()); %>">
 					<div class="col-md-3" style="float: left">
