@@ -1,20 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*, main.*, java.sql.*"%>
+	pageEncoding="UTF-8"
+	import="java.util.*, quizzes.*, users.*, main.*, java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Quiz Summary</title>
-<%@include file="navigation-bar.jsp" %>
+<%@include file="navigation-bar.jsp"%>
 </head>
 
 <%
 	int id = Integer.valueOf(request.getParameter("id"));
+	System.out.println(id);
 	Quiz quiz = quizManager.getQuiz(Integer.valueOf(id));
 	ArrayList<QuizPerformance> scores = quizManager.getQuizPerformances(id);
 %>
 
 <body>
+
 
 <% if(quiz == null) { %> 
 <div class="alert alert-danger">
@@ -60,76 +63,93 @@
 		<div class="panel-heading"><h2 class="panel-title">Summary Statistics</h2></div>
 		<div class="panel-body">
 			<ol>
-			<% if(scores.size() != 0){
-				int scoreTotal = 0;
-				long timeTotal = 0;
+			<% 
+				 if (scores.size() == 0) { %>
+							<p>This quiz hasn't been taken yet!</p>
+							<% } else {
+								int scoreTotal = 0;
+								long timeTotal = 0;
 				for (int i = 0; i < scores.size(); i++) {
 					scoreTotal += scores.get(i).getScore();
 					timeTotal += scores.get(i).getTotalTime();
 				}
-			
+
 				int avgScore = scoreTotal/scores.size();
 				long avgTime = timeTotal/scores.size();
 				long avgMins = avgTime / 60;
 				long avgSecs = avgTime % 60;
 			
 			%>
+
 			<p>Average Score: <%=avgScore%> </p>
 			<p>Average Time Taken: <%=avgMins%> mins, <%=avgSecs%> secs</p>
-			<%}  else { %>
-			<p>This quiz hasn't been taken yet!</p>
-			<%} %>
+			<% } %>
+			
 			</ol>
 		</div>
-	</div></div>
-	</div>
 
-	<div class="row"><div class="col-md-12">
-	<div class="panel panel-default">
-		<div class="panel-heading"><h2 class="panel-title">Your Past Performance</h2></div>
-		<div class="panel-body">
-			<ol>
-			<% ArrayList<QuizPerformance> quizzesTaken = quizManager.getMyRecentlyTakenQuizPerformance(user.getUsername(), id);
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">Your Past Performance</h2>
+					</div>
+					<div class="panel-body">
+						<ol>
+							<% ArrayList<QuizPerformance> quizzesTaken = quizManager.getMyRecentlyTakenQuizPerformance(user.getUsername(), id);
 				if (quizzesTaken.size() == 0) { %>
-				<p>No recent activity to display.</p>
-			<% } else {
+							<p>No recent activity to display.</p>
+							<% } else {
 					for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {
 						int score = quizzesTaken.get(i).getScore();
 						String date = quizzesTaken.get(i).getDate(); %>
-						<p>Date: <%=date%>, Score: <%=score%></p>
-					
-				<% }
-			  } %>
-			</ol>
-		</div>
-	</div>
-	</div></div>
+							<p>
+								Date:
+								<%=date%>, Score:
+								<%=score%></p>
 
-	<div class="row">
-	<div class="col-md-6"><div class="panel panel-default">
-		<div class="panel-heading"><h2 class="panel-title">All-Time High Scores</h2></div>
-		<div class="panel-body">
-			<ol>
-				<% ArrayList<QuizPerformance> highScores = quizManager.getQuizHighScores(id);
+							<% }
+			  } %>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">All-Time High Scores</h2>
+					</div>
+					<div class="panel-body">
+						<ol>
+							<% ArrayList<QuizPerformance> highScores = quizManager.getQuizHighScores(id);
 					if (highScores.size() == 0) { %>
-				<p>No high scores to display.</p>
-				<% } else {
+							<p>No high scores to display.</p>
+							<% } else {
 						for (int i = 0; i < highScores.size() && i < 5; i++) {
 							String highScoreUser = highScores.get(i).getUserName();
 							String score = String.valueOf(highScores.get(i).getScore()); %>
-							<p><li><a href="user-profile.jsp?username=<%=highScoreUser%>"> 
-								<%=highScoreUser%></a>, Score: <%=score%></li></p>
-					<% }
+							<p>
+							<li><a href="user-profile.jsp?username=<%=highScoreUser%>">
+									<%=highScoreUser%></a>, Score: <%=score%></li>
+							</p>
+							<% }
 					} %>
-			</ol>
-		</div>
-	</div></div>
-	
-	<div class="col-md-6"><div class="panel panel-default">
-		<div class="panel-heading"><h2 class="panel-title">Today's High Scores</h2></div>
-		<div class="panel-body">
-			<ol>
-				<% ArrayList<QuizPerformance> highScoresToday = new ArrayList<QuizPerformance>();
+						</ol>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">Today's High Scores</h2>
+					</div>
+					<div class="panel-body">
+						<ol>
+							<% ArrayList<QuizPerformance> highScoresToday = new ArrayList<QuizPerformance>();
 					for (int i = 0; i < highScores.size(); i++) {
 						if (highScores.get(i).wasToday()) {
 							highScoresToday.add(highScores.get(i));
@@ -137,45 +157,59 @@
 					}
 				
 					if (highScoresToday.size() == 0) { %>
-						<p>No high scores from today to display.</p>
-				<% } else {
+							<p>No high scores from today to display.</p>
+							<% } else {
 						for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {	
 							String highScoreUser = highScoresToday.get(i).getUserName();
 							String score = String.valueOf(highScoresToday.get(i).getScore()); %>
-							<p><li><a href="user-profile.jsp?username=<%=highScoreUser%>"> <%=highScoreUser%></a>, Score:
-					<%=score%></p> </li>
-					<% } 
+							<p>
+							<li><a href="user-profile.jsp?username=<%=highScoreUser%>">
+									<%=highScoreUser%></a>, Score: <%=score%></p></li>
+							<% } 
 					} %>
-			</ol>
+						</ol>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div></div>
-	</div>
 
-	
-	
-	<div class="row"><div class="col-md-12">
-	<div class="panel panel-default">
-		<div class="panel-heading"><h2 class="panel-title">Recent Performances</h2></div>
-		<div class="panel-body">
-			<ol>
-				<% if (scores.size() == 0) { %>
-					<p>No high scores from today to display.</p>
-				<% } else {
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">Recent Performances</h2>
+					</div>
+					<div class="panel-body">
+						<ol>
+							<% if (scores.size() == 0) { %>
+							<p>This quiz hasn't been taken yet!</p>
+							<% } else {
 						for (int i = 0; i < scores.size() && i < 5; i++) {
 							String scoreUser = scores.get(i).getUserName();
 							String score = String.valueOf(scores.get(i).getScore()); %>
-							<p><li><a href="user-profile.jsp?username=<%=scoreUser%>"> <%=scoreUser%></a>, Score:
-							<%=score%></li></p>
-					<% }
-					} %>
-			</ol>
+							<p>
+							<li><a href="user-profile.jsp?username=<%=scoreUser%>">
+									<%=scoreUser%></a>, Score: <%=score%></li>
+							</p>
+<%}
+						}
+						%>
+						</ol>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div></div></div>
-	
-	
 
+<<<<<<< HEAD
 </div>
 <% } %>
+=======
+
+
+	</div>
+>>>>>>> 9bf0b83d7e987f1424ced014de73f6918dbd266a
 </body>
 </html>
 
