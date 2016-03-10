@@ -35,9 +35,8 @@ public class UserManager {
 				user = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"), rs.getDate("joinDate"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return null;
 		}
-		
 		return user;
 	}
 	
@@ -56,7 +55,7 @@ public class UserManager {
 				usernames.add(rs.getString(1));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			e.printStackTrace(); 
 		}
 		return usernames;
 	}
@@ -99,7 +98,7 @@ public class UserManager {
 				admin = rs.getBoolean("admin");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			e.printStackTrace(); 
 		}
 		return admin;
 	}
@@ -123,7 +122,7 @@ public class UserManager {
 					friends.add(rs.getString("user1").toLowerCase());
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			e.printStackTrace(); 
 		}
 		return friends;
 	}
@@ -141,9 +140,7 @@ public class UserManager {
 		String date = sdf.format(dt);
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 +"\");");		
-			if (getFriends(user1).size() == 25) addAchievement(user1, FinalConstants.FRIENDS_10);
-			if (getFriends(user2).size() == 25) addAchievement(user2, FinalConstants.FRIENDS_10);
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " VALUES(\"" + user1 + "\", \"" + user2 + "\", \"" + date + "\");");		
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
@@ -182,7 +179,7 @@ public class UserManager {
 				friends.add(rs.getString("userFromId").toLowerCase());
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			e.printStackTrace(); 
 		}
 		return friends;
 	}
@@ -237,7 +234,7 @@ public class UserManager {
 	 * @param achievementID
 	 * @param data - SimpleDataFormat of when the achievement was unlocked
 	 */
-	public void addAchievement(String username, String achievementID) {
+	public boolean addAchievement(String username, String achievementID) {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = sdf.format(dt);
@@ -245,8 +242,10 @@ public class UserManager {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.ACHIEVEMENTS_TABLE + " VALUES(\"" + username + "\", \"" + achievementID + "\", \"" + date + "\");");		
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false; // TODO: what to do here
 		}
+		
+		return true;
 	}
 	
 	
@@ -265,7 +264,7 @@ public class UserManager {
 				userAchievements.add(rs.getString("achievementId"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			e.printStackTrace();
 		}
 		return userAchievements;
 	}

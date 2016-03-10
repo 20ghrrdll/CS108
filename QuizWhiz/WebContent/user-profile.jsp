@@ -8,6 +8,8 @@
 <%@include file="navigation-bar.jsp" %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<%@include file="navigation-bar.jsp" %>
 <%
 //User user = (User) session.getAttribute("currentUser");
 //UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
@@ -16,12 +18,25 @@ if(user == null){
 	return;
 }
 String usernameToView = request.getParameter("username");
+if (userManager.getUser(usernameToView) == null) { %>
+	<div class="alert alert-danger">
+	  <strong>Error!</strong> <%=usernameToView %> does not exist.
+	</div>
+<% } else {
+
 requests = userManager.getSentRequests(user.getUsername());
 System.out.println(requests.toString());
 %>
+
 <title><% out.print(usernameToView); %>'s Profile</title>
 </head>
 <body>
+
+<% if(userManager.getUser(usernameToView) == null) { %> 
+<div class="alert alert-danger">
+  <strong>Error!</strong> User does not exist.
+</div>
+<% } else { %>
 
 <div class="container-fluid">
 <div class="row"><div class="col-md-5"><div class="panel panel-default">
@@ -163,13 +178,7 @@ if (quizzesTaken.size() == 0) { %>
 </ol>
 </div></div></div>
 </div>
-
+<% } %>
 </body>
-
-<script type="text/javascript">
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-</script>
 
 </html>
