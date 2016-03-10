@@ -30,16 +30,16 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
+				Timestamp created = rs.getTimestamp("created");
 				String creator = rs.getString("creatorId");
-				String type = rs.getString("type");
+				QuizType type = QuizType.valueOf(rs.getString("type"));
 				boolean practiceMode = rs.getBoolean("practiceMode");
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 		return quiz;
 	}
@@ -94,17 +94,17 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
+				Timestamp created = rs.getTimestamp("created");
 				String creator = rs.getString("creatorId");
-				String type = rs.getString("type");
+				QuizType type = QuizType.valueOf(rs.getString("type"));
 				boolean practiceMode = rs.getBoolean("practiceMode");
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 				quizzes.add(quiz);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 		return quizzes;
 	}
@@ -125,17 +125,17 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
+				Timestamp created = rs.getTimestamp("created");
 				String creator = rs.getString("creatorId");
-				String type = rs.getString("type");
+				QuizType type = QuizType.valueOf(rs.getString("type"));
 				boolean practiceMode = rs.getBoolean("practiceMode");
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 				quizzes.add(quiz);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 
 		return quizzes;
@@ -157,13 +157,14 @@ public class QuizManager {
 			int quizID = rs.getInt("quizID");
 			String name = rs.getString("name");
 			String description = rs.getString("description");
+			Timestamp created = rs.getTimestamp("created");
 			String creator = rs.getString("creatorId");
-			String type = rs.getString("type");
+			QuizType type = QuizType.valueOf(rs.getString("type"));
 			boolean practiceMode = rs.getBoolean("practiceMode");
 			boolean multiplePages = rs.getBoolean("pages");
 			boolean random = rs.getBoolean("random");
 			boolean immediateCorrection = rs.getBoolean("correction");
-			Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+			Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 			quizzes.add(quiz);
 		}
 		return quizzes;
@@ -206,13 +207,14 @@ public class QuizManager {
 			int quizID = rs.getInt("quizID");
 			String name = rs.getString("name");
 			String description = rs.getString("description");
+			Timestamp created = rs.getTimestamp("created");
 			String creator = rs.getString("creatorId");
-			String type = rs.getString("type");
+			QuizType type = QuizType.valueOf(rs.getString("type"));
 			boolean practiceMode = rs.getBoolean("practiceMode");
 			boolean multiplePages = rs.getBoolean("pages");
 			boolean random = rs.getBoolean("random");
 			boolean immediateCorrection = rs.getBoolean("correction");
-			Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+			Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 			quizzes.add(quiz);
 		}
 		return quizzes;
@@ -228,13 +230,14 @@ public class QuizManager {
 			int quizID = rs.getInt("quizID");
 			String name = rs.getString("name");
 			String description = rs.getString("description");
+			Timestamp created = rs.getTimestamp("created");
 			String creator = rs.getString("creatorId");
-			String type = rs.getString("type");
+			QuizType type = QuizType.valueOf(rs.getString("type"));
 			boolean practiceMode = rs.getBoolean("practiceMode");
 			boolean multiplePages = rs.getBoolean("pages");
 			boolean random = rs.getBoolean("random");
 			boolean immediateCorrection = rs.getBoolean("correction");
-			Quiz quiz = new Quiz(quizID, name, description, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+			Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 			quizzes.add(quiz);
 		}
 		return quizzes;
@@ -313,8 +316,8 @@ public class QuizManager {
 		return highScores;
 	} 
 
-	
-	public void insertQuiz(String name, String description, Timestamp created, String creatorId, boolean practice, boolean pages, boolean random, boolean correction, QuizType quizType) {
+
+	public void insertQuiz(Quiz quiz) {
 		/* String query = "INSERT INTO " + MyDBInfo.QUIZ_TABLE + " (name, description, created, creatorId"
 				+ ", practiceMode, pages, random, correction, type, amountTaken)" + 
 				" VALUES ("+ '"+name+"' + ", " + description + ", " + created + ", " + creatorId + ", " + practice + ", " +
@@ -326,15 +329,15 @@ public class QuizManager {
 		System.out.println(query);
 		try {
 			PreparedStatement s = con.prepareStatement(query);
-			s.setString(1, name);
-			s.setString(2, description);
-			s.setTimestamp(3, created);
-			s.setString(4, creatorId);
-			s.setBoolean(5, practice);
-			s.setBoolean(6, pages);
-			s.setBoolean(7, random);
-			s.setBoolean(8, correction);
-			s.setString(9, quizType.name());
+			s.setString(1, quiz.getQuizName());
+			s.setString(2, quiz.getQuizDescription());
+			s.setTimestamp(3, quiz.getTimeCreated());
+			s.setString(4, quiz.getQuizCreator());
+			s.setBoolean(5, quiz.hasPracticeMode());
+			s.setBoolean(6, quiz.displayMultiplePages());
+			s.setBoolean(7, quiz.randomOrder());
+			s.setBoolean(8, quiz.hasImmediateCorrection());
+			s.setString(9, quiz.getQuizType().name());
 			s.setInt(10, 0);
 			System.out.println(s.toString());
 			s.executeUpdate();

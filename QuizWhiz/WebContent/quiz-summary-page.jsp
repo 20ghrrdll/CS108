@@ -1,168 +1,215 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, quizzes.*, users.*, main.*, java.sql.*"%>
+	pageEncoding="UTF-8"
+	import="java.util.*, quizzes.*, users.*, main.*, java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Quiz Summary</title>
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/style/index.css" />
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet"
-	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="http://www.w3schools.com/lib/w3-theme-indigo.css">
+<%@include file="navigation-bar.jsp"%>
 </head>
 
 <%
-	QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 	int id = Integer.valueOf(request.getParameter("id"));
-	User currentUser = (User) session.getAttribute("currentUser");
-	String username = currentUser.getUsername();
+	System.out.println(id);
 	Quiz quiz = quizManager.getQuiz(Integer.valueOf(id));
+	ArrayList<QuizPerformance> scores = quizManager.getQuizPerformances(id);
 %>
 
-<body class="w3-theme-light standards">
+<body>
 
-<p> <a href="quiz-page.jsp?id=<%=id%>">Start Quiz</a> </p>
-<%
-	if (username.equals(quiz.getQuizCreator())) {
-%>
-	<p>EDIT QUIZ - LINK THIS </p>
-<%
-	}
-%>
 
-	<h1 class="center-title w3-theme">Quiz Description</h1>
-	<p><%=quiz.getQuizDescription()%></p>
-	<p>
-		<i> created by <a
+<% if(quiz == null) { %> 
+<div class="alert alert-danger">
+  <strong>Error!</strong> Quiz does not exist.
+</div>
+<% } else { %>
+
+<div class="container-fluid">
+	<div class="row">
+	<div class="col-md-7"><div class="panel panel-default">
+		<div class="panel-heading"><h1 class="panel-title">Quiz Description</h1></div>
+		<div class="panel-body">
+			<%=quiz.getQuizDescription()%>
+			<p> <i> created by <a
 			href="user-profile.jsp?username=<%=quiz.getQuizCreator()%>"> <%=quiz.getQuizCreator()%></a></i>
-	</p>
-
-	<h1 class="center-title w3-theme">Your Past Performance</h1>
-	<ol class="w3-ul w3-hoverable">
-		<%
+			</p>
+			<br><br><a class="btn btn-primary" href="quiz-page.jsp?id=<%=id%>" role="button">Start Quiz</a>
+			<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
+				<p>EDIT QUIZ - LINK THIS </p>
+			<% } 
 			
-			ArrayList<QuizPerformance> quizzesTaken = quizManager.getMyRecentlyTakenQuizPerformance(username, id);
-			if (quizzesTaken.size() == 0) {
-		%>
-		<p>No recent activity to display.</p>
-		<%
-			} else {
-				for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {
-					int score = quizzesTaken.get(i).getScore();
-					String date = quizzesTaken.get(i).getDate();
-		%>
-		
-				<p>Date: <%=date%>, Score: <%=score%></p>
-				
-		<%
-			}
-			}
-		%>
-	</ol>
-
-	<h1 class="center-title w3-theme">All-Time High Scores</h1>
-	<ol class="w3-ul w3-hoverable">
-		<%
-			ArrayList<QuizPerformance> highScores = quizManager.getQuizHighScores(id);
-
-			if (highScores.size() == 0) {
-		%>
-		<p>No high scores to display.</p>
-		<%
-			} else {
-				for (int i = 0; i < highScores.size() && i < 5; i++) {
-					String highScoreUser = highScores.get(i).getUserName();
-					String score = String.valueOf(highScores.get(i).getScore());
-		%>
-		<p>
-			<a href="user-profile.jsp?username=<%=highScoreUser%>"> <%=highScoreUser%></a>, Score:
-			<%=score%></p>
-		</li>
-		<%
-			}
-			}
-		%>
-	</ol>
+			if (userManager.isAdmin(user.getUsername())) { %>
+			<br>
+			<form action="EditQuizServlet" method="post">
+				<input type="hidden" name="quizIDs" value="<% out.print(quiz.getQuizID()); %>">
+					<div class="col-md-3" style="float: left">
+						<button type="submit" class="btn btn-link" name="buttonAction" value="delete">
+							<i class="material-icons">delete</i>
+							<br>Delete
+						</button>
+					</div>
+					<div class="col-md-3" style="float: left">
+						<button type="submit" class="btn btn-link" name="buttonAction" value="clearHistory">
+							<i class="material-icons">history</i>
+							<br>Clear History</button>
+					</div>
+			</form>
+		<% } %>
+		</div>
+	</div></div>
 	
-	<h1 class="center-title w3-theme">Today's High Scores</h1>
-	<ol class="w3-ul w3-hoverable">
-		<%
-			ArrayList<QuizPerformance> highScoresToday = new ArrayList<QuizPerformance>();
-			for (int i = 0; i < highScores.size(); i++) {
-				if (highScores.get(i).wasToday()) {
-					highScoresToday.add(highScores.get(i));
+	<div class="col-md-5"><div class="panel panel-default">
+		<div class="panel-heading"><h2 class="panel-title">Summary Statistics</h2></div>
+		<div class="panel-body">
+			<ol>
+			<% 
+				 if (scores.size() == 0) { %>
+							<p>This quiz hasn't been taken yet!</p>
+							<% } else {
+								int scoreTotal = 0;
+								long timeTotal = 0;
+				for (int i = 0; i < scores.size(); i++) {
+					scoreTotal += scores.get(i).getScore();
+					timeTotal += scores.get(i).getTotalTime();
 				}
-			}
-		
-			if (highScoresToday.size() == 0) {
-		%>
-		<p>No high scores from today to display.</p>
-		<%
-			} else {
-				for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {
-					
-					String highScoreUser = highScoresToday.get(i).getUserName();
-					String score = String.valueOf(highScoresToday.get(i).getScore());
-		%>
-		<p>
-			<a href="user-profile.jsp?username=<%=highScoreUser%>"> <%=highScoreUser%></a>, Score:
-			<%=score%></p>
-		</li>
-		<%
-			}
-			}
-		%>
-	</ol>
-	
-		<h1 class="center-title w3-theme">Recent Performances</h1>
-	<ol class="w3-ul w3-hoverable">
-		<%
-			ArrayList<QuizPerformance> scores = quizManager.getQuizPerformances(id);
-		
-			if (scores.size() == 0) {
-		%>
-		<p>No high scores from today to display.</p>
-		<%
-			} else {
-				for (int i = 0; i < scores.size() && i < 5; i++) {
-					
-					String user = scores.get(i).getUserName();
-					String score = String.valueOf(scores.get(i).getScore());
-		%>
-		<p>
-			<a href="user-profile.jsp?username=<%=user%>"> <%=user%></a>, Score:
-			<%=score%></p>
-		</li>
-		<%
-			}
-			}
-		%>
-	</ol>
-	
-	<h1 class="center-title w3-theme">Summary Statistics</h1>
-	<ol class="w3-ul w3-hoverable">
-	<%
-		int scoreTotal = 0;
-		long timeTotal = 0;
-		for (int i = 0; i < scores.size(); i++) {
-			scoreTotal += scores.get(i).getScore();
-			timeTotal += scores.get(i).getTotalTime();
-		}
-		int avgScore = scoreTotal/scores.size();
-		long avgTime = timeTotal/scores.size();
-		long avgMins = avgTime / 60;
-		long avgSecs = avgTime % 60;
-	%>
-	<p>Average Score: <%=avgScore%> </p>
-	<p>Average Time Taken: <%=avgMins%> mins, <%=avgSecs%> secs</p>
-		
-	</ol>
+
+				int avgScore = scoreTotal/scores.size();
+				long avgTime = timeTotal/scores.size();
+				long avgMins = avgTime / 60;
+				long avgSecs = avgTime % 60;
+			
+			%>
+
+			<p>Average Score: <%=avgScore%> </p>
+			<p>Average Time Taken: <%=avgMins%> mins, <%=avgSecs%> secs</p>
+			<% } %>
+			
+			</ol>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">Your Past Performance</h2>
+					</div>
+					<div class="panel-body">
+						<ol>
+							<% ArrayList<QuizPerformance> quizzesTaken = quizManager.getMyRecentlyTakenQuizPerformance(user.getUsername(), id);
+				if (quizzesTaken.size() == 0) { %>
+							<p>No recent activity to display.</p>
+							<% } else {
+					for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {
+						int score = quizzesTaken.get(i).getScore();
+						String date = quizzesTaken.get(i).getDate(); %>
+							<p>
+								Date:
+								<%=date%>, Score:
+								<%=score%></p>
+
+							<% }
+			  } %>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">All-Time High Scores</h2>
+					</div>
+					<div class="panel-body">
+						<ol>
+							<% ArrayList<QuizPerformance> highScores = quizManager.getQuizHighScores(id);
+					if (highScores.size() == 0) { %>
+							<p>No high scores to display.</p>
+							<% } else {
+						for (int i = 0; i < highScores.size() && i < 5; i++) {
+							String highScoreUser = highScores.get(i).getUserName();
+							String score = String.valueOf(highScores.get(i).getScore()); %>
+							<p>
+							<li><a href="user-profile.jsp?username=<%=highScoreUser%>">
+									<%=highScoreUser%></a>, Score: <%=score%></li>
+							</p>
+							<% }
+					} %>
+						</ol>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">Today's High Scores</h2>
+					</div>
+					<div class="panel-body">
+						<ol>
+							<% ArrayList<QuizPerformance> highScoresToday = new ArrayList<QuizPerformance>();
+					for (int i = 0; i < highScores.size(); i++) {
+						if (highScores.get(i).wasToday()) {
+							highScoresToday.add(highScores.get(i));
+						}
+					}
+				
+					if (highScoresToday.size() == 0) { %>
+							<p>No high scores from today to display.</p>
+							<% } else {
+						for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {	
+							String highScoreUser = highScoresToday.get(i).getUserName();
+							String score = String.valueOf(highScoresToday.get(i).getScore()); %>
+							<p>
+							<li><a href="user-profile.jsp?username=<%=highScoreUser%>">
+									<%=highScoreUser%></a>, Score: <%=score%></p></li>
+							<% } 
+					} %>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">Recent Performances</h2>
+					</div>
+					<div class="panel-body">
+						<ol>
+							<% if (scores.size() == 0) { %>
+							<p>This quiz hasn't been taken yet!</p>
+							<% } else {
+						for (int i = 0; i < scores.size() && i < 5; i++) {
+							String scoreUser = scores.get(i).getUserName();
+							String score = String.valueOf(scores.get(i).getScore()); %>
+							<p>
+							<li><a href="user-profile.jsp?username=<%=scoreUser%>">
+									<%=scoreUser%></a>, Score: <%=score%></li>
+							</p>
+<%}
+						}
+						%>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<<<<<<< HEAD
+</div>
+<% } %>
+=======
+
+
+	</div>
+>>>>>>> 9bf0b83d7e987f1424ced014de73f6918dbd266a
 </body>
 </html>
 

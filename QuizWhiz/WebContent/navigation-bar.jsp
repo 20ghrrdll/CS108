@@ -4,13 +4,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/style/index.css" />
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-<link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<script type="${pageContext.request.contextPath}/text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-
+  <link type="text/css" rel="stylesheet"
+  	href="${pageContext.request.contextPath}/style/index.css" />
+  <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">	
+  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!--  <script
+ 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+ <!-- Include all compiled plugins (below), or include individual files as needed -->
+ <script
+ 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+ <link
+ 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
+ 	rel="stylesheet" type="text/css" />
+  <script type="text/javascript"
+  	src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
 </head>
 <body>
 
@@ -20,6 +30,7 @@ QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute
 UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 MessageManager messageManager = (MessageManager) request.getServletContext().getAttribute("messageManager");
 AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext().getAttribute("announcementManager");
+AdminManager adminManager = (AdminManager) request.getServletContext().getAttribute("adminManager");
 
 ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
@@ -27,12 +38,17 @@ ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
 ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
 ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
 ArrayList<Message> unreadMessages = new ArrayList<Message>();
-Set<Achievement> myAchievements;
-Set<User> friends;
+ArrayList<Message> messages = new ArrayList<Message>();
+
+ArrayList<String> myAchievements;
+Set<User> friends = new HashSet<User>();
+ArrayList<String> requests = new ArrayList<String>();
 if(user != null){
 	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
 	myAchievements = userManager.getAchievements(user.getUsername());
+	messages = messageManager.getMessages(user.getUsername(), false);
 	unreadMessages = messageManager.getMessages(user.getUsername(), true);
+	requests = userManager.getFriendRequests(user.getUsername());
 } else {
 	response.sendRedirect("login-page.jsp?");
 	return;
@@ -55,7 +71,13 @@ if(user != null){
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="friends.jsp?">Friends</a></li>
+        <li><a href="friends.jsp?">Friends <%
+				if (requests.size() > 0) {
+			%><span
+					class="badge"><%=requests.size()%></span>
+					<%
+						}
+					%></a></li>
         <li><a href="messages.jsp?">Messages <%
 				if (unreadMessages.size() > 0) {
 			%><span

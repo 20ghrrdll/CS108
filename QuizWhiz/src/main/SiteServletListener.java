@@ -6,6 +6,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import messages.MessageManager;
+import quizzes.QuestionManager;
 import quizzes.QuizManager;
 import users.UserManager;
 import administration.AdminManager;
@@ -38,6 +39,8 @@ public class SiteServletListener implements ServletContextListener {
         messageManager.closeConnection();
         AdminManager adminManager = (AdminManager) context.getAttribute("adminManager");
         adminManager.closeConnection();
+        QuestionManager questionManager = (QuestionManager) context.getAttribute("questionManager");
+        questionManager.closeConnection();
     }
 
 	/**
@@ -49,12 +52,14 @@ public class SiteServletListener implements ServletContextListener {
     	QuizManager quizManager = new QuizManager();
         MessageManager messageManager = new MessageManager();
         AdminManager adminManager = new AdminManager();
+        QuestionManager questionManager = new QuestionManager();
     	ServletContext context = arg0.getServletContext();
     	context.setAttribute("userManager", userManager);
     	context.setAttribute("announcementManager", announcementManager);
     	context.setAttribute("quizManager", quizManager);
         context.setAttribute("messageManager", messageManager);
         context.setAttribute("adminManager", adminManager);
+        context.setAttribute("questionManager", questionManager);
         context.setAttribute("ctx", context.getContextPath());
     }
 	

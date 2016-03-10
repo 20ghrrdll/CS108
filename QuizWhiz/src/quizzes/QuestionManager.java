@@ -68,6 +68,10 @@ public class QuestionManager {
 		return html;
 	}
 	
+	public void closeConnection() {
+		DBConnector.closeConnection();
+	}
+	
 	
 	ArrayList<String> getAllAnswers(String quizID, String questionID){
 		ArrayList<String> answers = new ArrayList<String>();

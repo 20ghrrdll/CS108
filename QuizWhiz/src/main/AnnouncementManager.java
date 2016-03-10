@@ -36,7 +36,6 @@ public class AnnouncementManager {
 			}
 			return announcements;
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 		return null;
 	}

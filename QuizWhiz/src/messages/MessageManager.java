@@ -41,19 +41,19 @@ public class MessageManager {
 				userMessages.add(message);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
 		}
 		return userMessages;
 	}
 
-	public void sendMessage(String sender, String username, String subject, String body){
+	public boolean sendMessage(String sender, String username, String subject, String body){
 		try {
 			Statement stmt = con.createStatement();
 			String query = "INSERT INTO  " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, subject, body, type) VALUES ('" + sender +"','" + username +"', '" + subject +"','" + body +"','NOTE');";
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
-			e.printStackTrace(); // TODO: what to do here
+			return false;
 		}
+		return true;
 	}
 
 	public void setAsRead(int messageId){

@@ -33,18 +33,29 @@ public class MessageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MessageManager messageManager = (MessageManager) getServletContext().getAttribute("messageManager");
+		//Marks a note as read
 		if(request.getParameter("note") != null){
 			messageManager.setAsRead(Integer.parseInt(request.getParameter("messageId")));
 			response.sendRedirect("messages.jsp?");
 			return;
+		//Handles accepting a challenge
 		} else if( request.getParameter("challenge") != null){
 			messageManager.setAsRead(Integer.parseInt(request.getParameter("messageId")));
-			response.sendRedirect("quiz-page.jsp?Id="+request.getParameter("quizId"));
-		} else if(request.getParameter("username") != null){
-			messageManager.sendMessage(request.getParameter("senderId"), request.getParameter("username"), request.getParameter("subject"), request.getParameter("body"));
-			response.sendRedirect("messages.jsp?");
+			response.sendRedirect("quiz-page.jsp?id="+request.getParameter("quizId"));
+		//Handles sending a note to a user
+		} else if(request.getParameter("sendNote") != null){
+			System.out.println("Hello");
+			if(!messageManager.sendMessage(request.getParameter("senderId"), request.getParameter("username"), request.getParameter("subject"), request.getParameter("body"))) {
+				request.setAttribute("error", 1);
+				response.sendRedirect("index.jsp");
+			} else {
+				response.sendRedirect("messages.jsp?");
+			}
+		} else if(request.getParameter("sendChallenge") != null){
+			
 		}
 	}
 
