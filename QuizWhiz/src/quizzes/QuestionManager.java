@@ -103,10 +103,11 @@ public class QuestionManager {
 			Statement stmt = con.createStatement();
 			String query = "SELECT answer FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=\"" + quizID + 
 					"\" AND questionId = \""+questionID+"\";";
-			//System.out.println(query);
+			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){ 
 				String answer = rs.getString("answer");
+				//System.out.println("ANSWER: " + answer);
 				answers.add(answer);
 			}
 			return answers;

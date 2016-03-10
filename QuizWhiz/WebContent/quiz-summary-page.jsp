@@ -12,6 +12,7 @@
 <%
 	int id = Integer.valueOf(request.getParameter("id"));
 	System.out.println(id);
+	System.out.println(id);
 	Quiz quiz = quizManager.getQuiz(Integer.valueOf(id));
 	ArrayList<QuizPerformance> scores = quizManager.getQuizPerformances(id);
 %>
@@ -30,8 +31,10 @@
 <% } else { %>
 
 <div class="container-fluid">
+	<h1><%=quiz.getQuizName() %></h1>
 	<div class="row">
 	<div class="col-md-6"><div class="panel panel-default">
+	
 		<div class="panel-heading"><h1 class="panel-title">Quiz Description</h1></div>
 		<div class="panel-body">
 			<%=quiz.getQuizDescription()%>
@@ -39,7 +42,7 @@
 			</p>
 			<br><br><a class="btn btn-primary" href="quiz-page.jsp?id=<%=id%>" role="button">Start Quiz</a>
 			<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
-				<p>EDIT QUIZ - LINK THIS </p>
+				<a class="btn btn-primary" href="edit-quiz.jsp?id=<%=id%>" role="button">Edit Quiz</a>
 			<% } else { %>
 				<br><br><form action="ReportQuizServlet" method="post">
 					<input type="hidden" name="quizId" value="<%=id%>">

@@ -99,7 +99,7 @@
 				<ol>
 					<% for (int i = 0; i < recentQuizzes.size() && i < 5; i++) { %>
 						<li><a
-							<%String id = String.valueOf(popularQuizzes.get(i).getQuizID());%>
+							<%String id = String.valueOf(recentQuizzes.get(i).getQuizID());%>
 							href="quiz-summary-page.jsp?id=<%=id%>"
 							STYLE="text-decoration: none">
 							<h4><%=recentQuizzes.get(i).getQuizName()%></h4>
@@ -116,7 +116,7 @@
 				<ol>
 					<% for (int i = 0; i < recentlyTakenQuizzes.size() && i < 5; i++) { %>
 						<li><a
-							<%String id = String.valueOf(popularQuizzes.get(i).getQuizID());%>
+							<%String id = String.valueOf(recentlyTakenQuizzes.get(i).getQuizID());%>
 							href="quiz-summary-page.jsp?id=<%=id%>"
 							STYLE="text-decoration: none">
 							<h4><%=recentlyTakenQuizzes.get(i).getQuizName()%></h4>
