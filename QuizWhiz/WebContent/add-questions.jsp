@@ -15,35 +15,32 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     
 <script language="javascript">
+	var numQuestions = 0;
 	function addQuestions() {
 
-		var div = document.createElement("p");
+		var p = document.createElement("p");
+		var question = document.createElement("textarea");
+		var answer = document.createElement("textarea");
 
-		var element1 = document.createElement("textarea");
-		var element2 = document.createElement("textarea");
-
-		var text1 = document.createTextNode("Question: ");
-		//element1.setAttribute("type", "text");
-		element1.setAttribute("name", "question");
-
-		var text2 = document.createTextNode("Answer: ");
-		//element2.setAttribute("type", "text");
-		element2.setAttribute("name", "answer");
-
+		numQuestions++;
+		var questionLabel = document.createTextNode("Question " + numQuestions + ": ");		
+		question.setAttribute("name", "question");
+		question.classList.add("form-control");	
+		var answerLabel = document.createTextNode("Answer: ");
+		answer.setAttribute("name", "answer");
+		answer.classList.add("form-control");	
 		var br = document.createElement("BR");
+		var page = document.getElementById("questions");
 
-		var questions = document.getElementById("questions");
+		page.appendChild(p);
+		page.appendChild(br);
+		page.appendChild(questionLabel);
+		page.appendChild(question);
+		page.appendChild(br);
+		page.appendChild(answerLabel);
+		page.appendChild(answer);
+		page.appendChild(br);
 
-		questions.appendChild(div);
-		questions.appendChild(br);
-		questions.appendChild(br);
-
-		questions.appendChild(text1);
-		questions.appendChild(element1);
-		questions.appendChild(br);
-
-		questions.appendChild(text2);
-		questions.appendChild(element2);
 	}
 </script>
 
@@ -69,11 +66,11 @@
 
 <form action="AddQuestionsServlet" method="post">
 	
-	<p><%=instructions%></p>
+	<h2><small><%=instructions%></small></h2>
 	<br /> 
 
- <button type="button" class="btn btn-default" value="Add Question" onclick="addQuestions()">Add Question</button>
-<button type="submit" class="btn btn-default" value="Done">Done</button>
+ <button type="button" class="btn btn-primary" value="Add Question" onclick="addQuestions()">Add Question</button>
+<button type="submit" class="btn btn-success" value="Done">Done</button>
 
 	<span id="questions">&nbsp;</span>
 	<input type="hidden" name="quizId" value="<%=quiz.getQuizID() %>">

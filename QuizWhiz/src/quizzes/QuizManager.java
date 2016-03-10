@@ -69,6 +69,8 @@ public class QuizManager {
 					correctAnswers = questionManager.getAllAnswers(Integer.toString(quizID), Integer.toString(questionID));
 				}
 				else correctAnswers = null;
+				
+				//for (int i = 0; i < correctAnswers.l)
 				Question question = new Question(quizID, questionID, questionText, correctAnswer, numAnswers, correctAnswers);
 				questions.add(question);
 			}
