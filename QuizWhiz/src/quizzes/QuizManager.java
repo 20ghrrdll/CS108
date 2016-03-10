@@ -440,18 +440,7 @@ public class QuizManager {
 		
 		return true;
 	}
-	
-	
-	public boolean deleteReportedQuiz(int quizId) {
-		try {
-			Statement stmt = con.createStatement();		
-			stmt.executeUpdate("DELETE FROM " + MyDBInfo.REPORTED_QUIZZES + " WHERE quizId='" + quizId + "';");
-		} catch (SQLException e1) {
-			return false;
-		}
-		return true;
-	}
-	
+
 	
 	public boolean addReportedQuiz(int quizId, String reporter) {
 		try { 
@@ -464,20 +453,6 @@ public class QuizManager {
 			return false;
 		}
 		return true;
-	}
-	
-	public ArrayList<ReportedQuiz> getReportedQuizzes() {
-		ArrayList<ReportedQuiz> quizzes = new ArrayList<ReportedQuiz>();
-		try {
-			Statement stmt = con.createStatement();		
-			ResultSet rs = stmt.executeQuery("SELECT * FROM " + MyDBInfo.REPORTED_QUIZZES + " ORDER BY created DESC;");
-			while (rs.next()) {
-				ReportedQuiz r = new ReportedQuiz(rs.getInt("quizId"), rs.getString("reportedBy"), rs.getTimestamp("reportedDate"));
-				quizzes.add(r);
-			}
-		} catch (SQLException e1) {
-		}
-		return quizzes;
 	}
 	
 	public void closeConnection() {

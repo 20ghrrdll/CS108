@@ -115,7 +115,7 @@
       </h4>
     </div>
       <div class="panel-body"> 
-		<% ArrayList<ReportedQuiz> reportedQuizzes = quizManager.getReportedQuizzes(); 
+		<% ArrayList<ReportedQuiz> reportedQuizzes = adminManager.getReportedQuizzes(); 
 		if (reportedQuizzes.size() == 0) {
 			out.println("No reported quizzes.");
 		} else {
