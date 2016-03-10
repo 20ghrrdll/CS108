@@ -46,6 +46,7 @@ public class QuizMakerServlet extends HttpServlet {
 
 		String quizName = request.getParameter("quizName");
 		String quizDescription = request.getParameter("quizDescription");
+		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("currentUser");
 		String quizCreator = user.getUsername();
@@ -53,7 +54,9 @@ public class QuizMakerServlet extends HttpServlet {
 		QuizType quizType = null;
 		//TODO: Expand to all quiz types
 		if (request.getParameter("quizType").equals("QuestionResponse")) quizType = QuizType.QuestionResponse;
+		if (request.getParameter("quizType").equals("FillIn")) quizType = QuizType.FillIn;
 
+		
 		boolean hasPracticeMode = false;
 		if (request.getParameter("practice").equals("y")) hasPracticeMode = true;
 		boolean hasMultiplePages = false;
@@ -64,10 +67,12 @@ public class QuizMakerServlet extends HttpServlet {
 		if (request.getParameter("correction").equals("immediate")) hasImmediateCorrection = true;
 
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
-		quizManager.insertQuiz(quizName, quizDescription, created, quizCreator, hasPracticeMode, hasMultiplePages, hasRandomOrder, hasImmediateCorrection, quizType);
-	
+		Quiz quiz = new Quiz(quizName, quizDescription, created, quizCreator, quizType, hasPracticeMode, hasMultiplePages, hasRandomOrder, hasImmediateCorrection);
+		quizManager.insertQuiz(quiz);
+		
+		request.setAttribute("quiz", quiz);
 		RequestDispatcher d = request.getRequestDispatcher("add-questions.jsp");
-		d.forward(request, response);
+		d.forward(request, response); 
 
 	}
 
