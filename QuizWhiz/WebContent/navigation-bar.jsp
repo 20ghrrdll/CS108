@@ -42,7 +42,7 @@ ArrayList<Message> messages = new ArrayList<Message>();
 
 ArrayList<String> myAchievements;
 Set<User> friends = new HashSet<User>();
-Set<String> requests = new HashSet<String>();
+ArrayList<String> requests = new ArrayList<String>();
 if(user != null){
 	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
 	myAchievements = userManager.getAchievements(user.getUsername());

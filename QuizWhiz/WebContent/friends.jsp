@@ -7,8 +7,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Friends</title>
 <%@include file="navigation-bar.jsp" %>
+
+<%
+	Set<String> friendsNames = new HashSet<String>();
+	ArrayList<String> friendRequests = new ArrayList<String>();
+
+	if(user!= null){
+		friendsNames = userManager.getFriends(user.getUsername());
+		friendRequests = userManager.getFriendRequests(user.getUsername());
+	}
+%>
  <script>
-         $(function() {
+ $(function() {
+			var myArray = <%= userManager.toJavascriptArray(friendsNames) %>;         
             var availableTutorials = [
                "ActionScript",
                "Boostrap",
@@ -16,38 +27,28 @@
                "C++",
             ];
             $( "#automplete-1" ).autocomplete({
-               source: availableTutorials
+               source: myArray,
+               select: function( event , ui ) {
+            	   if(ui.item.label != null)
+            	   	window.location.replace("user-profile.jsp?username="+ui.item.label);
+               }
             });
          });
       </script>
 </head>
 <body>
 <div class="container-fluid">
-<div class="panel panel-success">
-<div class="ui-widget">
-         <p>Type "a" or "s"</p>
-         <label for="automplete-1">Tags: </label>
-         <input id="automplete-1">
-      </div>
-      </div>
-      </div>
-<!-- <h3>Country</h3>
-    <input type="text" id="country" name="country"/>
-     
-    <script>
-    	$(this.target).find('country').autocomplete("getData.jsp");
-        //$("#country").autocomplete("getData.jsp");
-    </script> -->
-
-<%
-	Set<String> friendsNames = new HashSet<String>();
-	Set<String> friendRequests = new HashSet<String>();
-
-	if(user!= null){
-		friendsNames = userManager.getFriends(user.getUsername());
-		friendRequests = userManager.getFriendRequests(user.getUsername());
-	}
-%>
+	<div class="panel panel-success">
+		<div class="ui-widget">
+         	<p>Search for a friend</p>
+         	<label for="automplete-1">Username: </label>
+         	<form action="FriendRequestServlet" method="post">
+         		<input id="automplete-1" name="Search">
+         		<button type="submit">Search</button>
+         	</form>
+    	</div>
+	</div>
+</div>
 
 <%if(!friendRequests.isEmpty()) {%>
 <div class="container-fluid"><div class="col-md-12"><div class="panel panel-success">

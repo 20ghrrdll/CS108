@@ -37,7 +37,13 @@ public class FriendRequestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		UserManager userManager = (UserManager) getServletContext().getAttribute("userManager");
-		if(request.getParameter("Accept") != null){
+		if(request.getParameter("Search") != null){
+			System.out.println("Search");
+			System.out.println(request.getParameter("Search"));
+			response.sendRedirect("user-profile.jsp?username="+request.getParameter("Search"));
+
+			return;
+		} else if(request.getParameter("Accept") != null){
 			System.out.println("Accept");
 			System.out.println(request.getParameter("id"));
 			userManager.handleFriendResponse(request.getParameter("id"), request.getParameter("userId"), true);
