@@ -135,16 +135,22 @@
 		<div class="panel-heading"><h1 class="panel-title">My Quizzes</h1></div>
 		<div class="panel-body">
 			<ol>
-				<% for (int i = 0; i < myQuizzes.size() && i < 5; i++) { %>
-					<li> <a
-							<%String id = String.valueOf(myQuizzes.get(i).getQuizID());%>
-							href="quiz-summary-page.jsp?id=<%=id%>"
-							STYLE="text-decoration: none">
-						<h4><%=myQuizzes.get(i).getQuizName()%></h4>
-						<p><%=myQuizzes.get(i).getQuizDescription()%></p>
-						</a>
-					</li>
-				<% } %>
+				<% 
+					if (myQuizzes.size() == 0) {
+						out.println("No quizzes created. ");
+						out.println("<a href=\"make-quiz.jsp\">Make a quiz now!</a>");
+					} else {
+						for (int i = 0; i < myQuizzes.size() && i < 5; i++) { %>
+						<li> <a
+								<%String id = String.valueOf(popularQuizzes.get(i).getQuizID());%>
+								href="quiz-summary-page.jsp?id=<%=id%>"
+								STYLE="text-decoration: none">
+							<h4><%=myQuizzes.get(i).getQuizName()%></h4>
+							<p><%=myQuizzes.get(i).getQuizDescription()%></p>
+							</a>
+						</li>
+					<% } 
+					}%>
 			</ol>
 		</div>
 	</div></div>
