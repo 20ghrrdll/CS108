@@ -21,7 +21,7 @@ if (userManager.getUser(usernameToView) == null) { %>
 	</div>
 <% } else {
 
-requests = userManager.getSentRequests(user.getUsername());
+Set<String> sentRequests = userManager.getSentRequests(user.getUsername());
 System.out.println(requests.toString());
 %>
 
@@ -42,7 +42,7 @@ System.out.println(requests.toString());
 	<% if (!user.getUsername().equals(usernameToView)) {
 		Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
 		if (!currentUserFriends.contains(usernameToView.toLowerCase())) {
-			if(!requests.contains(usernameToView.toLowerCase())){
+			if(!sentRequests.contains(usernameToView.toLowerCase())){
 	%>
 			<form action="FriendRequestServlet" method="post">
 				<input type="hidden" name="user1" value="<%= user.getUsername() %>">
