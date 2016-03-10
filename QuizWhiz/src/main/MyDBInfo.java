@@ -26,6 +26,4 @@ public class MyDBInfo {
 	public static final String FRIEND_REQUEST_TABLE = "friend_requests";
 	public static final String MESSAGE_TABLE = "messages";
 
-
-
 }

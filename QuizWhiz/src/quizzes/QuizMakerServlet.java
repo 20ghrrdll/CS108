@@ -46,6 +46,8 @@ public class QuizMakerServlet extends HttpServlet {
 
 		String quizName = request.getParameter("quizName");
 		String quizDescription = request.getParameter("quizDescription");
+		System.out.println("QUIZ DESCRIPTION: " + quizDescription);
+		
 		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("currentUser");
@@ -68,12 +70,13 @@ public class QuizMakerServlet extends HttpServlet {
 
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		Quiz quiz = new Quiz(quizName, quizDescription, created, quizCreator, quizType, hasPracticeMode, hasMultiplePages, hasRandomOrder, hasImmediateCorrection);
-		quizManager.insertQuiz(quiz);
+		int quizId = quizManager.insertQuiz(quiz);
+		System.out.println("QuizMakerServlet: " + quizId);
 		
 		request.setAttribute("quiz", quiz);
 		RequestDispatcher d = request.getRequestDispatcher("add-questions.jsp");
 		d.forward(request, response); 
-
+  
 	}
 
 			

@@ -320,7 +320,7 @@ public class QuizManager {
 	} 
 
 
-	public void insertQuiz(Quiz quiz) {
+	public int insertQuiz(Quiz quiz) {
 		/* String query = "INSERT INTO " + MyDBInfo.QUIZ_TABLE + " (name, description, created, creatorId"
 				+ ", practiceMode, pages, random, correction, type, amountTaken)" + 
 				" VALUES ("+ '"+name+"' + ", " + description + ", " + created + ", " + creatorId + ", " + practice + ", " +
@@ -329,6 +329,7 @@ public class QuizManager {
 				+ ", practiceMode, pages, random, correction, type, amountTaken)" + 
 				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+		int quizId = 0;
 		System.out.println(query);
 		try {
 			PreparedStatement s = con.prepareStatement(query);
@@ -344,10 +345,22 @@ public class QuizManager {
 			s.setInt(10, 0);
 			System.out.println(s.toString());
 			s.executeUpdate();
+
+			
+			query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE name='" + quiz.getQuizName() + "' ORDER BY created DESC;";
+			System.out.print(query);
+			//Statement stmt = con.createStatement();		
+			//ResultSet rs = stmt.executeQuery(query);
+			// quizId = rs.getInt("quizId"); */
+			
+
 		} catch (SQLException e1) {
+			System.out.println("GOT HERE");
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		return quizId;
+
 	}
 
 	public void closeConnection() {

@@ -80,4 +80,8 @@ public class Quiz {
 	public boolean hasImmediateCorrection() {
 		return immediateCorrection;
 	}
+	
+	public void setQuizId(int id) {
+		this.id = id;
+	}
 }
