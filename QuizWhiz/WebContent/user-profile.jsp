@@ -21,7 +21,7 @@ if (userManager.getUser(usernameToView) == null) { %>
 	</div>
 <% } else {
 
-Set<String> sentRequests = userManager.getSentRequests(user.getUsername());
+ArrayList<String> sentRequests = userManager.getSentRequests(user.getUsername());
 System.out.println(requests.toString());
 %>
 

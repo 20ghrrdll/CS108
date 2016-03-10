@@ -33,6 +33,7 @@
 			<% } 
 			
 			if (userManager.isAdmin(user.getUsername())) { %>
+			<br>
 			<form action="EditQuizServlet" method="post">
 				<input type="hidden" name="quizIDs" value="<% out.print(quiz.getQuizID()); %>">
 					<div class="col-md-3" style="float: left">
