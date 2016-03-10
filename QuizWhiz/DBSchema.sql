@@ -139,7 +139,7 @@ INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken, ty
 ('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', 'Max', 10, 'QuestionResponse'),
 ('2','The Preamble', 'How well do you know the first sentence of the constitution?', '2016-02-27 13:41:01', 'Max', 9, 'FillIn'),
 ('3','Disney', 'Put your knowledge of childlike whimsy to the test!', '2016-02-27 13:41:02', 'Max', 8, 'MultipleChoice'),
-('4','Fourth Quiz', 'Our 4th  quiz', '2016-02-27 13:41:03', 'Max', 7, 'QuestionResponse'),
+('4','Cute Animals', "Do you struggle to identify animals when they're cute? Practice here!", '2016-02-27 13:41:03', 'Max', 7, 'QuestionResponse'),
 ('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', 'Max', 6, 'QuestionResponse'),
 ('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', 'Max', 5, 'QuestionResponse'),
 ('7','Seventh Quiz', 'Our 7th quiz', '2016-02-27 13:41:06', 'Max', 4, 'QuestionResponse'),
@@ -160,7 +160,10 @@ INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numA
 (3, 1, 'A classic silent Disney character shares a name with a planet. How many planets are there between that planet and the sun?', '8', 4),
 (3, 2, "A winged character in Aladdin shares his name with a character from a Shakesperean Play. What is that play's name?", 'Othello', 3),
 (3, 3, 'In the Little Mermaid, Ariel needs to convince the prince to marry her so she can stay with him on land. In the book that inspired
-	this story, what will happen to her if she doesnt succeed?', 'She will turn into sea foam', 5);
+	this story, what will happen to her if she doesnt succeed?', 'She will turn into sea foam', 4),
+(4, 1, "What kind of animal is this?|https://s-media-cache-ak0.pinimg.com/736x/7b/7b/7f/7b7b7fac88ead0c1b89573c781123b0f.jpg", "Giraffe", 1),
+(4, 1, "What kind of animal is this?|http://inspirationseek.com/wp-content/uploads/2016/02/Cute-Dog-Golden-Retriever-Pictures.jpg", "Dog", 1),
+(4, 1, "What kind of animal is this?|http://cdn-img.people.com/emstag/i/2015/pets/news/150316/quokka-1024.jpg?ppl_tok=6c2950da2fa29610296cb843a46bf64b", "Quokka", 1);
 
 
 
