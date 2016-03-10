@@ -20,8 +20,9 @@ if (userManager.getUser(usernameToView) == null) { %>
 	  <strong>Error!</strong> <%=usernameToView %> does not exist.
 	</div>
 <% } else {
-	requests = userManager.getSentRequests(user.getUsername());
-	System.out.println(requests.toString());
+
+ArrayList<String> sentRequests = userManager.getSentRequests(user.getUsername());
+System.out.println(requests.toString());
 %>
 
 <title><% out.print(usernameToView); %>'s Profile</title>
@@ -41,7 +42,7 @@ if (userManager.getUser(usernameToView) == null) { %>
 	<% if (!user.getUsername().equals(usernameToView)) {
 		Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
 		if (!currentUserFriends.contains(usernameToView.toLowerCase())) {
-			if(!requests.contains(usernameToView.toLowerCase())){
+			if(!sentRequests.contains(usernameToView.toLowerCase())){
 	%>
 			<form action="FriendRequestServlet" method="post">
 				<input type="hidden" name="user1" value="<%= user.getUsername() %>">
