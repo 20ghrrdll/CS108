@@ -26,6 +26,10 @@
 
 <% 
 User user = (User) session.getAttribute("currentUser");
+if(user == null){
+	response.sendRedirect("login-page.jsp?");
+	return;
+}
 QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 MessageManager messageManager = (MessageManager) request.getServletContext().getAttribute("messageManager");
@@ -41,14 +45,20 @@ ArrayList<Message> unreadMessages = new ArrayList<Message>();
 ArrayList<Message> messages = new ArrayList<Message>();
 
 ArrayList<String> myAchievements;
-Set<User> friends = new HashSet<User>();
+Set<String> friendsNames = new HashSet<String>();
 ArrayList<String> requests = new ArrayList<String>();
+ArrayList<RecentActivity> recentActivity = new ArrayList<RecentActivity>();
 if(user != null){
 	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
 	myAchievements = userManager.getAchievements(user.getUsername());
 	messages = messageManager.getMessages(user.getUsername(), false);
 	unreadMessages = messageManager.getMessages(user.getUsername(), true);
 	requests = userManager.getFriendRequests(user.getUsername());
+	friendsNames = userManager.getFriends(user.getUsername());
+	recentActivity = userManager.getRecentActivity(user.getUsername(), friendsNames);
+	for(RecentActivity activity: recentActivity){
+		System.out.println("TYPE:" + activity.getType() + ", DATE: " + activity.getDate());
+	}
 } else {
 	response.sendRedirect("login-page.jsp?");
 	return;
