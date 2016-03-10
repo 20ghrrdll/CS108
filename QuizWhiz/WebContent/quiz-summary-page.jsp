@@ -35,13 +35,18 @@
 		<div class="panel-heading"><h1 class="panel-title">Quiz Description</h1></div>
 		<div class="panel-body">
 			<%=quiz.getQuizDescription()%>
-			<p> <i> created by <a
-			href="user-profile.jsp?username=<%=quiz.getQuizCreator()%>"> <%=quiz.getQuizCreator()%></a></i>
+			<p> <i> created by <a href="user-profile.jsp?username=<%=quiz.getQuizCreator()%>"> <%=quiz.getQuizCreator()%></a></i>
 			</p>
 			<br><br><a class="btn btn-primary" href="quiz-page.jsp?id=<%=id%>" role="button">Start Quiz</a>
 			<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
 				<p>EDIT QUIZ - LINK THIS </p>
-			<% } 
+			<% } else { %>
+				<form action="ReportQuizServlet" method="post">
+					<input type="hidden" name="quizId" value="<%=id%>">
+					<input type="hidden" name="reporter" value="<%=user.getUsername()%>">
+					<button type="submit" class="btn btn-primary">Report Quiz</button>
+				</form>
+			<% }
 			
 			if (userManager.isAdmin(user.getUsername())) { %>
 			<br>
