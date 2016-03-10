@@ -1,4 +1,4 @@
-package quizzes;
+package quizExtras;
 
 import java.sql.Timestamp;
 
