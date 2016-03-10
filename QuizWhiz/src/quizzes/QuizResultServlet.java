@@ -39,10 +39,6 @@ public class QuizResultServlet extends HttpServlet {
 	}
 
 	/**
-	 * Creds to
-	 * http://www.java2s.com/Tutorials/Java/JSP/0090__JSP_Form_Processing.htm
-	 * for the info on how to read all form parameters
-	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */

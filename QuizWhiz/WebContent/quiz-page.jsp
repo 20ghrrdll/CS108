@@ -56,7 +56,7 @@
 		<%
 			QuestionManager qManager = new QuestionManager();
 			request.setAttribute("questions", questions);
-			String quizType = toDisplay.getQuizType();
+			 String quizType = ((QuizType)toDisplay.getQuizType()).toString();
 			for (int a = 0; a < numQuestions; a++) {
 				Question toPrint = questions.get(a);
 				String qId = Integer.toString(toPrint.getQuestionId());

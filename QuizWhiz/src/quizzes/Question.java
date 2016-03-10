@@ -55,7 +55,7 @@ public class Question {
 			System.out.println("The user answer is "+ userAnswer);
 			System.out.println(this.correctAnswers);
 			System.out.println(this.correctAnswers.get(a));
-			if(userAnswer.equals(this.correctAnswers.get(a))){
+			if(userAnswer != null && userAnswer.equals(this.correctAnswers.get(a))){
 				results.add(true);
 			}
 			else results.add(false);
