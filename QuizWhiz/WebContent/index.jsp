@@ -152,7 +152,28 @@
 	<div class="col-md-6"><div class="panel panel-default">
 		<div class="panel-heading"><h1 class="panel-title">Friend Activities</h1></div>
 		<div class="panel-body">
-			tbd
+			<ol>
+				<% for (int i = 0; i < recentActivity.size() && i < 5; i++) { 
+					 if(recentActivity.get(i).getType().equals("taken")){%>
+					<li> <a
+							<%String id = String.valueOf(myQuizzes.get(i).getQuizID());%>
+							href="quiz-summary-page.jsp?id=<%=id%>"
+							STYLE="text-decoration: none">
+						<h4><%=myQuizzes.get(i).getQuizName()%></h4>
+						<p><%=myQuizzes.get(i).getQuizDescription()%></p>
+						</a>
+					</li>
+					<%} else {%>
+					<li> <a
+							<%String id = String.valueOf(myQuizzes.get(i).getQuizID());%>
+							href="quiz-summary-page.jsp?id=<%=id%>"
+							STYLE="text-decoration: none">
+						<h4><%=myQuizzes.get(i).getQuizName()%></h4>
+						<p><%=myQuizzes.get(i).getQuizDescription()%></p>
+						</a>
+					</li>
+				<% } }%>
+			</ol>
 		</div>
 	</div>
 

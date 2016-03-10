@@ -12,7 +12,6 @@
 	<%
 		String username = request.getParameter("replyTo");
 		if(username == null) username = "";
-		Set<String> friendsNames = new HashSet<String>();
 		if (user != null) {
 			friendsNames = userManager.getFriends(user.getUsername());
 		}

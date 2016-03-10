@@ -9,7 +9,6 @@
 <%@include file="navigation-bar.jsp" %>
 
 <%
-	Set<String> friendsNames = new HashSet<String>();
 	ArrayList<String> friendRequests = new ArrayList<String>();
 
 	if(user!= null){
