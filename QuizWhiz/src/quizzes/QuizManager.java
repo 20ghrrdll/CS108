@@ -368,6 +368,35 @@ public class QuizManager {
 		return true;
 	}
 
+	
+	public ArrayList<Review> getReviews(int quizId) {
+		ArrayList<Review> reviews = new ArrayList<Review>();
+		try {
+			Statement stmt = con.createStatement();		
+			ResultSet rs = stmt.executeQuery("SELECT * FROM " + MyDBInfo.QUIZ_RATINGS +" WHERE quizId='" + quizId);
+			while (rs.next()) {
+				Review r = new Review(rs.getInt("quizId"), rs.getString("userId"), rs.getInt("rating"), rs.getString("review"), rs.getTimestamp("created"));
+				reviews.add(r);
+			}
+		} catch (SQLException e1) {
+		}
+		
+		return reviews;
+	}
+	
+	
+	public boolean addReview(int quizId, String userId, int rating, String review, Timestamp created) {
+		try {
+			Statement stmt = con.createStatement();		
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.QUIZ_RATINGS + " VALUES('" + quizId + "', '" + userId + "', '" + created + "', '" + rating + "', '" + review + "');");
+		} catch (SQLException e1) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
 	public void closeConnection() {
 		DBConnector.closeConnection();
 	}
