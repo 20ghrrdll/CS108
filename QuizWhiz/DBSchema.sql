@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS quiz (
 	pages BOOLEAN DEFAULT false,
 	random BOOLEAN DEFAULT false,
 	correction BOOLEAN DEFAULT false,
-	type enum('FillIn', 'QuestionResponse', 'MultipleChoice') DEFAULT 'QuestionResponse',
+	type enum('FillIn', 'QuestionResponse', 'MultipleChoice', 'PictureResponse') DEFAULT 'QuestionResponse',
 	amountTaken INT,
 	PRIMARY KEY (quizId)
 );
@@ -139,7 +139,7 @@ INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken, ty
 ('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', 'Max', 10, 'QuestionResponse'),
 ('2','The Preamble', 'How well do you know the first sentence of the constitution?', '2016-02-27 13:41:01', 'Max', 9, 'FillIn'),
 ('3','Disney', 'Put your knowledge of childlike whimsy to the test!', '2016-02-27 13:41:02', 'Max', 8, 'MultipleChoice'),
-('4','Cute Animals', "Do you struggle to identify animals when they're cute? Practice here!", '2016-02-27 13:41:03', 'Max', 7, 'QuestionResponse'),
+('4','Cute Animals', "Do you struggle to identify animals when they're cute? Practice here!", '2016-02-27 13:41:03', 'Max', 7, 'PictureResponse'),
 ('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', 'Max', 6, 'QuestionResponse'),
 ('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', 'Max', 5, 'QuestionResponse'),
 ('7','Seventh Quiz', 'Our 7th quiz', '2016-02-27 13:41:06', 'Max', 4, 'QuestionResponse'),
