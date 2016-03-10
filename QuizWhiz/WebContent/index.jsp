@@ -137,7 +137,8 @@
 			<ol>
 				<% for (int i = 0; i < myQuizzes.size() && i < 5; i++) { %>
 					<li> <a
-							<%String id = String.valueOf(myQuizzes.get(i).getQuizID());%>
+							<%String id = String.valueOf(myQuizzes
+									.get(i).getQuizID());%>
 							href="quiz-summary-page.jsp?id=<%=id%>"
 							STYLE="text-decoration: none">
 						<h4><%=myQuizzes.get(i).getQuizName()%></h4>
