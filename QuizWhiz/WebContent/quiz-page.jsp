@@ -55,6 +55,10 @@
 	<form action="QuizResultServlet" method="post">
 		<%
 			QuestionManager qManager = new QuestionManager();
+			if(toDisplay.randomOrder()){
+				long seed = System.nanoTime();
+				Collections.shuffle(questions, new Random(seed));
+			}
 			request.setAttribute("questions", questions);
 			 String quizType = ((QuizType)toDisplay.getQuizType()).toString();
 			for (int a = 0; a < numQuestions; a++) {

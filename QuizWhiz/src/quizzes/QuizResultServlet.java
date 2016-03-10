@@ -95,6 +95,7 @@ public class QuizResultServlet extends HttpServlet {
 	public int oneAnswer(Question currQ, HttpServletRequest request) {
 
 		String paramValue = request.getParameter(Integer.toString(currQ.getQuestionId()));
+		System.out.println(paramValue);
 		if (currQ.isCorrect(paramValue))
 			return 1;
 		return 0;
