@@ -9,10 +9,10 @@ package main;
  */
 public class MyDBInfo {
 	
-	public static final String MYSQL_USERNAME = "ccs108renguyen";
-	public static final String MYSQL_PASSWORD = "b69jRWcSbv6SsLCg";
+	public static final String MYSQL_USERNAME = "ccs108maxwfreu";
+	public static final String MYSQL_PASSWORD = "HcwNC5wZzqsrLTR8";
 	public static final String MYSQL_DATABASE_SERVER = "mysql-user.stanford.edu";
-	public static final String MYSQL_DATABASE_NAME = "c_cs108_renguyen";
+	public static final String MYSQL_DATABASE_NAME = "c_cs108_maxwfreu";
 
 	public static final String QUIZ_TABLE = "quiz";
 	public static final String QUESTION_TABLE = "quiz_question";

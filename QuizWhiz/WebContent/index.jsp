@@ -163,18 +163,15 @@
 					 if(recentActivity.get(i).getType().equals("taken")){%>
 					<li> <h4><%=recentActivity.get(i).getUserId() %> has taken a quiz</h4>
 					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
-							STYLE="text-decoration: none" class="button">
-						<h4><%=myQuizzes.get(i).getQuizName()%></h4>
-						<p><%=myQuizzes.get(i).getQuizDescription()%></p>
+							STYLE="text-decoration: none" class="btn btn-default">
+						Take Quiz
 						</a>
 					</li>
 					<%} else {%>
-					<li> <a
-							<%String id = String.valueOf(myQuizzes.get(i).getQuizID());%>
-							href="quiz-summary-page.jsp?id=<%=id%>"
-							STYLE="text-decoration: none">
-						<h4><%=myQuizzes.get(i).getQuizName()%></h4>
-						<p><%=myQuizzes.get(i).getQuizDescription()%></p>
+					<li> <h4><%=recentActivity.get(i).getUserId() %> has created a quiz called </h4>
+					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
+							STYLE="text-decoration: none" class="btn btn-default">
+						Take Quiz
 						</a>
 					</li>
 				<% } }%>

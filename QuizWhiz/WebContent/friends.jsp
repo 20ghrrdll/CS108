@@ -18,13 +18,7 @@
 %>
  <script>
  $(function() {
-			var myArray = <%= userManager.toJavascriptArray(friendsNames) %>;         
-            var availableTutorials = [
-               "ActionScript",
-               "Boostrap",
-               "C",
-               "C++",
-            ];
+			var myArray = <%= userManager.toJavascriptArray(friendsNames) %>;
             $( "#automplete-1" ).autocomplete({
                source: myArray,
                select: function( event , ui ) {
@@ -43,7 +37,7 @@
          	<label for="automplete-1">Username: </label>
          	<form action="FriendRequestServlet" method="post">
          		<input id="automplete-1" name="Search">
-         		<button type="submit">Search</button>
+         		<button type="submit" class="btn btn-default">Search</button>
          	</form>
     	</div>
 	</div>
