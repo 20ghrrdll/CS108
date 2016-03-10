@@ -6,8 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link type="text/css" rel="stylesheet"
   	href="${pageContext.request.contextPath}/style/index.css" />
-  	      <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-  	
+  <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">	
   	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!--  <script
