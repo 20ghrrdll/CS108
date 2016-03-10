@@ -79,7 +79,7 @@
 			<div class="form-group">
 				<textarea class="form-control" rows="4" name="usernames"></textarea>
 			</div>
-			<button type="submit" class="btn btn-default" name="buttonAction" value="delete">Delete</button>
+			<button type="submit" class="btn btn-danger" name="buttonAction" value="delete">Delete</button>
 			<button type="submit" class="btn btn-default" name="buttonAction" value="admin">Make Admin</button>
 		</form>
       </div>
@@ -102,14 +102,47 @@
 			<div class="form-group">
 				<textarea class="form-control" rows="4" name="quizIDs"></textarea>
 			</div>
-			<button type="submit" class="btn btn-default" name="buttonAction" value="delete">Delete</button>
+			<button type="submit" class="btn btn-danger" name="buttonAction" value="delete">Delete</button>
 			<button type="submit" class="btn btn-default" name="buttonAction" value="clearHistory">Clear History</button>
 		</form>
       </div>
   </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+          Reported Quizzes
+      </h4>
+    </div>
+      <div class="panel-body"> 
+		<% ArrayList<ReportedQuiz> reportedQuizzes = quizManager.getReportedQuizzes(); 
+		if (reportedQuizzes.size() == 0) {
+			out.println("No reported quizzes.");
+		} else {
+			for (int i = 0; i < reportedQuizzes.size(); i++) {
+				ReportedQuiz reportedQuiz = reportedQuizzes.get(i);
+				Quiz fullQuiz = quizManager.getQuiz(reportedQuiz.getQuizId());
+				%>
+				<div class="panel panel-default">
+				  <div class="panel-body">
+				    <b>Name: </b> <a href="quiz-summary.jsp?id=<%=reportedQuiz.getQuizId()%>"><%=fullQuiz.getQuizName() %></a><br>
+				    <b>Creator: </b> <%=fullQuiz.getQuizCreator() %><br>
+				    Reported by <%=reportedQuiz.getReporter() %> on <%=reportedQuiz.getDate() %>.
+				    <br><br>
+				    <form action="HandleReportedQuizServlet" method="post">
+				    	<input type="hidden" name="quizId" value="<%=reportedQuiz.getQuizId()%>">
+				    	<button type="submit" class="btn btn-danger" name="buttonAction" value="delete">Delete</button>
+						<button type="submit" class="btn btn-default" name="buttonAction" value="ignore">Ignore</button>
+				    </form>
+				  </div>
+				</div>
+			<%}
+		}
+		%>
+      </div>
+  </div>
+  
 </div>
-
-
 
 </body>
 </html>
