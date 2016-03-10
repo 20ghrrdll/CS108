@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS question_answers;
 DROP TABLE IF EXISTS quiz_records;
 DROP TABLE IF EXISTS quiz_question_records;
 DROP TABLE IF EXISTS quiz_ratings;
+DROP TABLE IF EXISTS reported_quizzes;
 
 DROP TABLE IF EXISTS user;
 
@@ -128,6 +129,12 @@ CREATE TABLE IF NOT EXISTS quiz_ratings (
 	created DATETIME NOT NULL,
 	rating INT NOT NULL,
 	review VARCHAR(8000) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS reported_quizzes (
+	quizId INT NOT NULL,
+	reportedBy VARCHAR(255) NOT NULL,
+	reportedDate DATETIME NOT NULL
 );
 
 
@@ -255,3 +262,6 @@ INSERT INTO achievements (userId, achievementId) VALUES
 
 INSERT INTO quiz_ratings (quizId, userId, created, rating, review) VALUES 
 ('1', 'Regina', '2016-03-04 20:45:00', 4, 'Great');
+
+INSERT INTO reported_quizzes(quizId, reportedBy, reportedDate) VALUES 
+('1', 'Regina', '2016-03-04 20:45:00');
