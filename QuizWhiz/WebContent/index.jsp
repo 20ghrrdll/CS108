@@ -162,10 +162,9 @@
 			<ol>
 				<% for (int i = 0; i < recentActivity.size() && i < 5; i++) { 
 					 if(recentActivity.get(i).getType().equals("taken")){%>
-					<li> <a
-							<%String id = String.valueOf(myQuizzes.get(i).getQuizID());%>
-							href="quiz-summary-page.jsp?id=<%=id%>"
-							STYLE="text-decoration: none">
+					<li> <h4><%=recentActivity.get(i).getUserId() %> has taken a quiz</h4>
+					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
+							STYLE="text-decoration: none" class="button">
 						<h4><%=myQuizzes.get(i).getQuizName()%></h4>
 						<p><%=myQuizzes.get(i).getQuizDescription()%></p>
 						</a>
