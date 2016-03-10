@@ -486,6 +486,20 @@ public class QuizManager {
 		return true;
 	}
 	
+	public boolean addQuizRecord(int quizId, String userId, Date start_time, Date end_time, int score){
+		try{
+			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formattedStartTime = sdf.format(start_time);
+			String formattedEndTime = sdf.format(end_time);
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.QUIZ_RECORDS_TABLE + " VALUES('" + quizId + "', '" + userId + "', '" + 
+			formattedStartTime +"', '"+ formattedEndTime+"', '"+score+"');");
+		}catch (SQLException e1){
+			return false;
+		}
+		return true;
+	}
+	
 	public void closeConnection() {
 		DBConnector.closeConnection();
 	}

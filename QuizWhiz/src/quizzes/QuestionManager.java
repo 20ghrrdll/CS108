@@ -120,5 +120,17 @@ public class QuestionManager {
 		}
 		return answers;
 	}
+	
+	public void updateQuestionRecordsTable(String userID, String response, boolean correct, boolean answered, int questionId, int quizId){
+		try {
+			Statement stmt = con.createStatement();
+			String query = "INSERT INTO " + MyDBInfo.QUESTION_RECORDS_TABLE + " VALUES (" + 
+			quizId +", "+ questionId+", "+ userID+", "+response+", "+correct+", "+answered+");";
+			System.out.println(query);
+			stmt.executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+}
 
 }

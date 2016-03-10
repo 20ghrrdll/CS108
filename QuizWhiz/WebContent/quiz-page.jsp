@@ -21,6 +21,8 @@
 </script>
 <title>
 	<%
+		long start = System.currentTimeMillis();
+		session.setAttribute("startTime", start);
 		int quizID = Integer.parseInt(request.getParameter("id"));
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		Quiz toDisplay = quizManager.getQuiz(quizID);
@@ -54,7 +56,7 @@
 	%>
 	<form action="QuizResultServlet" method="post">
 		<%
-			QuestionManager qManager = new QuestionManager();
+			QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
 			if(toDisplay.randomOrder()){
 				long seed = System.nanoTime();
 				Collections.shuffle(questions, new Random(seed));
@@ -67,13 +69,15 @@
 		%>
 		<div class="question_info">
 			<%
-				System.out.println("answering question number "+ qId+"!!");
 				out.println("<div class = \"question\">"+
 						qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, Integer.toString(quizID), a+1)+"</div>");
 			%>
 		</div>
 		<%
 			}
+			boolean practiceMode = toDisplay.hasPracticeMode();
+			out.println("<input name=\"practiceMode\" type = \"hidden\" value = \"" + practiceMode+"\"/>");
+			
 			out.println("<input name=\"quizType\" type = \"hidden\" value = \"" + quizType+"\"/>");
 		%>
 		<br> <div class="submit"><input type="submit" /></div>
