@@ -61,6 +61,8 @@ public class MessageServlet extends HttpServlet {
 				return;
 			}
 		} else if(request.getParameter("sendChallenge") != null){
+			String idAndScore = request.getParameter("quizId");
+			System.out.println(idAndScore);
 			if(!messageManager.sendChallenge(request.getParameter("senderId"), request.getParameter("username"), Integer.parseInt(request.getParameter("quizId")))) {
 				request.setAttribute("error", 1);
 				response.sendRedirect("index.jsp");
