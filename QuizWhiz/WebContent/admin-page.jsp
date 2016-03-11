@@ -11,14 +11,6 @@
 
 </head>
 <body>
-
-<script>
-function escape(form){
-	var string = $('textarea').val();
-	var encoded = $('<div/>').text(string).html();
-}
-</script>
-
 <% if(request.getParameter("error") != null) { %>
 	<div class="alert alert-danger">
   		<strong>Error:</strong> <% out.print(FinalConstants.ERROR_MSG); %>
