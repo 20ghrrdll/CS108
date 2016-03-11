@@ -276,6 +276,25 @@ public class QuizManager {
 		}
 		return quizzes;
 	}
+	
+	public ArrayList<QuizPerformance> getRecentlyTakenQuizzesScore(String username) {
+		ArrayList<QuizPerformance> quizzes = new ArrayList<QuizPerformance>();
+		try {
+			Statement stmt = con.createStatement();		
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" WHERE userId='"+ username + "' ORDER BY end_time DESC;";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				String name = rs.getString("userId");
+				int score = rs.getInt("score");
+				Timestamp start_time = rs.getTimestamp("start_time");
+				Timestamp end_time = rs.getTimestamp("end_time");
+				Quiz quiz = getQuiz(rs.getInt("quizId"));
+				quizzes.add(new QuizPerformance(name, score, start_time, end_time, rs.getInt("quizId"), quiz.getQuizName()));
+			}
+		} catch (SQLException e) {
+		}
+		return quizzes;
+	}
 
 	public ArrayList<QuizPerformance> getMyRecentlyTakenQuizPerformance (String username, int quizId) {
 		ArrayList<QuizPerformance> recentlyTaken = new ArrayList<QuizPerformance>();
@@ -291,7 +310,7 @@ public class QuizManager {
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 	
-				recentlyTaken.add(new QuizPerformance(name, score, start_time, end_time));
+				recentlyTaken.add(new QuizPerformance(name, score, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -314,7 +333,7 @@ public class QuizManager {
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 	
-				highScores.add(new QuizPerformance(name, score, start_time, end_time));
+				highScores.add(new QuizPerformance(name, score, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -334,8 +353,7 @@ public class QuizManager {
 				int score = rs.getInt("score");
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
-	
-				highScores.add(new QuizPerformance(name, score, start_time, end_time));
+				highScores.add(new QuizPerformance(name, score, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
