@@ -36,7 +36,6 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 	} else {
 
 		ArrayList<String> sentRequests = userManager.getSentRequests(user.getUsername());
-		System.out.println(requests.toString());
 %>
 
 <title>

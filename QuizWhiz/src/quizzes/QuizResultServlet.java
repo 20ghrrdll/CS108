@@ -60,7 +60,6 @@ public class QuizResultServlet extends HttpServlet {
 			String userId = user.getUsername();
 			questions = manager.getQuestions(quizId);
 			String practiceModeBool = request.getParameter("practiceMode");
-			System.out.println("practice mode is "+ practiceModeBool);
 			boolean practiceMode;
 			if(practiceModeBool.equals("false")){
 				practiceMode = false;
@@ -118,7 +117,6 @@ public class QuizResultServlet extends HttpServlet {
 	public int oneAnswer(Question currQ, HttpServletRequest request, QuestionManager manager, String userID, boolean practiceMode) {
 
 		String answer = request.getParameter(Integer.toString(currQ.getQuestionId()));
-		System.out.println(answer);
 		this.allUserAnswers.add(answer);
 		if (currQ.isCorrect(answer,userID, practiceMode, manager))
 			return 1;
@@ -130,14 +128,11 @@ public class QuizResultServlet extends HttpServlet {
 		//note that practice needs to be passed in in reality.
 		int numCorrect = 0;
 		int numAnswers = currQ.getNumAnswers();
-		//(ArrayList<String> userAnswers, String userID, boolean practiceMode,)
 		ArrayList<String> userAnswers = new ArrayList<String>(numAnswers);
 		String qId = Integer.toString(currQ.getQuestionId());
 		for(int a = 0; a < numAnswers; a++){
 			String answerID = qId+"-"+Integer.toString(a);
-			//System.out.println(answerID);
 			String answer = request.getParameter(answerID);
-			//System.out.println(answer);
 			userAnswers.add(answer);
 		}
 		ArrayList<Boolean> results = currQ.areCorrect(userAnswers, userID, practiceMode, manager);

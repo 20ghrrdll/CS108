@@ -187,7 +187,7 @@ if(user != null){
 		<div class="panel-heading"><h1 class="panel-title">Friend Activities</h1></div>
 		<div class="panel-body">
 		<% if(recentActivity.isEmpty()) { %>
-		<p> Looks like you don't have any friends yet! <a href="friends.jsp?">Search for friends</a></p>
+		<p> Looks like you don't have any friends yet! <a href="friends.jsp?">Search for friends here</a></p>
 		<%} else{ %>
 			<ol>
 				<% for (int i = 0; i < recentActivity.size() && i < 6; i++) { 

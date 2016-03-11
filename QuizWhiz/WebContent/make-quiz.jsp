@@ -37,7 +37,7 @@ import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
 		
 		<br><h5>Quiz Category:</h5>
 		<% for (int i = 0; i < FinalConstants.CATEGORIES.length; i++) { %>
-		<input type="radio" name="quizCategory" value="<%=FinalConstants.CATEGORIES[i]%>"> <%=FinalConstants.CATEGORIES_PLAINTEXT.get(i) %><br>
+		<input type="radio" name="quizCategory" value="<%=FinalConstants.CATEGORIES[i]%>"> <%=FinalConstants.CATEGORIES_PLAINTEXT.get(FinalConstants.CATEGORIES[i]) %><br>
 		<% } %>
 		
 		<br><h5>Allow Randomized Order?</h5> 
