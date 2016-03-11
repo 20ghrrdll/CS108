@@ -97,7 +97,7 @@ public class QuestionManager {
 	}
 	
 	
-	ArrayList<String> getAllAnswers(String quizID, String questionID){
+	public ArrayList<String> getAllAnswers(String quizID, String questionID){
 		ArrayList<String> answers = new ArrayList<String>();
 		try {
 			Statement stmt = con.createStatement();

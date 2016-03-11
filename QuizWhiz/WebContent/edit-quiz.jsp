@@ -5,57 +5,65 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href=”bootstrap/css/bootstrap.min.css” rel=”stylesheet” type=”text/css” />
+<script type=”text/javascript” src=”bootstrap/js/bootstrap.min.js”></script>
 <title>Edit Quiz</title>
+<%@include file="navigation-bar.jsp" %>
 <%
 	int quizId = Integer.valueOf(request.getParameter("id"));
-	QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
+	//QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
+	QuestionManager questionManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
+
 	Quiz quiz = quizManager.getQuiz(quizId);
 	String quizName = quiz.getQuizName();
 	ArrayList<Question> questions = quizManager.getQuestions(quiz.getQuizID());
 %>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
-function removeElement(elementId) {
-    var element = document.getElementById(elementId);
-	var questions = document.getElementById("questions");
-	element.value = "changed";
-	//questions.appendChild(element);
-   // questions.removeChild(element);
-   // element.setAttribute("type", "button");
+function removeElement(elementId) {	
+	//elementId.value = "change";
+	document.getElementById("question").remove();
+	//que.removeChild(elementId);	
 }
+</script>
+<script language="javascript">
+	var numQuestions = 0;
+	function addQuestions() {
 
-function addQuestions() {
+		var p = document.createElement("p");
+		var question = document.createElement("textarea");
+		var answer = document.createElement("textarea");
 
-	var div = document.createElement("p");
+		numQuestions++;
+		var questionLabel = document.createTextNode("Question " + numQuestions + ": ");		
+		question.setAttribute("name", "question");
+		question.classList.add("form-control");	
+		var answerLabel = document.createTextNode("Answer: ");
+		answer.setAttribute("name", "answer");
+		answer.classList.add("form-control");	
+		var br = document.createElement("BR");
+		var page = document.getElementById("questions");
 
-	var element1 = document.createElement("textarea");
-	var element2 = document.createElement("textarea");
+		page.appendChild(p);
+		page.appendChild(br);
+		page.appendChild(questionLabel);
+		page.appendChild(question);
+		page.appendChild(br);
+		page.appendChild(answerLabel);
+		page.appendChild(answer);
+		page.appendChild(br);
 
-	var text1 = document.createTextNode("Question: ");
-	//element1.setAttribute("type", "text");
-	element1.setAttribute("name", "question");
-	var text2 = document.createTextNode("Answer: ");
-	//element2.setAttribute("type", "text");
-	element2.setAttribute("name", "answer");
-
-	var br = document.createElement("BR");
-	var questions = document.getElementById("questions");
-
-	questions.appendChild(div);
-	questions.appendChild(br);
-	questions.appendChild(br);
-	questions.appendChild(text1);
-	questions.appendChild(element1);
-	questions.appendChild(br);
-	questions.appendChild(text2);
-	questions.appendChild(element2);
-}
+	}
 </script>
 
 
 </head>
 <body>
 
-<h1>Edit '<%=quizName %>'</h1>
 <%
 	ArrayList<String> questionText = new ArrayList<String>();
 	ArrayList<String> answerText = new ArrayList<String>();
@@ -66,23 +74,26 @@ function addQuestions() {
 	for (int i = 0; i < questions.size(); i++) {
 		Question q = questions.get(i);
 		String question = q.getQuestionText();
-		String answer = q.getCorrectAnswer();
-		questionText.add(question);
-		answerText.add(answer);
+		String answer = "";
 		
-		if (answer.equals("go to question_answers")) answer = "";
-		int num = q.getNumAnswers();
-		ArrayList<String> c = null;
+		String questionId = "question" + i;
+		questionIds.add(questionId);
+		//questionIds.add()
 		
- 		%>
-	
-<%
-		if (num > 1) {
-			 c = q.getCorrectAnswers();
+		if (!answer.equals("go to question_answers") && quiz.getQuizType() != QuizType.MultipleChoice) {
+			questionText.add(question);
+			answer = q.getCorrectAnswer();
+			answerText.add(answer);
+		} else {
+			if (quiz.getQuizType() == QuizType.MultipleChoice) {
+				answer = q.getCorrectAnswer() + " | ";
+			} else answer = "";
+				
+			ArrayList<String> c = questionManager.getAllAnswers(String.valueOf(quizId), String.valueOf(i+1));
 			 //String corr = "";
 			 for (int j = 0; j < c.size(); j++) {
-				 if (j == 0) answer += " | " + c.get(j) + " | ";
-				 else if (j == c.size()-1) answer += c.get(j);
+				// if (j == 0) answer += " | " + c.get(j) + " | ";
+				  if (j == c.size()-1) answer += c.get(j);
 				 else answer += c.get(j) + " | ";
 			 }
 			 questionText.add(question);
@@ -91,39 +102,46 @@ function addQuestions() {
 		
 		<%} %>
 	
-		<% String questionId = "question" + i;
-			questionIds.add(questionId);
-		%>
+	
 			
-		<% 
-		
+		<% 	
 	}
+%>
 
-for (int i = 0; i < questionText.size(); i++) {
-	%>
-		Question: <%=questionText.get(i) %>
-		Answer: <%=answerText.get(i) %>
-		QuestionId: <%=questionIds.get(i) %>
+<div class="container-fluid">
+<div class="col-md-12"><div class="panel panel-default">
+<div class="panel-heading"><h1>Edit '<%=quizName%>'</h1></div>
+<div class="panel-body">
+
+	<form >
 		
-	
-	<%} %>
+<span id="questions">
+	<%
 
-
-
-
-
-<%-- 
-	<form>
-		Question: <textarea rows="5" cols="20" name=questionId id=questionId><%=question %></textarea> <br>
-		Answer: <textarea rows="5" cols="20" name="answer"><%=answer%></textarea>
-		<input type="submit" value="Delete question" onclick="removeElement(questionId)">
+	for (int i = 0; i < questionText.size(); i++) {
+		String questionId = questionIds.get(i);
+	%>
+<div id="question">
+		Question: <textarea class = "form-control" rows="5" cols="20" id=questionId><%=questionText.get(i)%></textarea><br>
+		Answer: <textarea class = "form-control" rows="5" cols="20" name="answer"><%=answerText.get(i)%></textarea>
+				<br>
+		
+		<input type="button" class="btn btn-danger" value="Delete question" onclick="removeElement(questionId)">
+		</div>
+		<br>
+		<br>
+<%} %>
+</span>	
+<br>
+	<input type="button" class="btn btn-primary" value="Add question" onclick="addQuestions()">
+	<input type="button" class="btn btn-success" value="Done" onclick="addQuestions()">
+		
 		<br>
 		<br>
 	
-	<span id="questions">&nbsp;</span>
 		</form>
-	--%>
 	
+	</div></div></div></div>
 
 </body>
 </html>
