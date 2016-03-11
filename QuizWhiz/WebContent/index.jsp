@@ -137,6 +137,7 @@
 		<div class="panel-heading"><h1 class="panel-title">My Quizzes</h1></div>
 		<div class="panel-body">
 			<ol>
+<
 				<% 
 					if (myQuizzes.size() == 0) {
 						out.println("No quizzes created. ");

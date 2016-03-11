@@ -58,14 +58,14 @@ public class AddQuestionsServlet extends HttpServlet {
 				 numAnswers = 4;
 				 String[] questionAnswers = answers[i].trim().split("[|]+");
 				 answer = questionAnswers[0];
-					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, numAnswers, questionAnswers, true);
+					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, 1, questionAnswers, true);
 			} 
 			else 
 				//one answer
 				if (!answers[i].contains("|")) {
 					answer = answers[i];
 					numAnswers = 1;
-					quizManager.addSingleAnswerQuestion(quizId, i+1, question, answer, numAnswers);
+					quizManager.addSingleAnswerQuestion(quizId, i+1, question, answer, 1);
 				}
 			//more than one answer
 				else {
@@ -74,7 +74,7 @@ public class AddQuestionsServlet extends HttpServlet {
 					String[] questionAnswers = answers[i].trim().split("[|]+");
 					System.out.println("Question Answers: " + questionAnswers);
 					numAnswers = questionAnswers.length;
-					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, numAnswers, questionAnswers, false);
+					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, 1, questionAnswers, false);
 				}
 		}
 		
