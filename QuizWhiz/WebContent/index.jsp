@@ -186,12 +186,12 @@ if(user != null){
 			<ol>
 				<% for (int i = 0; i < recentActivity.size() && i < 6; i++) { 
 					 if(recentActivity.get(i).getType().equals("taken")){%>
-					<li> <h4 style="display:inline"><%=recentActivity.get(i).getUserId() %> has taken a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
+					<li> <h4><%=recentActivity.get(i).getUserId() %> has taken a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
 					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
 							style="text-decoration: none; display:inline" class="btn btn-default">
 						Take this quiz!
 						</a>
-						<p><i>Taken on: <%=recentActivity.get(i).getDate()%></i></p>
+						<p style="padding-top:2px; float:right"><i>Taken on: <%=recentActivity.get(i).getDate()%></i></p>
 					</li>
 					<%} else {%>
 					<li> <h4><%=recentActivity.get(i).getUserId() %> has created a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
@@ -199,7 +199,7 @@ if(user != null){
 							STYLE="text-decoration: none" class="btn btn-default">
 						Take Quiz
 						</a>
-						<p><i>Created on: <%=recentActivity.get(i).getDate()%></i></p>		
+						<p style="padding-top:2px; float:right"><i>Created on: <%=recentActivity.get(i).getDate()%></i></p>		
 					</li>
 				<% } }%>
 			</ol>
