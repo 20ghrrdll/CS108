@@ -75,6 +75,10 @@ public class MessageServlet extends HttpServlet {
 					}
 					response.sendRedirect("user-profile.jsp?username="+request.getParameter("username"));
 					return;
+				} else if(request.getParameter("resultsPage") != null){
+					System.out.println(request.getParameter("resultsPage"));
+					response.sendRedirect(request.getParameter("resultsPage"));
+					return;
 				}
 				response.sendRedirect("messages.jsp?");
 				return;

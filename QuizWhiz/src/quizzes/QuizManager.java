@@ -295,8 +295,10 @@ public class QuizManager {
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 				Quiz quiz = getQuiz(rs.getInt("quizId"));
+				int possibleScore = rs.getInt("possibleScore");
+
 				if(quiz != null){
-					quizzes.add(new QuizPerformance(name, score, start_time, end_time, rs.getInt("quizId"), quiz.getQuizName()));
+					quizzes.add(new QuizPerformance(name, score, possibleScore, start_time, end_time, rs.getInt("quizId"), quiz.getQuizName()));
 				}
 			}
 		} catch (SQLException e) {

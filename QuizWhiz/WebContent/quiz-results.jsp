@@ -17,15 +17,12 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 <title>Results</title>
 </head>
 <body>
-	<%
-		int id = (Integer)session.getAttribute("currQuizId"); %>
-
+	<% int id = (Integer)session.getAttribute("currQuizId"); %>
 	<h1 class="text-center">Results</h1>
 	<h4 class="text-center">
 		<% out.print(user.getUsername()); %>, you scored
 		<% out.print(session.getAttribute("score")); %>/<% out.print(session.getAttribute("maxScore")); %>
 		points.
-
 		<% if (session.getAttribute("score").equals(session.getAttribute("maxScore"))) {
 			 if (!userManager.getAchievements(user.getUsername()).contains(FinalConstants.PERFECT_SCORE)) {
 			 	userManager.addAchievement(user.getUsername(), FinalConstants.PERFECT_SCORE);
@@ -95,7 +92,8 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 							<input type="hidden" name="senderId"
 								value="<%=user.getUsername()%>"/> <input type="hidden"
 								name="sendChallenge" value="<%= user.getUsername()%>"/>
-								<input type="hidden" name="quizId" value="<%= session.getAttribute("currQuizId")%> <%=session.getAttribute("score") %>" />
+								<input name="resultsPage" type="hidden" value="<%=request.getContextPath() %>"/>
+								<input type="hidden" name="quizId" value="<%= session.getAttribute("currQuizId")%> <%=session.getAttribute("score") %>&#47;<%=session.getAttribute("maxScore") %>" />
 							<button onclick="sendChallenge" class="btn btn-default"
 								value="send">Challenge!</button>
 						</form>
