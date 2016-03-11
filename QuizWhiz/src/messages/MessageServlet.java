@@ -61,7 +61,13 @@ public class MessageServlet extends HttpServlet {
 				return;
 			}
 		} else if(request.getParameter("sendChallenge") != null){
-			if(!messageManager.sendChallenge(request.getParameter("senderId"), request.getParameter("username"), Integer.parseInt(request.getParameter("quizId")))) {
+			String idAndScore = request.getParameter("quizId");
+			System.out.println(idAndScore);
+			String[] splitted = idAndScore.split("\\s+");
+			System.out.println(splitted[0]);
+			System.out.println(splitted[1]);
+
+			if(!messageManager.sendChallenge(request.getParameter("senderId"), request.getParameter("username"), Integer.parseInt(splitted[0]), splitted[1])) {
 				request.setAttribute("error", 1);
 				response.sendRedirect("index.jsp");
 				return;

@@ -31,8 +31,8 @@
 				</div>
 		<%} else { %>
 		<div class="container-fluid" style="background-color: #FECFCF">
-			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
-			<p><%= messages.get(i).getBody() %></p>
+			<h2>Quiz Challenge from <%=messages.get(i).getSender() %>!</h2>
+			<p><%=messages.get(i).getSender() %> took the quiz, <%= quizManager.getQuiz(messages.get(i).getQuizId()).getQuizName()%>, and got a . Can you beat that score?</p>			
 			<form action="MessageServlet" method="post">
 				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
 				<input type="hidden" name="quizId" value="<%= messages.get(i).getQuizId()%>">		

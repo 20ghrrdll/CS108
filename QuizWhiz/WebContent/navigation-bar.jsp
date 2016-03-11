@@ -40,7 +40,7 @@ ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
 ArrayList<Message> unreadMessages = new ArrayList<Message>();
 ArrayList<Message> messages = new ArrayList<Message>();
 
-ArrayList<String> myAchievements;
+ArrayList<String> myAchievements = new ArrayList<String>();
 Set<String> friendsNames = new HashSet<String>();
 ArrayList<String> requests = new ArrayList<String>();
 ArrayList<RecentActivity> recentActivity = new ArrayList<RecentActivity>();

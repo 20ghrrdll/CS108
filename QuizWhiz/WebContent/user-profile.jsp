@@ -66,13 +66,13 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 							<label>Select a quiz from the quizzes you've taken</label> 
 							<select class="form-control"  name="quizId" >
 							<% for (int i = 0; i < recentlyTakenScores.size(); i++) { %>
-								<option value="<%=recentlyTakenScores.get(i).getQuizId()%>">
+								<option value="<%=recentlyTakenScores.get(i).getQuizId()%> <%=recentlyTakenScores.get(i).getScore() %>">
 								<%=recentlyTakenScores.get(i).getQuizName()%> Score: <%=recentlyTakenScores.get(i).getScore() %></option>
-					<% } %>
+							<% } %>
 							</select>
 							<input type="hidden" name="senderId"
-								value="<%=user.getUsername()%>"> <input type="hidden"
-								name="sendChallenge" value="<%=user.getUsername()%>">
+								value="<%=user.getUsername()%>"/> <input type="hidden"
+								name="sendChallenge" value="<%=user.getUsername()%>"/>
 							<button onclick="sendChallenge" class="btn btn-default" value="send">Challenge!</button>
 						</form>
 					</div>
