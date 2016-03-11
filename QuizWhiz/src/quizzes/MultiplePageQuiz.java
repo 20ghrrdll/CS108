@@ -21,7 +21,6 @@ public class MultiplePageQuiz {
 	public void setQuestionList(ArrayList<Question> newQuestions, boolean random, boolean immediateGrading, String quizType) {
 		start_time = System.currentTimeMillis();
 		questionsLeft = newQuestions;
-		System.out.println(newQuestions);
 		userAnswers = new HashMap<Integer, String>(newQuestions.size());
 		isCorrect = new ArrayList<Boolean>(newQuestions.size());
 		if (random) {
@@ -47,7 +46,6 @@ public class MultiplePageQuiz {
 	public void addUserAnswer(int questionNum, String answer){
 		if(userAnswers != null)
 			userAnswers.put(questionNum, answer);
-		else System.out.println("userAnswers is Null!");
 	}
 	
 	public long getStartTime(){
@@ -63,7 +61,6 @@ public class MultiplePageQuiz {
 		int score = 0;
 		Set<Integer> questionsNums = userAnswers.keySet();
 		for(int qNum: questionsNums){
-			System.out.println(qNum);
 			Question currQuestion = questions.get(qNum);
 			String currAnswer = userAnswers.get(qNum);
 			boolean correct = currQuestion.isCorrect(currAnswer, userId, practiceMode, manager);
