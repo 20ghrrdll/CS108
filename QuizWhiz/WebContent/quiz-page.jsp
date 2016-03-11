@@ -11,13 +11,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-<!-- <<<<<<< HEAD
-=======
+
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/index.css" />
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/quizPage.css" />
- <script
      <script
  	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
  <link
@@ -31,11 +29,10 @@
 		document.getElementById(id).classList.toggle("w3-show");
 	}
 </script>
->>>>>>> 1b1dac4b87e910fa43538e14f6396bbbbee0d0e0
--->
+
 <title>
 	<%
-		long start = System.currentTimeMillis();
+  		long start = System.currentTimeMillis();
 		session.setAttribute("startTime", start);
 		int quizID = Integer.parseInt(request.getParameter("id"));
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
@@ -53,6 +50,7 @@
 	<div class="container-fluid"><div class="panel panel-default">
 					
 	<div class="panel-heading"><h1> <% out.print(quizName); %> </h1></div>
+	<div class="panel-body">
 	<%
 		ArrayList<Question> questions = quizManager.getQuestions(quizID);
 		int numQuestions = questions.size();
@@ -86,6 +84,7 @@
 		<br> <div class="submit"><input type="submit" /></div>
 	</form>
 	<br>
+	</div>
 </div>
 </div>
 

@@ -49,11 +49,11 @@
 					<div class="panel-body">
 						<%=quiz.getQuizDescription()%>
 						<p>
-							<i> created by <a
+							<i>Created by <a
 								href="user-profile.jsp?username=<%=quiz.getQuizCreator()%>">
-									<%=quiz.getQuizCreator()%></a></i>
+									<%=quiz.getQuizCreator()%></a></i><br>
+							<i>Category: <a href="show-quizzes.jsp?category=<%=quiz.getQuizCategory() %>"><%=FinalConstants.CATEGORIES_PLAINTEXT.get(quiz.getQuizCategory()) %></a></i>
 						</p>
-						<br>
 						<br>
 						<% 
 							System.out.println("Id is "+id);
