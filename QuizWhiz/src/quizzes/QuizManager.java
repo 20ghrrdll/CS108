@@ -376,8 +376,8 @@ public class QuizManager {
 				" VALUES ("+ '"+name+"' + ", " + description + ", " + created + ", " + creatorId + ", " + practice + ", " +
 				pages + ", " + random + ", " + correction + ", " + quizType + ", 0);"; */
 		String query = "INSERT INTO " + MyDBInfo.QUIZ_TABLE + " (name, description, created, creatorId"
-				+ ", practiceMode, pages, random, correction, type, amountTaken)" + 
-				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ ", practiceMode, pages, random, correction, type, amountTaken, category)" + 
+				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		int quizId = 0;
 		try {
@@ -392,6 +392,7 @@ public class QuizManager {
 			s.setBoolean(8, quiz.hasImmediateCorrection());
 			s.setString(9, quiz.getQuizType().name());
 			s.setInt(10, 0);
+			s.setString(11, quiz.getQuizCategory());
 			s.executeUpdate();
 
 			
@@ -482,6 +483,7 @@ public class QuizManager {
 		try {
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE category='" + category + "';";
+			System.out.println("cat qry: " + query);
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
