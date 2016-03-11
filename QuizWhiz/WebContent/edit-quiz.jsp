@@ -17,7 +17,8 @@
 function removeElement(elementId) {
     var element = document.getElementById(elementId);
 	var questions = document.getElementById("questions");
-	questions.appendChild(element);
+	element.value = "changed";
+	//questions.appendChild(element);
    // questions.removeChild(element);
    // element.setAttribute("type", "button");
 }
@@ -55,19 +56,26 @@ function addQuestions() {
 <body>
 
 <h1>Edit '<%=quizName %>'</h1>
+<%
+	ArrayList<String> questionText = new ArrayList<String>();
+	ArrayList<String> answerText = new ArrayList<String>();
+	ArrayList<String> questionIds = new ArrayList<String>();
+%>
 
 <%
 	for (int i = 0; i < questions.size(); i++) {
 		Question q = questions.get(i);
 		String question = q.getQuestionText();
 		String answer = q.getCorrectAnswer();
+		questionText.add(question);
+		answerText.add(answer);
+		
 		if (answer.equals("go to question_answers")) answer = "";
 		int num = q.getNumAnswers();
 		ArrayList<String> c = null;
 		
-		%>
-
-		
+ 		%>
+	
 <%
 		if (num > 1) {
 			 c = q.getCorrectAnswers();
@@ -77,15 +85,35 @@ function addQuestions() {
 				 else if (j == c.size()-1) answer += c.get(j);
 				 else answer += c.get(j) + " | ";
 			 }
+			 questionText.add(question);
+			 answerText.add(answer);
 		%>
 		
 		<%} %>
 	
 		<% String questionId = "question" + i;
+			questionIds.add(questionId);
 		%>
+			
+		<% 
 		
-		<form>
+	}
+
+for (int i = 0; i < questionText.size(); i++) {
+	%>
+		Question: <%=questionText.get(i) %>
+		Answer: <%=answerText.get(i) %>
+		QuestionId: <%=questionIds.get(i) %>
 		
+	
+	<%} %>
+
+
+
+
+
+<%-- 
+	<form>
 		Question: <textarea rows="5" cols="20" name=questionId id=questionId><%=question %></textarea> <br>
 		Answer: <textarea rows="5" cols="20" name="answer"><%=answer%></textarea>
 		<input type="submit" value="Delete question" onclick="removeElement(questionId)">
@@ -94,13 +122,7 @@ function addQuestions() {
 	
 	<span id="questions">&nbsp;</span>
 		</form>
-		
-		
-		<% 
-		
-	}
-%>
-	
+	--%>
 	
 
 </body>
