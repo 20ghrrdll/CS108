@@ -7,7 +7,7 @@ public class Question {
 
 	private int quizId;
 	private int questionId;
- String questionText;
+	private String questionText;
 	private String correctAnswer;
 	private int numAnswers;
 	private ArrayList<String> correctAnswers;
