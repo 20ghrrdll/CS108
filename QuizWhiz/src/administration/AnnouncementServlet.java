@@ -42,6 +42,7 @@ public class AnnouncementServlet extends HttpServlet {
 			String body = request.getParameter("body");
 			String username = request.getParameter("creator");
 			System.out.println("servlet body: " + body);
+			System.out.println("Servlet body: " + java.net.URLDecoder.decode(body, "utf-8"));
 			
 			if(subject.isEmpty()  || body.isEmpty()) {
 				response.sendRedirect("admin-page.jsp?invalidAnnouncement=empty");
