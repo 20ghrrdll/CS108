@@ -4,7 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href=”bootstrap/css/bootstrap.min.css” rel=”stylesheet” type=”text/css” />
+<script type=”text/javascript” src=”bootstrap/js/bootstrap.min.js”></script>
+<title>Quiz</title>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+<<<<<<< HEAD
+=======
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/index.css" />
 <link type="text/css" rel="stylesheet"
@@ -22,6 +31,7 @@
 		document.getElementById(id).classList.toggle("w3-show");
 	}
 </script>
+>>>>>>> 1b1dac4b87e910fa43538e14f6396bbbbee0d0e0
 <title>
 	<%
 		long start = System.currentTimeMillis();
@@ -38,6 +48,7 @@
 </title>
 </head>
 <body>
+
 	<div class="container-fluid"><div class="panel panel-default">
 					
 	<div class="panel-heading"><h1> <% out.print(quizName); %> </h1></div>
@@ -73,8 +84,12 @@
 		
 		<br> <div class="submit"><input type="submit" /></div>
 	</form>
+<<<<<<< HEAD
+</div></div></div></div>
+=======
 	<br>
 </div>
 </div>
+>>>>>>> 1b1dac4b87e910fa43538e14f6396bbbbee0d0e0
 </body>
 </html>
