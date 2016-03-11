@@ -122,11 +122,15 @@
 								double scoreAvgTotal = 0;
 								long timeTotal = 0;
 				for (int i = 0; i < scores.size(); i++) {
+					System.out.println(scores.get(i).getScore());
+					System.out.println(scores.get(i).getPossibleScore());
 					scoreAvgTotal += (double) scores.get(i).getScore()/scores.get(i).getPossibleScore();
 					timeTotal += scores.get(i).getTotalTime();
 				}
 
 				double avgScore = scoreAvgTotal/scores.size();
+				System.out.println(scoreAvgTotal);
+				System.out.println(scores.size());
 				avgScore *= 100;
 				String s = String.format("%.2f", avgScore);
 				long avgTime = timeTotal/scores.size();
