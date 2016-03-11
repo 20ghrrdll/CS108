@@ -186,6 +186,9 @@ if(user != null){
 	<div class="col-md-6"><div class="panel panel-default">
 		<div class="panel-heading"><h1 class="panel-title">Friend Activities</h1></div>
 		<div class="panel-body">
+		<% if(recentActivity.isEmpty()) { %>
+		<p> Looks like you don't have any friends yet! <a href="friends.jsp?">Search for friends</a></p>
+		<%} else{ %>
 			<ol>
 				<% for (int i = 0; i < recentActivity.size() && i < 6; i++) { 
 					 if(recentActivity.get(i).getType().equals("taken")){%>
@@ -206,6 +209,7 @@ if(user != null){
 					</li>
 				<% } }%>
 			</ol>
+			<%} %>
 		</div>
 	</div>
 
