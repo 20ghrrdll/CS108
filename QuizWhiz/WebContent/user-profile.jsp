@@ -72,7 +72,7 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 							<input type="hidden" name="senderId"
 								value="<%=user.getUsername()%>"/> <input type="hidden"
 								name="sendChallenge" value="<%=user.getUsername()%>"/>
-								<input name="userProfile" type="hidden"/>
+								<input name="userProfile" type="hidden" value="defaultvalue"/>
 							<button onclick="sendChallenge" class="btn btn-default" value="send">Challenge!</button>
 						</form>
 					</div>

@@ -2,17 +2,17 @@
 
 .panel-heading {
 	background-image: none;
-	background-color: #40D851;
+	background-color: #1faf24;
 	color: #fff;
 }
 
 .panel-default > .panel-heading {
   	background-image: none;
-	background-color: #40D851;
+	background-color: #1faf24;
 	color: #fff;
 }
 
-.body {
+body {
 	background-color: #E3E3E3;
 }
 
