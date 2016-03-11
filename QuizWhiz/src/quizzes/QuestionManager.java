@@ -21,7 +21,7 @@ public class QuestionManager {
 	
 	public String QuestionHTML(String type, String RawQuestion, String questionID, String quizID, int qNum){
 		if(type.equals("QuestionResponse") || type.equals("MultipleChoice")){
-			String qRHtml = poseRawQuestion(RawQuestion, qNum) + "Answer: " + AnswerHTML(type,questionID, quizID) + "<br><br>";
+			String qRHtml = poseRawQuestion(RawQuestion, qNum) + AnswerHTML(type,questionID, quizID) + "<br><br>";
 			return qRHtml;
 		}
 		else if(type.equals("PictureResponse")){
@@ -40,7 +40,7 @@ public class QuestionManager {
 			answerhtml =  "You should not be calling me!";
 		}
 		else if(type.equals("QuestionResponse")|| type.equals("PictureResponse")){
-			answerhtml = "<input type=\"text\" name=\""+questionID+"\"/>";
+			answerhtml = "Answer: <input type=\"text\" name=\""+questionID+"\"/>";
 		}
 		else if(type.equals("MultipleChoice")){
 			long seed = System.nanoTime();
