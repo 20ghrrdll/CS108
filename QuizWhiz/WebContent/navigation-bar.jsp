@@ -52,10 +52,7 @@ if(user != null){
 	requests = userManager.getFriendRequests(user.getUsername());
 	friendsNames = userManager.getFriends(user.getUsername());
 	recentActivity = userManager.getRecentActivity(user.getUsername(), friendsNames);
-} else {
-	response.sendRedirect("login-page.jsp?");
-	return;
-}
+} 
  %>
 
 <nav class="navbar navbar-default">
@@ -91,6 +88,17 @@ if(user != null){
 			<% 	if (userManager.isAdmin(user.getUsername())) { %>
 				<li><a href="admin-page.jsp?">Admin Portal</a></li>
 			<% } %>
+			
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizzes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
       </ul>
       <form action="LogoutServlet" method="post" id="logout" type="hidden"></form>
       <ul class="nav navbar-nav navbar-right">

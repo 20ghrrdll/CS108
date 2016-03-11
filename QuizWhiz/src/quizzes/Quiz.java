@@ -6,17 +6,18 @@ import java.sql.Timestamp;
 public class Quiz {
 
 	private int id;
-	private String name, description, creator;
+	private String name, description, creator, category;
 	private QuizType type;
 	private boolean practiceMode, multiplePages, random, immediateCorrection;
 	private Timestamp timeCreated;
 
-	public Quiz(int id, String name, String description, Timestamp timeCreated, String creator, 
+	public Quiz(int id, String name, String description, String category, Timestamp timeCreated, String creator, 
 			QuizType type, boolean practiceMode, boolean multiplePages, 
 			boolean random, boolean immediateCorrection) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.category = category;
 		this.timeCreated = timeCreated;
 		this.creator = creator;
 		this.type = type;
@@ -26,11 +27,12 @@ public class Quiz {
 		this.immediateCorrection = immediateCorrection;
 	}
 
-	public Quiz(String name, String description, Timestamp timeCreated, String creator, 
+	public Quiz(String name, String description, String category, Timestamp timeCreated, String creator, 
 			QuizType type, boolean practiceMode, boolean multiplePages, 
 			boolean random, boolean immediateCorrection) {
 		this.name = name;
 		this.description = description;
+		this.category = category;
 		this.timeCreated = timeCreated;
 		this.creator = creator;
 		this.type = type;
@@ -55,6 +57,10 @@ public class Quiz {
 
 	public String getQuizCreator() {
 		return creator;
+	}
+	
+	public String getQuizCategory() {
+		return category;
 	}
 
 	public QuizType getQuizType() {
