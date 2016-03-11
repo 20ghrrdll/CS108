@@ -56,7 +56,7 @@ public class AnnouncementServlet extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect("admin-page.jsp?");
+		response.sendRedirect("index-page.jsp?");
 	}
 
 }

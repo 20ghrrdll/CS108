@@ -26,7 +26,7 @@
 <script>
 function removeElement(elementId) {	
 	//elementId.value = "change";
-	document.getElementById("Question").remove();
+	document.getElementById(elementId).remove();
 	//que.removeChild(elementId);	
 }
 </script>
@@ -125,13 +125,14 @@ function removeElement(elementId) {
 
 	for (int i = 0; i < questionText.size(); i++) {
 		String questionId = questionIds.get(i);
+		String q = "Question";
 	%>
-<div id="Question">
+<div id="<%=questionId%>">
 		Question: <textarea class = "form-control" name="question" id=questionId><%=questionText.get(i)%></textarea><br>
 		Answer: <textarea class = "form-control" name="answer"><%=answerText.get(i)%></textarea>
 				<br>
 		
-		<input type="button" class="btn btn-danger" value="Delete question" onclick="removeElement(questionId)">
+		<input type="button" class="btn btn-danger" value="Delete question" onclick="removeElement('<%=questionId%>')">
 		<br>
 		<br>
 		</div>
