@@ -35,9 +35,14 @@
 	<div class="container-fluid">
 	
 	<div class="col-md-6"><div class="panel panel-default">
-	<div class="panel-heading"><h1 class="panel-title">header</h1></div>
+	<div class="panel-heading"><h1 class="panel-title">Your Results:</h1></div>
 	<div class="panel-body">
-		test
+		<ol>
+			<%
+				ArrayList<String> userAnswers = (ArrayList<String>)request.getAttribute("allUserAnswers");
+				out.print(userAnswers);
+			%>
+		</ol>
 	</div></div></div>
 	
 	</div>

@@ -31,15 +31,13 @@ function removeElement(elementId) {
 }
 </script>
 <script language="javascript">
-	var numQuestions = 0;
 	function addQuestions() {
 
 		var p = document.createElement("p");
 		var question = document.createElement("textarea");
 		var answer = document.createElement("textarea");
 
-		numQuestions++;
-		var questionLabel = document.createTextNode("Question " + numQuestions + ": ");		
+		var questionLabel = document.createTextNode("Question: ");		
 		question.setAttribute("name", "question");
 		question.classList.add("form-control");	
 		var answerLabel = document.createTextNode("Answer: ");
@@ -55,8 +53,13 @@ function removeElement(elementId) {
 		page.appendChild(br);
 		page.appendChild(answerLabel);
 		page.appendChild(answer);
+		
+		var del = document.createElement("button");
+		del.value = "Delete Question";
+		del.classList.add("btn btn-danger");
+		
+		
 		page.appendChild(br);
-
 	}
 </script>
 
@@ -122,14 +125,14 @@ function removeElement(elementId) {
 		String questionId = questionIds.get(i);
 	%>
 <div id="question">
-		Question: <textarea class = "form-control" rows="5" cols="20" id=questionId><%=questionText.get(i)%></textarea><br>
-		Answer: <textarea class = "form-control" rows="5" cols="20" name="answer"><%=answerText.get(i)%></textarea>
+		Question: <textarea class = "form-control"  id=questionId><%=questionText.get(i)%></textarea><br>
+		Answer: <textarea class = "form-control" name="answer"><%=answerText.get(i)%></textarea>
 				<br>
 		
 		<input type="button" class="btn btn-danger" value="Delete question" onclick="removeElement(questionId)">
+		<br>
+		<br>
 		</div>
-		<br>
-		<br>
 <%} %>
 </span>	
 <br>

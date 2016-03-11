@@ -64,6 +64,7 @@ public class QuizManager {
 				String questionText = rs.getString("questionText");
 				String correctAnswer = rs.getString("correctAnswer");
 				int numAnswers = rs.getInt("numAnswers");
+				System.out.println("question"+ questionText+" has "+numAnswers+" answers");
 				ArrayList<String> correctAnswers;
 				if(numAnswers > 1){
 					correctAnswers = questionManager.getAllAnswers(Integer.toString(quizID), Integer.toString(questionID));
@@ -275,6 +276,25 @@ public class QuizManager {
 		}
 		return quizzes;
 	}
+	
+	public ArrayList<QuizPerformance> getRecentlyTakenQuizzesScore(String username) {
+		ArrayList<QuizPerformance> quizzes = new ArrayList<QuizPerformance>();
+		try {
+			Statement stmt = con.createStatement();		
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" WHERE userId='"+ username + "' ORDER BY end_time DESC;";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				String name = rs.getString("userId");
+				int score = rs.getInt("score");
+				Timestamp start_time = rs.getTimestamp("start_time");
+				Timestamp end_time = rs.getTimestamp("end_time");
+				Quiz quiz = getQuiz(rs.getInt("quizId"));
+				quizzes.add(new QuizPerformance(name, score, start_time, end_time, rs.getInt("quizId"), quiz.getQuizName()));
+			}
+		} catch (SQLException e) {
+		}
+		return quizzes;
+	}
 
 	public ArrayList<QuizPerformance> getMyRecentlyTakenQuizPerformance (String username, int quizId) {
 		ArrayList<QuizPerformance> recentlyTaken = new ArrayList<QuizPerformance>();
@@ -290,7 +310,7 @@ public class QuizManager {
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 	
-				recentlyTaken.add(new QuizPerformance(name, score, start_time, end_time));
+				recentlyTaken.add(new QuizPerformance(name, score, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -313,7 +333,7 @@ public class QuizManager {
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 	
-				highScores.add(new QuizPerformance(name, score, start_time, end_time));
+				highScores.add(new QuizPerformance(name, score, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -333,8 +353,7 @@ public class QuizManager {
 				int score = rs.getInt("score");
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
-	
-				highScores.add(new QuizPerformance(name, score, start_time, end_time));
+				highScores.add(new QuizPerformance(name, score, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -369,7 +388,7 @@ public class QuizManager {
 			s.executeUpdate();
 
 			
-			query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE name='" + quiz.getQuizName() + "' ORDER BY created DESC;";
+			query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE name='" + quiz.getQuizName() + "' ORDER BY created ASC;";
 			System.out.print(query);
 			Statement stmt = con.createStatement();		
 			ResultSet rs = stmt.executeQuery(query);
@@ -503,6 +522,22 @@ public class QuizManager {
 		if (numRatings == 0) return 0;
 		return total / numRatings;
 	}
+	
+	
+	public boolean addQuizRecord(int quizId, String userId, Date start_time, Date end_time, int score){
+		try{
+			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formattedStartTime = sdf.format(start_time);
+			String formattedEndTime = sdf.format(end_time);
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.QUIZ_RECORDS_TABLE + " VALUES('" + quizId + "', '" + userId + "', '" + 
+			formattedStartTime +"', '"+ formattedEndTime+"', '"+score+"');");
+		}catch (SQLException e1){
+			return false;
+		}
+		return true;
+	}
+	
 	
 	
 	public void closeConnection() {

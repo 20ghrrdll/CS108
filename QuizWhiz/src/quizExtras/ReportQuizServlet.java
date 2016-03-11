@@ -39,6 +39,8 @@ public class ReportQuizServlet extends HttpServlet {
 		String reporter = request.getParameter("reporter");
 		if (!quizManager.addReportedQuiz(Integer.parseInt(quizId), reporter)) {
 			request.setAttribute("error", 1);
+		} else {
+			request.setAttribute("reported", 1);
 		}
 		response.sendRedirect("quiz-summary-page.jsp?id=" + quizId);
 	}
