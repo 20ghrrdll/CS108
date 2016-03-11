@@ -33,3 +33,10 @@ All users have access to a page that displays their quiz taking history. This pa
 Users can accomplish achievements by taking quizzes, creating quizzes, and performing other activities on the site. These are all displayed in the user profile. 
 
 ##Administration
+We have included an administration feature. Auser may be granted admin status by an existed admin and get access to the following features:
+- Create announcements which will show up on the homepage.
+- Remove user accounts.
+-  Remove quizzes.
+-   Clear all history information for a particular quiz.
+-   Promote user accounts to administration accounts.
+-   See site statistics. These should include number of users and number of quizzes taken.
