@@ -59,10 +59,8 @@ public class MessageManager {
 	public boolean sendChallenge(String sender, String username, int quizId){
 		try {
 			Statement stmt = con.createStatement();
-			String query = "INSERT INTO  " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, quizId, type) VALUES ('" + sender +"','" + username +"', '" + quizId +"','CHALLENGE');";
-			System.out.println(query);
+			String query = "INSERT INTO " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, quizId, type) VALUES ('" + sender +"','" + username +"', '" + quizId +"','CHALLENGE');";
 			stmt.executeUpdate(query);
-			System.out.println(query);
 		} catch (SQLException e) {
 			return false;
 		}

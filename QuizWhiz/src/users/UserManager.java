@@ -275,6 +275,8 @@ public class UserManager {
 	 */
 	public ArrayList<RecentActivity> getRecentActivity(String username, Set<String> friends) {
 		ArrayList<RecentActivity> activityData = new ArrayList<RecentActivity>();
+		if(friends.isEmpty())
+			return activityData;
 		try {
 			Statement stmt = con.createStatement();
 			String quizUsers = "";
