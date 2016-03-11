@@ -24,10 +24,6 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <%
-	if (user == null) {
-		response.sendRedirect("login-page.jsp?");
-		return;
-	}
 	String usernameToView = request.getParameter("username");
 	if (userManager.getUser(usernameToView) == null) {
 %>
