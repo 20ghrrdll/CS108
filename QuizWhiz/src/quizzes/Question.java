@@ -80,6 +80,12 @@ public class Question {
 		results.add(isCorrect(userAnswers.get(0), userID, practiceMode, manager));
 		return results;
 		
+		
+	}
+	
+	public ArrayList<String> potentialAnswers(QuestionManager manager){
+		ArrayList<String> possibleAnswers = manager.getAllAnswers(Integer.toString(this.quizId), Integer.toString(this.questionId));
+		return possibleAnswers;
 	}
 	
 	/*public ArrayList<Boolean> areCorrect(ArrayList<String> userAnswers, String userID, boolean practiceMode, QuestionManager manager){

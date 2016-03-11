@@ -11,8 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD
 =======
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/index.css" />
@@ -32,6 +31,7 @@
 	}
 </script>
 >>>>>>> 1b1dac4b87e910fa43538e14f6396bbbbee0d0e0
+-->
 <title>
 	<%
 		long start = System.currentTimeMillis();
@@ -84,12 +84,8 @@
 		
 		<br> <div class="submit"><input type="submit" /></div>
 	</form>
-<<<<<<< HEAD
-</div></div></div></div>
-=======
 	<br>
 </div>
 </div>
->>>>>>> 1b1dac4b87e910fa43538e14f6396bbbbee0d0e0
 </body>
 </html>

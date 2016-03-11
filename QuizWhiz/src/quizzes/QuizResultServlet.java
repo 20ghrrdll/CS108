@@ -23,6 +23,7 @@ public class QuizResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public ArrayList<String> allUserAnswers;
 	public ArrayList<String> allCorrectAnswers;
+	public ArrayList<Boolean> isAnswerCorrect;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -53,6 +54,7 @@ public class QuizResultServlet extends HttpServlet {
 		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 		QuestionManager questionManager = (QuestionManager)request.getServletContext().getAttribute("questionManager");
 		ArrayList<Question> questions;
+		isAnswerCorrect = new ArrayList<Boolean>();
 		try {
 			//get quiz and question parameters
 			int quizId = (Integer)session.getAttribute("currQuizId");
@@ -87,9 +89,11 @@ public class QuizResultServlet extends HttpServlet {
 				
 			}
 
-			session.setAttribute("score", score);
-			session.setAttribute("maxScore", maxScore);
+			request.setAttribute("score", score);
+			request.setAttribute("maxScore", maxScore);
 			request.setAttribute("allUserAnswers", allUserAnswers);
+			request.setAttribute("questions", questions);
+			request.setAttribute("isAnswerCorrect", isAnswerCorrect);
 			
 			/*** NOTE THAT THERE IS CURRENTLY NO WAY TO INDICATE THAT THIS QUIZ IS BEING TAKEN IN PRACTICE MODE***/
 			//if (practiceMode) {
@@ -118,8 +122,11 @@ public class QuizResultServlet extends HttpServlet {
 
 		String answer = request.getParameter(Integer.toString(currQ.getQuestionId()));
 		this.allUserAnswers.add(answer);
-		if (currQ.isCorrect(answer,userID, practiceMode, manager))
+		if (currQ.isCorrect(answer,userID, practiceMode, manager)){
+			isAnswerCorrect.add(true);
 			return 1;
+		}
+		else isAnswerCorrect.add(false);
 		return 0;
 	}
 	
@@ -136,9 +143,13 @@ public class QuizResultServlet extends HttpServlet {
 			userAnswers.add(answer);
 		}
 		ArrayList<Boolean> results = currQ.areCorrect(userAnswers, userID, practiceMode, manager);
+		boolean allCorrect = true;
 		for(int b = 0; b < results.size(); b++){
 			if(results.get(b) == true) numCorrect++;
+			else allCorrect = false;
 		}
+		if(allCorrect) isAnswerCorrect.add(true);
+		else isAnswerCorrect.add(false);
 		this.allUserAnswers.addAll(userAnswers);
 		return numCorrect;
 	}
