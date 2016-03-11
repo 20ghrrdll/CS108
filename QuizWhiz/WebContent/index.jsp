@@ -135,6 +135,7 @@
 		<div class="panel-heading"><h1 class="panel-title">My Quizzes</h1></div>
 		<div class="panel-body">
 			<ol>
+<
 				<% 
 					if (myQuizzes.size() == 0) {
 						out.println("No quizzes created. ");
@@ -158,7 +159,24 @@
 	<div class="col-md-6"><div class="panel panel-default">
 		<div class="panel-heading"><h1 class="panel-title">Friend Activities</h1></div>
 		<div class="panel-body">
-			tbd
+			<ol>
+				<% for (int i = 0; i < recentActivity.size() && i < 5; i++) { 
+					 if(recentActivity.get(i).getType().equals("taken")){%>
+					<li> <h4><%=recentActivity.get(i).getUserId() %> has taken a quiz</h4>
+					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
+							STYLE="text-decoration: none" class="btn btn-default">
+						Take Quiz
+						</a>
+					</li>
+					<%} else {%>
+					<li> <h4><%=recentActivity.get(i).getUserId() %> has created a quiz called </h4>
+					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
+							STYLE="text-decoration: none" class="btn btn-default">
+						Take Quiz
+						</a>
+					</li>
+				<% } }%>
+			</ol>
 		</div>
 	</div>
 
