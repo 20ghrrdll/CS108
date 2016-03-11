@@ -11,6 +11,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+     <script
+ 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+ <link
+ 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
+ 	rel="stylesheet" type="text/css" />
+ 	<link
+ 	href="${pageContext.request.contextPath}/style/bootstrapOverride.css"
+ 	rel="stylesheet" type="text/css" />
 
 <title>
 	<%
@@ -50,7 +58,7 @@
 			for (int a = 0; a < numQuestions; a++) {
 				Question toPrint = questions.get(a);
 				String qId = Integer.toString(toPrint.getQuestionId());
-				out.println("<b>" + qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, Integer.toString(quizID), a+1)+"</b>");
+				out.println(qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, Integer.toString(quizID), a+1));
 			%>
 		<%
 			}

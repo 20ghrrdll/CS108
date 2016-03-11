@@ -21,7 +21,7 @@ public class QuestionManager {
 	
 	public String QuestionHTML(String type, String RawQuestion, String questionID, String quizID, int qNum){
 		if(type.equals("QuestionResponse") || type.equals("MultipleChoice")){
-			String qRHtml = poseRawQuestion(RawQuestion, qNum) + AnswerHTML(type,questionID, quizID) + "<br><br>";
+			String qRHtml = "<b>" + poseRawQuestion(RawQuestion, qNum) + "</b>" + AnswerHTML(type,questionID, quizID) + "<br><br>";
 			return qRHtml;
 		}
 		else if(type.equals("PictureResponse")){

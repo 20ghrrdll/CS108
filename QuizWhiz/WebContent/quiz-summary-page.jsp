@@ -88,7 +88,7 @@
 						<br>
 						<br>
 						<b>Admin Functions:</b>
-						<form action="EditQuizServlet" method="post">
+						<form action="AdminEditQuizServlet" method="post">
 							<input type="hidden" name="quizId"
 								value="<%=quiz.getQuizID() %>">
 							<div class="col-md-3" style="float: left">
