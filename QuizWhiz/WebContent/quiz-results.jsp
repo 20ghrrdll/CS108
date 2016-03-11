@@ -17,7 +17,7 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 <title>Results</title>
 </head>
 <body>
-	<% System.out.println(session.getAttribute("currQuizId"));
+	<%
 		int id = (Integer)session.getAttribute("currQuizId"); %>
 
 	<h1 class="text-center">Results</h1>
