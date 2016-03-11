@@ -93,7 +93,7 @@ if(user != null){
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizzes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <% for (int i = 0; i < FinalConstants.CATEGORIES.length; i++) {%>
-            	<li><a href="show-quizzes.jsp?category=<%=FinalConstants.CATEGORIES[i] %>"><%=FinalConstants.CATEGORIES_PLAINTEXT.get(i) %></a></li>
+            	<li><a href="show-quizzes.jsp?category=<%=FinalConstants.CATEGORIES[i] %>"><%=FinalConstants.CATEGORIES_PLAINTEXT.get(FinalConstants.CATEGORIES[i]) %></a></li>
            	<% } %>
            	<li><a href="show-quizzes.jsp?category=ALL">Show All</a>
           </ul>

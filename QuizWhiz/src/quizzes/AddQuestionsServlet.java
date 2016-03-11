@@ -40,7 +40,6 @@ public class AddQuestionsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int quizId = Integer.valueOf(request.getParameter("quizId"));
-		System.out.print("ID: " + quizId);
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		Quiz quiz = quizManager.getQuiz(quizId);
 		//int quizId = quiz.getQuizID();
@@ -72,7 +71,6 @@ public class AddQuestionsServlet extends HttpServlet {
 					//if the type is multiple choice, then this doesnt happen
 					answer = "go to question_answers";
 					String[] questionAnswers = answers[i].trim().split("[|]+");
-					System.out.println("Question Answers: " + questionAnswers);
 					numAnswers = questionAnswers.length;
 					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, 1, questionAnswers, false);
 				}
