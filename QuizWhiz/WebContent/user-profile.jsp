@@ -1,5 +1,3 @@
-<!-- TODO: how to ensure that user isn't null -->
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.*, quizzes.*, users.*, main.*, messages.*, administration.*"%>
@@ -7,10 +5,7 @@
 <html>
 <head>
 <%@include file="navigation-bar.jsp"%>
-<%
-ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQuizzesScore(user.getUsername());
 
-%>
 <style>
 .modal-header, .close {
 	background-color: #5cb85c;
@@ -27,10 +22,8 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <%
-	if (user == null) {
-		response.sendRedirect("login-page.jsp?");
-		return;
-	}
+ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQuizzesScore(user.getUsername());
+
 	String usernameToView = request.getParameter("username");
 	if (userManager.getUser(usernameToView) == null) {
 %>
@@ -231,12 +224,13 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 									<i class="material-icons">delete</i> <br>Delete
 								</button>
 							</div>
+							<% if (!userManager.isAdmin(usernameToView)) { %>
 							<div class="col-md-3" style="float: left">
 								<button type="submit" class="btn btn-link" name="buttonAction"
 									value="admin">
 									<i class="material-icons">grade</i> <br>Make Admin
 								</button>
-							</div>
+							</div><% } %>
 						</form>
 						<%
 							}

@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import users.UserManager;
+import main.FinalConstants;
 
 /**
  * Servlet implementation class MessageServlet
@@ -47,7 +49,6 @@ public class MessageServlet extends HttpServlet {
 			response.sendRedirect("quiz-page.jsp?id="+request.getParameter("quizId"));
 		//Handles sending a note to a user
 		} else if(request.getParameter("sendNote") != null){
-			System.out.println("Hello");
 			if(!messageManager.sendMessage(request.getParameter("senderId"), request.getParameter("username"), request.getParameter("subject"), request.getParameter("body"))) {
 				request.setAttribute("error", 1);
 				response.sendRedirect("index.jsp");
@@ -60,9 +61,22 @@ public class MessageServlet extends HttpServlet {
 				return;
 			}
 		} else if(request.getParameter("sendChallenge") != null){
-			System.out.println("got challenge!");
-			response.sendRedirect("user-profile.jsp?username="+request.getParameter("username"));
-			return;
+			if(!messageManager.sendChallenge(request.getParameter("senderId"), request.getParameter("username"), Integer.parseInt(request.getParameter("quizId")))) {
+				request.setAttribute("error", 1);
+				response.sendRedirect("index.jsp");
+				return;
+			} else {
+				if(request.getParameter("userProfile") != null){
+					UserManager userManager = (UserManager) getServletContext().getAttribute("userManager");
+					if (!userManager.getAchievements(request.getParameter("senderId")).contains(FinalConstants.CHALLENGER)) {
+						userManager.addAchievement(request.getParameter("senderId"), FinalConstants.CHALLENGER);
+					}
+					response.sendRedirect("user-profile.jsp?username="+request.getParameter("username"));
+					return;
+				}
+				response.sendRedirect("messages.jsp?");
+				return;
+			}
 		}
 	}
 

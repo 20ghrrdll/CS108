@@ -17,6 +17,15 @@ ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
 ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
+if(user != null){
+	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
+	myAchievements = userManager.getAchievements(user.getUsername());
+	messages = messageManager.getMessages(user.getUsername(), false);
+	unreadMessages = messageManager.getMessages(user.getUsername(), true);
+	requests = userManager.getFriendRequests(user.getUsername());
+	friendsNames = userManager.getFriends(user.getUsername());
+	recentActivity = userManager.getRecentActivity(user.getUsername(), friendsNames);
+}
 %>
 
 <% if(request.getParameter("error") != null) { %>
@@ -180,12 +189,12 @@ ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
 			<ol>
 				<% for (int i = 0; i < recentActivity.size() && i < 6; i++) { 
 					 if(recentActivity.get(i).getType().equals("taken")){%>
-					<li> <h4 style="display:inline"><%=recentActivity.get(i).getUserId() %> has taken a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
+					<li> <h4><%=recentActivity.get(i).getUserId() %> has taken a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
 					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
 							style="text-decoration: none; display:inline" class="btn btn-default">
 						Take this quiz!
 						</a>
-						<p><i>Taken on: <%=recentActivity.get(i).getDate()%></i></p>
+						<p style="padding-top:2px; float:right"><i>Taken on: <%=recentActivity.get(i).getDate()%></i></p>
 					</li>
 					<%} else {%>
 					<li> <h4><%=recentActivity.get(i).getUserId() %> has created a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
@@ -193,7 +202,7 @@ ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
 							STYLE="text-decoration: none" class="btn btn-default">
 						Take Quiz
 						</a>
-						<p><i>Created on: <%=recentActivity.get(i).getDate()%></i></p>		
+						<p style="padding-top:2px; float:right"><i>Created on: <%=recentActivity.get(i).getDate()%></i></p>		
 					</li>
 				<% } }%>
 			</ol>
