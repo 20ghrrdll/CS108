@@ -33,6 +33,7 @@ public class ReviewServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String reviewer = request.getParameter("reviewer");
 		String quizId = request.getParameter("quizId");
 		String rating = request.getParameter("rating");
