@@ -50,16 +50,22 @@ public class Question {
 		return correctAnswers;
 	}
 	
-	public boolean isCorrect(String response, String userID, boolean practiceMode,  QuestionManager manager){
+	public boolean isCorrect(String userAnswer, String userID, boolean practiceMode,  QuestionManager manager){
 		
 		boolean correct = false;
 		boolean answered = true;
-		System.out.println("the user response is " + response);
+		System.out.println("the user response is " + userAnswer);
 		System.out.println("the correct answer is " + this.correctAnswer);
-		if(response == null) answered = false;
-		else if(response.equals(this.correctAnswer)) correct = true;
+		if(userAnswer == null) answered = false;
+		else if(userAnswer.compareToIgnoreCase(this.correctAnswer) == 0) correct = true;
 		else if(this.correctAnswer.equals("go to question_answers")){
-			//check multiple answers
+			ArrayList<String> possibleAnswers = manager.getAllAnswers(Integer.toString(this.quizId), Integer.toString(this.questionId));
+			for(int a = 0; a < possibleAnswers.size(); a++){
+				if(userAnswer.compareToIgnoreCase(possibleAnswers.get(a)) == 0){
+					correct = true;
+					break;
+				}	
+			}
 		}
 		
 		/*quizId INT NOT NULL,
@@ -69,7 +75,7 @@ public class Question {
 		correct BOOLEAN,
 		answered BOOLEAN*/
 		if(!practiceMode){
-			manager.updateQuestionRecordsTable(userID, response, correct, answered, this.questionId, this.quizId);
+			manager.updateQuestionRecordsTable(userID, userAnswer, correct, answered, this.questionId, this.quizId);
 		}
 		
 		return correct;
@@ -91,7 +97,7 @@ public class Question {
 				results.add(false);
 				allTrue = false;
 			}
-			else if(userAnswer.equals(this.correctAnswers.get(a))){
+			else if(userAnswer.compareToIgnoreCase(this.correctAnswers.get(a)) == 0){
 				results.add(true);
 			}
 			else{
