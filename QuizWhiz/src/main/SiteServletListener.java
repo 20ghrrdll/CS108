@@ -10,6 +10,7 @@ import quizzes.QuestionManager;
 import quizzes.QuizManager;
 import users.UserManager;
 import administration.AdminManager;
+import quizzes.MultiplePageQuiz;
 
 /**
  * Application Lifecycle Listener implementation class SiteServletListener
@@ -53,13 +54,15 @@ public class SiteServletListener implements ServletContextListener {
         MessageManager messageManager = new MessageManager();
         AdminManager adminManager = new AdminManager();
         QuestionManager questionManager = new QuestionManager();
-    	ServletContext context = arg0.getServletContext();
+        MultiplePageQuiz multiPage = new MultiplePageQuiz();
+;    	ServletContext context = arg0.getServletContext();
     	context.setAttribute("userManager", userManager);
     	context.setAttribute("announcementManager", announcementManager);
     	context.setAttribute("quizManager", quizManager);
         context.setAttribute("messageManager", messageManager);
         context.setAttribute("adminManager", adminManager);
         context.setAttribute("questionManager", questionManager);
+        context.setAttribute("multiQuizPages", multiPage);
         context.setAttribute("ctx", context.getContextPath());
     }
 	

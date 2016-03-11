@@ -8,7 +8,7 @@ public class MultiplePageQuiz {
 	private long start_time;
 
 	// assumes that question array has been called
-	MultiplePageQuiz() {
+	public MultiplePageQuiz() {
 		
 	}
 

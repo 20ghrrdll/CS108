@@ -45,7 +45,7 @@ import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
 		
 		<br><h5>Display Options</h5> 
 		<input type="radio" name="pages" value="one"> One Page<br>
-		<input type="radio" name="pages" value="multiple"> On Question per Page <br>
+		<input type="radio" name="pages" value="multiple"> One Question per Page <br>
 		
 		<br><h5>Correction Options</h5> 
 		<input type="radio" name="correction" value="immediate"> Immediate Correction<br>
