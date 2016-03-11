@@ -66,12 +66,13 @@
 									name="username" placeholder="Username"
 									value="<%=usernameToView%>">
 							</div>
-							<div class="form-group">
-								<label for="exampleInputEmail1">Select a quiz from the quizzes you have completed</label> <input
-									type="test" class="form-control" name="subject"
-									placeholder="Subject">
-							</div>
-							<input type="hidden" name="senderId"
+							<select class="form-control">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+								<option value="four">Four</option>
+								<option value="five">Five</option>
+							</select> <input type="hidden" name="senderId"
 								value="<%=user.getUsername()%>"> <input type="hidden"
 								name="sendChallenge" value="<%=user.getUsername()%>">
 							<button type="submit" class="btn btn-default" value="send">Challenge!</button>
@@ -121,7 +122,8 @@
 								value="<%=user.getUsername()%>"> <input type="hidden"
 								name="sendNote" value="<%=user.getUsername()%>"> <input
 								type="hidden" name="userProfile" value="<%=user.getUsername()%>">
-							<button type="submit" class="btn btn-default" value="send">Send Message</button>
+							<button type="submit" class="btn btn-default" value="send">Send
+								Message</button>
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -176,9 +178,8 @@
 											if (!sentRequests.contains(usernameToView.toLowerCase())) {
 						%>
 						<form action="FriendRequestServlet" method="post">
-							<input type="hidden" name="user1"
-								value="<%=user.getUsername()%>"> <input type="hidden"
-								name="user2" value="<%=usernameToView%>">
+							<input type="hidden" name="user1" value="<%=user.getUsername()%>">
+							<input type="hidden" name="user2" value="<%=usernameToView%>">
 							<div class="col-md-3" style="float: left">
 								<button type="submit" class="btn btn-link" name="buttonAction"
 									value="delete">
@@ -192,8 +193,7 @@
 						<div class="col-md-3" style="float: left">
 							<button type="submit" class="btn btn-link disabled"
 								name="buttonAction" value="delete">
-								<i class="material-icons">add</i> <br>
-								<i>Request Sent</i>
+								<i class="material-icons">add</i> <br> <i>Request Sent</i>
 							</button>
 						</div>
 						<%
