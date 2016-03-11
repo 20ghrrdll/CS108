@@ -60,8 +60,8 @@ public class MultiplePageQuiz {
 		Set<Integer> questionsNums = userAnswers.keySet();
 		for(int qNum: questionsNums){
 			System.out.println(qNum);
-			Question currQuestion = questions.get(qNum-1);
-			String currAnswer = userAnswers.get(qNum-1);
+			Question currQuestion = questions.get(qNum);
+			String currAnswer = userAnswers.get(qNum);
 			boolean correct = currQuestion.isCorrect(currAnswer, userId, practiceMode, manager);
 			if(correct) score++;
 			
