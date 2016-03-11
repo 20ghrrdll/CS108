@@ -76,7 +76,7 @@ if(user != null){
 								<h3><%=announcements.get(i).getSubject()%></h3>
 								<p><%=announcements.get(i).getBody()%></p>
 								<% if (userManager.isAdmin(user.getUsername())) { %>
-								<form action="EditAnnouncementServlet" method="post">
+								<form action="AnnouncementServlet" method="post">
 									<input type="hidden" name="announcementId" value="<%=announcements.get(i).getId() %>">
 										<button type="submit" class="btn btn-danger" name="buttonAction" value="delete">Delete
 										</button>

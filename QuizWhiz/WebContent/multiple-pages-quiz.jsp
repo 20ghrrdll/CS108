@@ -55,9 +55,9 @@
 	<%
 		String nextPageButton;
 		if (questionNum < multiQuiz.getNumQuestions()) {
-			nextPageButton = "<input type=\"submit\" value =\"Next Question\"/>";
+			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" value =\"Next Question\"/>";
 		} else {
-			nextPageButton = "<input type=\"submit\" value =\"Finish Quiz\"/>";
+			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" value =\"Finish Quiz\"/>";
 		}
 		out.println(nextPageButton);
 	%>
