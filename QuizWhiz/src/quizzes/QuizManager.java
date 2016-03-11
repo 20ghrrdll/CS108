@@ -64,6 +64,7 @@ public class QuizManager {
 				String questionText = rs.getString("questionText");
 				String correctAnswer = rs.getString("correctAnswer");
 				int numAnswers = rs.getInt("numAnswers");
+				System.out.println("question"+ questionText+" has "+numAnswers+" answers");
 				ArrayList<String> correctAnswers;
 				if(numAnswers > 1){
 					correctAnswers = questionManager.getAllAnswers(Integer.toString(quizID), Integer.toString(questionID));
@@ -503,6 +504,22 @@ public class QuizManager {
 		if (numRatings == 0) return 0;
 		return total / numRatings;
 	}
+	
+	
+	public boolean addQuizRecord(int quizId, String userId, Date start_time, Date end_time, int score){
+		try{
+			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formattedStartTime = sdf.format(start_time);
+			String formattedEndTime = sdf.format(end_time);
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("INSERT INTO " + MyDBInfo.QUIZ_RECORDS_TABLE + " VALUES('" + quizId + "', '" + userId + "', '" + 
+			formattedStartTime +"', '"+ formattedEndTime+"', '"+score+"');");
+		}catch (SQLException e1){
+			return false;
+		}
+		return true;
+	}
+	
 	
 	
 	public void closeConnection() {

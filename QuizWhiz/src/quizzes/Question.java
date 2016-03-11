@@ -1,6 +1,12 @@
 package quizzes;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
+
+import main.MyDBInfo;
 
 public class Question {
 
@@ -44,29 +50,93 @@ public class Question {
 		return correctAnswers;
 	}
 	
-	//Will have to do some wiggling to figure out how to handle questions w/ multiple parts...
-	public boolean isCorrect(String response){
-		System.out.println("the user response is " + response);
+	public boolean isCorrect(String userAnswer, String userID, boolean practiceMode,  QuestionManager manager){
+		
+		boolean correct = false;
+		boolean answered = true;
+		System.out.println("the user response is " + userAnswer);
 		System.out.println("the correct answer is " + this.correctAnswer);
-		if(response.equals(this.correctAnswer)) return true;
-		return false;
+		if(userAnswer == null) answered = false;
+		else if(userAnswer.compareToIgnoreCase(this.correctAnswer) == 0) correct = true;
+		else if(this.correctAnswer.equals("go to question_answers")){
+			ArrayList<String> possibleAnswers = manager.getAllAnswers(Integer.toString(this.quizId), Integer.toString(this.questionId));
+			for(int a = 0; a < possibleAnswers.size(); a++){
+				if(userAnswer.compareToIgnoreCase(possibleAnswers.get(a)) == 0){
+					correct = true;
+					break;
+				}	
+			}
+		}
+		
+		/*quizId INT NOT NULL,
+		questionId INT NOT NULL,
+		userId VARCHAR(255) NOT NULL,
+		response TEXT,
+		correct BOOLEAN,
+		answered BOOLEAN*/
+		if(!practiceMode){
+			manager.updateQuestionRecordsTable(userID, userAnswer, correct, answered, this.questionId, this.quizId);
+		}
+		
+		return correct;
 	}
 	
-	public ArrayList<Boolean> areCorrect(ArrayList<String> userAnswers){
+	
+	public ArrayList<Boolean> areCorrect(ArrayList<String> userAnswers, String userID, boolean practiceMode, QuestionManager manager){
+		ArrayList<Boolean> results = new ArrayList<Boolean>(1);
+		results.add(isCorrect(userAnswers.get(0), userID, practiceMode, manager));
+		return results;
+		
+	}
+	
+	/*public ArrayList<Boolean> areCorrect(ArrayList<String> userAnswers, String userID, boolean practiceMode, QuestionManager manager){
 		ArrayList<Boolean> results = new ArrayList<Boolean>(this.numAnswers);
+		boolean answeredOne = true;
+		boolean allTrue = true;
+		
 		for(int a = 0; a < this.numAnswers; a++){
 			String userAnswer = userAnswers.get(a);
 			System.out.println("The user answer is "+ userAnswer);
 			System.out.println(this.correctAnswers);
 			System.out.println(this.correctAnswers.get(a));
-			if(userAnswer != null && userAnswer.equals(this.correctAnswers.get(a))){
+			if(userAnswer == null){
+				userAnswers.set(a, "No Answer");
+				answeredOne = false;
+				results.add(false);
+				allTrue = false;
+			}
+			else if(userAnswer.compareToIgnoreCase(this.correctAnswers.get(a)) == 0){
 				results.add(true);
 			}
-			else results.add(false);
+			else{
+				allTrue = false;
+				results.add(false);
+			}
 		}
+		
+		if(!practiceMode){
+			String UserResponsesList = ListResponses(userAnswers);
+			manager.updateQuestionRecordsTable(userID, UserResponsesList, allTrue, answeredOne, this.questionId, this.quizId);
+		}
+		
 		System.out.println("The results are "+ results);
 		return results;
 		
+	}*/
+	
+	
+	private String ListResponses(ArrayList<String> userResponses){
+		String CommaSeparatedResponses = "";
+		if(userResponses.size() == 1) return userResponses.get(0);
+		else{
+			for(int a = 0; a < userResponses.size() - 1; a++){
+				CommaSeparatedResponses += userResponses.get(a) + ", ";
+			}
+			CommaSeparatedResponses += userResponses.get(userResponses.size() -1);
+		}
+		return CommaSeparatedResponses;
 	}
+	
+	
 
 }

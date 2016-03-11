@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import main.DBConnector;
 import main.MyDBInfo;
@@ -47,8 +49,9 @@ public class QuestionManager {
 			answerhtml = "<input type="+"\"text\" name=\""+questionID+"\"/>";
 		}
 		else if(type.equals("MultipleChoice")){
+			long seed = System.nanoTime();
 			ArrayList<String> choices = getAllAnswers(quizID, questionID);
-			System.out.println(choices);
+			Collections.shuffle(choices, new Random(seed));
 			answerhtml = "";
 			for(int a = 0; a < choices.size(); a++){
 				String choice = choices.get(a);
@@ -73,6 +76,7 @@ public class QuestionManager {
 				"<img src=\""+tokens[1]+"\" alt=\"image not found!\" style=\"width:60%;height:30%;\"><br>";
 		return prHtml;
 	}
+	
 	private String fillIn(String infoToFill, String id, int qNum){
 		String delims = "[|]+";
 		String[] tokens = infoToFill.split(delims);
@@ -116,5 +120,17 @@ public class QuestionManager {
 		}
 		return answers;
 	}
+	
+	public void updateQuestionRecordsTable(String userID, String response, boolean correct, boolean answered, int questionId, int quizId){
+		try {
+			Statement stmt = con.createStatement();
+			String query = "INSERT INTO " + MyDBInfo.QUESTION_RECORDS_TABLE + " VALUES (" + 
+			quizId +", "+ questionId+", "+ userID+", "+response+", "+correct+", "+answered+");";
+			System.out.println(query);
+			stmt.executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace(); // TODO: what to do here
+		}
+}
 
 }
