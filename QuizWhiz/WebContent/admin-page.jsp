@@ -57,13 +57,13 @@
 				<textarea class="form-control" rows="3" placeholder="Announcement..." name="body"></textarea>
 			</div>
 			<input type="hidden" name="creator" value="Max">
-			<button type="submit" class="btn btn-default">Create</button>
+			<button type="submit" class="btn btn-default" name="buttonAction" value="create">Create</button>
 		</form>
       </div>
   </div>
   
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
+    <div class="panel-heading">
       <h4 class="panel-title">
 			Quick Edit Users
       </h4>
@@ -86,7 +86,7 @@
   </div>
   
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
+    <div class="panel-heading">
       <h4 class="panel-title">
           Quick Edit Quizzes
       </h4>
@@ -109,7 +109,7 @@
   </div>
   
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
+    <div class="panel-heading">
       <h4 class="panel-title">
           Reported Quizzes
       </h4>

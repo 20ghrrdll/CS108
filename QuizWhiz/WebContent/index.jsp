@@ -48,13 +48,20 @@
 						<h3 class="panel-title">Announcements</h3>
 					</div>
 					<div class="panel-body">
-						<ul>
+						<ul class="list-group">
 							<%
 								for (int i = 0; i < announcements.size(); i++) {
 							%>
 							<li>
 								<h3><%=announcements.get(i).getSubject()%></h3>
 								<p><%=announcements.get(i).getBody()%></p>
+								<% if (userManager.isAdmin(user.getUsername())) { %>
+								<form action="EditAnnouncementServlet" method="post">
+									<input type="hidden" name="announcementId" value="<%=announcements.get(i).getId() %>">
+										<button type="submit" class="btn btn-danger" name="buttonAction" value="delete">
+										</button>
+								</form>
+							<% } %>
 							</li>
 							<%
 								}
