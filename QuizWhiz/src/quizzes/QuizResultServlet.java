@@ -81,7 +81,7 @@ public class QuizResultServlet extends HttpServlet {
 			else{
 				for (int a = 0; a < numQs; a++) {
 					Question currQ = questions.get(a);
-					score += multiAnswer(currQ,questionManager, practiceMode, userId, request);
+					score += multiAnswer(currQ, questionManager, practiceMode, userId, request);
 					maxScore+= currQ.getNumAnswers();
 				}
 				
@@ -90,7 +90,7 @@ public class QuizResultServlet extends HttpServlet {
 			session.setAttribute("score", score);
 			session.setAttribute("maxScore", maxScore);
 			request.setAttribute("allUserAnswers", allUserAnswers);
-			if (!practiceMode) {
+			if (practiceMode) {
 				long start_num = (Long)session.getAttribute("startTime");
 				Date start_time = new Date(start_num);
 				manager.addQuizRecord(quizId, userId, start_time, end_time, score);

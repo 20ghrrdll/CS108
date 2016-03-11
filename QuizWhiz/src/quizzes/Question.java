@@ -81,7 +81,15 @@ public class Question {
 		return correct;
 	}
 	
+	
 	public ArrayList<Boolean> areCorrect(ArrayList<String> userAnswers, String userID, boolean practiceMode, QuestionManager manager){
+		ArrayList<Boolean> results = new ArrayList<Boolean>(1);
+		results.add(isCorrect(userAnswers.get(0), userID, practiceMode, manager));
+		return results;
+		
+	}
+	
+	/*public ArrayList<Boolean> areCorrect(ArrayList<String> userAnswers, String userID, boolean practiceMode, QuestionManager manager){
 		ArrayList<Boolean> results = new ArrayList<Boolean>(this.numAnswers);
 		boolean answeredOne = true;
 		boolean allTrue = true;
@@ -114,7 +122,7 @@ public class Question {
 		System.out.println("The results are "+ results);
 		return results;
 		
-	}
+	}*/
 	
 	
 	private String ListResponses(ArrayList<String> userResponses){

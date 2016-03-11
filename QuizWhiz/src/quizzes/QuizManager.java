@@ -64,6 +64,7 @@ public class QuizManager {
 				String questionText = rs.getString("questionText");
 				String correctAnswer = rs.getString("correctAnswer");
 				int numAnswers = rs.getInt("numAnswers");
+				System.out.println("question"+ questionText+" has "+numAnswers+" answers");
 				ArrayList<String> correctAnswers;
 				if(numAnswers > 1){
 					correctAnswers = questionManager.getAllAnswers(Integer.toString(quizID), Integer.toString(questionID));
