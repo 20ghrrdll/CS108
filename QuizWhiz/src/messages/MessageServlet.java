@@ -60,7 +60,9 @@ public class MessageServlet extends HttpServlet {
 				return;
 			}
 		} else if(request.getParameter("sendChallenge") != null){
-			
+			System.out.println("got challenge!");
+			response.sendRedirect("user-profile.jsp?username="+request.getParameter("username"));
+			return;
 		}
 	}
 

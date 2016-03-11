@@ -7,6 +7,10 @@
 <html>
 <head>
 <%@include file="navigation-bar.jsp"%>
+<%
+ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQuizzesScore(user.getUsername());
+
+%>
 <style>
 .modal-header, .close {
 	background-color: #5cb85c;
@@ -66,16 +70,17 @@
 									name="username" placeholder="Username"
 									value="<%=usernameToView%>">
 							</div>
-							<select class="form-control">
-								<option value="one">One</option>
-								<option value="two">Two</option>
-								<option value="three">Three</option>
-								<option value="four">Four</option>
-								<option value="five">Five</option>
-							</select> <input type="hidden" name="senderId"
+							<label>Select a quiz from the quizzes you've taken</label> 
+							<select class="form-control"  name="quizId" >
+							<% for (int i = 0; i < recentlyTakenScores.size() && i < 5; i++) { %>
+								<option value="<%=recentlyTakenScores.get(i).getQuizId()%>">
+								<%=recentlyTakenScores.get(i).getQuizName()%> Score: <%=recentlyTakenScores.get(i).getScore() %></option>
+					<% } %>
+							</select>
+							<input type="hidden" name="senderId"
 								value="<%=user.getUsername()%>"> <input type="hidden"
 								name="sendChallenge" value="<%=user.getUsername()%>">
-							<button type="submit" class="btn btn-default" value="send">Challenge!</button>
+							<button onclick="sendChallenge" class="btn btn-default" value="send">Challenge!</button>
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -145,6 +150,7 @@
 			$("#myMessageBtn").click(function() {
 				$("#myMessageModal").modal();
 			});
+			
 		});
 	</script>
 

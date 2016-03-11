@@ -56,9 +56,6 @@ if(user != null){
 	requests = userManager.getFriendRequests(user.getUsername());
 	friendsNames = userManager.getFriends(user.getUsername());
 	recentActivity = userManager.getRecentActivity(user.getUsername(), friendsNames);
-	for(RecentActivity activity: recentActivity){
-		System.out.println("TYPE:" + activity.getType() + ", DATE: " + activity.getDate());
-	}
 } else {
 	response.sendRedirect("login-page.jsp?");
 	return;
