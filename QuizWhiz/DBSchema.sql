@@ -162,11 +162,6 @@ INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken,pag
 INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numAnswers) VALUES
 (1, 1, 'How many knees do elephants have?', '2', 1),
 (1, 2, 'Who has more neck vertabrae: humans, giraffes or they both have the same number?', 'they both have the same number', 1),
-(2, 1, 'We the | in order to form a more | union', 'go to question_answers', 2),
-(2, 2, 'Establish |, ensure domestic |', 'go to question_answers', 2),
-(2, 3, 'Provide for the commmon |, promote the general |', 'go to question_answers', 2),
-(2, 4, ' and ensure the blessings of | to ourselves and |,', 'go to question_answers', 2),
-(2, 5, ' do | and | this constitution for the United States of America.', 'go to question_answers', 2),
 (3, 1, 'A classic silent Disney character shares a name with a planet. How many planets are there between that planet and the sun?', '8', 4),
 (3, 2, "A winged character in Aladdin shares his name with a character from a Shakesperean Play. What is that play's name?", 'Othello', 3),
 (3, 3, 'In the Little Mermaid, Ariel needs to convince the prince to marry her so she can stay with him on land. In the book that inspired
@@ -179,16 +174,6 @@ INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numA
 
 
 INSERT INTO question_answers (quizId, questionId, answer) VALUES
-('2', '1', 'people of the United States of America'),
-('2', '1', 'perfect'),
-('2', '2', 'justice'),
-('2', '2', 'tranquility'),
-('2', '3', 'defence'),
-('2', '3', 'welfare'),
-('2', '4', 'liberty'),
-('2', '4', 'our posterity'),
-('2', '5', 'ordain'),
-('2', '5', 'establish'),
 ('3', '1', '8'),
 ('3', '1', '9'),
 ('3', '1', '7'),
