@@ -29,10 +29,18 @@ public class QuizPerformance {
 	public String getUserName() {
 		return userName;
 	}
-	public String getScore() {
+	public String getScoreString() {
 		return score + "/" + possibleScore; 
 	}
 
+	public int getScore() {
+		return score;
+	}
+	
+	public int getPossibleScore() {
+		return possibleScore;
+	}
+	
 	public int getQuizId(){
 		return quizId;
 	}
