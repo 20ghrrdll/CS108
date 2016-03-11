@@ -15,7 +15,7 @@
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		Quiz toDisplay = quizManager.getQuiz(quizID);
 		String quizName = toDisplay.getQuizName();
-		String quizType = ((QuizType) request.getAttribute("QuizType")).toString();
+		String quizType = multiQuiz.getQuizType();
 		session.setAttribute("currQuizId", quizID);
 		//User user = (User) session.getAttribute("currentUser");
 

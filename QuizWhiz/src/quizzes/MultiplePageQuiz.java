@@ -25,7 +25,7 @@ public class MultiplePageQuiz {
 			long seed = System.nanoTime();
 			Collections.shuffle(questionsLeft, new Random(seed));
 		}
-		questions = questionsLeft;
+		questions = (ArrayList<Question>)questionsLeft.clone();
 		numQs = questions.size();
 		this.quizType = quizType;
 		currQuestionNum = 1;
@@ -59,8 +59,9 @@ public class MultiplePageQuiz {
 		int score = 0;
 		Set<Integer> questionsNums = userAnswers.keySet();
 		for(int qNum: questionsNums){
-			Question currQuestion = questions.get(qNum);
-			String currAnswer = userAnswers.get(qNum);
+			System.out.println(qNum);
+			Question currQuestion = questions.get(qNum-1);
+			String currAnswer = userAnswers.get(qNum-1);
 			boolean correct = currQuestion.isCorrect(currAnswer, userId, practiceMode, manager);
 			if(correct) score++;
 			
