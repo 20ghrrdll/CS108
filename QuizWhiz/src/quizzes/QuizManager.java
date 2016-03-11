@@ -313,10 +313,11 @@ public class QuizManager {
 			while (rs.next()) {
 				String name = rs.getString("userId");
 				int score = rs.getInt("score");
+				int possibleScore = rs.getInt("possibleScore");
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 	
-				recentlyTaken.add(new QuizPerformance(name, score, start_time, end_time, quizId));
+				recentlyTaken.add(new QuizPerformance(name, score, possibleScore, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -335,10 +336,11 @@ public class QuizManager {
 			while (rs.next()) {
 				String name = rs.getString("userId");
 				int score = rs.getInt("score");
+				int possibleScore = rs.getInt("possibleScore");
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 	
-				highScores.add(new QuizPerformance(name, score, start_time, end_time, quizId));
+				highScores.add(new QuizPerformance(name, score, possibleScore, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -355,9 +357,10 @@ public class QuizManager {
 			while (rs.next()) {
 				String name = rs.getString("userId");
 				int score = rs.getInt("score");
+				int possibleScore = rs.getInt("possibleScore");
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
-				highScores.add(new QuizPerformance(name, score, start_time, end_time, quizId));
+				highScores.add(new QuizPerformance(name, score, possibleScore, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -449,6 +452,22 @@ public class QuizManager {
 			}
 		}
 	}
+	
+	public void deleteQuizAnswers(int quizId) {
+		String query1 = "DELETE FROM " + MyDBInfo.QUESTION_TABLE + " WHERE quizId=" + quizId + ";";
+		String query2 = "DELETE FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=" + quizId + ";";
+		System.out.println(query1);
+		System.out.println(query2);
+		try {
+			Statement stmt = con.createStatement();
+			stmt.execute(query1);
+			stmt.execute(query2);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	public void addMultipleChoiceQuestion(int quizId, int questionId, String question, String answer, int numAnswers, String[] questionAnswers) {
 		addSingleAnswerQuestion(quizId, questionId, question, answer, numAnswers);
@@ -546,14 +565,14 @@ public class QuizManager {
 	}
 	
 	
-	public boolean addQuizRecord(int quizId, String userId, Date start_time, Date end_time, int score){
+	public boolean addQuizRecord(int quizId, String userId, Date start_time, Date end_time, int score, int possibleScore){
 		try{
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String formattedStartTime = sdf.format(start_time);
 			String formattedEndTime = sdf.format(end_time);
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.QUIZ_RECORDS_TABLE + " VALUES('" + quizId + "', '" + userId + "', '" + 
-			formattedStartTime +"', '"+ formattedEndTime+"', '"+score+"');");
+			formattedStartTime +"', '"+ formattedEndTime+"', '"+score+"', '"+possibleScore+"');");
 		}catch (SQLException e1){
 			return false;
 		}

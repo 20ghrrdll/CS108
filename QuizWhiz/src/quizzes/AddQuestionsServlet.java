@@ -39,11 +39,22 @@ public class AddQuestionsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int quizId = Integer.valueOf(request.getParameter("quizId"));
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		Quiz quiz = quizManager.getQuiz(quizId);
 		//int quizId = quiz.getQuizID();
 		QuizType quizType = quiz.getQuizType();
+		
+		
+		
+		if (request.getParameter("editing").equals("yes")) {
+			//delete all previous responses
+			quizManager.deleteQuizAnswers(quizId);
+		}
+		
+		
+		
 
 		String questions[] = request.getParameterValues("question");
 		String answers[] = request.getParameterValues("answer");

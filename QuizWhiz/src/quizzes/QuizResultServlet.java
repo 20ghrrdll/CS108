@@ -95,7 +95,7 @@ public class QuizResultServlet extends HttpServlet {
 			//if (practiceMode) {
 				long start_num = (Long)session.getAttribute("startTime");
 				Date start_time = new Date(start_num);
-				manager.addQuizRecord(quizId, userId, start_time, end_time, score);
+				manager.addQuizRecord(quizId, userId, start_time, end_time, score, maxScore);
 				ArrayList<Quiz> quizzesTaken = manager.getMyQuizzes(userId);
 				if (quizzesTaken.size() == 1) {
 					userManager.addAchievement(userId, FinalConstants.TOOK_1);

@@ -143,7 +143,9 @@ function removeElement(elementId) {
 		
 		<br>
 		<br>
-	<input type="hidden" name="quizId" value=<%=String.valueOf(quizId) %>></input>
+	<input type="hidden" name="quizId" value=<%=String.valueOf(quizId)%>></input>
+		<input type="hidden" name="editing" value="yes"></input>
+	
 		</form>
 	
 	</div></div></div></div>

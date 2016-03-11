@@ -72,6 +72,7 @@
 
 	<span id="questions">&nbsp;</span>
 	<input type="hidden" name="quizId" value="<%=quiz.getQuizID() %>">
+		<input type="hidden" name="editing" value="no"></input>
 
 </form>
 </div></div></div></div>

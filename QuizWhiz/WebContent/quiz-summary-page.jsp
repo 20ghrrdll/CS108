@@ -68,7 +68,8 @@
 							out.println(quizPageButton);
 						%>
 						<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
-						<form action="EditQuizServlet" method="post"><input type=submit class="btn btn-primary">Edit Quiz</form>
+						
+						<a class="btn btn-primary" href="edit-quiz.jsp?id=<%=id%>">Edit Quiz</a>
 						
 						<% } else { %>
 						<br>
@@ -165,7 +166,7 @@
 							<p>No recent activity to display.</p>
 							<% } else {
 					for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {
-						int score = quizzesTaken.get(i).getScore();
+						String score = quizzesTaken.get(i).getScoreString();
 						String date = quizzesTaken.get(i).getDate(); %>
 							<p>
 								Date:
