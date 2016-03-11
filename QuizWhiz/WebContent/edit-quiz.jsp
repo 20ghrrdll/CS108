@@ -67,6 +67,9 @@ function addQuestions() {
 		Question q = questions.get(i);
 		String question = q.getQuestionText();
 		String answer = q.getCorrectAnswer();
+		questionText.add(question);
+		answerText.add(answer);
+		
 		if (answer.equals("go to question_answers")) answer = "";
 		int num = q.getNumAnswers();
 		ArrayList<String> c = null;
