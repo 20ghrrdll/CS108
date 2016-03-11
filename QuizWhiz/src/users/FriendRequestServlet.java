@@ -63,8 +63,7 @@ public class FriendRequestServlet extends HttpServlet {
 				response.sendRedirect("user-profile.jsp?username="+user2);
 				return;
 			} else {
-				request.setAttribute("error", 1);
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("index.jsp?error=1");
 			}
 		}
 	}
