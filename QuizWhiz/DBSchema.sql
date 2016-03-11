@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS messages (
   body VARCHAR(8000) NOT NULL,
   quizId INT DEFAULT NULL,
   type enum('CHALLENGE','NOTE') NOT NULL,
+  score VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (messageId)
 );
 
@@ -238,13 +239,13 @@ INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body,
 ('5', 'regina', 'neel', '2016-03-05 15:45:00', 'A test message', 'interesting stuff', 'NOTE');
 
 -- Inserting challege messages
-INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, quizId, type) VALUES
-('6', 'max', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 1,'CHALLENGE'),
-('7', 'max', 'regina', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 2, 'CHALLENGE'),
-('8', 'max', 'carah', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 3, 'CHALLENGE'),
-('9', 'carah', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 4, 'CHALLENGE'),
-('10', 'regina', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 5, 'CHALLENGE'),
-('11', 'neel', 'max', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 6 ,'CHALLENGE');
+INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, quizId, type, score) VALUES
+('6', 'max', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 1,'CHALLENGE', '2/2'),
+('7', 'max', 'regina', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 2, 'CHALLENGE', '2/2'),
+('8', 'max', 'carah', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 3, 'CHALLENGE', '2/2'),
+('9', 'carah', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 4, 'CHALLENGE', '2/2'),
+('10', 'regina', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 5, 'CHALLENGE', '2/2'),
+('11', 'neel', 'max', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 6 ,'CHALLENGE', '2/2');
 
 -- Inserting read notes
 INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, unread, type) VALUES
