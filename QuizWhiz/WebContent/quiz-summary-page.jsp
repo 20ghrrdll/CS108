@@ -68,7 +68,8 @@
 							out.println(quizPageButton);
 						%>
 						<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
-						<form action="EditQuizServlet" method="post"><input type=submit class="btn btn-primary">Edit Quiz</form>
+						
+						<a class="btn btn-primary" href="edit-quiz.jsp?id=<%=id%>">Edit Quiz</a>
 						
 						<% } else { %>
 						<br>

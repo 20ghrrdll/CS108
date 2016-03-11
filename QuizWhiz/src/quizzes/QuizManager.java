@@ -459,6 +459,22 @@ public class QuizManager {
 			}
 		}
 	}
+	
+	public void deleteQuizAnswers(int quizId) {
+		String query1 = "DELETE FROM " + MyDBInfo.QUESTION_TABLE + " WHERE quizId=" + quizId + ";";
+		String query2 = "DELETE FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=" + quizId + ";";
+		System.out.println(query1);
+		System.out.println(query2);
+		try {
+			Statement stmt = con.createStatement();
+			stmt.execute(query1);
+			stmt.execute(query2);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	public void addMultipleChoiceQuestion(int quizId, int questionId, String question, String answer, int numAnswers, String[] questionAnswers) {
 		addSingleAnswerQuestion(quizId, questionId, question, answer, numAnswers);

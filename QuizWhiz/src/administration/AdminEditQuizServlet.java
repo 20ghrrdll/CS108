@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class EditQuizServelt
  */
 @WebServlet("/EditQuizServelt")
-public class EditQuizServlet extends HttpServlet {
+public class AdminEditQuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditQuizServlet() {
+    public AdminEditQuizServlet() {
         super();
     }
 
