@@ -70,15 +70,7 @@ function displayCorrectionCheck() {
 		<input type="radio" name="randomOrder" value="y"> Yes<br>
 		<input type="radio" name="randomOrder" value="n"> No <br>
 		</div>
-		
-		<br>
-		<div>
-		<h5>Allow Practice Mode?</h5> 
-		<input type="radio" name="practice" value="y"> Yes<br>
-		<input type="radio" name="practice" value="n"> No <br>
-		</div>
-		
-		
+			
 		<br>
 		<div>
 		<h5>Display Options</h5> 

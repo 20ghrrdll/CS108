@@ -56,8 +56,7 @@
 		int numQuestions = questions.size();
 	%>
 	<form action="QuizResultServlet" method="post">
-		<%
-			QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
+		<% QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
 			if(toDisplay.randomOrder()){
 				long seed = System.nanoTime();
 				Collections.shuffle(questions, new Random(seed));
@@ -81,7 +80,7 @@
 			<input name="practiceMode" type="hidden" value=<%=practiceMode%>>
 			<input name="quizType" type="hidden" value=<%=quizType%>>
 		
-		<br> <div class="submit"><input type="submit" /></div>
+		<br> <button type="submit" class="btn btn-default">Submit</button>
 	</form>
 	<br>
 	</div>
