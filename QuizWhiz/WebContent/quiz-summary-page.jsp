@@ -89,8 +89,8 @@
 						<br>
 						<b>Admin Functions:</b>
 						<form action="EditQuizServlet" method="post">
-							<input type="hidden" name="quizIDs"
-								value="<% out.print(quiz.getQuizID()); %>">
+							<input type="hidden" name="quizId"
+								value="<%=quiz.getQuizID() %>">
 							<div class="col-md-3" style="float: left">
 								<button type="submit" class="btn btn-link" name="buttonAction"
 									value="delete">
