@@ -470,27 +470,6 @@ public class QuizManager {
 		}
 	}
 	
-	public void deleteQuiz(int quizId) {
-		String query1 = "DELETE FROM " + MyDBInfo.QUESTION_TABLE + " WHERE quizId=" + quizId + ";";
-		String query2 = "DELETE FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=" + quizId + ";";
-		String query3 = "DELETE FROM " + MyDBInfo.QUIZ_TABLE + " WHERE quizId=" + quizId + ";";
-		String query4 = "DELETE FROM " + MyDBInfo.QUIZ_RECORDS_TABLE + " WHERE quizId=" + quizId + ";";
-		String query5 = "DELETE FROM " + MyDBInfo.QUIZ_RATINGS + " WHERE quizId=" + quizId + ";";
-		String query6 = "DELETE FROM " + MyDBInfo.REPORTED_QUIZZES + " WHERE quizId=" + quizId + ";";
-		try {
-			Statement stmt = con.createStatement();
-			stmt.execute(query1);
-			stmt.execute(query2);
-			stmt.execute(query3);
-			stmt.execute(query4);
-			stmt.execute(query5);
-			stmt.execute(query6);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	/*
 	public void addMultipleChoiceQuestion(int quizId, int questionId, String question, String answer, int numAnswers, String[] questionAnswers) {
 		addSingleAnswerQuestion(quizId, questionId, question, answer, numAnswers);
