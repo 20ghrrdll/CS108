@@ -77,6 +77,7 @@
 		<%
 			}
 			boolean practiceMode = toDisplay.hasPracticeMode();
+
 			%>
 			<input name="practiceMode" type="hidden" value=<%=practiceMode%>>
 			<input name="quizType" type="hidden" value=<%=quizType%>>
