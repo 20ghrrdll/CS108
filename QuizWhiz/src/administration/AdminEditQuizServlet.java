@@ -34,7 +34,6 @@ public class AdminEditQuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("admin servlet");
 		AdminManager adminManager = (AdminManager) getServletContext().getAttribute("adminManager");
 		String quizIDs = request.getParameter("quizIDs");
 		String buttonAction = request.getParameter("buttonAction");
@@ -43,7 +42,7 @@ public class AdminEditQuizServlet extends HttpServlet {
 			return;
 		}
 		
-		String[] quizIDList = buttonAction.split("\n");
+		String[] quizIDList = quizIDs.split("\n");
 		for (String quiz : quizIDList) {
 			int quizId = Integer.parseInt(quiz.trim());
 			if (buttonAction.equals("delete")) {

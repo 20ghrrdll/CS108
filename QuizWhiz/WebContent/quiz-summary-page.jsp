@@ -89,7 +89,7 @@
 						<br>
 						<b>Admin Functions:</b>
 						<form action="AdminEditQuizServlet" method="post">
-							<input type="hidden" name="quizId"
+							<input type="hidden" name="quizIDs"
 								value="<%=quiz.getQuizID() %>">
 							<div class="col-md-3" style="float: left">
 								<button type="submit" class="btn btn-link" name="buttonAction"
