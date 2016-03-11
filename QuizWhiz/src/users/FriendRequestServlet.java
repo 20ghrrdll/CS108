@@ -38,14 +38,9 @@ public class FriendRequestServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		UserManager userManager = (UserManager) getServletContext().getAttribute("userManager");
 		if(request.getParameter("Search") != null){
-			System.out.println("Search");
-			System.out.println(request.getParameter("Search"));
 			response.sendRedirect("user-profile.jsp?username="+request.getParameter("Search"));
-
 			return;
 		} else if(request.getParameter("Accept") != null){
-			System.out.println("Accept");
-			System.out.println(request.getParameter("id"));
 			userManager.handleFriendResponse(request.getParameter("id"), request.getParameter("userId"), true);
 			if (userManager.getFriends(request.getParameter("userId")).size() == 10) {
 				userManager.addAchievement(request.getParameter("userId"), FinalConstants.FRIENDS_10);
@@ -54,12 +49,9 @@ public class FriendRequestServlet extends HttpServlet {
 			if (userManager.getFriends(request.getParameter("id")).size() == 10) {
 				userManager.addAchievement(request.getParameter("id"), FinalConstants.FRIENDS_10);
 			}
-			
 			response.sendRedirect("friends.jsp?");
 			return;
 		} else if(request.getParameter("Ignore") != null){
-			System.out.println("Ignore");
-			System.out.println(request.getParameter("id"));
 			userManager.handleFriendResponse(request.getParameter("id"), request.getParameter("userId"), false);
 			response.sendRedirect("friends.jsp?");
 			return;

@@ -22,17 +22,11 @@ public class QuestionManager {
 	//String questionhtml = "<h3>This is the question</h3>";	
 	public String QuestionHTML(String type, String RawQuestion, String questionID, String quizID, int qNum){
 		if(type.equals("QuestionResponse") || type.equals("MultipleChoice")){
-			String qRHtml = poseRawQuestion(RawQuestion, qNum)+
-					"<div class="+'"'+"answer"+'"'+">Answer:"+
-					AnswerHTML(type,questionID, quizID)+
-					"</div>";
+			String qRHtml = poseRawQuestion(RawQuestion, qNum) + "Answer: " + AnswerHTML(type,questionID, quizID);
 			return qRHtml;
 		}
 		else if(type.equals("PictureResponse")){
-			return pictureResponse(RawQuestion, qNum)+
-					"<div class="+'"'+"answer"+'"'+">Answer:"+
-					AnswerHTML(type,questionID, quizID)+
-					"</div>";
+			return pictureResponse(RawQuestion, qNum) + "Answer:" + AnswerHTML(type,questionID, quizID);
 		}
 		else if(type.equals("FillIn")){
 			return fillIn(RawQuestion, questionID, qNum);
@@ -85,7 +79,6 @@ public class QuestionManager {
 		for(int a = 0; a < tokens.length-1; a++){
 			html+=tokens[a];
 			String input = "<input type=\"text\" name=\""+id+"-"+a+"\"/>";
-			System.out.println(input);
 			html+=input;
 		}
 		
@@ -102,13 +95,12 @@ public class QuestionManager {
 	}
 	
 	
-	ArrayList<String> getAllAnswers(String quizID, String questionID){
+	public ArrayList<String> getAllAnswers(String quizID, String questionID){
 		ArrayList<String> answers = new ArrayList<String>();
 		try {
 			Statement stmt = con.createStatement();
 			String query = "SELECT answer FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=\"" + quizID + 
 					"\" AND questionId = \""+questionID+"\";";
-			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){ 
 				String answer = rs.getString("answer");
@@ -126,7 +118,6 @@ public class QuestionManager {
 		String query = "INSERT INTO " + MyDBInfo.QUESTION_RECORDS_TABLE + " (quizId, questionId, userId, response, correct, answered)" + 
 				" VALUES (?, ?, ?, ?, ?, ?)";
 
-		System.out.println(query);
 		try {
 			PreparedStatement s = con.prepareStatement(query);
 			s.setInt(1, quizId);
@@ -135,7 +126,6 @@ public class QuestionManager {
 			s.setString(4, response);
 			s.setBoolean(5, correct);
 			s.setBoolean(6, answered);
-			System.out.println(s.toString());
 			s.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here

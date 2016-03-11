@@ -15,15 +15,13 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     
 <script language="javascript">
-	var numQuestions = 0;
 	function addQuestions() {
 
 		var p = document.createElement("p");
 		var question = document.createElement("textarea");
 		var answer = document.createElement("textarea");
 
-		numQuestions++;
-		var questionLabel = document.createTextNode("Question " + numQuestions + ": ");		
+		var questionLabel = document.createTextNode("Question: ");		
 		question.setAttribute("name", "question");
 		question.classList.add("form-control");	
 		var answerLabel = document.createTextNode("Answer: ");
@@ -74,6 +72,7 @@
 
 	<span id="questions">&nbsp;</span>
 	<input type="hidden" name="quizId" value="<%=quiz.getQuizID() %>">
+		<input type="hidden" name="editing" value="no"></input>
 
 </form>
 </div></div></div></div>

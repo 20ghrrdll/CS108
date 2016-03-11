@@ -16,7 +16,11 @@
 <% } %>
 
 <div class="container-fluid">
-	<h1>Site Statistics</h1>
+<div class="panel panel-default">
+    <div class="panel-heading" >
+	<h1 class="panel-title">Site Statistics</h1>
+	      </div>
+	<div class="panel-body">
 	<div class="row">
 		<div class="col-xs-6 col-sm-3" style="text-align: center">
 		<h3><% out.print(adminManager.getNumUsers()); %><br>
@@ -28,9 +32,10 @@
 		<h3><% out.print(adminManager.getNumQuizzesTaken()); %><br>
 		Quizzes Taken</h3></div>
 	</div>
+	</div>
+	</div>
 </div>
 
-<br><br>
 <div class="container-fluid">
 <h1>Administrative Functions</h1>
 

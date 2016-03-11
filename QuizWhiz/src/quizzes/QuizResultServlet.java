@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 import users.*;
+import main.FinalConstants;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,7 +29,6 @@ public class QuizResultServlet extends HttpServlet {
 	 */
 	public QuizResultServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -37,7 +37,6 @@ public class QuizResultServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -51,6 +50,7 @@ public class QuizResultServlet extends HttpServlet {
 		allUserAnswers = new ArrayList<String>();
 		HttpSession session = request.getSession();
 		QuizManager manager = (QuizManager) request.getServletContext().getAttribute("quizManager");
+		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 		QuestionManager questionManager = (QuestionManager)request.getServletContext().getAttribute("questionManager");
 		ArrayList<Question> questions;
 		try {
@@ -60,7 +60,6 @@ public class QuizResultServlet extends HttpServlet {
 			String userId = user.getUsername();
 			questions = manager.getQuestions(quizId);
 			String practiceModeBool = request.getParameter("practiceMode");
-			System.out.println("practice mode is "+ practiceModeBool);
 			boolean practiceMode;
 			if(practiceModeBool.equals("false")){
 				practiceMode = false;
@@ -96,16 +95,20 @@ public class QuizResultServlet extends HttpServlet {
 			//if (practiceMode) {
 				long start_num = (Long)session.getAttribute("startTime");
 				Date start_time = new Date(start_num);
-				manager.addQuizRecord(quizId, userId, start_time, end_time, score);
-			//}
+				manager.addQuizRecord(quizId, userId, start_time, end_time, score, maxScore);
+				ArrayList<Quiz> quizzesTaken = manager.getMyQuizzes(userId);
+				if (quizzesTaken.size() == 1) {
+					userManager.addAchievement(userId, FinalConstants.TOOK_1);
+				} else if (quizzesTaken.size() == 10) {
+					userManager.addAchievement(userId, FinalConstants.TOOK_10);
+				}
+				//}
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz-results.jsp");
 			dispatch.forward(request, response);
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -114,7 +117,6 @@ public class QuizResultServlet extends HttpServlet {
 	public int oneAnswer(Question currQ, HttpServletRequest request, QuestionManager manager, String userID, boolean practiceMode) {
 
 		String answer = request.getParameter(Integer.toString(currQ.getQuestionId()));
-		System.out.println(answer);
 		this.allUserAnswers.add(answer);
 		if (currQ.isCorrect(answer,userID, practiceMode, manager))
 			return 1;
@@ -126,14 +128,11 @@ public class QuizResultServlet extends HttpServlet {
 		//note that practice needs to be passed in in reality.
 		int numCorrect = 0;
 		int numAnswers = currQ.getNumAnswers();
-		//(ArrayList<String> userAnswers, String userID, boolean practiceMode,)
 		ArrayList<String> userAnswers = new ArrayList<String>(numAnswers);
 		String qId = Integer.toString(currQ.getQuestionId());
 		for(int a = 0; a < numAnswers; a++){
 			String answerID = qId+"-"+Integer.toString(a);
-			//System.out.println(answerID);
 			String answer = request.getParameter(answerID);
-			//System.out.println(answer);
 			userAnswers.add(answer);
 		}
 		ArrayList<Boolean> results = currQ.areCorrect(userAnswers, userID, practiceMode, manager);

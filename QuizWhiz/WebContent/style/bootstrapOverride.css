@@ -1,9 +1,21 @@
 @CHARSET "UTF-8";
-/* body {
-  padding-top: 60px;
+
+.panel-heading {
+	background-image: none;
+	background-color: #1faf24;
+	color: #fff;
 }
-@media (max-width: 979px) {
-  body {
-    padding-top: 0px;
-  }
-} */
+
+.panel-default > .panel-heading {
+  	background-image: none;
+	background-color: #1faf24;
+	color: #fff;
+}
+
+body {
+	background-color: #E3E3E3;
+}
+
+.container-fluid {
+	background-color: #E3E3E3;
+}

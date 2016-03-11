@@ -7,7 +7,7 @@ public class Question {
 
 	private int quizId;
 	private int questionId;
- String questionText;
+	private String questionText;
 	private String correctAnswer;
 	private int numAnswers;
 	private ArrayList<String> correctAnswers;
@@ -49,8 +49,6 @@ public class Question {
 		
 		boolean correct = false;
 		boolean answered = true;
-		System.out.println("the user response is " + userAnswer);
-		System.out.println("the correct answer is " + this.correctAnswer);
 		if(userAnswer == null) answered = false;
 		else if(userAnswer.compareToIgnoreCase(this.correctAnswer) == 0) correct = true;
 		else if(this.correctAnswer.equals("go to question_answers")){
@@ -116,6 +114,7 @@ public class Question {
 		
 		System.out.println("The results are "+ results);
 		return results;
+
 		
 	}*/
 	

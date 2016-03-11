@@ -46,7 +46,7 @@ public class QuizMakerServlet extends HttpServlet {
 
 		String quizName = request.getParameter("quizName");
 		String quizDescription = request.getParameter("quizDescription");
-		System.out.println("QUIZ DESCRIPTION: " + quizDescription);
+		String category = request.getParameter("quizCategory");
 
 
 		HttpSession session = request.getSession();
@@ -71,14 +71,13 @@ public class QuizMakerServlet extends HttpServlet {
 		if (request.getParameter("correction").equals("immediate")) hasImmediateCorrection = true;
 
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
-		Quiz quiz = new Quiz(quizName, quizDescription, created, quizCreator, quizType, hasPracticeMode, hasMultiplePages, hasRandomOrder, hasImmediateCorrection);
+		Quiz quiz = new Quiz(quizName, quizDescription, category, created, quizCreator, quizType, hasPracticeMode, hasMultiplePages, hasRandomOrder, hasImmediateCorrection);
 
 		int quizId = quizManager.insertQuiz(quiz);
 		if (quizId == -1) {
 			request.setAttribute("error", 1);
 			response.sendRedirect("admin-page.jsp?");
 		} else {
-			System.out.println("QuizMakerServlet: " + quizId);
 			quiz.setQuizId(quizId);
 
 

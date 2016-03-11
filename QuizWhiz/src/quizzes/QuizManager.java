@@ -32,6 +32,7 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
+				String category = rs.getString("category");
 				Timestamp created = rs.getTimestamp("created");
 				String creator = rs.getString("creatorId");
 				QuizType type = QuizType.valueOf(rs.getString("type"));
@@ -39,7 +40,7 @@ public class QuizManager {
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				quiz = new Quiz(quizID, name, description, category, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 			}
 		} catch (SQLException e) {
 		}
@@ -64,7 +65,6 @@ public class QuizManager {
 				String questionText = rs.getString("questionText");
 				String correctAnswer = rs.getString("correctAnswer");
 				int numAnswers = rs.getInt("numAnswers");
-				System.out.println("question"+ questionText+" has "+numAnswers+" answers");
 				ArrayList<String> correctAnswers;
 				if(numAnswers > 1){
 					correctAnswers = questionManager.getAllAnswers(Integer.toString(quizID), Integer.toString(questionID));
@@ -99,6 +99,8 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
+				String category = rs.getString("category");
+
 				Timestamp created = rs.getTimestamp("created");
 				String creator = rs.getString("creatorId");
 				QuizType type = QuizType.valueOf(rs.getString("type"));
@@ -106,7 +108,7 @@ public class QuizManager {
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				Quiz quiz = new Quiz(quizID, name, description, category, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 				quizzes.add(quiz);
 			}
 		} catch (SQLException e) {
@@ -130,6 +132,7 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
+				String category = rs.getString("category");
 				Timestamp created = rs.getTimestamp("created");
 				String creator = rs.getString("creatorId");
 				QuizType type = QuizType.valueOf(rs.getString("type"));
@@ -137,7 +140,7 @@ public class QuizManager {
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				Quiz quiz = new Quiz(quizID, name, description, category, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 				quizzes.add(quiz);
 			}
 		} catch (SQLException e) {
@@ -163,6 +166,7 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
+				String category = rs.getString("category");
 				Timestamp created = rs.getTimestamp("created");
 				String creator = rs.getString("creatorId");
 				QuizType type = QuizType.valueOf(rs.getString("type"));
@@ -170,7 +174,7 @@ public class QuizManager {
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				Quiz quiz = new Quiz(quizID, name, description, category, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 				quizzes.add(quiz);
 			}
 		} catch (SQLException e) {
@@ -219,6 +223,7 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
+				String category = rs.getString("category");
 				Timestamp created = rs.getTimestamp("created");
 				String creator = rs.getString("creatorId");
 				QuizType type = QuizType.valueOf(rs.getString("type"));
@@ -226,7 +231,7 @@ public class QuizManager {
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				Quiz quiz = new Quiz(quizID, name, description, category, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 				quizzes.add(quiz);
 			}
 		} catch (SQLException e) {
@@ -245,6 +250,7 @@ public class QuizManager {
 				int quizID = rs.getInt("quizID");
 				String name = rs.getString("name");
 				String description = rs.getString("description");
+				String category = rs.getString("category");
 				Timestamp created = rs.getTimestamp("created");
 				String creator = rs.getString("creatorId");
 				QuizType type = QuizType.valueOf(rs.getString("type"));
@@ -252,7 +258,7 @@ public class QuizManager {
 				boolean multiplePages = rs.getBoolean("pages");
 				boolean random = rs.getBoolean("random");
 				boolean immediateCorrection = rs.getBoolean("correction");
-				Quiz quiz = new Quiz(quizID, name, description, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				Quiz quiz = new Quiz(quizID, name, description, category, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
 				quizzes.add(quiz);
 			}
 		} catch (SQLException e) {
@@ -289,7 +295,11 @@ public class QuizManager {
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 				Quiz quiz = getQuiz(rs.getInt("quizId"));
-				quizzes.add(new QuizPerformance(name, score, start_time, end_time, rs.getInt("quizId"), quiz.getQuizName()));
+				int possibleScore = rs.getInt("possibleScore");
+
+				if(quiz != null){
+					quizzes.add(new QuizPerformance(name, score, possibleScore, start_time, end_time, rs.getInt("quizId"), quiz.getQuizName()));
+				}
 			}
 		} catch (SQLException e) {
 		}
@@ -301,16 +311,15 @@ public class QuizManager {
 		try {
 			Statement stmt = con.createStatement();		
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" WHERE quizId='" + quizId + "' AND userId='"+ username + "' ORDER BY end_time DESC;";
-			System.out.println("got here");
-			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String name = rs.getString("userId");
 				int score = rs.getInt("score");
+				int possibleScore = rs.getInt("possibleScore");
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 	
-				recentlyTaken.add(new QuizPerformance(name, score, start_time, end_time, quizId));
+				recentlyTaken.add(new QuizPerformance(name, score, possibleScore, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -325,15 +334,15 @@ public class QuizManager {
 			Statement stmt = con.createStatement();		
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" WHERE quizId='" + quizId + "' ORDER BY score DESC;";
 	
-			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String name = rs.getString("userId");
 				int score = rs.getInt("score");
+				int possibleScore = rs.getInt("possibleScore");
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 	
-				highScores.add(new QuizPerformance(name, score, start_time, end_time, quizId));
+				highScores.add(new QuizPerformance(name, score, possibleScore, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -346,14 +355,14 @@ public class QuizManager {
 			Statement stmt = con.createStatement();		
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" WHERE quizId='" + quizId + "' ORDER BY end_time DESC;";
 	
-			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String name = rs.getString("userId");
 				int score = rs.getInt("score");
+				int possibleScore = rs.getInt("possibleScore");
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
-				highScores.add(new QuizPerformance(name, score, start_time, end_time, quizId));
+				highScores.add(new QuizPerformance(name, score, possibleScore, start_time, end_time, quizId));
 			}
 		} catch (SQLException e) {
 		}
@@ -371,7 +380,6 @@ public class QuizManager {
 				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		int quizId = 0;
-		System.out.println(query);
 		try {
 			PreparedStatement s = con.prepareStatement(query);
 			s.setString(1, quiz.getQuizName());
@@ -384,12 +392,10 @@ public class QuizManager {
 			s.setBoolean(8, quiz.hasImmediateCorrection());
 			s.setString(9, quiz.getQuizType().name());
 			s.setInt(10, 0);
-			System.out.println(s.toString());
 			s.executeUpdate();
 
 			
-			query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE name='" + quiz.getQuizName() + "' ORDER BY created DESC;";
-			System.out.print(query);
+			query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE name='" + quiz.getQuizName() + "' ORDER BY created ASC;";
 			Statement stmt = con.createStatement();		
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -399,8 +405,6 @@ public class QuizManager {
 			
 
 		} catch (SQLException e1) {
-			//System.out.println("GOT HERE");
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return -1;
 		}
@@ -413,7 +417,6 @@ public class QuizManager {
 		String query = "INSERT INTO " + MyDBInfo.QUESTION_TABLE + " (quizId, questionId, questionText, correctAnswer"
 				+ ", numAnswers)" + 
 				" VALUES (?, ?, ?, ?, ?)";
-		System.out.println(query);
 		
 		try {
 			PreparedStatement s = con.prepareStatement(query);
@@ -422,7 +425,6 @@ public class QuizManager {
 			s.setString(3, question);
 			s.setString(4, answer);
 			s.setInt(5, numAnswers);
-			System.out.println(s.toString());
 			s.executeUpdate();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -439,14 +441,12 @@ public class QuizManager {
 		for (; i < questionAnswers.length; i++) {
 			String query = "INSERT INTO " + MyDBInfo.ANSWERS_TABLE + " (quizId, questionId, answer)" + 
 					" VALUES (?, ?, ?)";
-			System.out.println(query);
 			
 			try {
 				PreparedStatement s = con.prepareStatement(query);
 				s.setInt(1, quizId);
 				s.setInt(2, questionId);
 				s.setString(3, questionAnswers[i]);
-				System.out.println(s.toString());
 				s.executeUpdate();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -454,12 +454,55 @@ public class QuizManager {
 			}
 		}
 	}
+	
+	public void deleteQuizAnswers(int quizId) {
+		String query1 = "DELETE FROM " + MyDBInfo.QUESTION_TABLE + " WHERE quizId=" + quizId + ";";
+		String query2 = "DELETE FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=" + quizId + ";";
+		System.out.println(query1);
+		System.out.println(query2);
+		try {
+			Statement stmt = con.createStatement();
+			stmt.execute(query1);
+			stmt.execute(query2);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	public void addMultipleChoiceQuestion(int quizId, int questionId, String question, String answer, int numAnswers, String[] questionAnswers) {
 		addSingleAnswerQuestion(quizId, questionId, question, answer, numAnswers);
 		
 	} */
 
+	
+	public ArrayList<Quiz> getCategorizedQuizzes(String category) {
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE category='" + category + "';";
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				int quizID = rs.getInt("quizID");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				Timestamp created = rs.getTimestamp("created");
+				String creator = rs.getString("creatorId");
+				QuizType type = QuizType.valueOf(rs.getString("type"));
+				boolean practiceMode = rs.getBoolean("practiceMode");
+				boolean multiplePages = rs.getBoolean("pages");
+				boolean random = rs.getBoolean("random");
+				boolean immediateCorrection = rs.getBoolean("correction");
+				Quiz quiz = new Quiz(quizID, name, description, category, created, creator, type, practiceMode, multiplePages, random, immediateCorrection);
+				quizzes.add(quiz);
+			}
+		} catch (SQLException e) {
+		}
+		return quizzes;
+	}
+	
 	
 	public ArrayList<Review> getReviews(int quizId) {
 		ArrayList<Review> reviews = new ArrayList<Review>();
@@ -524,14 +567,14 @@ public class QuizManager {
 	}
 	
 	
-	public boolean addQuizRecord(int quizId, String userId, Date start_time, Date end_time, int score){
+	public boolean addQuizRecord(int quizId, String userId, Date start_time, Date end_time, int score, int possibleScore){
 		try{
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String formattedStartTime = sdf.format(start_time);
 			String formattedEndTime = sdf.format(end_time);
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO " + MyDBInfo.QUIZ_RECORDS_TABLE + " VALUES('" + quizId + "', '" + userId + "', '" + 
-			formattedStartTime +"', '"+ formattedEndTime+"', '"+score+"');");
+			formattedStartTime +"', '"+ formattedEndTime+"', '"+score+"', '"+possibleScore+"');");
 		}catch (SQLException e1){
 			return false;
 		}

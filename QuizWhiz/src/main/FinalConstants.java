@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import users.Achievement;
@@ -9,6 +10,26 @@ public class FinalConstants {
 	public static final String ERROR_MSG = "An error has occurred. Please try again.";
 	
 	public static int MAX_RATING = 5;
+	
+	
+	/* Categories */
+	public static final String[] CATEGORIES = { "ARTS", "CHEESES", "EDUCATION", "FUN", "LANGUAGE", "MISC", "NATURE", "NEWS", "POP_CULTURE", "SPORTS", "UNCATEGORIZED" };
+	public static final HashMap<String, String> CATEGORIES_PLAINTEXT;
+	static {
+		CATEGORIES_PLAINTEXT = new HashMap<String, String>();
+		CATEGORIES_PLAINTEXT.put("ARTS", "Arts");
+		CATEGORIES_PLAINTEXT.put("CHEESES", "Cheeses");
+		CATEGORIES_PLAINTEXT.put("EDUCATION", "Education");
+		CATEGORIES_PLAINTEXT.put("FUN", "Fun");
+		CATEGORIES_PLAINTEXT.put("LANGUAGE", "Language");
+		CATEGORIES_PLAINTEXT.put("MISC", "Miscellaneous");
+		CATEGORIES_PLAINTEXT.put("NATURE", "Nature");
+		CATEGORIES_PLAINTEXT.put("NEWS", "News");
+		CATEGORIES_PLAINTEXT.put("POP_CULTURE", "Popular Culture");
+		CATEGORIES_PLAINTEXT.put("SPORTS", "Sports");
+		CATEGORIES_PLAINTEXT.put("UNCATEGORIZED", "Uncategorized");
+	}
+	
 	
 	/* Achievements */
 	public static final String CREATE_1 = "CREATE_1";

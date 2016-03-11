@@ -12,6 +12,22 @@
 </head>
 <body class="standards">
 
+<%
+ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
+ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
+ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
+ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
+if(user != null){
+	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
+	myAchievements = userManager.getAchievements(user.getUsername());
+	messages = messageManager.getMessages(user.getUsername(), false);
+	unreadMessages = messageManager.getMessages(user.getUsername(), true);
+	requests = userManager.getFriendRequests(user.getUsername());
+	friendsNames = userManager.getFriends(user.getUsername());
+	recentActivity = userManager.getRecentActivity(user.getUsername(), friendsNames);
+}
+%>
+
 <% if(request.getParameter("error") != null) { %>
 	<div class="alert alert-danger">
   		<strong>Error:</strong> <% out.print(FinalConstants.ERROR_MSG); %>
@@ -40,6 +56,8 @@
 						<a class="btn btn-primary" href="make-quiz.jsp" role="button">Make
 							Quiz</a>
 						<a class="btn btn-primary" href="user-profile.jsp?username=<%=user.getUsername() %>" role="button">User Profile</a>
+						<a class="btn btn-primary" href="quiz-history.jsp?username=<%=user.getUsername() %>" role="button">Quiz History</a>
+						
 					</div>
 				</div>
 
@@ -54,13 +72,13 @@
 							<%
 								for (int i = 0; i < announcements.size(); i++) {
 							%>
-							<li>
+							<li class="list-group-item">
 								<h3><%=announcements.get(i).getSubject()%></h3>
 								<p><%=announcements.get(i).getBody()%></p>
 								<% if (userManager.isAdmin(user.getUsername())) { %>
 								<form action="EditAnnouncementServlet" method="post">
 									<input type="hidden" name="announcementId" value="<%=announcements.get(i).getId() %>">
-										<button type="submit" class="btn btn-danger" name="buttonAction" value="delete">
+										<button type="submit" class="btn btn-danger" name="buttonAction" value="delete">Delete
 										</button>
 								</form>
 							<% } %>
@@ -144,7 +162,7 @@
 		<div class="panel-heading"><h1 class="panel-title">My Quizzes</h1></div>
 		<div class="panel-body">
 			<ol>
-<
+
 				<% 
 					if (myQuizzes.size() == 0) {
 						out.println("No quizzes created. ");
@@ -168,26 +186,30 @@
 	<div class="col-md-6"><div class="panel panel-default">
 		<div class="panel-heading"><h1 class="panel-title">Friend Activities</h1></div>
 		<div class="panel-body">
+		<% if(recentActivity.isEmpty()) { %>
+		<p> Looks like you don't have any friends yet! <a href="friends.jsp?">Search for friends here</a></p>
+		<%} else{ %>
 			<ol>
 				<% for (int i = 0; i < recentActivity.size() && i < 6; i++) { 
 					 if(recentActivity.get(i).getType().equals("taken")){%>
-					<li> <h4 style="display:inline"><%=recentActivity.get(i).getUserId() %> has taken a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
+					<li> <h4><%=recentActivity.get(i).getUserId() %> has taken a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
 					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
 							style="text-decoration: none; display:inline" class="btn btn-default">
 						Take this quiz!
 						</a>
-						<p><i>Taken on: <%=recentActivity.get(i).getDate()%></i></p>
+						<p style="padding-top:2px; float:right"><i>Taken on: <%=recentActivity.get(i).getDate()%></i></p>
 					</li>
 					<%} else {%>
 					<li> <h4><%=recentActivity.get(i).getUserId() %> has created a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
 					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
 							STYLE="text-decoration: none" class="btn btn-default">
-						Take Quiz
+						Take this Quiz!
 						</a>
-						<p><i>Created on: <%=recentActivity.get(i).getDate()%></i></p>		
+						<p style="padding-top:2px; float:right"><i>Created on: <%=recentActivity.get(i).getDate()%></i></p>		
 					</li>
 				<% } }%>
 			</ol>
+			<%} %>
 		</div>
 	</div>
 

@@ -11,15 +11,15 @@
 <body>
 
 
-<div>
+<div class="container-fluid"><ul class="list-group">
 	<% for(int i= 0; i < messages.size(); i++){ 
 			if(!messages.get(i).isUnread()){ %>
-				<div class="container-fluid">
+				<li class="list-group-item">
 					<h2><i><%=messages.get(i).getTitle() %> - <%=messages.get(i).getSender()%></i></h2>
 					<p><i><%= messages.get(i).getBody() %></i></p>
-				</div>
+				</li>
 			<% } else if(messages.get(i).getType().equals("NOTE")){%>
-				<div class="container-fluid" style="background-color: #CFF0FE">
+				<li class="list-group-item" style="background-color: #CFF0FE">
 					<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
 					<p><%= messages.get(i).getBody() %></p>			
 					<form action="MessageServlet" method="post" id="message">
@@ -27,22 +27,24 @@
 						<input type="hidden" name="note">
 						<a class="btn btn-default" href="create-message.jsp?replyTo=<%=messages.get(i).getSender()%>">Reply</a>	
 						<button class="btn btn-default"type="submit" value="note">Mark as read</button>				
-					</form>
-				</div>
+					</form><br>
+				</li>
 		<%} else { %>
-		<div class="container-fluid" style="background-color: #FECFCF">
-			<h2><%=messages.get(i).getTitle() %><i> - <%=messages.get(i).getSender() %></i></h2>
-			<p><%= messages.get(i).getBody() %></p>
+		<li class="list-group-item" style="background-color: #FECFCF">
+			<h2>Quiz Challenge from <%=messages.get(i).getSender() %>!</h2>
+			<p><%=messages.get(i).getSender() %> took the quiz, <%= quizManager.getQuiz(messages.get(i).getQuizId()).getQuizName()%>, and got a <%=messages.get(i).getScore() %>. Can you beat that score?</p>			
 			<form action="MessageServlet" method="post">
 				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
 				<input type="hidden" name="quizId" value="<%= messages.get(i).getQuizId()%>">		
 				<input type="hidden" name="challenge">
 				<button class="btn btn-default" type="submit" value="challenge">Accept Challenge</button>
-			</form>
-		</div>
+			</form><br>
+		</li>
 		<%} %>
 		<br>
 	<%} %>
+
+</ul>
 </div>
 </body>
 </html>

@@ -5,22 +5,24 @@ import java.util.Date;
 
 public class QuizPerformance {
 	private String userName, quizName;
-	private int score, quizId;
+	private int score, possibleScore, quizId;
 	private Timestamp startTime;
 	private Timestamp endTime;
 
 
-	public QuizPerformance(String userName, int score, Timestamp startTime, Timestamp endTime, int quiz_id) {
+	public QuizPerformance(String userName, int score, int possibleScore, Timestamp startTime, Timestamp endTime, int quiz_id) {
 		this.userName 	= userName;
 		this.score 		= score;
+		this.possibleScore = possibleScore;
 		this.startTime 	= startTime;
 		this.endTime 	= endTime;
 		this.quizId = quiz_id;
 	}
-	public QuizPerformance(String userName, int score, Timestamp startTime, Timestamp endTime, int quiz_id, String quiz_name) {
+	public QuizPerformance(String userName, int score, int possibleScore, Timestamp startTime, Timestamp endTime, int quiz_id, String quiz_name) {
 		this.userName 	= userName;
 		this.score 		= score;
 		this.startTime 	= startTime;
+		this.possibleScore = possibleScore;
 		this.endTime 	= endTime;
 		this.quizId = quiz_id;
 		this.quizName = quiz_name;
@@ -28,10 +30,18 @@ public class QuizPerformance {
 	public String getUserName() {
 		return userName;
 	}
-	public int getScore() {
-		return score; 
+	public String getScoreString() {
+		return score + "/" + possibleScore; 
 	}
 
+	public int getScore() {
+		return score;
+	}
+	
+	public int getPossibleScore() {
+		return possibleScore;
+	}
+	
 	public int getQuizId(){
 		return quizId;
 	}
@@ -39,6 +49,8 @@ public class QuizPerformance {
 	public String getQuizName(){
 		return quizName;
 	}
+	
+
 	
 	//TODO: we can change this to diff. time intervals to test if works
 	public boolean wasToday() {

@@ -11,20 +11,23 @@
 <link
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
+	<link
+ 	href="${pageContext.request.contextPath}/style/bootstrapOverride.css"
+ 	rel="stylesheet" type="text/css" />
 <title>Login</title>
 </head>
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
+<nav class="navbar navbar-default" style="background-color: #1faf24">
+  <div class="container-fluid" style="background-color: #1faf24">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+    <div class="navbar-header" style="background-color: #1faf24">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.jsp?">Quiz Whiz</a>
+      <a class="navbar-brand" href="index.jsp?" style="color: #fff">Quiz Khalifa</a>
     </div>
   </div><!-- /.container-fluid -->
 </nav>

@@ -9,11 +9,14 @@
 	href="${pageContext.request.contextPath}/style/index.css" />
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/quizPage.css" />
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet"
-	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="http://www.w3schools.com/lib/w3-theme-indigo.css">
+ <script
+ 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+ <link
+ 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
+ 	rel="stylesheet" type="text/css" />
+ 	<link
+ 	href="${pageContext.request.contextPath}/style/bootstrapOverride.css"
+ 	rel="stylesheet" type="text/css" />
 <script>
 	function myFunction(id) {
 		document.getElementById(id).classList.toggle("w3-show");
@@ -35,23 +38,11 @@
 </title>
 </head>
 <body>
-	<h1>
-		<%
-			out.print(quizName);
-		%>
-	</h1>
+	<div class="container-fluid"><div class="panel panel-default">
+					
+	<div class="panel-heading"><h1> <% out.print(quizName); %> </h1></div>
 	<%
-		//ArrayList<Question> questions = new ArrayList<Question>(2);
 		ArrayList<Question> questions = quizManager.getQuestions(quizID);
-		/*Question testQ1 = new Question(1, 1, "How many knees do elephants have?", 
-				"0", 1);
-		questions.add(testQ1);
-		Question testQ2 = new Question(1, 2, "Who has more neck vertabrae: humans, giraffes or they both have the same number?",
-				"they both have the same number", 0);
-		<<<<<<< HEAD
-		questions.add(testQ2);*/
-		//int numQuestions = questions.size();
-
 		int numQuestions = questions.size();
 	%>
 	<form action="QuizResultServlet" method="post">
@@ -69,18 +60,21 @@
 		%>
 		<div class="question_info">
 			<%
-				out.println("<div class = \"question\">"+
-						qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, Integer.toString(quizID), a+1)+"</div>");
+				out.println(qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, Integer.toString(quizID), a+1));
 			%>
 		</div>
 		<%
 			}
 			boolean practiceMode = toDisplay.hasPracticeMode();
-			out.println("<input name=\"practiceMode\" type = \"hidden\" value = \"" + practiceMode+"\"/>");		
-			out.println("<input name=\"quizType\" type = \"hidden\" value = \"" + quizType+"\"/>");
-		%>
+
+			%>
+			<input name="practiceMode" type="hidden" value=<%=practiceMode%>>
+			<input name="quizType" type="hidden" value=<%=quizType%>>
+		
 		<br> <div class="submit"><input type="submit" /></div>
 	</form>
-
+	<br>
+</div>
+</div>
 </body>
 </html>

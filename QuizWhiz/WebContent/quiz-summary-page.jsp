@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*, quizzes.*, users.*, main.*, java.sql.*"%>
+	import="java.util.*, quizzes.*, users.*, main.*, java.sql.*, java.text.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -71,8 +71,9 @@
 							out.println(quizPageButton);
 						%>
 						<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
-						<a class="btn btn-primary" href="edit-quiz.jsp?id=<%=id%>"
-							role="button">Edit Quiz</a>
+						
+						<a class="btn btn-primary" href="edit-quiz.jsp?id=<%=id%>">Edit Quiz</a>
+						
 						<% } else { %>
 						<br>
 						<br>
@@ -118,14 +119,16 @@
 				 if (scores.size() == 0) { %>
 						<p>This quiz hasn't been taken yet!</p>
 						<% } else {
-								int scoreTotal = 0;
+								double scoreAvgTotal = 0;
 								long timeTotal = 0;
 				for (int i = 0; i < scores.size(); i++) {
-					scoreTotal += scores.get(i).getScore();
+					scoreAvgTotal += (double) scores.get(i).getScore()/scores.get(i).getPossibleScore();
 					timeTotal += scores.get(i).getTotalTime();
 				}
 
-				int avgScore = scoreTotal/scores.size();
+				double avgScore = scoreAvgTotal/scores.size();
+				avgScore *= 100;
+				String s = String.format("%.2f", avgScore);
 				long avgTime = timeTotal/scores.size();
 				long avgMins = avgTime / 60;
 				long avgSecs = avgTime % 60;
@@ -133,7 +136,7 @@
 			%>
 
 						<b>Average Score:</b>
-						<%=avgScore%>
+						<%=s%>%
 						<br> <b>Average Time Taken:</b>
 						<%=avgMins%>
 						mins,
@@ -168,7 +171,7 @@
 							<p>No recent activity to display.</p>
 							<% } else {
 					for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {
-						int score = quizzesTaken.get(i).getScore();
+						String score = quizzesTaken.get(i).getScoreString();
 						String date = quizzesTaken.get(i).getDate(); %>
 							<p>
 								Date:
@@ -200,7 +203,7 @@
 							if (i == 0 && !userManager.getAchievements(highScoreUser).contains(FinalConstants.HIGHEST_SCORE)) {
 								userManager.addAchievement(highScoreUser, FinalConstants.HIGHEST_SCORE);
 							}
-							String score = String.valueOf(highScores.get(i).getScore()); %>
+							String score = highScores.get(i).getScoreString(); %>
 							<p>
 							<li><a href="user-profile.jsp?username=<%=highScoreUser%>">
 									<%=highScoreUser%></a>, Score: <%=score%></li>
@@ -231,7 +234,7 @@
 							<% } else {
 						for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {	
 							String highScoreUser = highScoresToday.get(i).getUserName();
-							String score = String.valueOf(highScoresToday.get(i).getScore()); %>
+							String score = highScoresToday.get(i).getScoreString(); %>
 							<p>
 							<li><a href="user-profile.jsp?username=<%=highScoreUser%>">
 									<%=highScoreUser%></a>, Score: <%=score%></p></li>
@@ -256,7 +259,7 @@
 							<% } else {
 								for (int i = 0; i < scores.size() && i < 5; i++) {
 									String scoreUser = scores.get(i).getUserName();
-									String score = String.valueOf(scores.get(i).getScore()); %>
+									String score = scores.get(i).getScoreString(); %>
 							<p>
 							<li><a href="user-profile.jsp?username=<%=scoreUser%>">
 									<%=scoreUser%></a>, Score: <%=score%></li>
