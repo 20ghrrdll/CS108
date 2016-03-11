@@ -62,7 +62,7 @@ public class SiteServletListener implements ServletContextListener {
         context.setAttribute("messageManager", messageManager);
         context.setAttribute("adminManager", adminManager);
         context.setAttribute("questionManager", questionManager);
-        context.setAttribute("multiQuizPages", multiPage);
+        context.setAttribute("multiplePageQuiz", multiPage);
         context.setAttribute("ctx", context.getContextPath());
     }
 	
