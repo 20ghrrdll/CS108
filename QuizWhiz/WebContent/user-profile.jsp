@@ -87,6 +87,7 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 			</div>
 		</div>
 	</div>
+	
 
 	<div class="container">
 		<!-- Modal -->
@@ -166,16 +167,21 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 						<h1>
 							<%
 								out.println(usernameToView);
+								
 							%>
 						</h1>
 					</div>
-					<div class="panel-body" style="text-align: center">
+					<div class="panel-body" style="text-align: left">
 						<%
 							if (!user.getUsername().equals(usernameToView)) {
 										Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
 										if (!currentUserFriends.contains(usernameToView.toLowerCase())) {
 											if (!sentRequests.contains(usernameToView.toLowerCase())) {
 						%>
+						<div> <ul>
+							<li>Date joined: <%=userManager.getUser(usernameToView).getJoinDate()%></li>
+							<li>Number of quizzes made: <%=quizManager.getMyQuizzes(usernameToView).size()%></li></div>
+					
 						<form action="FriendRequestServlet" method="post">
 							<input type="hidden" name="user1" value="<%=user.getUsername()%>">
 							<input type="hidden" name="user2" value="<%=usernameToView%>">

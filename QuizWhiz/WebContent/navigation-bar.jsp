@@ -74,7 +74,7 @@ if(user != null){
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: #1faf24l; background-image: none;">
       <ul class="nav navbar-nav" style="background-color: #1faf24; background-image: none; color: #fff">
-        <li><a href="friends.jsp?" style="color: #fff">Friends <%
+        <li><a href="friends.jsp?" style="color: #fff">Users <%
 				if (requests.size() > 0) {
 			%><span
 					class="badge" style="background-color: #fff; background-image: none; color: #333"><%=requests.size()%></span>
@@ -109,7 +109,7 @@ if(user != null){
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-color: #1faf24; background-image: none; color: #fff">Settings <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Privacy</a></li>
+            <li><a href="privacy.jsp">Privacy</a></li>
             <li role="separator" class="divider"></li>
             <li><a onclick="document.getElementById('logout').submit()">Logout</a></li>
           </ul>
