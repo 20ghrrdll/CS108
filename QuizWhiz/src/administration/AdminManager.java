@@ -94,6 +94,22 @@ public class AdminManager {
 	
 	
 	/**
+	 * Deletes an announcement from the database
+	 * @param announcementId
+	 * @return
+	 */
+	public boolean deleteAnnouncement(int announcementId) {
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("DELETE FROM " + MyDBInfo.ANNOUNCEMENTS_TABLE + " WHERE announcementId='" + announcementId + "';");
+		} catch (SQLException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	
+	/**
 	 * Deletes a given user from relevant tables in the database including 
 	 * the users table, friends table, etc.
 	 * @param username

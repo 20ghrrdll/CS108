@@ -26,7 +26,7 @@
 <script>
 function removeElement(elementId) {	
 	//elementId.value = "change";
-	document.getElementById("question").remove();
+	document.getElementById("Question").remove();
 	//que.removeChild(elementId);	
 }
 </script>
@@ -83,6 +83,8 @@ function removeElement(elementId) {
 		questionIds.add(questionId);
 		//questionIds.add()
 		
+		answer = q.getCorrectAnswer();
+		
 		if (!answer.equals("go to question_answers") && quiz.getQuizType() != QuizType.MultipleChoice) {
 			questionText.add(question);
 			answer = q.getCorrectAnswer();
@@ -91,7 +93,7 @@ function removeElement(elementId) {
 			if (quiz.getQuizType() == QuizType.MultipleChoice) {
 				answer = q.getCorrectAnswer() + " | ";
 			} else answer = "";
-				
+			
 			ArrayList<String> c = questionManager.getAllAnswers(String.valueOf(quizId), String.valueOf(i+1));
 			 //String corr = "";
 			 for (int j = 0; j < c.size(); j++) {
@@ -116,7 +118,7 @@ function removeElement(elementId) {
 <div class="panel-heading"><h1>Edit '<%=quizName%>'</h1></div>
 <div class="panel-body">
 
-	<form >
+	<form action="AddQuestionsServlet" method="post">
 		
 <span id="questions">
 	<%
@@ -124,8 +126,8 @@ function removeElement(elementId) {
 	for (int i = 0; i < questionText.size(); i++) {
 		String questionId = questionIds.get(i);
 	%>
-<div id="question">
-		Question: <textarea class = "form-control"  id=questionId><%=questionText.get(i)%></textarea><br>
+<div id="Question">
+		Question: <textarea class = "form-control" name="question" id=questionId><%=questionText.get(i)%></textarea><br>
 		Answer: <textarea class = "form-control" name="answer"><%=answerText.get(i)%></textarea>
 				<br>
 		
@@ -137,11 +139,11 @@ function removeElement(elementId) {
 </span>	
 <br>
 	<input type="button" class="btn btn-primary" value="Add question" onclick="addQuestions()">
-	<input type="button" class="btn btn-success" value="Done" onclick="addQuestions()">
+	<input type="submit" class="btn btn-success" value="Done">
 		
 		<br>
 		<br>
-	
+	<input type="hidden" name="quizId" value=<%=String.valueOf(quizId) %>></input>
 		</form>
 	
 	</div></div></div></div>

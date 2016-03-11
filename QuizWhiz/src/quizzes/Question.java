@@ -1,12 +1,7 @@
 package quizzes;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.*;
 
-import main.MyDBInfo;
 
 public class Question {
 
@@ -74,7 +69,7 @@ public class Question {
 		response TEXT,
 		correct BOOLEAN,
 		answered BOOLEAN*/
-		if(!practiceMode){
+		if(practiceMode){
 			manager.updateQuestionRecordsTable(userID, userAnswer, correct, answered, this.questionId, this.quizId);
 		}
 		
