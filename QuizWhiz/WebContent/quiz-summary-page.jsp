@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*, quizzes.*, users.*, main.*, java.sql.*, java.text.*"%>
+	import="java.util.*, quizzes.*, users.*, main.*, java.sql.*, java.text.*, administration.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -88,8 +88,8 @@
 						<br>
 						<br>
 						<b>Admin Functions:</b>
-						<form action="EditQuizServlet" method="post">
-							<input type="hidden" name="quizId"
+						<form action="AdminEditQuizServlet" method="post">
+							<input type="hidden" name="quizIDs"
 								value="<%=quiz.getQuizID() %>">
 							<div class="col-md-3" style="float: left">
 								<button type="submit" class="btn btn-link" name="buttonAction"
@@ -122,11 +122,15 @@
 								double scoreAvgTotal = 0;
 								long timeTotal = 0;
 				for (int i = 0; i < scores.size(); i++) {
+					System.out.println(scores.get(i).getScore());
+					System.out.println(scores.get(i).getPossibleScore());
 					scoreAvgTotal += (double) scores.get(i).getScore()/scores.get(i).getPossibleScore();
 					timeTotal += scores.get(i).getTotalTime();
 				}
 
 				double avgScore = scoreAvgTotal/scores.size();
+				System.out.println(scoreAvgTotal);
+				System.out.println(scores.size());
 				avgScore *= 100;
 				String s = String.format("%.2f", avgScore);
 				long avgTime = timeTotal/scores.size();

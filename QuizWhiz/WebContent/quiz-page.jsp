@@ -18,6 +18,7 @@
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/quizPage.css" />
  <script
+     <script
  	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
  <link
  	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
@@ -87,5 +88,8 @@
 	<br>
 </div>
 </div>
+
+</div></div></div>
+
 </body>
 </html>

@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class EditQuizServelt
+ * Servlet implementation class AdminEditQuizServlet
  */
-@WebServlet("/EditQuizServelt")
+@WebServlet("/AdminEditQuizServlet")
 public class AdminEditQuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -19,12 +19,15 @@ public class AdminEditQuizServlet extends HttpServlet {
      */
     public AdminEditQuizServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -39,7 +42,7 @@ public class AdminEditQuizServlet extends HttpServlet {
 			return;
 		}
 		
-		String[] quizIDList = buttonAction.split("\n");
+		String[] quizIDList = quizIDs.split("\n");
 		for (String quiz : quizIDList) {
 			int quizId = Integer.parseInt(quiz.trim());
 			if (buttonAction.equals("delete")) {
