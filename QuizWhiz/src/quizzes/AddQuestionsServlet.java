@@ -68,7 +68,7 @@ public class AddQuestionsServlet extends HttpServlet {
 				 numAnswers = 4;
 				 String[] questionAnswers = answers[i].trim().split("[|]+");
 				 answer = questionAnswers[0];
-					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, 1, questionAnswers, true);
+				quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, 1, questionAnswers, true);
 			} 
 			else 
 				//one answer
