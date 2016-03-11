@@ -61,8 +61,6 @@ public class QuizMakerServlet extends HttpServlet {
 		if (request.getParameter("quizType").equals("PictureResponse")) quizType = QuizType.PictureResponse;
 
 
-		boolean hasPracticeMode = false;
-		if (request.getParameter("practice").equals("y")) hasPracticeMode = true;
 		boolean hasMultiplePages = false;
 		if (request.getParameter("pages").equals("multiple")) hasMultiplePages = true;
 		boolean hasRandomOrder = false;
@@ -71,7 +69,7 @@ public class QuizMakerServlet extends HttpServlet {
 		if (request.getParameter("correction").equals("immediate")) hasImmediateCorrection = true;
 
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
-		Quiz quiz = new Quiz(quizName, quizDescription, category, created, quizCreator, quizType, hasPracticeMode, hasMultiplePages, hasRandomOrder, hasImmediateCorrection);
+		Quiz quiz = new Quiz(quizName, quizDescription, category, created, quizCreator, quizType, false, hasMultiplePages, hasRandomOrder, hasImmediateCorrection);
 
 		int quizId = quizManager.insertQuiz(quiz);
 		if (quizId == -1) {

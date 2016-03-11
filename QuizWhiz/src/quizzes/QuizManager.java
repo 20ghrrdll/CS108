@@ -459,8 +459,6 @@ public class QuizManager {
 	public void deleteQuizAnswers(int quizId) {
 		String query1 = "DELETE FROM " + MyDBInfo.QUESTION_TABLE + " WHERE quizId=" + quizId + ";";
 		String query2 = "DELETE FROM " + MyDBInfo.ANSWERS_TABLE + " WHERE quizId=" + quizId + ";";
-		System.out.println(query1);
-		System.out.println(query2);
 		try {
 			Statement stmt = con.createStatement();
 			stmt.execute(query1);
@@ -483,7 +481,6 @@ public class QuizManager {
 		try {
 			Statement stmt = con.createStatement();
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE category='" + category + "';";
-			System.out.println("cat qry: " + query);
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {

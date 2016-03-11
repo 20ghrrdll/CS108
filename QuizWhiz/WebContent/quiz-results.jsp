@@ -24,8 +24,7 @@
 	%>
 	<h1 class="text-center">Results</h1>
 	<h4 class="text-center">
-		<%
-			out.print(user.getUsername());
+		<% out.print(user.getUsername());
 		%>, you scored
 		<%
 			out.print(session.getAttribute("score"));

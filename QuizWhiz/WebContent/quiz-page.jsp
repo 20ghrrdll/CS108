@@ -56,8 +56,7 @@
 		int numQuestions = questions.size();
 	%>
 	<form action="QuizResultServlet" method="post">
-		<%
-			QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
+		<% QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
 			if(toDisplay.randomOrder()){
 				long seed = System.nanoTime();
 				Collections.shuffle(questions, new Random(seed));
