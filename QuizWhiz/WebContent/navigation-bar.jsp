@@ -19,6 +19,9 @@
  <link
  	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
  	rel="stylesheet" type="text/css" />
+ 	<link
+ 	href="${pageContext.request.contextPath}/style/bootstrapOverride.css"
+ 	rel="stylesheet" type="text/css" />
   <script type="text/javascript"
   	src="${pageContext.request.contextPath}/javascript/homepage.js"></script>
 </head>
@@ -55,42 +58,42 @@ if(user != null){
 } 
  %>
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
+<nav class="navbar navbar-default" style="background-color: #1faf24; background-image: none;">
+  <div class="container-fluid" style="background-color: #1faf24; background-image: none; color: #fff">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+    <div class="navbar-header" style="background-color: #1faf24; background-image;">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.jsp?">Quiz Whiz</a>
+      <a class="navbar-brand" href="index.jsp?" style="color: #fff">Quiz Whiz</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="friends.jsp?">Friends <%
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: #1faf24l; background-image: none;">
+      <ul class="nav navbar-nav" style="background-color: #1faf24; background-image: none; color: #fff">
+        <li><a href="friends.jsp?" style="color: #fff">Friends <%
 				if (requests.size() > 0) {
 			%><span
-					class="badge"><%=requests.size()%></span>
+					class="badge" style="background-color: #fff; background-image: none; color: #333"><%=requests.size()%></span>
 					<%
 						}
 					%></a></li>
-        <li><a href="messages.jsp?">Messages <%
+        <li><a href="messages.jsp?" style="color: #fff">Messages <%
 				if (unreadMessages.size() > 0) {
 			%><span
-					class="badge"><%=unreadMessages.size()%></span>
+					class="badge" style="background-color: #fff; color: #333"><%=unreadMessages.size()%></span>
 					<%
 						}
 					%></a></li>
 			<% 	if (userManager.isAdmin(user.getUsername())) { %>
-				<li><a href="admin-page.jsp?">Admin Portal</a></li>
+				<li><a href="admin-page.jsp?" style="color: #fff">Admin Portal</a></li>
 			<% } %>
 			
 		<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizzes <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-color: #1faf24; background-image: none; color: #fff">Quizzes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <% for (int i = 0; i < FinalConstants.CATEGORIES.length; i++) {%>
             	<li><a href="show-quizzes.jsp?category=<%=FinalConstants.CATEGORIES[i] %>"><%=FinalConstants.CATEGORIES_PLAINTEXT.get(FinalConstants.CATEGORIES[i]) %></a></li>
@@ -102,9 +105,9 @@ if(user != null){
       
       
       <form action="LogoutServlet" method="post" id="logout" type="hidden"></form>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" style="background-color: #1faf24; background-image: none;">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-color: #1faf24; background-image: none; color: #fff">Settings <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Privacy</a></li>
             <li role="separator" class="divider"></li>

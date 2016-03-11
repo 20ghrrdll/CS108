@@ -203,7 +203,7 @@ if(user != null){
 					<li> <h4><%=recentActivity.get(i).getUserId() %> has created a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
 					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
 							STYLE="text-decoration: none" class="btn btn-default">
-						Take Quiz
+						Take this Quiz!
 						</a>
 						<p style="padding-top:2px; float:right"><i>Created on: <%=recentActivity.get(i).getDate()%></i></p>		
 					</li>

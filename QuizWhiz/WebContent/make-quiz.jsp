@@ -16,7 +16,14 @@ import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
 <script>
-function add
+function displayCorrectionCheck() {
+	if (document.getElementById("one").checked) {
+        document.getElementById("correctionOptions").style.visibility = 'hidden';
+	}
+	if (document.getElementById("multiple").checked) {
+        document.getElementById("correctionOptions").style.visibility = 'visible';
+	}
+}
 
 </script>
 
@@ -69,12 +76,12 @@ function add
 		<br>
 		<div>
 		<h5>Display Options</h5> 
-		<input type="radio" name="pages" value="one" onlick = "removeCorrection()"> One Page<br>
-		<input type="radio" name="pages" value="multiple"> One Question per Page <br>
+		<input type="radio" name="pages" id="one" value="one"  onclick = "displayCorrectionCheck()"> One Page<br>
+		<input type="radio" name="pages" id="multiple" value="multiple" onclick = "displayCorrectionCheck()"> One Question per Page <br>
 		</div>
 		
 		<br>
-		<div>
+		<div id="correctionOptions">
 		<h5>Correction Options</h5> 
 		<input type="radio" name="correction" value="immediate"> Immediate Correction<br>
 		<input type="radio" name="correction" value="delayed"> Delayed Correction<br>

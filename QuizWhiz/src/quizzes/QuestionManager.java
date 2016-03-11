@@ -22,17 +22,11 @@ public class QuestionManager {
 	//String questionhtml = "<h3>This is the question</h3>";	
 	public String QuestionHTML(String type, String RawQuestion, String questionID, String quizID, int qNum){
 		if(type.equals("QuestionResponse") || type.equals("MultipleChoice")){
-			String qRHtml = poseRawQuestion(RawQuestion, qNum)+
-					"<div class="+'"'+"answer"+'"'+">Answer:"+
-					AnswerHTML(type,questionID, quizID)+
-					"</div>";
+			String qRHtml = poseRawQuestion(RawQuestion, qNum) + "Answer: " + AnswerHTML(type,questionID, quizID);
 			return qRHtml;
 		}
 		else if(type.equals("PictureResponse")){
-			return pictureResponse(RawQuestion, qNum)+
-					"<div class="+'"'+"answer"+'"'+">Answer:"+
-					AnswerHTML(type,questionID, quizID)+
-					"</div>";
+			return pictureResponse(RawQuestion, qNum) + "Answer:" + AnswerHTML(type,questionID, quizID);
 		}
 		else if(type.equals("FillIn")){
 			return fillIn(RawQuestion, questionID, qNum);
