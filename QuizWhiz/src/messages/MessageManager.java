@@ -34,9 +34,9 @@ public class MessageManager {
 			while (rs.next()) {
 				Message message;
 				if(rs.getString("type").equals("NOTE")){
-					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"), rs.getShort("messageId"));
+					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"), rs.getInt("messageId"));
 				} else {
-					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"), rs.getInt("quizId"), rs.getShort("messageId"));
+					message = new Message(rs.getString("senderId"),rs.getString("subject"), rs.getString("body"), rs.getString("type"), rs.getBoolean("unread"), rs.getInt("quizId"), rs.getInt("messageId"), rs.getString("score"));
 				}
 				userMessages.add(message);
 			}
@@ -56,10 +56,10 @@ public class MessageManager {
 		return true;
 	}
 	
-	public boolean sendChallenge(String sender, String username, int quizId){
+	public boolean sendChallenge(String sender, String username, int quizId, String score){
 		try {
 			Statement stmt = con.createStatement();
-			String query = "INSERT INTO " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, quizId, type) VALUES ('" + sender +"','" + username +"', '" + quizId +"','CHALLENGE');";
+			String query = "INSERT INTO " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, quizId, type, score) VALUES ('" + sender +"','" + username +"', '" + quizId +"','CHALLENGE','"+score+"');";
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			return false;

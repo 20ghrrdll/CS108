@@ -2,7 +2,7 @@ package messages;
 
 public class Message {
 	
-	private String title, body, type, sender;
+	private String title, body, type, sender, score;
 	private boolean unread;
 	private int quizId, id;
 	
@@ -15,7 +15,7 @@ public class Message {
 		this.id = messageId;
 	}
 	
-	public Message(String senderId, String messageTitle, String messageBody, String messageType, boolean messageUnread, int messageQuizId, int messageId) {
+	public Message(String senderId, String messageTitle, String messageBody, String messageType, boolean messageUnread, int messageQuizId, int messageId, String quizScore) {
 		this.sender = senderId;
 		this.title = messageTitle;
 		this.body = messageBody;
@@ -23,6 +23,11 @@ public class Message {
 		this.unread = messageUnread;
 		this.quizId = messageQuizId;
 		this.id = messageId;
+		this.score = quizScore;
+	}
+
+	public String getScore(){
+		return score;
 	}
 	
 	public String getSender(){
