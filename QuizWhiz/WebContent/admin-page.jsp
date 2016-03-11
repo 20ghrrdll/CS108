@@ -6,8 +6,18 @@
 
 <%@include file="navigation-bar.jsp" %>
 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
 </head>
 <body>
+
+<script>
+function escape(form){
+	var string = $('textarea').val();
+	var encoded = $('<div/>').text(string).html();
+}
+</script>
 
 <% if(request.getParameter("error") != null) { %>
 	<div class="alert alert-danger">
