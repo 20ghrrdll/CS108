@@ -35,6 +35,11 @@ function displayCorrectionCheck() {
 
 </head>
 <body>
+<% if(request.getParameter("error") != null) { %>
+	<div class="alert alert-danger">
+  		<strong>Error:</strong> Please fill out all fields.
+	</div>
+<% } %>
 
 <div class="container-fluid">
 <div class="col-md-12"><div class="panel panel-default">
