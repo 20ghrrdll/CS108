@@ -25,7 +25,7 @@ public class QuestionManager {
 			return qRHtml;
 		}
 		else if(type.equals("PictureResponse")){
-			return pictureResponse(RawQuestion, qNum) + "Answer:" + AnswerHTML(type,questionID, quizID);
+			return pictureResponse(RawQuestion, qNum) + AnswerHTML(type,questionID, quizID);
 		}
 		else if(type.equals("FillIn")){
 			return fillIn(RawQuestion, questionID, qNum);
