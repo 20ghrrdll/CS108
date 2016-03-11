@@ -60,6 +60,7 @@ public class MessageManager {
 		try {
 			Statement stmt = con.createStatement();
 			String query = "INSERT INTO " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, quizId, type, score) VALUES ('" + sender +"','" + username +"', '" + quizId +"','CHALLENGE','"+score+"');";
+			System.out.println(query);
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			return false;
