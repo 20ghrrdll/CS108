@@ -71,19 +71,7 @@
 	<%
 		if(multiQuiz.getImmediateScoring()){
 			%>
-				<button class = "btn btn-default checkAnswer" >Check Answer</button>
-				<script>
-					$checkAnswer = $('.checkAnswer').click(function(){
-						<%
-							String questionId = Integer.toString(currQuestion.getQuestionId());
-							//out.print()
-							
-						%>
-						answer = $('input[name="questionId"]');
-					});
-				</script>
-				<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+				<input type="submit" class = "btn" name = "checkWork" value = "Check Your Answer"/>
 			
 			<% 
 		}
@@ -95,9 +83,9 @@
 	<%
 		String nextPageButton;
 		if (questionNum < multiQuiz.getNumQuestions()) {
-			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" value =\"Next Question\"/>";
+			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\"  name = \"nextQuestion\" value =\"Next Question\"/>";
 		} else {
-			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" value =\"Finish Quiz\"/>";
+			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" name = \"finishQuiz\" value =\"Finish Quiz\"/>";
 		}
 		out.println(nextPageButton);
 	%>
