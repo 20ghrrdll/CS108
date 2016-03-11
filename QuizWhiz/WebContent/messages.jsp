@@ -32,7 +32,7 @@
 		<%} else { %>
 		<div class="container-fluid" style="background-color: #FECFCF">
 			<h2>Quiz Challenge from <%=messages.get(i).getSender() %>!</h2>
-			<p><%=messages.get(i).getSender() %> took the quiz, <%= quizManager.getQuiz(messages.get(i).getQuizId()).getQuizName()%>, and got a . Can you beat that score?</p>			
+			<p><%=messages.get(i).getSender() %> took the quiz, <%= quizManager.getQuiz(messages.get(i).getQuizId()).getQuizName()%>, and got a <%=messages.get(i).getScore() %>. Can you beat that score?</p>			
 			<form action="MessageServlet" method="post">
 				<input type="hidden" name="messageId" value="<%= messages.get(i).getId()%>">
 				<input type="hidden" name="quizId" value="<%= messages.get(i).getQuizId()%>">		
