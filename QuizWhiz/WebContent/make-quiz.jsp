@@ -19,9 +19,15 @@ import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
 function displayCorrectionCheck() {
 	if (document.getElementById("one").checked) {
         document.getElementById("correctionOptions").style.visibility = 'hidden';
+       var correction = document.createElement("input");
+       correction.setAttribute("name", "correction");
+       correction.setAttribute("value", "delayed");
+
+        
 	}
 	if (document.getElementById("multiple").checked) {
         document.getElementById("correctionOptions").style.visibility = 'visible';
+        document.getElementById("delayed").checked = false;
 	}
 }
 
@@ -81,10 +87,10 @@ function displayCorrectionCheck() {
 		</div>
 		
 		<br>
-		<div id="correctionOptions">
+		<div id="correctionOptions" style="visibility:hidden" >
 		<h5>Correction Options</h5> 
 		<input type="radio" name="correction" value="immediate"> Immediate Correction<br>
-		<input type="radio" name="correction" value="delayed"> Delayed Correction<br>
+		<input type="radio" name="correction" id="delayed" value="delayed" checked="checked"> Delayed Correction<br>
 		</div>
 		
 		<br>
