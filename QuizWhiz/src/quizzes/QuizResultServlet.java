@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 public class QuizResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public ArrayList<String> allUserAnswers;
+	public ArrayList<String> allCorrectAnswers;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -90,11 +91,13 @@ public class QuizResultServlet extends HttpServlet {
 			session.setAttribute("score", score);
 			session.setAttribute("maxScore", maxScore);
 			request.setAttribute("allUserAnswers", allUserAnswers);
-			if (practiceMode) {
+			
+			/*** NOTE THAT THERE IS CURRENTLY NO WAY TO INDICATE THAT THIS QUIZ IS BEING TAKEN IN PRACTICE MODE***/
+			//if (practiceMode) {
 				long start_num = (Long)session.getAttribute("startTime");
 				Date start_time = new Date(start_num);
 				manager.addQuizRecord(quizId, userId, start_time, end_time, score);
-			}
+			//}
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz-results.jsp");
 			dispatch.forward(request, response);

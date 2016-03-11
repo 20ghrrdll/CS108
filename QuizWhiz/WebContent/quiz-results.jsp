@@ -40,6 +40,7 @@
 		<ol>
 			<%
 				ArrayList<String> userAnswers = (ArrayList<String>)request.getAttribute("allUserAnswers");
+			
 				out.print(userAnswers);
 			%>
 		</ol>
