@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS announcements (
 CREATE TABLE IF NOT EXISTS friends(
   user1 VARCHAR(255) NOT NULL,
   user2 VARCHAR(255) NOT NULL,
-  established datetime NOT NULL,
+  established TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY user1 (user1,user2),
   UNIQUE KEY user2 (user2,user1)
 ); 
