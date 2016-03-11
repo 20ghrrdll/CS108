@@ -59,12 +59,12 @@
 							System.out.println("Id is "+id);
 							String quizPageButton;
 							if(!quiz.displayMultiplePages()){
-								quizPageButton = "<a class=\"btn btn-primary\" href=\"quiz-page.jsp?id="+id+"\" role=\"button\">Start Quiz</a>";
+								quizPageButton = "<div class=\"any_button\"><a class=\"btn btn-primary\" href=\"quiz-page.jsp?id="+id+"\" role=\"button\">Start Quiz</a></div>";
 							}
 							else{
 								quizPageButton = "<form action=\"MultiplePageStartServlet\" method=\"get\"><br>"+
 										"<input name=\"quizId\" type = \"hidden\" value = \"" +id+"\"/>"+
-								"<div class=\"submit\"><input type=\"submit\" value=\"Start Quiz\" /></div></form>";
+								"<div class=\"any_button\"><input type=\"submit\" class = \"btn btn-default\" value=\"Start Quiz\" /></div></form>";
 								//quizPageButton = "<a class=\"btn btn-primary\" href=\"MultiplePageServlet.java\" role=\"button\">Start Quiz</a>";
 							}
 							System.out.println(quizPageButton);
@@ -72,7 +72,7 @@
 						%>
 						<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
 						
-						<a class="btn btn-primary" href="edit-quiz.jsp?id=<%=id%>">Edit Quiz</a>
+						<div class = "any_button"><a class="btn btn-primary" href="edit-quiz.jsp?id=<%=id%>">Edit Quiz</a></div>
 						
 						<% } else { %>
 						<br>

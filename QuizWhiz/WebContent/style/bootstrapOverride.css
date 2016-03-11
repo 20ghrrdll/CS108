@@ -19,3 +19,8 @@ body {
 .container-fluid {
 	background-color: #E3E3E3;
 }
+
+.any_button{
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
