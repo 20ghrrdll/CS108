@@ -47,7 +47,8 @@ public class QuizResultServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Date end_time = new Date(System.currentTimeMillis());
+		long end_num = System.currentTimeMillis();
+		Date end_time = new Date(end_num);
 		allUserAnswers = new ArrayList<String>();
 		HttpSession session = request.getSession();
 		QuizManager manager = (QuizManager) request.getServletContext().getAttribute("quizManager");
@@ -88,16 +89,20 @@ public class QuizResultServlet extends HttpServlet {
 				}
 				
 			}
+			
+			long start_num = (Long)session.getAttribute("startTime");
+			long quizTime = end_num - start_num;
 
 			request.setAttribute("score", score);
 			request.setAttribute("maxScore", maxScore);
 			request.setAttribute("allUserAnswers", allUserAnswers);
 			request.setAttribute("questions", questions);
 			request.setAttribute("isAnswerCorrect", isAnswerCorrect);
+			request.setAttribute("quizTime", quizTime);
 			
 			/*** NOTE THAT THERE IS CURRENTLY NO WAY TO INDICATE THAT THIS QUIZ IS BEING TAKEN IN PRACTICE MODE***/
 			//if (practiceMode) {
-				long start_num = (Long)session.getAttribute("startTime");
+
 				Date start_time = new Date(start_num);
 				manager.addQuizRecord(quizId, userId, start_time, end_time, score, maxScore);
 				ArrayList<Quiz> quizzesTaken = manager.getMyQuizzes(userId);

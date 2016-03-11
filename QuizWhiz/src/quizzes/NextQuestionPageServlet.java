@@ -39,7 +39,7 @@ public class NextQuestionPageServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		long Time = System.currentTimeMillis();
+		long end_num = System.currentTimeMillis();
 		int questionNum = Integer.parseInt(request.getParameter("questionNum"));
 		//request.setAttribute("questionNum", questionNum+1);
 		int questionId = Integer.parseInt(request.getParameter("questionId"));
@@ -56,6 +56,9 @@ public class NextQuestionPageServlet extends HttpServlet {
 			dispatch = request.getRequestDispatcher("multiple-pages-quiz.jsp?");
 		}
 		else{
+			long start_num = multiQuiz.getStartTime();
+			long quizTime = end_num - start_num;
+			request.setAttribute("quizTime", quizTime);
 			request.setAttribute("currQuizId", request.getParameter("quizId"));
 	
 			

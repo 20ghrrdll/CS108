@@ -32,9 +32,10 @@
 		%>/<%
 			out.print(session.getAttribute("maxScore"));
 		%>
-		points.
+		points in 
 		<%
-			//Long startTime = 
+
+			long quizTime = (Long)session.getAttribute("quizTime");
 			if (session.getAttribute("score").equals(session.getAttribute("maxScore"))) {
 				if (!userManager.getAchievements(user.getUsername()).contains(FinalConstants.PERFECT_SCORE)) {
 					userManager.addAchievement(user.getUsername(), FinalConstants.PERFECT_SCORE);
