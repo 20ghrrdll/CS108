@@ -41,6 +41,9 @@
 </title>
 </head>
 <body>
+<div class="container-fluid"><br><br><div class="panel panel-default">
+
+<div class="panel-body">
 	<%
 		String nextPage;
 		if (questionNum < multiQuiz.getNumQuestions()) {
@@ -104,5 +107,6 @@
 	</div>
 	</form>
 
+</div></div></div>
 </body>
 </html>
