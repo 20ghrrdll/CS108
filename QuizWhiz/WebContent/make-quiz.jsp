@@ -15,6 +15,11 @@ import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
+<script>
+function add
+
+</script>
+
 
 </head>
 <body>
@@ -29,32 +34,51 @@ import="java.util.*, quizzes.*, users.*, main.*, messages.*"%>
 		<h4>Quiz Description:</h4> 
 		<textarea class="form-control" rows="5" name="quizDescription" id="quizDescription"></textarea>
 		
-		<br><h5>Quiz Type:</h5> 
+		<br>
+		<div>
+		<h5>Quiz Type:</h5> 
 		<input type="radio" name="quizType" value="QuestionResponse"> Question Response<br>
 		<input type="radio" name="quizType" value="FillIn"> Fill in the Blank <br>
 		<input type="radio" name="quizType" value="MultipleChoice"> Multiple Choice <br>
 		<input type="radio" name="quizType" value="PictureResponse"> Picture-Response <br>
+		</div>
 		
-		<br><h5>Quiz Category:</h5>
+		<br>
+		<div>
+		<h5>Quiz Category:</h5>
 		<% for (int i = 0; i < FinalConstants.CATEGORIES.length; i++) { %>
 		<input type="radio" name="quizCategory" value="<%=FinalConstants.CATEGORIES[i]%>"> <%=FinalConstants.CATEGORIES_PLAINTEXT.get(FinalConstants.CATEGORIES[i]) %><br>
 		<% } %>
+		</div>
 		
-		<br><h5>Allow Randomized Order?</h5> 
+		<br>
+		<div>
+		<h5>Allow Randomized Order?</h5> 
 		<input type="radio" name="randomOrder" value="y"> Yes<br>
 		<input type="radio" name="randomOrder" value="n"> No <br>
+		</div>
 		
-		<br><h5>Allow Practice Mode?</h5> 
+		<br>
+		<div>
+		<h5>Allow Practice Mode?</h5> 
 		<input type="radio" name="practice" value="y"> Yes<br>
 		<input type="radio" name="practice" value="n"> No <br>
+		</div>
 		
-		<br><h5>Display Options</h5> 
-		<input type="radio" name="pages" value="one"> One Page<br>
+		
+		<br>
+		<div>
+		<h5>Display Options</h5> 
+		<input type="radio" name="pages" value="one" onlick = "removeCorrection()"> One Page<br>
 		<input type="radio" name="pages" value="multiple"> One Question per Page <br>
+		</div>
 		
-		<br><h5>Correction Options</h5> 
+		<br>
+		<div>
+		<h5>Correction Options</h5> 
 		<input type="radio" name="correction" value="immediate"> Immediate Correction<br>
 		<input type="radio" name="correction" value="delayed"> Delayed Correction<br>
+		</div>
 		
 		<br>
 		<button type="submit" class="btn btn-default" value="submit">Create</button>

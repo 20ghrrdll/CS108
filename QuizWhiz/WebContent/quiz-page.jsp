@@ -4,21 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href=”bootstrap/css/bootstrap.min.css” rel=”stylesheet” type=”text/css” />
+<script type=”text/javascript” src=”bootstrap/js/bootstrap.min.js”></script>
+<title>Quiz</title>
 
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/style/index.css" />
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/style/quizPage.css" />
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet"
-	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="http://www.w3schools.com/lib/w3-theme-indigo.css">
-<script>
-	function myFunction(id) {
-		document.getElementById(id).classList.toggle("w3-show");
-	}
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
 <title>
 	<%
 		long start = System.currentTimeMillis();
@@ -35,11 +28,11 @@
 </title>
 </head>
 <body>
-	<h1>
-		<%
-			out.print(quizName);
-		%>
-	</h1>
+<div class="container-fluid">
+<div class="col-md-12"><div class="panel panel-default">
+<div class="panel-heading"><h1><%=quizName%></h1></div>
+<div class="panel-body">
+
 	<%
 		//ArrayList<Question> questions = new ArrayList<Question>(2);
 		ArrayList<Question> questions = quizManager.getQuestions(quizID);
@@ -82,6 +75,6 @@
 		%>
 		<br> <div class="submit"><input type="submit" /></div>
 	</form>
-
+</div></div></div></div>
 </body>
 </html>
