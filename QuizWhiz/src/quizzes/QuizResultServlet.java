@@ -28,7 +28,6 @@ public class QuizResultServlet extends HttpServlet {
 	 */
 	public QuizResultServlet() {
 		super();
-		allUserAnswers = new ArrayList<String>();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -49,6 +48,7 @@ public class QuizResultServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Date end_time = new Date(System.currentTimeMillis());
+		allUserAnswers = new ArrayList<String>();
 		HttpSession session = request.getSession();
 		QuizManager manager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		QuestionManager questionManager = (QuestionManager)request.getServletContext().getAttribute("questionManager");

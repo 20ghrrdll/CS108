@@ -1,6 +1,7 @@
 package quizzes;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -122,15 +123,25 @@ public class QuestionManager {
 	}
 	
 	public void updateQuestionRecordsTable(String userID, String response, boolean correct, boolean answered, int questionId, int quizId){
+		String query = "INSERT INTO " + MyDBInfo.QUESTION_RECORDS_TABLE + " (quizId, questionId, userId, response, correct, answered)" + 
+				" VALUES (?, ?, ?, ?, ?, ?)";
+
+		System.out.println(query);
 		try {
-			Statement stmt = con.createStatement();
-			String query = "INSERT INTO " + MyDBInfo.QUESTION_RECORDS_TABLE + " VALUES (" + 
-			quizId +", "+ questionId+", "+ userID+", "+response+", "+correct+", "+answered+");";
-			System.out.println(query);
-			stmt.executeQuery(query);
+			PreparedStatement s = con.prepareStatement(query);
+			s.setInt(1, quizId);
+			s.setInt(2, questionId);
+			s.setString(3, userID);
+			s.setString(4, response);
+			s.setBoolean(5, correct);
+			s.setBoolean(6, answered);
+			System.out.println(s.toString());
+			s.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace(); // TODO: what to do here
 		}
+		
+
 }
 
 }
