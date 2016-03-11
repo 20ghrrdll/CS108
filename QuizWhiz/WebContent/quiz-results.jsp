@@ -8,26 +8,38 @@
 
 <%@include file="navigation-bar.jsp"%>
 <%
-ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQuizzesScore(user.getUsername());
+	ArrayList<QuizPerformance> recentlyTakenScores = quizManager
+			.getRecentlyTakenQuizzesScore(user.getUsername());
 
 	String usernameToView = request.getParameter("username");
-/* 	if (userManager.getUser(usernameToView) == null) {
- */%>
+	/* 	if (userManager.getUser(usernameToView) == null) {
+	 */
+%>
 
 <title>Results</title>
 </head>
 <body>
-	<% int id = (Integer)session.getAttribute("currQuizId"); %>
+	<%
+		int id = (Integer) session.getAttribute("currQuizId");
+	%>
 	<h1 class="text-center">Results</h1>
 	<h4 class="text-center">
-		<% out.print(user.getUsername()); %>, you scored
-		<% out.print(session.getAttribute("score")); %>/<% out.print(session.getAttribute("maxScore")); %>
+		<%
+			out.print(user.getUsername());
+		%>, you scored
+		<%
+			out.print(session.getAttribute("score"));
+		%>/<%
+			out.print(session.getAttribute("maxScore"));
+		%>
 		points.
-		<% if (session.getAttribute("score").equals(session.getAttribute("maxScore"))) {
-			 if (!userManager.getAchievements(user.getUsername()).contains(FinalConstants.PERFECT_SCORE)) {
-			 	userManager.addAchievement(user.getUsername(), FinalConstants.PERFECT_SCORE);
-			 }
-		 }%>
+		<%
+			if (session.getAttribute("score").equals(session.getAttribute("maxScore"))) {
+				if (!userManager.getAchievements(user.getUsername()).contains(FinalConstants.PERFECT_SCORE)) {
+					userManager.addAchievement(user.getUsername(), FinalConstants.PERFECT_SCORE);
+				}
+			}
+		%>
 	</h4>
 
 	<br>
@@ -52,13 +64,44 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 					<h1 class="panel-title">Your Results:</h1>
 				</div>
 				<div class="panel-body">
-					<ol>
 						<%
-				ArrayList<String> userAnswers = (ArrayList<String>)request.getAttribute("allUserAnswers");
-			
-				out.print(userAnswers);
-			%>
-					</ol>
+							ArrayList<String> userAnswers = (ArrayList<String>) request.getAttribute("allUserAnswers");
+
+							ArrayList<Question> questions = (ArrayList<Question>) request.getAttribute("questions");
+						%>
+						<table class="table">
+							<tr>
+							<td>Question</td>
+							<td>Your Answer</td>
+							<td>Correct Answer</td>
+							</tr>
+							<%
+								ArrayList<Boolean> isAnswerCorrect = (ArrayList<Boolean>)request.getAttribute("isAnswerCorrect");
+								for (int a = 0; a < userAnswers.size(); a++) {
+									if(isAnswerCorrect.get(a)) out.println("<tr>");
+									else out.println("<tr class=\"danger\">");
+									Question currQuestion = questions.get(a);
+									out.println("<td>"+ (a+1)+". "+currQuestion.getQuestionText()+"</td>");
+									out.println("<td>"+userAnswers.get(a)+"</td>");
+									String answer = currQuestion.getCorrectAnswer();
+									
+									if(answer.equals("go to question_answers")){
+										answer = "";
+										QuestionManager manager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
+										ArrayList<String> potentialAnswers = currQuestion.potentialAnswers(manager);
+										int numPotentialAnswers = potentialAnswers.size();
+										for(int b = 0; b < numPotentialAnswers -1; b++){
+											answer += potentialAnswers.get(b) + ", ";
+										}
+										answer+= potentialAnswers.get(numPotentialAnswers-1);
+									}
+									
+									out.println("<td>"+answer+"</td>");
+									out.println("</tr>");
+								}
+
+							%>
+						</table>
 				</div>
 			</div>
 		</div>
@@ -80,20 +123,26 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 							<div class="form-group">
 								<label>Challenge:</label> <select class="form-control"
 									name="username">
-									<% for (String friend: friendsNames) { %>
-									<option value="<%=friend%>"><%=friend %></option>
-									<% } %>
+									<%
+										for (String friend : friendsNames) {
+									%>
+									<option value="<%=friend%>"><%=friend%></option>
+									<%
+										}
+									%>
 								</select>
 							</div>
 							<label>Your Results:</label>
-							<p><%=session.getAttribute("score") %>
+							<p><%=session.getAttribute("score")%>
 								out of
-								<%=session.getAttribute("maxScore") %></p>
+								<%=session.getAttribute("maxScore")%></p>
 							<input type="hidden" name="senderId"
-								value="<%=user.getUsername()%>"/> <input type="hidden"
-								name="sendChallenge" value="<%= user.getUsername()%>"/>
-								<input name="resultsPage" type="hidden" value="<%=request.getContextPath() %>"/>
-								<input type="hidden" name="quizId" value="<%= session.getAttribute("currQuizId")%> <%=session.getAttribute("score") %>&#47;<%=session.getAttribute("maxScore") %>" />
+								value="<%=user.getUsername()%>" /> <input type="hidden"
+								name="sendChallenge" value="<%=user.getUsername()%>" /> <input
+								name="resultsPage" type="hidden"
+								value="<%=request.getContextPath()%>" /> <input type="hidden"
+								name="quizId"
+								value="<%=session.getAttribute("currQuizId")%> <%=session.getAttribute("score")%>&#47;<%=session.getAttribute("maxScore")%>" />
 							<button onclick="sendChallenge" class="btn btn-default"
 								value="send">Challenge!</button>
 						</form>

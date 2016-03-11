@@ -66,6 +66,8 @@ public class NextQuestionPageServlet extends HttpServlet {
 			
 			request.getSession().setAttribute("maxScore", multiQuiz.getNumQuestions());
 			request.setAttribute("allUserAnswers", multiQuiz.getUserAnswers());
+			request.setAttribute("questions", multiQuiz.getAllQuestions());
+			request.setAttribute("isAnswerCorrect", multiQuiz.getIsCorrect());
 			
 			dispatch = request.getRequestDispatcher("quiz-results.jsp");
 		}

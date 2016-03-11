@@ -38,6 +38,8 @@
 				<input type="hidden" name="quizId" value="<%= messages.get(i).getQuizId()%>">		
 				<input type="hidden" name="challenge">
 				<button class="btn btn-default" type="submit" value="challenge">Accept Challenge</button>
+				<button class="btn btn-default" type="submit" value="challengeIgnore" name="challengeIgnore">Ignore Challenge</button>
+				
 			</form><br>
 		</li>
 		<%} %>

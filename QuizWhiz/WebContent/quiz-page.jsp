@@ -11,6 +11,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+<!-- <<<<<<< HEAD
+=======
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/style/index.css" />
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/style/quizPage.css" />
+ <script
      <script
  	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
  <link
@@ -19,7 +26,13 @@
  	<link
  	href="${pageContext.request.contextPath}/style/bootstrapOverride.css"
  	rel="stylesheet" type="text/css" />
-
+<script>
+	function myFunction(id) {
+		document.getElementById(id).classList.toggle("w3-show");
+	}
+</script>
+>>>>>>> 1b1dac4b87e910fa43538e14f6396bbbbee0d0e0
+-->
 <title>
 	<%
 		long start = System.currentTimeMillis();
@@ -40,8 +53,6 @@
 	<div class="container-fluid"><div class="panel panel-default">
 					
 	<div class="panel-heading"><h1> <% out.print(quizName); %> </h1></div>
-	<div class="panel-body">
-	
 	<%
 		ArrayList<Question> questions = quizManager.getQuestions(quizID);
 		int numQuestions = questions.size();
@@ -58,8 +69,12 @@
 			for (int a = 0; a < numQuestions; a++) {
 				Question toPrint = questions.get(a);
 				String qId = Integer.toString(toPrint.getQuestionId());
+		%>
+		<div class="question_info">
+			<%
 				out.println(qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, Integer.toString(quizID), a+1));
 			%>
+		</div>
 		<%
 			}
 			boolean practiceMode = toDisplay.hasPracticeMode();
@@ -70,6 +85,9 @@
 		
 		<br> <div class="submit"><input type="submit" /></div>
 	</form>
+	<br>
+</div>
+</div>
 
 </div></div></div>
 

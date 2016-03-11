@@ -5,6 +5,7 @@ import java.util.*;
 public class MultiplePageQuiz {
 	private static ArrayList<Question> questions;
 	private static ArrayList<Question> questionsLeft;
+	private static ArrayList<Boolean> isCorrect;
 	private static HashMap<Integer, String> userAnswers;
 	private long start_time;
 	private int numQs;
@@ -21,6 +22,7 @@ public class MultiplePageQuiz {
 		questionsLeft = newQuestions;
 		System.out.println(newQuestions);
 		userAnswers = new HashMap<Integer, String>(newQuestions.size());
+		isCorrect = new ArrayList<Boolean>(newQuestions.size());
 		if (random) {
 			long seed = System.nanoTime();
 			Collections.shuffle(questionsLeft, new Random(seed));
@@ -63,7 +65,11 @@ public class MultiplePageQuiz {
 			Question currQuestion = questions.get(qNum);
 			String currAnswer = userAnswers.get(qNum);
 			boolean correct = currQuestion.isCorrect(currAnswer, userId, practiceMode, manager);
-			if(correct) score++;
+			if(correct){
+				score++;
+				isCorrect.add(qNum, true);
+			}
+			else isCorrect.add(qNum, false);
 			
 		}
 		return score;
@@ -88,6 +94,14 @@ public class MultiplePageQuiz {
 	
 	public void incrementCurrQuestionNum(){
 		currQuestionNum++;
+	}
+	
+	public ArrayList<Question> getAllQuestions(){
+		return questions;
+	}
+	
+	public ArrayList<Boolean> getIsCorrect(){
+		return isCorrect;
 	}
 
 }
