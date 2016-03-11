@@ -28,7 +28,13 @@
 	<div class="alert alert-danger">
 		<strong>Error:</strong> <% out.print(FinalConstants.ERROR_MSG); %>
 	</div>
-<% } else { %>
+<% } else { 
+	if (request.getParameter("reported") != null) {%>
+		<div class="alert alert-info">
+		<strong>Success:</strong> This quiz has been reported. 
+	</div>
+	<% }
+%>
 
 <div class="container-fluid">
 	<h1><%=quiz.getQuizName() %></h1>
