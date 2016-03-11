@@ -11,8 +11,6 @@
 
 <%
 	int id = Integer.valueOf(request.getParameter("id"));
-	System.out.println(id);
-	System.out.println(id);
 	Quiz quiz = quizManager.getQuiz(Integer.valueOf(id));
 	ArrayList<QuizPerformance> scores = quizManager.getQuizPerformances(id);
 %>
@@ -56,7 +54,6 @@
 						</p>
 						<br>
 						<% 
-							System.out.println("Id is "+id);
 							String quizPageButton;
 							if(!quiz.displayMultiplePages()){
 								quizPageButton = "<div class=\"any_button\"><a class=\"btn btn-primary\" href=\"quiz-page.jsp?id="+id+"\" role=\"button\">Start Quiz</a></div>";
@@ -67,7 +64,6 @@
 								"<div class=\"any_button\"><input type=\"submit\" class = \"btn btn-default\" value=\"Start Quiz\" /></div></form>";
 								//quizPageButton = "<a class=\"btn btn-primary\" href=\"MultiplePageServlet.java\" role=\"button\">Start Quiz</a>";
 							}
-							System.out.println(quizPageButton);
 							out.println(quizPageButton);
 						%>
 						<% if (user.getUsername().equals(quiz.getQuizCreator())) { %>
@@ -122,15 +118,11 @@
 								double scoreAvgTotal = 0;
 								long timeTotal = 0;
 				for (int i = 0; i < scores.size(); i++) {
-					System.out.println(scores.get(i).getScore());
-					System.out.println(scores.get(i).getPossibleScore());
 					scoreAvgTotal += (double) scores.get(i).getScore()/scores.get(i).getPossibleScore();
 					timeTotal += scores.get(i).getTotalTime();
 				}
 
 				double avgScore = scoreAvgTotal/scores.size();
-				System.out.println(scoreAvgTotal);
-				System.out.println(scores.size());
 				avgScore *= 100;
 				String s = String.format("%.2f", avgScore);
 				long avgTime = timeTotal/scores.size();
