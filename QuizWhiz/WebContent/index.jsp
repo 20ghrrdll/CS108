@@ -17,6 +17,15 @@ ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
 ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
 ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
+if(user != null){
+	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
+	myAchievements = userManager.getAchievements(user.getUsername());
+	messages = messageManager.getMessages(user.getUsername(), false);
+	unreadMessages = messageManager.getMessages(user.getUsername(), true);
+	requests = userManager.getFriendRequests(user.getUsername());
+	friendsNames = userManager.getFriends(user.getUsername());
+	recentActivity = userManager.getRecentActivity(user.getUsername(), friendsNames);
+}
 %>
 
 <% if(request.getParameter("error") != null) { %>
