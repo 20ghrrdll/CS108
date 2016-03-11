@@ -76,8 +76,7 @@
 		<%
 			}
 			boolean practiceMode = toDisplay.hasPracticeMode();
-			out.println("<input name=\"practiceMode\" type = \"hidden\" value = \"" + practiceMode+"\"/>");
-			
+			out.println("<input name=\"practiceMode\" type = \"hidden\" value = \"" + practiceMode+"\"/>");		
 			out.println("<input name=\"quizType\" type = \"hidden\" value = \"" + quizType+"\"/>");
 		%>
 		<br> <div class="submit"><input type="submit" /></div>

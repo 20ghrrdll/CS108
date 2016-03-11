@@ -62,7 +62,10 @@
 								quizPageButton = "<a class=\"btn btn-primary\" href=\"quiz-page.jsp?id="+id+"\" role=\"button\">Start Quiz</a>";
 							}
 							else{
-								quizPageButton = "<a class=\"btn btn-primary\" href=\"MultiplePageServlet.java\" role=\"button\">Start Quiz</a>";
+								quizPageButton = "<form action=\"MultiplePageStartServlet\" method=\"get\"><br>"+
+										"<input name=\"quizId\" type = \"hidden\" value = \"" +id+"\"/>"+
+								"<div class=\"submit\"><input type=\"submit\" value=\"Start Quiz\" /></div></form>";
+								//quizPageButton = "<a class=\"btn btn-primary\" href=\"MultiplePageServlet.java\" role=\"button\">Start Quiz</a>";
 							}
 							System.out.println(quizPageButton);
 							out.println(quizPageButton);
