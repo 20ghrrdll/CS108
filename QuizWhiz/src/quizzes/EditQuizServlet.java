@@ -43,8 +43,7 @@ public class EditQuizServlet extends HttpServlet {
 		
 		String url = "edit-quiz.jsp?id="+quizId;
 		RequestDispatcher d = request.getRequestDispatcher(url);
-		d.forward(request, response); 
-		
+		d.forward(request, response); 	
 	}
 
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*, quizzes.*, users.*, main.*, java.sql.*, java.text.*"%>
+	import="java.util.*, quizzes.*, users.*, main.*, java.sql.*, java.text.*, administration.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -85,7 +85,7 @@
 						<br>
 						<br>
 						<b>Admin Functions:</b>
-						<form action="EditQuizServlet" method="post">
+						<form action="AdminServlet" method="post">
 							<input type="hidden" name="quizId"
 								value="<%=quiz.getQuizID() %>">
 							<div class="col-md-3" style="float: left">

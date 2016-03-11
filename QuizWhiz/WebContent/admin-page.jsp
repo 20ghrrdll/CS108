@@ -98,7 +98,7 @@
     </div>
       <div class="panel-body">
 		Enter quiz IDs (one per line and should be numbers) to modify.<br>
-		<form action="EditQuizServlet" method="post">
+		<form action="AdminServlet" method="post">
 			<% if("empty".equals(request.getParameter("invalidQuizzes"))) { %>
 			<div class="alert alert-danger" role="alert">
 				<strong>Empty Field </strong> Please enter at least one quiz ID.
