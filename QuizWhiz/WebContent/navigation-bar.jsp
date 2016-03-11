@@ -36,10 +36,6 @@ MessageManager messageManager = (MessageManager) request.getServletContext().get
 AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext().getAttribute("announcementManager");
 AdminManager adminManager = (AdminManager) request.getServletContext().getAttribute("adminManager");
 
-ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
-ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
-ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
-ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
 ArrayList<Quiz> myQuizzes = new ArrayList<Quiz>();
 ArrayList<Message> unreadMessages = new ArrayList<Message>();
 ArrayList<Message> messages = new ArrayList<Message>();
