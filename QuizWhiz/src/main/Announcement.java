@@ -35,4 +35,8 @@ public class Announcement {
 		return this.postedTime;
 	}
 
+	public int getId() {
+		return announcementId;
+	}
+	
 }
