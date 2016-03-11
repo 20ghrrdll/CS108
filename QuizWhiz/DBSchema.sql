@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS quiz_records (
 	userId VARCHAR(255) NOT NULL,
 	start_time DATETIME NOT NULL,
 	end_time DATETIME NOT NULL,
-	score SMALLINT NOT NULL
+	score SMALLINT NOT NULL,
+	possibleScore SMALLINT NOT NULL
 );
 /* Creating the quiz_question_records table. This stores the info on how a user did on a particular question
 */
