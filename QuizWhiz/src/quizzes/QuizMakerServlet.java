@@ -41,6 +41,7 @@ public class QuizMakerServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		java.util.Date date = new java.util.Date();
 		Timestamp created = new Timestamp(date.getTime());
 

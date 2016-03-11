@@ -39,6 +39,7 @@ public class AddQuestionsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		int quizId = Integer.valueOf(request.getParameter("quizId"));
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");

@@ -47,6 +47,7 @@ public class QuizResultServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+				request.setCharacterEncoding("UTF-8");
 		long end_num = System.currentTimeMillis();
 		Date end_time = new Date(end_num);
 		allUserAnswers = new ArrayList<String>();
