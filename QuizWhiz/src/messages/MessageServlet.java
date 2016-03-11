@@ -52,10 +52,17 @@ public class MessageServlet extends HttpServlet {
 				request.setAttribute("error", 1);
 				response.sendRedirect("index.jsp");
 			} else {
+				if(request.getParameter("userProfile") != null){
+					response.sendRedirect("user-profile.jsp?username="+request.getParameter("username"));
+					return;
+				}
 				response.sendRedirect("messages.jsp?");
+				return;
 			}
 		} else if(request.getParameter("sendChallenge") != null){
-			
+			System.out.println("got challenge!");
+			response.sendRedirect("user-profile.jsp?username="+request.getParameter("username"));
+			return;
 		}
 	}
 

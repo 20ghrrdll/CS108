@@ -1,6 +1,7 @@
 package quizzes;
 
 import java.io.*;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 import users.*;
@@ -19,12 +20,15 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/QuizResultServlet")
 public class QuizResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public ArrayList<String> allUserAnswers;
+	public ArrayList<String> allCorrectAnswers;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public QuizResultServlet() {
 		super();
+		allUserAnswers = new ArrayList<String>();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -44,12 +48,25 @@ public class QuizResultServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Date end_time = new Date(System.currentTimeMillis());
 		HttpSession session = request.getSession();
 		QuizManager manager = (QuizManager) request.getServletContext().getAttribute("quizManager");
+		QuestionManager questionManager = (QuestionManager)request.getServletContext().getAttribute("questionManager");
 		ArrayList<Question> questions;
 		try {
+			//get quiz and question parameters
 			int quizId = (Integer)session.getAttribute("currQuizId");
+			User user = (User)session.getAttribute("currentUser");
+			String userId = user.getUsername();
 			questions = manager.getQuestions(quizId);
+			String practiceModeBool = request.getParameter("practiceMode");
+			System.out.println("practice mode is "+ practiceModeBool);
+			boolean practiceMode;
+			if(practiceModeBool.equals("false")){
+				practiceMode = false;
+			}
+			else practiceMode = true;
+			
 
 			int score = 0;
 			int maxScore = 0;
@@ -58,15 +75,14 @@ public class QuizResultServlet extends HttpServlet {
 			int numQs = questions.size();
 			if (!quizType.equals("FillIn")) {
 				for (int a = 0; a < numQs; a++) {
-					// Question currQ = questions.get(a);
-					score+= oneAnswer(questions.get(a), request);
+					score+= oneAnswer(questions.get(a), request, questionManager,userId, practiceMode);
 					maxScore++;
 				}
 			}
 			else{
 				for (int a = 0; a < numQs; a++) {
 					Question currQ = questions.get(a);
-					score += multiAnswer(currQ, request);
+					score += multiAnswer(currQ, questionManager, practiceMode, userId, request);
 					maxScore+= currQ.getNumAnswers();
 				}
 				
@@ -74,11 +90,14 @@ public class QuizResultServlet extends HttpServlet {
 
 			session.setAttribute("score", score);
 			session.setAttribute("maxScore", maxScore);
-			// int quizId = (Integer)session.getAttribute("quizId");
-			User user = (User) session.getAttribute("currentUser");
-			if (user != null) {
-				// add info to quiz record table
-			}
+			request.setAttribute("allUserAnswers", allUserAnswers);
+			
+			/*** NOTE THAT THERE IS CURRENTLY NO WAY TO INDICATE THAT THIS QUIZ IS BEING TAKEN IN PRACTICE MODE***/
+			//if (practiceMode) {
+				long start_num = (Long)session.getAttribute("startTime");
+				Date start_time = new Date(start_num);
+				manager.addQuizRecord(quizId, userId, start_time, end_time, score);
+			//}
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("quiz-results.jsp");
 			dispatch.forward(request, response);
@@ -92,18 +111,22 @@ public class QuizResultServlet extends HttpServlet {
 
 	}
 
-	public int oneAnswer(Question currQ, HttpServletRequest request) {
+	public int oneAnswer(Question currQ, HttpServletRequest request, QuestionManager manager, String userID, boolean practiceMode) {
 
-		String paramValue = request.getParameter(Integer.toString(currQ.getQuestionId()));
-		if (currQ.isCorrect(paramValue))
+		String answer = request.getParameter(Integer.toString(currQ.getQuestionId()));
+		System.out.println(answer);
+		this.allUserAnswers.add(answer);
+		if (currQ.isCorrect(answer,userID, practiceMode, manager))
 			return 1;
 		return 0;
 	}
 	
-	private int multiAnswer(Question currQ, HttpServletRequest request){
+	private int multiAnswer(Question currQ, QuestionManager manager, boolean practiceMode, String userID, HttpServletRequest request){
 		
+		//note that practice needs to be passed in in reality.
 		int numCorrect = 0;
 		int numAnswers = currQ.getNumAnswers();
+		//(ArrayList<String> userAnswers, String userID, boolean practiceMode,)
 		ArrayList<String> userAnswers = new ArrayList<String>(numAnswers);
 		String qId = Integer.toString(currQ.getQuestionId());
 		for(int a = 0; a < numAnswers; a++){
@@ -113,10 +136,11 @@ public class QuizResultServlet extends HttpServlet {
 			//System.out.println(answer);
 			userAnswers.add(answer);
 		}
-		ArrayList<Boolean> results = currQ.areCorrect(userAnswers);
+		ArrayList<Boolean> results = currQ.areCorrect(userAnswers, userID, practiceMode, manager);
 		for(int b = 0; b < results.size(); b++){
 			if(results.get(b) == true) numCorrect++;
 		}
+		this.allUserAnswers.addAll(userAnswers);
 		return numCorrect;
 	}
 

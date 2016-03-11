@@ -291,17 +291,12 @@ public class UserManager {
 				if(it.hasNext())
 					quizRecordUsers+= " OR ";
 			}
-			System.out.println(quizUsers);
-			System.out.println(quizRecordUsers);
 			String quizQuery = "SELECT quizId, creatorId, created FROM " + MyDBInfo.QUIZ_TABLE + " WHERE "+ quizUsers + " ORDER BY created DESC;";
-			System.out.println(quizQuery);
 			String quizRecordQuery = "SELECT quizId, userId, end_time FROM " + MyDBInfo.QUIZ_RECORDS_TABLE + " WHERE "+ quizRecordUsers + " ORDER BY end_time DESC;";
-			System.out.println(quizRecordQuery);
 			
 			ResultSet rs = stmt.executeQuery(quizQuery);
 			while (rs.next()) {
 				RecentActivity activity = new RecentActivity(rs.getInt("quizId"), rs.getString("creatorId"), "created", rs.getDate("created"));
-				System.out.println(activity.getDate());
 				activityData.add(activity);
 			}
 			
