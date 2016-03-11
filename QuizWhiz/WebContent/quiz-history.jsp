@@ -17,22 +17,25 @@
 <%
 
 	ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getMyRecentlyTakenQuizzes(user.getUsername());
+	ArrayList<QuizPerformance> recents = quizManager.getRecentlyTakenQuizzesScore(user.getUsername());
 %>
 </head>
 <body>
 
-<div class="col-md-4"><div class="panel panel-default">
+<div style="width: 40%; margin: 0 auto;"><div class="panel panel-default">
 			<div class="panel-heading"><h1 class="panel-title">Full Quiz History</h1></div>
 			<div class="panel-body">
 				<ol>
 					<% for (int i = 0; i < recentlyTakenQuizzes.size(); i++) { %>
-						<li><a
-							<%String id = String.valueOf(recentlyTakenQuizzes.get(i).getQuizID());%>
+						<li><div style="display:inline"><a
+							<%String id = String.valueOf(recents.get(i).getQuizId());%>
 							href="quiz-summary-page.jsp?id=<%=id%>"
 							STYLE="text-decoration: none">
-							<h4><%=recentlyTakenQuizzes.get(i).getQuizName()%></h4>
-							<p><%=recentlyTakenQuizzes.get(i).getQuizDescription()%></p>
-							</a>
+							<h4><%=recents.get(i).getQuizName() %></h4></a>
+														<p style="float:right">You scored: <%=recents.get(i).getScore() %>&#47;<%=recents.get(i).getPossibleScore() %>
+							</div>
+							<p><%=quizManager.getQuiz(recents.get(i).getQuizId()).getQuizDescription() %></p>
+							
 						</li>
 					<% } %>
 				</ol>
