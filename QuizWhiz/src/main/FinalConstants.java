@@ -13,31 +13,21 @@ public class FinalConstants {
 	
 	
 	/* Categories */
-	public static final String ARTS = "Arts";
-	public static final String CHEESES = "Cheeses";
-	public static final String EDUCATION = "Education";
-	public static final String FUN = "Fun";
-	public static final String LANGUAGE = "Language";
-	public static final String MISC = "Miscellaneous";
-	public static final String NATURE = "Nature";
-	public static final String NEWS = "News";
-	public static final String POP_CULTURE = "Popular Cultre";
-	public static final String SPORTS = "Sports";
-	public static final String UNCATEGORIZED = "Uncategorized";
-	public static final ArrayList<String> CATEGORIES;
+	public static final String[] CATEGORIES = { "ARTS", "CHEESES", "EDUCATION", "FUN", "LANGUAGE", "MISC", "NATURE", "NEWS", "POP_CULTURE", "SPORTS", "UNCATEGORIZED" };
+	public static final HashMap<String, String> CATEGORIES_PLAINTEXT;
 	static {
-		CATEGORIES = new ArrayList<String>();
-		CATEGORIES.add(ARTS);
-		CATEGORIES.add(CHEESES);
-		CATEGORIES.add(EDUCATION);
-		CATEGORIES.add(FUN);
-		CATEGORIES.add(LANGUAGE);
-		CATEGORIES.add(MISC);
-		CATEGORIES.add(NATURE);
-		CATEGORIES.add(NEWS);
-		CATEGORIES.add(POP_CULTURE);
-		CATEGORIES.add(SPORTS);
-		CATEGORIES.add(UNCATEGORIZED);
+		CATEGORIES_PLAINTEXT = new HashMap<String, String>();
+		CATEGORIES_PLAINTEXT.put("ARTS", "Arts");
+		CATEGORIES_PLAINTEXT.put("CHEESES", "Cheeses");
+		CATEGORIES_PLAINTEXT.put("EDUCATION", "Education");
+		CATEGORIES_PLAINTEXT.put("FUN", "Fun");
+		CATEGORIES_PLAINTEXT.put("LANGUAGE", "Language");
+		CATEGORIES_PLAINTEXT.put("MISC", "Miscellaneous");
+		CATEGORIES_PLAINTEXT.put("NATURE", "Nature");
+		CATEGORIES_PLAINTEXT.put("NEWS", "News");
+		CATEGORIES_PLAINTEXT.put("POP_CULTURE", "Popular Culture");
+		CATEGORIES_PLAINTEXT.put("SPORTS", "Sports");
+		CATEGORIES_PLAINTEXT.put("UNCATEGORIZED", "Uncategorized");
 	}
 	
 	
