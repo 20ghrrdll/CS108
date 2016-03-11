@@ -5,9 +5,7 @@
 <html>
 <head>
 <%@include file="navigation-bar.jsp"%>
-<%
-ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQuizzesScore(user.getUsername());
-%>
+
 <style>
 .modal-header, .close {
 	background-color: #5cb85c;
@@ -24,6 +22,8 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <%
+ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQuizzesScore(user.getUsername());
+
 	if (user == null) {
 		response.sendRedirect("login-page.jsp?");
 		return;
