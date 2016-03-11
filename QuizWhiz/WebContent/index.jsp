@@ -35,9 +35,11 @@
 						<ul>
 							<li>Date joined: <%=user.getJoinDate()%></li>
 							<li>Number of quizzes made: <%=myQuizzes.size()%></li>
+							<li>Number of Achievements: <%=myAchievements.size() %>
 						</ul>
 						<a class="btn btn-primary" href="make-quiz.jsp" role="button">Make
 							Quiz</a>
+						<a class="btn btn-primary" href="user-profile.jsp?username=<%=user.getUsername() %>" role="button">User Profile</a>
 					</div>
 				</div>
 
@@ -159,20 +161,22 @@
 		<div class="panel-heading"><h1 class="panel-title">Friend Activities</h1></div>
 		<div class="panel-body">
 			<ol>
-				<% for (int i = 0; i < recentActivity.size() && i < 5; i++) { 
+				<% for (int i = 0; i < recentActivity.size() && i < 6; i++) { 
 					 if(recentActivity.get(i).getType().equals("taken")){%>
-					<li> <h4><%=recentActivity.get(i).getUserId() %> has taken a quiz</h4>
+					<li> <h4 style="display:inline"><%=recentActivity.get(i).getUserId() %> has taken a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
 					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
-							STYLE="text-decoration: none" class="btn btn-default">
-						Take Quiz
+							style="text-decoration: none; display:inline" class="btn btn-default">
+						Take this quiz!
 						</a>
+						<p><i>Taken on: <%=recentActivity.get(i).getDate()%></i></p>
 					</li>
 					<%} else {%>
-					<li> <h4><%=recentActivity.get(i).getUserId() %> has created a quiz called </h4>
+					<li> <h4><%=recentActivity.get(i).getUserId() %> has created a quiz called <%=quizManager.getQuiz(recentActivity.get(i).getQuizId()).getQuizName() %></h4>
 					<a href="quiz-summary-page.jsp?id=<%=recentActivity.get(i).getQuizId()%>"
 							STYLE="text-decoration: none" class="btn btn-default">
 						Take Quiz
 						</a>
+						<p><i>Created on: <%=recentActivity.get(i).getDate()%></i></p>		
 					</li>
 				<% } }%>
 			</ol>

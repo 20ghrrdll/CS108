@@ -32,13 +32,15 @@
 <body>
 <div class="container-fluid">
 	<div class="panel panel-success">
+		<div class="panel-heading"><h1 class="panel-title">Search for a friend</h1></div>
+	<div class="panel-body">
 		<div class="ui-widget">
-         	<p>Search for a friend</p>
          	<label for="automplete-1">Username: </label>
          	<form action="FriendRequestServlet" method="post">
          		<input id="automplete-1" name="Search">
          		<button type="submit" class="btn btn-default">Search</button>
          	</form>
+    	</div>
     	</div>
 	</div>
 </div>
