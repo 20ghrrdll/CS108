@@ -34,6 +34,7 @@
 		%>
 		points.
 		<%
+			//Long startTime = 
 			if (session.getAttribute("score").equals(session.getAttribute("maxScore"))) {
 				if (!userManager.getAchievements(user.getUsername()).contains(FinalConstants.PERFECT_SCORE)) {
 					userManager.addAchievement(user.getUsername(), FinalConstants.PERFECT_SCORE);
