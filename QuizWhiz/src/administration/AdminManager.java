@@ -82,10 +82,14 @@ public class AdminManager {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = sdf.format(dt);
-		
 		try {
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate("INSERT INTO " + MyDBInfo.ANNOUNCEMENTS_TABLE + "(userId, posted, subject, body) VALUES('" + username + "', '" + date + "', '" + subject + "', '" + body + "');");
+			String update = "INSERT INTO " + MyDBInfo.ANNOUNCEMENTS_TABLE + " (userId, posted, subject, body) VALUES(?, ?, ?, ?);";
+			PreparedStatement s = con.prepareStatement(update);
+			s.setString(1, username);
+			s.setString(2, date);
+			s.setString(3, subject);
+			s.setString(4, body);
+			s.executeUpdate();
 		} catch (SQLException e) {
 			return false;
 		}

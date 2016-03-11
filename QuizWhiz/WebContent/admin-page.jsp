@@ -58,10 +58,10 @@
 						placeholder="Subject" >
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail1">Body</label>
+				<label>Body</label>
 				<textarea class="form-control" rows="3" placeholder="Announcement..." name="body"></textarea>
 			</div>
-			<input type="hidden" name="creator" value="Max">
+			<input type="hidden" name="creator" value="<%=user.getUsername()%>">
 			<button type="submit" class="btn btn-default" name="buttonAction" value="create">Create</button>
 		</form>
       </div>
