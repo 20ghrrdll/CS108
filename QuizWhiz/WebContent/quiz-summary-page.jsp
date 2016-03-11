@@ -166,7 +166,7 @@
 							<p>No recent activity to display.</p>
 							<% } else {
 					for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {
-						int score = quizzesTaken.get(i).getScore();
+						String score = quizzesTaken.get(i).getScoreString();
 						String date = quizzesTaken.get(i).getDate(); %>
 							<p>
 								Date:
