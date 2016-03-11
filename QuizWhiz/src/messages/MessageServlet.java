@@ -73,7 +73,10 @@ public class MessageServlet extends HttpServlet {
 					if (!userManager.getAchievements(request.getParameter("senderId")).contains(FinalConstants.CHALLENGER)) {
 						userManager.addAchievement(request.getParameter("senderId"), FinalConstants.CHALLENGER);
 					}
-					response.sendRedirect("user-profile.jsp?username="+request.getParameter("username"));
+					response.sendRedirect(request.getContextPath());
+					return;
+				} else if(request.getParameter("resultsPage") != null){
+					response.sendRedirect(request.getContextPath());
 					return;
 				}
 				response.sendRedirect("messages.jsp?");

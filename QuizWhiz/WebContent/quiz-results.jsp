@@ -95,7 +95,8 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 							<input type="hidden" name="senderId"
 								value="<%=user.getUsername()%>"/> <input type="hidden"
 								name="sendChallenge" value="<%= user.getUsername()%>"/>
-								<input type="hidden" name="quizId" value="<%= session.getAttribute("currQuizId")%> <%=session.getAttribute("score") %>" />
+								<input name="resultsPage" type="hidden"/>
+								<input type="hidden" name="quizId" value="<%= session.getAttribute("currQuizId")%> <%=session.getAttribute("score") %>&#47;<%=session.getAttribute("maxScore") %>" />
 							<button onclick="sendChallenge" class="btn btn-default"
 								value="send">Challenge!</button>
 						</form>

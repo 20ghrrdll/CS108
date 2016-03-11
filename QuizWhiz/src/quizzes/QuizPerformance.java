@@ -18,10 +18,11 @@ public class QuizPerformance {
 		this.endTime 	= endTime;
 		this.quizId = quiz_id;
 	}
-	public QuizPerformance(String userName, int score, Timestamp startTime, Timestamp endTime, int quiz_id, String quiz_name) {
+	public QuizPerformance(String userName, int score, int possibleScore, Timestamp startTime, Timestamp endTime, int quiz_id, String quiz_name) {
 		this.userName 	= userName;
 		this.score 		= score;
 		this.startTime 	= startTime;
+		this.possibleScore = possibleScore;
 		this.endTime 	= endTime;
 		this.quizId = quiz_id;
 		this.quizName = quiz_name;
