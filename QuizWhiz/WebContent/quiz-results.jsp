@@ -28,15 +28,21 @@
 			out.print(user.getUsername());
 		%>, you scored
 		<%
-			out.print(session.getAttribute("score"));
+			out.print(request.getAttribute("score"));
 		%>/<%
-			out.print(session.getAttribute("maxScore"));
+			out.print(request.getAttribute("maxScore"));
 		%>
 		points in 
 		<%
 
-			long quizTime = (Long)session.getAttribute("quizTime");
-			if (session.getAttribute("score").equals(session.getAttribute("maxScore"))) {
+			long quizTime = (Long)request.getAttribute("quizTime");
+			Date quizDate = new Date(quizTime);
+			String formattedTime = String.format("%d min, %d sec", 
+					quizDate.getMinutes(),
+				    quizDate.getSeconds()
+				);
+			out.print(formattedTime);
+			if (request.getAttribute("score").equals(request.getAttribute("maxScore"))) {
 				if (!userManager.getAchievements(user.getUsername()).contains(FinalConstants.PERFECT_SCORE)) {
 					userManager.addAchievement(user.getUsername(), FinalConstants.PERFECT_SCORE);
 				}
@@ -79,11 +85,19 @@
 							</tr>
 							<%
 								ArrayList<Boolean> isAnswerCorrect = (ArrayList<Boolean>)request.getAttribute("isAnswerCorrect");
+
 								for (int a = 0; a < userAnswers.size(); a++) {
 									if(isAnswerCorrect.get(a)) out.println("<tr>");
 									else out.println("<tr class=\"danger\">");
 									Question currQuestion = questions.get(a);
-									out.println("<td>"+ (a+1)+". "+currQuestion.getQuestionText()+"</td>");
+									
+									String questionText = currQuestion.getQuestionText();
+									if(questionText.indexOf('|') != -1){
+										String delims = "[|]+";
+										String[] tokens = questionText.split(delims);
+										questionText = tokens[0];
+									}
+									out.println("<td>"+ (a+1)+". "+questionText+"</td>");
 									out.println("<td>"+userAnswers.get(a)+"</td>");
 									String answer = currQuestion.getCorrectAnswer();
 									

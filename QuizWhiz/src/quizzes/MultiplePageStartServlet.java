@@ -40,7 +40,7 @@ public class MultiplePageStartServlet extends HttpServlet {
 			System.out.println(theQuiz.getQuizType());
 			QuizType type = theQuiz.getQuizType();
 			ArrayList<Question> newQuestions = manager.getQuestions(quizID);
-			multi.setQuestionList(newQuestions, theQuiz.randomOrder(), type.toString());
+			multi.setQuestionList(newQuestions, theQuiz.randomOrder(), theQuiz.hasImmediateCorrection(), type.toString());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -17,10 +17,10 @@
 <title>Login</title>
 </head>
 <body>
-<nav class="navbar navbar-default" style="background-color: #1faf24">
-  <div class="container-fluid" style="background-color: #1faf24">
+<nav class="navbar navbar-default" style="background-color: #3ccecc">
+  <div class="container-fluid" style="background-color: #3ccecc">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header" style="background-color: #1faf24">
+    <div class="navbar-header" style="background-color: #3ccecc">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>

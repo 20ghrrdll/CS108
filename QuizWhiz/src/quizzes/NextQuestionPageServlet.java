@@ -64,10 +64,10 @@ public class NextQuestionPageServlet extends HttpServlet {
 			
 			User user  = (User)request.getSession().getAttribute("currentUser");
 			QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
-			int score = multiQuiz.getScore((String)request.getAttribute("QuizType"), user.getUsername(), qManager);
-			request.getSession().setAttribute("score", score);
+			int score = multiQuiz.getScore(user.getUsername(), qManager);
+			request.setAttribute("score", score);
 			
-			request.getSession().setAttribute("maxScore", multiQuiz.getNumQuestions());
+			request.setAttribute("maxScore", multiQuiz.getNumQuestions());
 			request.setAttribute("allUserAnswers", multiQuiz.getUserAnswers());
 			request.setAttribute("questions", multiQuiz.getAllQuestions());
 			request.setAttribute("isAnswerCorrect", multiQuiz.getIsCorrect());
