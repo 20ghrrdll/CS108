@@ -41,9 +41,7 @@ public class EditQuizServlet extends HttpServlet {
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		quizManager.deleteQuizAnswers(quizId);
 		
-		String url = "edit-quiz.jsp?id="+quizId;
-		RequestDispatcher d = request.getRequestDispatcher(url);
-		d.forward(request, response); 	
+		response.sendRedirect("edit-quiz.jsp?id="+quizId);
 	}
 
 }

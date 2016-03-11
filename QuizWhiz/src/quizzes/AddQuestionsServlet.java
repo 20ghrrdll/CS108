@@ -87,9 +87,8 @@ public class AddQuestionsServlet extends HttpServlet {
 				}
 		}
 		
-		String url = "quiz-summary-page.jsp?id="+quizId;
-		RequestDispatcher d = request.getRequestDispatcher(url);
-		d.forward(request, response); 
+		response.sendRedirect("quiz-summary-page.jsp?id="+quizId);
+		
 	}
 
 }
