@@ -32,4 +32,4 @@ All users have access to a page that displays their quiz taking history. This pa
 ###Achievements
 Users can accomplish achievements by taking quizzes, creating quizzes, and performing other activities on the site. These are all displayed in the user profile. 
 
-
+##Administration
