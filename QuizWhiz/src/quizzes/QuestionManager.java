@@ -19,10 +19,9 @@ public class QuestionManager {
 		con = DBConnector.getConnection();
 	}
 	
-	//String questionhtml = "<h3>This is the question</h3>";	
 	public String QuestionHTML(String type, String RawQuestion, String questionID, String quizID, int qNum){
 		if(type.equals("QuestionResponse") || type.equals("MultipleChoice")){
-			String qRHtml = poseRawQuestion(RawQuestion, qNum) + "Answer: " + AnswerHTML(type,questionID, quizID);
+			String qRHtml = poseRawQuestion(RawQuestion, qNum) + "Answer: " + AnswerHTML(type,questionID, quizID) + "<br><br>";
 			return qRHtml;
 		}
 		else if(type.equals("PictureResponse")){
@@ -41,7 +40,7 @@ public class QuestionManager {
 			answerhtml =  "You should not be calling me!";
 		}
 		else if(type.equals("QuestionResponse")|| type.equals("PictureResponse")){
-			answerhtml = "<input type="+"\"text\" name=\""+questionID+"\"/>";
+			answerhtml = "<input type=\"text\" name=\""+questionID+"\"/>";
 		}
 		else if(type.equals("MultipleChoice")){
 			long seed = System.nanoTime();
@@ -60,7 +59,7 @@ public class QuestionManager {
 	}
 	
 	private String poseRawQuestion(String rawQ, int qNum){
-		String rawQHtml = "<p>"+qNum+". "+rawQ +"</p><br>";
+		String rawQHtml = qNum + ". " + rawQ +"<br>";
 		return rawQHtml;
 	}
 	

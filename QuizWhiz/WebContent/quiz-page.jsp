@@ -41,6 +41,8 @@
 	<div class="container-fluid"><div class="panel panel-default">
 					
 	<div class="panel-heading"><h1> <% out.print(quizName); %> </h1></div>
+	<div class="panel-body">
+	
 	<%
 		ArrayList<Question> questions = quizManager.getQuestions(quizID);
 		int numQuestions = questions.size();
@@ -57,12 +59,8 @@
 			for (int a = 0; a < numQuestions; a++) {
 				Question toPrint = questions.get(a);
 				String qId = Integer.toString(toPrint.getQuestionId());
-		%>
-		<div class="question_info">
-			<%
 				out.println(qManager.QuestionHTML(quizType, toPrint.getQuestionText(), qId, Integer.toString(quizID), a+1));
 			%>
-		</div>
 		<%
 			}
 			boolean practiceMode = toDisplay.hasPracticeMode();
@@ -73,6 +71,7 @@
 		<br> <div class="submit"><input type="submit" /></div>
 	</form>
 	<br>
+</div>
 </div>
 </div>
 </body>
