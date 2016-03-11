@@ -12,6 +12,13 @@
 </head>
 <body class="standards">
 
+<%
+ArrayList<Announcement> announcements = announcementManager.getAnnouncements();
+ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
+ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
+ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
+%>
+
 <% if(request.getParameter("error") != null) { %>
 	<div class="alert alert-danger">
   		<strong>Error:</strong> <% out.print(FinalConstants.ERROR_MSG); %>
@@ -50,13 +57,20 @@
 						<h3 class="panel-title">Announcements</h3>
 					</div>
 					<div class="panel-body">
-						<ul>
+						<ul class="list-group">
 							<%
 								for (int i = 0; i < announcements.size(); i++) {
 							%>
-							<li>
+							<li class="list-group-item">
 								<h3><%=announcements.get(i).getSubject()%></h3>
 								<p><%=announcements.get(i).getBody()%></p>
+								<% if (userManager.isAdmin(user.getUsername())) { %>
+								<form action="EditAnnouncementServlet" method="post">
+									<input type="hidden" name="announcementId" value="<%=announcements.get(i).getId() %>">
+										<button type="submit" class="btn btn-danger" name="buttonAction" value="delete">Delete
+										</button>
+								</form>
+							<% } %>
 							</li>
 							<%
 								}
@@ -137,7 +151,6 @@
 		<div class="panel-heading"><h1 class="panel-title">My Quizzes</h1></div>
 		<div class="panel-body">
 			<ol>
-<
 				<% 
 					if (myQuizzes.size() == 0) {
 						out.println("No quizzes created. ");
