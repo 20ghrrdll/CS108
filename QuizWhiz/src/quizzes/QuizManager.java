@@ -65,7 +65,6 @@ public class QuizManager {
 				String questionText = rs.getString("questionText");
 				String correctAnswer = rs.getString("correctAnswer");
 				int numAnswers = rs.getInt("numAnswers");
-				System.out.println("question"+ questionText+" has "+numAnswers+" answers");
 				ArrayList<String> correctAnswers;
 				if(numAnswers > 1){
 					correctAnswers = questionManager.getAllAnswers(Integer.toString(quizID), Integer.toString(questionID));
@@ -296,10 +295,7 @@ public class QuizManager {
 				Timestamp start_time = rs.getTimestamp("start_time");
 				Timestamp end_time = rs.getTimestamp("end_time");
 				Quiz quiz = getQuiz(rs.getInt("quizId"));
-				System.out.println(name);
-				System.out.println(score);
 				if(quiz != null){
-					System.out.println(quiz.getQuizName());
 					quizzes.add(new QuizPerformance(name, score, start_time, end_time, rs.getInt("quizId"), quiz.getQuizName()));
 				}
 			}
@@ -313,8 +309,6 @@ public class QuizManager {
 		try {
 			Statement stmt = con.createStatement();		
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" WHERE quizId='" + quizId + "' AND userId='"+ username + "' ORDER BY end_time DESC;";
-			System.out.println("got here");
-			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String name = rs.getString("userId");
@@ -338,7 +332,6 @@ public class QuizManager {
 			Statement stmt = con.createStatement();		
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" WHERE quizId='" + quizId + "' ORDER BY score DESC;";
 	
-			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String name = rs.getString("userId");
@@ -360,7 +353,6 @@ public class QuizManager {
 			Statement stmt = con.createStatement();		
 			String query = "SELECT * FROM " + MyDBInfo.QUIZ_RECORDS_TABLE +" WHERE quizId='" + quizId + "' ORDER BY end_time DESC;";
 	
-			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String name = rs.getString("userId");
@@ -386,7 +378,6 @@ public class QuizManager {
 				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		int quizId = 0;
-		System.out.println(query);
 		try {
 			PreparedStatement s = con.prepareStatement(query);
 			s.setString(1, quiz.getQuizName());
@@ -399,12 +390,10 @@ public class QuizManager {
 			s.setBoolean(8, quiz.hasImmediateCorrection());
 			s.setString(9, quiz.getQuizType().name());
 			s.setInt(10, 0);
-			System.out.println(s.toString());
 			s.executeUpdate();
 
 			
 			query = "SELECT * FROM " + MyDBInfo.QUIZ_TABLE +" WHERE name='" + quiz.getQuizName() + "' ORDER BY created ASC;";
-			System.out.print(query);
 			Statement stmt = con.createStatement();		
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -414,8 +403,6 @@ public class QuizManager {
 			
 
 		} catch (SQLException e1) {
-			//System.out.println("GOT HERE");
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return -1;
 		}
@@ -428,7 +415,6 @@ public class QuizManager {
 		String query = "INSERT INTO " + MyDBInfo.QUESTION_TABLE + " (quizId, questionId, questionText, correctAnswer"
 				+ ", numAnswers)" + 
 				" VALUES (?, ?, ?, ?, ?)";
-		System.out.println(query);
 		
 		try {
 			PreparedStatement s = con.prepareStatement(query);
@@ -437,7 +423,6 @@ public class QuizManager {
 			s.setString(3, question);
 			s.setString(4, answer);
 			s.setInt(5, numAnswers);
-			System.out.println(s.toString());
 			s.executeUpdate();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -454,14 +439,12 @@ public class QuizManager {
 		for (; i < questionAnswers.length; i++) {
 			String query = "INSERT INTO " + MyDBInfo.ANSWERS_TABLE + " (quizId, questionId, answer)" + 
 					" VALUES (?, ?, ?)";
-			System.out.println(query);
 			
 			try {
 				PreparedStatement s = con.prepareStatement(query);
 				s.setInt(1, quizId);
 				s.setInt(2, questionId);
 				s.setString(3, questionAnswers[i]);
-				System.out.println(s.toString());
 				s.executeUpdate();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block

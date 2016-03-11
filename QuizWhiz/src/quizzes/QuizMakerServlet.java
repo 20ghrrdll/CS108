@@ -47,7 +47,6 @@ public class QuizMakerServlet extends HttpServlet {
 		String quizName = request.getParameter("quizName");
 		String quizDescription = request.getParameter("quizDescription");
 		String category = request.getParameter("quizCategory");
-		System.out.println("QUIZ DESCRIPTION: " + quizDescription);
 
 
 		HttpSession session = request.getSession();
@@ -79,7 +78,6 @@ public class QuizMakerServlet extends HttpServlet {
 			request.setAttribute("error", 1);
 			response.sendRedirect("admin-page.jsp?");
 		} else {
-			System.out.println("QuizMakerServlet: " + quizId);
 			quiz.setQuizId(quizId);
 
 

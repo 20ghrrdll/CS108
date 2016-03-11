@@ -42,7 +42,7 @@ if (category.equals("ALL")) {
 <div class="list-group">
  	<% for (int i = 0; i < quizzesToDisplay.size(); i++) { 
  			Quiz quiz = quizzesToDisplay.get(i); %>
- 			<a class="btn btn-default" href="quiz-summary-page.jsp?id=<%=quiz.getQuizID()%> %>" role="button"><%=quiz.getQuizName() %></a>
+ 			<a href="quiz-summary-page.jsp?id=<%=quiz.getQuizID()%>" class="list-group-item"><b><%=quiz.getQuizName() %></b> by <%=quiz.getQuizCreator() %></a>
  	<% } %>
 </div><% } %>
 </div>
