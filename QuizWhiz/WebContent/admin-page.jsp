@@ -46,7 +46,7 @@
       </h4>
     </div>
       <div class="panel-body">
-		<form action="AnnouncementCreationServlet" method="post">
+		<form action="AnnouncementServlet" method="post">
 		    <% if("empty".equals(request.getParameter("invalidAnnouncement"))) { %>
 			<div class="alert alert-danger" role="alert">
 				<strong>Empty Field </strong> Please enter a subject and body.

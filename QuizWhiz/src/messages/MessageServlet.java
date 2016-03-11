@@ -46,6 +46,10 @@ public class MessageServlet extends HttpServlet {
 		//Handles accepting a challenge
 		} else if( request.getParameter("challenge") != null){
 			messageManager.setAsRead(Integer.parseInt(request.getParameter("messageId")));
+			if(request.getParameter("challengeIgnore") != null){
+				response.sendRedirect("messages.jsp?");
+				return;
+			}
 			response.sendRedirect("quiz-page.jsp?id="+request.getParameter("quizId"));
 		//Handles sending a note to a user
 		} else if(request.getParameter("sendNote") != null){
@@ -63,6 +67,7 @@ public class MessageServlet extends HttpServlet {
 		} else if(request.getParameter("sendChallenge") != null){
 			String idAndScore = request.getParameter("quizId");
 			String[] splitted = idAndScore.split("\\s+");
+			System.out.println("Send challenge");
 			if(!messageManager.sendChallenge(request.getParameter("senderId"), request.getParameter("username"), Integer.parseInt(splitted[0]), splitted[1])) {
 				request.setAttribute("error", 1);
 				response.sendRedirect("index.jsp");
@@ -73,6 +78,7 @@ public class MessageServlet extends HttpServlet {
 					if (!userManager.getAchievements(request.getParameter("senderId")).contains(FinalConstants.CHALLENGER)) {
 						userManager.addAchievement(request.getParameter("senderId"), FinalConstants.CHALLENGER);
 					}
+					System.out.println("Success");
 					response.sendRedirect("user-profile.jsp?username="+request.getParameter("username"));
 					return;
 				} else if(request.getParameter("resultsPage") != null){

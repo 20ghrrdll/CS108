@@ -48,7 +48,7 @@ public class MessageManager {
 	public boolean sendMessage(String sender, String username, String subject, String body){
 		try {
 			Statement stmt = con.createStatement();
-			String query = "INSERT INTO  " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, subject, body, type) VALUES ('" + sender +"','" + username +"', '" + subject +"','" + body +"','NOTE');";
+			String query = "INSERT INTO " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, subject, body, type) VALUES ('" + sender +"','" + username +"', '" + subject +"','" + body +"','NOTE');";
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			return false;
@@ -59,7 +59,8 @@ public class MessageManager {
 	public boolean sendChallenge(String sender, String username, int quizId, String score){
 		try {
 			Statement stmt = con.createStatement();
-			String query = "INSERT INTO " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, quizId, type, score) VALUES ('" + sender +"','" + username +"', '" + quizId +"','CHALLENGE','"+score+"');";
+			String query = "INSERT INTO " + MyDBInfo.MESSAGE_TABLE + " (senderId, recipientId, subject, body, quizId, type, score) VALUES ('" + sender +"','" + username +"','Challenge','A challenge', '" + quizId +"','CHALLENGE','"+score+"');";
+			System.out.println(query);
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			return false;
