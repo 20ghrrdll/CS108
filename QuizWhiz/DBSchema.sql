@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS user (
 	joinDate DATETIME NOT NULL,
 	profilePrivacy enum('Everyone', 'MyFriends', 'NoOne') DEFAULT 'Everyone',
 	friendPrivacy enum('Everyone', 'NoOne') DEFAULT 'Everyone',
-
+	messagePrivacy enum('Everyone', 'MyFriends', 'NoOne') DEFAULT 'Everyone',
 	cookie VARCHAR(255)
 );
 

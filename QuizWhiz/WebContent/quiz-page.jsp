@@ -7,6 +7,22 @@
 <link href=”bootstrap/css/bootstrap.min.css” rel=”stylesheet” type=”text/css” />
 <script type=”text/javascript” src=”bootstrap/js/bootstrap.min.js”></script>
 <title>Quiz</title>
+<%
+	String userName = null;
+	Cookie[] cookies = request.getCookies();
+	if (cookies != null) {
+	    for (Cookie cookie : cookies) {
+	        if (cookie.getName().equals("CurrentUsername")){
+	        	System.out.println(cookie.getValue());
+	            userName = cookie.getValue();
+	        }
+	    }
+	}
+	if (userName == null || userName.isEmpty()){
+	    response.sendRedirect("login-page.jsp?");
+	    return;
+	}
+	%>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -32,6 +48,9 @@
 
 <title>
 	<%
+	UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+    User user = userManager.getUser(userName);
+
   		long start = System.currentTimeMillis();
 		session.setAttribute("startTime", start);
 		int quizID = Integer.parseInt(request.getParameter("id"));
@@ -39,7 +58,7 @@
 		Quiz toDisplay = quizManager.getQuiz(quizID);
 		String quizName = toDisplay.getQuizName();
 		session.setAttribute("currQuizId", quizID);
-		User user = (User)session.getAttribute("currentUser");
+		//User user = (User)session.getAttribute("currentUser");
 		
 		out.print(quizName);
 	%>

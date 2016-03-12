@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +48,10 @@ public class UserCreationServlet extends HttpServlet {
 			return;
 		} else {
 			if (userManager.addUser(username, password)) {
-				request.getSession().setAttribute("currentUser", userManager.getUser(username));
+				//request.getSession().setAttribute("currentUser", userManager.getUser(username));
+				Cookie userCookie = new Cookie("CurrentUsername", matchingUser.getUsername());
+				userCookie.setMaxAge(60*60);
+				response.addCookie(userCookie);
 				response.sendRedirect("index.jsp");
 			} else {
 				request.setAttribute("error", 1);

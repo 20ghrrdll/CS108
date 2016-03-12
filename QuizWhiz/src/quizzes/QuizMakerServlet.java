@@ -7,6 +7,7 @@ import java.util.Calendar;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +43,29 @@ public class QuizMakerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+
+
+				request.setCharacterEncoding("UTF-8");
+				User user = (User)session.getAttribute("currentUser");
+				if(user == null){
+				String userName = null;
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
+				    for (Cookie cookie : cookies) {
+				        if (cookie.getName().equals("CurrentUsername")){
+				            userName = cookie.getValue();
+				            user = userManager.getUser(userName);
+				            
+				        }
+				    }
+				}
+				if (userName == null || userName.isEmpty()){
+				    response.sendRedirect("login-page.jsp?");
+				    return;
+				}
+			}
 		java.util.Date date = new java.util.Date();
 		Timestamp created = new Timestamp(date.getTime());
 
@@ -53,8 +77,6 @@ public class QuizMakerServlet extends HttpServlet {
 			return;
 		}
 
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("currentUser");
 		String quizCreator = user.getUsername();
 
 		QuizType quizType = null;
@@ -87,7 +109,6 @@ public class QuizMakerServlet extends HttpServlet {
 			quiz.setQuizId(quizId);
 
 
-			UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 			if (quizManager.getMyQuizzes(quizCreator).size() == 1) {
 				userManager.addAchievement(quizCreator, FinalConstants.CREATE_1);
 			} else if (quizManager.getMyQuizzes(quizCreator).size() == 5) {
