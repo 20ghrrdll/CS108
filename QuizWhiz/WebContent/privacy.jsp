@@ -18,7 +18,7 @@
     </script>
     <%
     	PrivacySetting profilePrivacy = userManager.getProfilePrivacy(user.getUsername());
-    	
+    	PrivacySetting friendPrivacy = userManager.getFriendPrivacy(user.getUsername());
     %>
     
 </head>
@@ -55,25 +55,25 @@
 <%} else { %>
 <label class="radio-inline"><input type="radio" name="profile" value="NoOne">No One</label>
 <%} %>
-
-
-
-
 </div>
 
-<div><h3> Messages <small>Who can send me messages?</small></h3>
-<label class="radio-inline"><input type="radio" name="messages" checked="checked">Everyone</label>
-<label class="radio-inline"><input type="radio" name="messages" >My Friends</label>
-</div>
 
-<div><h3> Viewability <small>Who can see my name in quiz performances?</small></h3>
-<label class="radio-inline"><input type="radio" name="performance" checked="checked">Everyone</label>
-<label class="radio-inline"><input type="radio" name="performance">My Friends</label>
-<label class="radio-inline"><input type="radio" name="performance">No One</label>
-</div>
+
 <div><h3> Friend <small> Who can add me as a friend?</small> </h3>
+<%
+	if (friendPrivacy == PrivacySetting.Everyone) {
+%>
 <label class="radio-inline"><input type="radio" name="friend" value = "Everyone" checked="checked">Everyone</label>
+<%} else { %>
+<label class="radio-inline"><input type="radio" name="friend" value = "Everyone">Everyone</label>
+<%} %>
+<%
+	if (friendPrivacy == PrivacySetting.NoOne) {
+%>
+<label class="radio-inline"><input type="radio" name="friend" value = "NoOne" checked="checked">No One</label>
+<%} else { %>
 <label class="radio-inline"><input type="radio" name="friend" value = "NoOne">No One</label>
+<%} %>
 </div>
 <br>
 <br>

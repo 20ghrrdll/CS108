@@ -9,13 +9,15 @@ public class User {
 	private boolean isAdmin;
 	private Date joined;
 	PrivacySetting profilePrivacy;
+	PrivacySetting friendPrivacy;
 	
-	public User(String username, String password, boolean isAdmin, Date time, PrivacySetting profilePrivacy) {
+	public User(String username, String password, boolean isAdmin, Date time, PrivacySetting profilePrivacy, PrivacySetting friendPrivacy) {
 		this.username = username;
 		this.password = password;
 		this.isAdmin = isAdmin;
 		this.joined = time;
-		this.profilePrivacy =profilePrivacy;
+		this.profilePrivacy = profilePrivacy;
+		this.friendPrivacy = friendPrivacy;
 	}
 
 	
@@ -41,6 +43,14 @@ public class User {
 	
 	public void setProfilePrivacy(PrivacySetting p) {
 		profilePrivacy = p;
+	}
+	
+	public PrivacySetting getFriendPrivacy() {
+		return friendPrivacy;
+	}
+	
+	public void setFriendPrivacy(PrivacySetting p) {
+		friendPrivacy = p;
 	}
 	
 	@Override

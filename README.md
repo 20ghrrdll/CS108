@@ -1,7 +1,7 @@
 # CS108 Quiz Website
 Max Freundlich, Regina Nguyen, Neel Ramachandran, Carah Alexander
 #Required
-##Quizes
+##Quizzes
 Users can take and create four different types of quizzes.
 - Question-Response—This is a standard text question with an appropriate text response. For example: Who was President during the Bay of Pigs fiasco?
 - Fill in the Blank—This is similar to standard Question-Response, except a blank can go anywhere within a question. For example: “One of President Lincoln’s most famous speeches was the __________ Address.”
@@ -20,9 +20,9 @@ Quizzes will be scored on the basis of how many questions a user got right. They
 
 ##Users
 ###User profile
-Every user has their own profile page. On this page their recent activity is shown as well a list of achievements they have earned. There are options to message the user, add them s a friend, and if you have admin status you may delete the user. 
+Every user has their own profile page. On this page their recent activity is shown as well a list of achievements they have earned. There are options to message the user, add them as a friend, and if you have admin status you may delete the user. 
 ###Friends
-Users can search and add friends to there friends list. There is a friends page that displays a list of friends as well as pending freind requests
+Users can search and add friends to their friends list. There is a friends page that displays a list of friends as well as pending freind requests
 ###Messages
 Once friends with someone on the site, you can interact in two ways. You can send a direct note to them, or challenge them to take a quiz that you have recently taken or just completed. These messages show up in their inbox. 
 
@@ -73,29 +73,30 @@ After completing a quiz, the user is directed to a results page. Here the user c
 A page to view all friends. On this page a users friends are listed as well as any pending friend requests. In addition to this, users can also search for friends here by username.
 
 ###Messages
-Here users can view all the messages they have recieved. Messages are challenges or notes, to which they can accept/reply/ignore. They can also send a message to any of their friends here.
+Here users can view all the messages they have received. Messages are challenges or notes, to which they can accept/reply/ignore. They can also send a message to any of their friends here.
 
 ###Admin Portal
 This is where admins are able to perform all of the actions outlined in the administration section above.
 
 #Extensions
-- ### Improved error handling for faulty login, account creation,searching for non existing user, and malformed inputs
-- ### Quiz review and rating system
-    here we allow users to "Rate" a quiz. We use a 5 star rating system. They are also able to leave comments along with their rating. these reviews show up on the quiz summary page
-- ### Administration
-- ### Achievements
+###Improved error handling for faulty login, account creation, searching for non existing user, and malformed inputs
+###Quiz review and rating system
+Here we allow users to "Rate" a quiz. We use a 5 star rating system. They are also able to leave comments along with their rating. these reviews show up on the quiz summary page
+###Administration
+###Achievements
  achievements include
-    - Perfect Score
-    - 10 friends
-    - popular quiz
-    - Created 1,5,10 quizzes
-    - Took 1, 10 quizzes
-    - Highest Score
-    - Challenger
-- ### Look and feel
-- ### Reporting Quizzes
-  Users can report quizzes that they deem malformed or innapropriate. Admins get a list of all reported quizzes to review.
-- ### Categories
+- Perfect Score
+- 10 friends
+- popular quiz
+- Created 1,5,10 quizzes
+- Took 1, 10 quizzes
+- Highest Score
+- Challenger
+
+###Look and feel
+###Reporting Quizzes
+  Users can report quizzes that they deem malformed or innappropriate. Admins get a list of all reported quizzes to review.
+###Categories
   Quizzes are categorized. 
-- ### Edit Quiz
+###Edit Quiz
   If a user is the creator, they have the option to edit a quiz. Here they can add, remove, and edit questions. 
