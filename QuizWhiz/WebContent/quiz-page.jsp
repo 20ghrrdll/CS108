@@ -49,7 +49,7 @@
 
 	<div class="container-fluid"><div class="panel panel-default">
 					
-	<div class="panel-heading"><h1> <% out.print(quizName); %> </h1></div>
+	<div class="panel-heading" style="background-color: #3ccecc"><h1> <% out.print(quizName); %> </h1></div>
 	<div class="panel-body">
 	<%
 		ArrayList<Question> questions = quizManager.getQuestions(quizID);
