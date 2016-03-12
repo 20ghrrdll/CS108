@@ -28,3 +28,11 @@ img{
 .correct-textBox{
 	border: 4px solid #206D57;
 }
+
+.glyphicon.glyphicon-remove-circle {
+    font-size: 30px;
+}
+
+img{
+	margin:7px;
+}

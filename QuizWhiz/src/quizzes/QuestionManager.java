@@ -21,7 +21,7 @@ public class QuestionManager {
 	
 	public String QuestionHTML(String type, String RawQuestion, String questionID, String quizID, int qNum){
 		if(type.equals("QuestionResponse") || type.equals("MultipleChoice")){
-			String qRHtml = "<b>" + poseRawQuestion(RawQuestion, qNum) + "</b>" + AnswerHTML(type,questionID, quizID) + "<br><br>";
+			String qRHtml = poseRawQuestion(RawQuestion, qNum) + AnswerHTML(type,questionID, quizID) + "<br><br>";
 			return qRHtml;
 		}
 		else if(type.equals("PictureResponse")){
@@ -59,7 +59,7 @@ public class QuestionManager {
 	}
 	
 	private String poseRawQuestion(String rawQ, int qNum){
-		String rawQHtml = qNum + ". " + rawQ +"<br>";
+		String rawQHtml = "<b>"+qNum + ". " + rawQ +"</b><br>";
 		return rawQHtml;
 	}
 	
@@ -67,7 +67,7 @@ public class QuestionManager {
 		String delims = "[|]+";
 		String[] tokens = rawQ.split(delims);
 		String prHtml = poseRawQuestion(tokens[0], qNum) + "\n"+
-				"<img src=\""+tokens[1]+"\" alt=\"image not found!\" style=\"width:60%;height:30%;\"><br>";
+				"<img src=\""+tokens[1]+"\" alt=\"image not found!\" style=\"width:60%;height:30%;margin:10px;\"><br>";
 		return prHtml;
 	}
 	

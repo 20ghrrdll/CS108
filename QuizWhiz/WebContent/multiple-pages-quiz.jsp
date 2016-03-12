@@ -44,9 +44,13 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<br>
-		<br>
+		<br> <br>
 		<div class="panel panel-default">
+			<div class="quit" align="right" >
+				<a href="quiz-summary-page.jsp?id=<%=quizID%>" class="button"> <span
+					title="quit" class="glyphicon glyphicon-remove-circle" width="100" height="100" style="color: #ce3c3e;"></span>
+				</a>
+			</div>
 
 			<div class="panel-body">
 				<%
@@ -75,11 +79,13 @@
 					<script>
 						
 					<%String prevAnswer = (String) request.getAttribute("prevAnswer");
-				if (quizType != "FillIn")
-					out.println("document.getElementsByName(\"" + currQuestion.getQuestionId() + "\")[0].value = \""
+				if (quizType == "MultipleChoice")
+					out.println("$('input:radio[value=" + prevAnswer + "]').checked=true;");
+				else if (quizType == "FillIn")
+					out.println("document.getElementsByName(\"" + currQuestion.getQuestionId() + "-0\")[0].value = \""
 							+ prevAnswer + "\";");
 				else
-					out.println("document.getElementsByName(\"" + currQuestion.getQuestionId() + "-0\")[0].value = \""
+					out.println("document.getElementsByName(\"" + currQuestion.getQuestionId() + "\")[0].value = \""
 							+ prevAnswer + "\";");%>
 						
 					</script>

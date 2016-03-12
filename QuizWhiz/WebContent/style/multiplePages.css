@@ -8,3 +8,7 @@ b{
 	font-size: 200%;
 	margin: 10px;
 }
+
+.glyphicon.glyphicon-remove-circle {
+    font-size: 30px;
+}
