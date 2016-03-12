@@ -1,5 +1,5 @@
 # CS108 Quiz Website
-
+Max Freundlich, Regina Nguyen, Neel Ramachandran, Carah Alexander
 #Required
 ##Quizes
 Users can take and create four different types of quizzes.
@@ -40,3 +40,75 @@ We have included an administration feature. Auser may be granted admin status by
 -   Clear all history information for a particular quiz.
 -   Promote user accounts to administration accounts.
 -   See site statistics. These should include number of users and number of quizzes taken.
+
+#Pages of the site
+###Login/Create
+If not logged in, the user is prompted to log in or create an account if one does not exist
+###Homepage
+Once the user logs in they are directed to a homepage that displayes the following information
+- An Announcements section highlighting any items put up by the website administrators.
+- A list of popular quizzes.
+- A list of recently created quizzes.
+- A list of their own recent quiz taking activities.
+- An indication of all achievements they’ve earned.
+- An indication if they’ve received any messages with a link to view the messages/all messages
+- A list of friend’s recent activities including quizzes taken or created and achievements earned.
+
+###Quiz Summary Page
+If a user clicks a link to quiz, they are directed to a quiz summary page. This page includes
+- The text description of the quiz.
+- The creator of the quiz (hot linked to the creator’s user page).
+- A list of the user’s past performance on this specific quiz. 
+- A list of the highest performers of all time.
+- A list of top performers in the last day.
+- A list showing the performance of recent test takers (both good and bad).
+- Summary statistics on how well all users have performed on the quiz.
+- A way to initiate taking the quiz.
+- A way to start editing the quiz, if the user is the quiz owner.
+
+###Quiz Results Page
+After completing a quiz, the user is directed to a results page. Here the user can see all their answers as well as the actual solutions. Their score is displayed as well as an option to take the quiz again or to challenge a friend to beat their score.
+
+###Friends
+A page to view all friends. On this page a users friends are listed as well as any pending friend requests. In addition to this, users can also search for friends here by username.
+
+###Messages
+Here users can view all the messages they have recieved. Messages are challenges or notes, to which they can accept/reply/ignore. They can also send a message to any of their friends here.
+
+###Admin Portal
+This is where admins are able to perform all of the actions outlined in the administration section above.
+
+#Extensions
+- ###Improved error handling for faulty login, account creation,searching for non existing user, and malformed inputs
+- ###Quiz review and rating system
+    here we allow users to "Rate" a quiz. We use a 5 star rating system. They are also able to leave comments along with their rating. these reviews show up on the quiz summary page
+
+	/* Achievements */
+	public static final String CREATE_1 = "CREATE_1";
+	public static final String CREATE_5 = "CREATE_5";
+	public static final String CREATE_10 = "CREATE_10";
+	public static final String TOOK_1 = "TOOK_1";
+	public static final String TOOK_10 = "TOOK_10";
+	public static final String HIGHEST_SCORE = "HIGHEST_SCORE";
+	public static final String FRIENDS_10 = "FRIENDS_10";
+	public static final String CHALLENGER = "CHALLENGER";
+	public static final String PERFECT_SCORE = "PERFECT_SCORE";
+	public static final String POPULAR_QUIZ = "POPULAR_QUIZ";
+	
+- ###Administration
+- ###Achievements
+-   achievements include
+    - Perfect Score
+    - 10 friends
+    - popular quiz
+    - Created 1,5,10 quizzes
+    - Took 1, 10 quizzes
+    - Highest Score
+    - Challenger
+- ###Look and feel
+- ###Reporting Quizzes
+  Users can report quizzes that they deem malformed or innapropriate. Admins get a list of all reported quizzes to review.
+- ###Categories
+  Quizzes are categorized. 
+- ###Edit Quiz
+  If a user is the creator, they have the option to edit a quiz. Here they can add, remove, and edit questions. 
