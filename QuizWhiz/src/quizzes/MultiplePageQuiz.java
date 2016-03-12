@@ -38,7 +38,6 @@ public class MultiplePageQuiz {
 		Question toReturn = null;
 		if(!questions.isEmpty()){
 			toReturn = questionsLeft.get(0);
-			questionsLeft.remove(0);
 		}
 		return toReturn;
 	}
@@ -94,6 +93,7 @@ public class MultiplePageQuiz {
 	
 	public void incrementCurrQuestionNum(){
 		currQuestionNum++;
+		questionsLeft.remove(0);
 	}
 	
 	public ArrayList<Question> getAllQuestions(){

@@ -59,36 +59,51 @@
 			QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
 
 			Question currQuestion = multiQuiz.getQuestion();
-			out.println("<div class = \"question\">"
+			String html = "<div class = \"question\">"
 					+ qManager.QuestionHTML(quizType, currQuestion.getQuestionText(),
 							Integer.toString(currQuestion.getQuestionId()), Integer.toString(quizID), questionNum)
-					+ "</div>");
+					+ "</div>";
+			System.out.println(html);
+			out.println(html);
+			if(multiQuiz.getImmediateScoring() &&request.getAttribute("prevAnswer") != null){
+				%>
+				<script>
+					<%
+					String prevAnswer = (String)request.getAttribute("prevAnswer");
+					if(quizType != "FillIn")
+						out.println("document.getElementsByName(\""+currQuestion.getQuestionId()+"\")[0].value = \""+prevAnswer+"\";");
+					else
+						out.println("document.getElementsByName(\""+currQuestion.getQuestionId()+"-0\")[0].value = \""+prevAnswer+"\";");
+					%>
+				</script>
+				<% 
+			}
 		%>
+		
 	</div>
 	<br>
-	<script>
-		$(button).click(function(){
-			
-		});
-	</script>
+
 	<%
 		if(multiQuiz.getImmediateScoring()){
 			%>
-				<button class = "btn btn-default checkAnswer" >Check Answer</button>
-				<script>
-					$checkAnswer = $('.checkAnswer').click(function(){
-						<%
-							String questionId = Integer.toString(currQuestion.getQuestionId());
-							//out.print()
-							
-						%>
-						answer = $('input[name="questionId"]');
-					});
-				</script>
-				<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+				<input type="submit" class = "btn" name = "checkWork" value = "Check Your Answer"/>
 			
 			<% 
+			if(request.getParameter("startQuiz") == null){
+				if(request.getAttribute("isCorrect") != null){
+					boolean correct = (Boolean)request.getAttribute("isCorrect");
+					if(correct){
+						%>
+						<i class="medium material-icons">thumb_up</i>
+						<% 
+					}
+					else{
+						%>
+						<i class="medium material-icons">thumb_down</i>
+						<% 
+					}
+				}
+			}
 		}
 		out.println("<input name=\"questionNum\" type = \"hidden\" value = \"" + questionNum+"\"/>");		
 		out.println("<input name=\"questionId\" type = \"hidden\" value = \"" + currQuestion.getQuestionId()+"\"/>");
@@ -98,9 +113,9 @@
 	<%
 		String nextPageButton;
 		if (questionNum < multiQuiz.getNumQuestions()) {
-			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" value =\"Next Question\"/>";
+			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\"  name = \"nextQuestion\" value =\"Next Question\"/>";
 		} else {
-			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" value =\"Finish Quiz\"/>";
+			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" name = \"finishQuiz\" value =\"Finish Quiz\"/>";
 		}
 		out.println(nextPageButton);
 	%>
