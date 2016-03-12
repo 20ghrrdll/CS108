@@ -1,7 +1,7 @@
 # CS108 Quiz Website
 Max Freundlich, Regina Nguyen, Neel Ramachandran, Carah Alexander
 #Required
-##Quizes
+##Quizzes
 Users can take and create four different types of quizzes.
 - Question-Response—This is a standard text question with an appropriate text response. For example: Who was President during the Bay of Pigs fiasco?
 - Fill in the Blank—This is similar to standard Question-Response, except a blank can go anywhere within a question. For example: “One of President Lincoln’s most famous speeches was the __________ Address.”
