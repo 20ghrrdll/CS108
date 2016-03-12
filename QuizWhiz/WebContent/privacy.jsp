@@ -12,19 +12,57 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    
+    <script>
+    function successMessage() {
+    	var page = document.getElementById("page");
+    	var success = document.createTextNode("Privacy Settings Successfully updated");
+    	page.appendChild(success);
+    	
+    }
+    </script>
+    <%
+    	PrivacySetting profilePrivacy = userManager.getProfilePrivacy(user.getUsername());
+    	
+    %>
+    
 </head>
 <body>
 <div class="container-fluid">
 <div class="col-md-12"><div class="panel panel-default">
 <div class="panel-heading"><h1>Privacy Settings</h1></div>
 
-<div class="panel-body">
+<div class="panel-body" id = "page">
 <form action = "UserPrivacyServlet" method = "post">
 
+<% %>
+
 <div><h3> Profile <small>Who can view my full profile?</small></h3>
-<label class="radio-inline"><input type="radio" name="profile" checked="checked">Everyone</label>
-<label class="radio-inline"><input type="radio" name="profile">My Friends</label>
-<label class="radio-inline"><input type="radio" name="profile">No One</label>
+<%
+	if (profilePrivacy == PrivacySetting.Everyone) {
+%>
+<label class="radio-inline"><input type="radio" name="profile" value="Everyone" checked="checked">Everyone</label>
+<%} else { %>
+<label class="radio-inline"><input type="radio" name="profile" value="Everyone">Everyone</label>
+<%} %>
+<%
+	if (profilePrivacy == PrivacySetting.MyFriends) {
+%>
+<label class="radio-inline"><input type="radio" name="profile" value="MyFriends" checked="checked">My Friends</label>
+<%} else { %>
+<label class="radio-inline"><input type="radio" name="profile" value="MyFriends">My Friends</label>
+<%} %>
+
+<%
+	if (profilePrivacy == PrivacySetting.NoOne) {
+%>
+<label class="radio-inline"><input type="radio" name="profile" value="NoOne" checked = "checked">No One</label>
+<%} else { %>
+<label class="radio-inline"><input type="radio" name="profile" value="NoOne">No One</label>
+<%} %>
+
+
+
 
 </div>
 
@@ -44,7 +82,16 @@
 </div>
 <br>
 <br>
-<button class="btn btn-success" type="submit">Done</button>
+<input type="hidden" name="username" value="<%=user.getUsername()%>">
+<button class="btn btn-success" type="submit" >Done</button>
+
+<%
+	String updated = request.getParameter("updated");
+	if (updated.equals("true")) {
+%>
+<h4> Privacy settings updated!</h4>
+<%} %>	
+	
 </form>
 
 </div>

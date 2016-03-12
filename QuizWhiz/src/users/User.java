@@ -8,14 +8,16 @@ public class User {
 	private String username, password;
 	private boolean isAdmin;
 	private Date joined;
+	PrivacySetting profilePrivacy;
 	
-	
-	public User(String username, String password, boolean isAdmin, Date time) {
+	public User(String username, String password, boolean isAdmin, Date time, PrivacySetting profilePrivacy) {
 		this.username = username;
 		this.password = password;
 		this.isAdmin = isAdmin;
 		this.joined = time;
+		this.profilePrivacy =profilePrivacy;
 	}
+
 	
 	public String getUsername() {
 		return username;
@@ -31,6 +33,14 @@ public class User {
 	
 	public Date getJoinDate(){
 		return joined;
+	}
+	
+	public PrivacySetting getProfilePrivacy() {
+		return profilePrivacy;
+	}
+	
+	public void setProfilePrivacy(PrivacySetting p) {
+		profilePrivacy = p;
 	}
 	
 	@Override

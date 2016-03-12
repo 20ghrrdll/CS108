@@ -33,7 +33,13 @@ public class UserPrivacyServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String profile = request.getParameter("profile");
+		System.out.println(profile);
+		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+		userManager.setProfilePrivacy(request.getParameter("username"), profile);
+		response.sendRedirect("privacy.jsp?updated=true");
+
+		//add a message saying usccessfully updated
 	}
 
 }

@@ -138,7 +138,7 @@
 						<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="privacy.jsp">Privacy</a></li>
+						<li><a href="privacy.jsp?updated=false">Privacy</a></li>
 						<li role="separator" class="divider"></li>
 						<li><a onclick="document.getElementById('logout').submit()">Logout</a></li>
 					</ul></li>
