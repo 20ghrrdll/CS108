@@ -84,7 +84,7 @@ This is where admins are able to perform all of the actions outlined in the admi
     here we allow users to "Rate" a quiz. We use a 5 star rating system. They are also able to leave comments along with their rating. these reviews show up on the quiz summary page
 - ### Administration
 - ### Achievements
--   achievements include
+ achievements include
     - Perfect Score
     - 10 friends
     - popular quiz
