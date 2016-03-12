@@ -356,8 +356,9 @@ public class UserManager {
 	    return sb.toString();
 	}
 	
-	public void setProfilePrivacy(String username, String p) {
-		String query = "UPDATE " + MyDBInfo.USER_TABLE + " SET profilePrivacy='" +p+"' where username='" + username + "';";
+	public void setPrivacy(String privacyType, String username, String privacy) {
+		String query = "UPDATE " + MyDBInfo.USER_TABLE + " SET " + privacyType + "='" +privacy+"' where username='" + username + "';";
+		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
 			stmt.execute(query);

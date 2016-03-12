@@ -36,7 +36,9 @@ public class UserPrivacyServlet extends HttpServlet {
 		String profile = request.getParameter("profile");
 		System.out.println(profile);
 		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
-		userManager.setProfilePrivacy(request.getParameter("username"), profile);
+		userManager.setPrivacy("profilePrivacy", request.getParameter("username"), profile);
+		userManager.setPrivacy("friendPrivacy", request.getParameter("username"), profile);	
+		
 		response.sendRedirect("privacy.jsp?updated=true");
 
 		//add a message saying usccessfully updated

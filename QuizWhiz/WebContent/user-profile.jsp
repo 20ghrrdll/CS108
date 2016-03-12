@@ -185,6 +185,9 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 						</h1>
 					</div>
 					<div class="panel-body" style="text-align: left">
+					<div><li>Date joined: <%=userManager.getUser(usernameToView).getJoinDate()%></li>
+							<li>Number of quizzes made: <%=quizManager.getMyQuizzes(usernameToView).size()%></li></div>
+							<br>
 						<%
 							if (!user.getUsername().equals(usernameToView)) {
 										Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
@@ -217,9 +220,7 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 							}
 										}
 						%>
-<div><li>Date joined: <%=userManager.getUser(usernameToView).getJoinDate()%></li>
-							<li>Number of quizzes made: <%=quizManager.getMyQuizzes(usernameToView).size()%></li></div>
-							<br>
+
 						<div class="col-md-3" style="float: left">
 							<a class="btn btn-link" id="myMessageBtn"> <i
 								class="material-icons">email</i> <br>Message

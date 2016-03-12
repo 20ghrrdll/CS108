@@ -76,9 +76,9 @@
 <label class="radio-inline"><input type="radio" name="performance">My Friends</label>
 <label class="radio-inline"><input type="radio" name="performance">No One</label>
 </div>
-<div><h3> Searchability <small> Who can add me as a friend?</small> </h3>
-<label class="radio-inline"><input type="radio" name="friend" checked="checked">Everyone</label>
-<label class="radio-inline"><input type="radio" name="friend">No One</label>
+<div><h3> Friend <small> Who can add me as a friend?</small> </h3>
+<label class="radio-inline"><input type="radio" name="friend" value = "Everyone" checked="checked">Everyone</label>
+<label class="radio-inline"><input type="radio" name="friend" value = "NoOne">No One</label>
 </div>
 <br>
 <br>
