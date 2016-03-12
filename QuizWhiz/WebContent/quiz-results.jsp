@@ -124,6 +124,33 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">All-Time High Scores</h2>
+					</div>
+					<div class="panel-body">
+						<ol>
+							<% ArrayList<QuizPerformance> highScores = quizManager.getQuizHighScores(id);
+					if (highScores.size() == 0) { %>
+							<p>No high scores to display.</p>
+							<% } else {
+						for (int i = 0; i < highScores.size() && i < 6; i++) {
+							String highScoreUser = highScores.get(i).getUserName();
+							if (i == 0 && !userManager.getAchievements(highScoreUser).contains(FinalConstants.HIGHEST_SCORE)) {
+								userManager.addAchievement(highScoreUser, FinalConstants.HIGHEST_SCORE);
+							}
+							String highScore = highScores.get(i).getScoreString(); %>
+							<p>
+							<li><a href="user-profile.jsp?username=<%=highScoreUser%>">
+									<%=highScoreUser%></a>, Score: <%=highScore%></li>
+							</p>
+							<% }
+					} %>
+						</ol>
+					</div>
+				</div>
+			</div>
 
 	</div>
 
