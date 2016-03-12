@@ -92,6 +92,7 @@ Here we allow users to "Rate" a quiz. We use a 5 star rating system. They are al
 - Took 1, 10 quizzes
 - Highest Score
 - Challenger
+
 ###Look and feel
 ###Reporting Quizzes
   Users can report quizzes that they deem malformed or innappropriate. Admins get a list of all reported quizzes to review.
