@@ -22,6 +22,8 @@
 <link
 	href="${pageContext.request.contextPath}/style/bootstrapOverride.css"
 	rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/style/multiplePages.css" />
 <title>
 	<%
 		MultiplePageQuiz multiQuiz = (MultiplePageQuiz) request.getServletContext()
@@ -41,87 +43,96 @@
 </title>
 </head>
 <body>
-<div class="container-fluid"><br><br><div class="panel panel-default">
+	<div class="container-fluid">
+		<br>
+		<br>
+		<div class="panel panel-default">
 
-<div class="panel-body">
-	<%
-		String nextPage;
-		if (questionNum < multiQuiz.getNumQuestions()) {
-			nextPage = "<form action=\"NextQuestionPageServlet\" method=\"post\">";
-		} else {
-			//need to rename with results Servlet
-			nextPage = "<form action=\"NextQuestionPageServlet\" method=\"post\">";
-		}
-		out.println(nextPage);
-	%>
-	<div class="question_info">
-		<%
-			QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
-
-			Question currQuestion = multiQuiz.getQuestion();
-			String html = "<div class = \"question\">"
-					+ qManager.QuestionHTML(quizType, currQuestion.getQuestionText(),
-							Integer.toString(currQuestion.getQuestionId()), Integer.toString(quizID), questionNum)
-					+ "</div>";
-			System.out.println(html);
-			out.println(html);
-			if(multiQuiz.getImmediateScoring() &&request.getAttribute("prevAnswer") != null){
+			<div class="panel-body">
+				<%
+					String nextPage;
+					if (questionNum < multiQuiz.getNumQuestions()) {
+						nextPage = "<form action=\"NextQuestionPageServlet\" method=\"post\">";
+					} else {
+						//need to rename with results Servlet
+						nextPage = "<form action=\"NextQuestionPageServlet\" method=\"post\">";
+					}
+					out.println(nextPage);
 				%>
-				<script>
+				<div class="question_info">
 					<%
-					String prevAnswer = (String)request.getAttribute("prevAnswer");
-					if(quizType != "FillIn")
-						out.println("document.getElementsByName(\""+currQuestion.getQuestionId()+"\")[0].value = \""+prevAnswer+"\";");
-					else
-						out.println("document.getElementsByName(\""+currQuestion.getQuestionId()+"-0\")[0].value = \""+prevAnswer+"\";");
+						QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
+
+						Question currQuestion = multiQuiz.getQuestion();
+						String html = "<div class = \"question\">"
+								+ qManager.QuestionHTML(quizType, currQuestion.getQuestionText(),
+										Integer.toString(currQuestion.getQuestionId()), Integer.toString(quizID), questionNum)
+								+ "</div>";
+						System.out.println(html);
+						out.println(html);
+						if (multiQuiz.getImmediateScoring() && request.getAttribute("prevAnswer") != null) {
 					%>
-				</script>
-				<% 
-			}
-		%>
-		
-	</div>
-	<br>
+					<script>
+						
+					<%String prevAnswer = (String) request.getAttribute("prevAnswer");
+				if (quizType != "FillIn")
+					out.println("document.getElementsByName(\"" + currQuestion.getQuestionId() + "\")[0].value = \""
+							+ prevAnswer + "\";");
+				else
+					out.println("document.getElementsByName(\"" + currQuestion.getQuestionId() + "-0\")[0].value = \""
+							+ prevAnswer + "\";");%>
+						
+					</script>
+					<%
+						}
+					%>
 
-	<%
-		if(multiQuiz.getImmediateScoring()){
-			%>
-				<input type="submit" class = "btn" name = "checkWork" value = "Check Your Answer"/>
-			
-			<% 
-			if(request.getParameter("startQuiz") == null){
-				if(request.getAttribute("isCorrect") != null){
-					boolean correct = (Boolean)request.getAttribute("isCorrect");
-					if(correct){
-						%>
-						<i class="medium material-icons">thumb_up</i>
-						<% 
-					}
-					else{
-						%>
-						<i class="medium material-icons">thumb_down</i>
-						<% 
-					}
-				}
-			}
-		}
-		out.println("<input name=\"questionNum\" type = \"hidden\" value = \"" + questionNum+"\"/>");		
-		out.println("<input name=\"questionId\" type = \"hidden\" value = \"" + currQuestion.getQuestionId()+"\"/>");
-		out.println("<input name=\"quizId\" type = \"hidden\" value = \"" + quizID+"\"/>");
-	%>
-	<div class="submit">
-	<%
-		String nextPageButton;
-		if (questionNum < multiQuiz.getNumQuestions()) {
-			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\"  name = \"nextQuestion\" value =\"Next Question\"/>";
-		} else {
-			nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" name = \"finishQuiz\" value =\"Finish Quiz\"/>";
-		}
-		out.println(nextPageButton);
-	%>
-	</div>
-	</form>
+				</div>
+				<br>
 
-</div></div></div>
+				<%
+					if (multiQuiz.getImmediateScoring()) {
+				%>
+				<input type="submit" class="btn" name="checkWork"
+					value="Check Your Answer"
+					style="background-color: #3ccecc; color: #fff;" />
+
+				<%
+					if (request.getParameter("startQuiz") == null) {
+							if (request.getAttribute("isCorrect") != null) {
+								boolean correct = (Boolean) request.getAttribute("isCorrect");
+								if (correct) {
+				%>
+				<i class="medium material-icons" style="color: #3cce83;">thumb_up</i>
+				<%
+					} else {
+				%>
+				<i class="medium material-icons" style="color: #ce3c3e;">thumb_down</i>
+				<%
+					}
+							}
+						}
+					}
+					out.println("<input name=\"questionNum\" type = \"hidden\" value = \"" + questionNum + "\"/>");
+					out.println(
+							"<input name=\"questionId\" type = \"hidden\" value = \"" + currQuestion.getQuestionId() + "\"/>");
+					out.println("<input name=\"quizId\" type = \"hidden\" value = \"" + quizID + "\"/>");
+				%>
+				<div class="submit">
+					<%
+						String nextPageButton;
+						if (questionNum < multiQuiz.getNumQuestions()) {
+							nextPageButton = "<input type=\"submit\" class = \"btn btn-default\"  name = \"nextQuestion\" value =\"Next Question\"/>";
+						} else {
+							nextPageButton = "<input type=\"submit\" class = \"btn btn-default\" name = \"finishQuiz\" value =\"Finish Quiz\"/>";
+						}
+						out.println(nextPageButton);
+					%>
+				</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
 </body>
 </html>

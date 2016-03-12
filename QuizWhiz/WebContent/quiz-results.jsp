@@ -111,7 +111,7 @@
 									ArrayList<String> potentialAnswers = currQuestion.potentialAnswers(manager);
 									int numPotentialAnswers = potentialAnswers.size();
 									for (int b = 0; b < numPotentialAnswers - 1; b++) {
-										answer += potentialAnswers.get(b) + ", ";
+										answer += "\""+potentialAnswers.get(b) + "\", ";
 									}
 									answer += potentialAnswers.get(numPotentialAnswers - 1);
 								}
