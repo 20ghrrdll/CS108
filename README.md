@@ -82,19 +82,6 @@ This is where admins are able to perform all of the actions outlined in the admi
 - ###Improved error handling for faulty login, account creation,searching for non existing user, and malformed inputs
 - ###Quiz review and rating system
     here we allow users to "Rate" a quiz. We use a 5 star rating system. They are also able to leave comments along with their rating. these reviews show up on the quiz summary page
-
-	/* Achievements */
-	public static final String CREATE_1 = "CREATE_1";
-	public static final String CREATE_5 = "CREATE_5";
-	public static final String CREATE_10 = "CREATE_10";
-	public static final String TOOK_1 = "TOOK_1";
-	public static final String TOOK_10 = "TOOK_10";
-	public static final String HIGHEST_SCORE = "HIGHEST_SCORE";
-	public static final String FRIENDS_10 = "FRIENDS_10";
-	public static final String CHALLENGER = "CHALLENGER";
-	public static final String PERFECT_SCORE = "PERFECT_SCORE";
-	public static final String POPULAR_QUIZ = "POPULAR_QUIZ";
-	
 - ###Administration
 - ###Achievements
 -   achievements include
