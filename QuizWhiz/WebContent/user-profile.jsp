@@ -38,15 +38,21 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 
 		ArrayList<String> sentRequests = userManager.getSentRequests(user.getUsername());
 		PrivacySetting profilePrivacy = userToView.getProfilePrivacy();
-		boolean viewable = true;
-
+		boolean profileViewable = true;
+		PrivacySetting addFriendPrivacy = userToView.getFriendPrivacy();
+		boolean addFriendViewable = true;
+		
 		if (profilePrivacy == PrivacySetting.MyFriends) {
 			if (!friendsNames.contains(usernameToView)){
-				viewable = false;
+				profileViewable = false;
 			}
 		}
 		if (profilePrivacy.equals(PrivacySetting.NoOne)) {
-			viewable = false; 
+			profileViewable = false; 
+		}
+		
+		if (addFriendPrivacy == PrivacySetting.NoOne) {
+			addFriendViewable = false;
 		}
 %>
 		
@@ -185,6 +191,9 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 						</h1>
 					</div>
 					<div class="panel-body" style="text-align: left">
+					<div><li>Date joined: <%=userManager.getUser(usernameToView).getJoinDate()%></li>
+							<li>Number of quizzes made: <%=quizManager.getMyQuizzes(usernameToView).size()%></li></div>
+							<br>
 						<%
 							if (!user.getUsername().equals(usernameToView)) {
 										Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
@@ -197,12 +206,14 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 						<form action="FriendRequestServlet" method="post">
 							<input type="hidden" name="user1" value="<%=user.getUsername()%>">
 							<input type="hidden" name="user2" value="<%=usernameToView%>">
+							<% if (addFriendViewable) { %>
 							<div class="col-md-3" style="float: left">
 								<button type="submit" class="btn btn-link" name="buttonAction"
 									value="delete">
 									<i class="material-icons">add</i> <br>Add Friend
 								</button>
 							</div>
+							<%} %>
 						</form>
 						<%
 							} else {
@@ -217,9 +228,7 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 							}
 										}
 						%>
-<div><li>Date joined: <%=userManager.getUser(usernameToView).getJoinDate()%></li>
-							<li>Number of quizzes made: <%=quizManager.getMyQuizzes(usernameToView).size()%></li></div>
-							<br>
+
 						<div class="col-md-3" style="float: left">
 							<a class="btn btn-link" id="myMessageBtn"> <i
 								class="material-icons">email</i> <br>Message
@@ -264,7 +273,7 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 			</div>
 		</div>
 
-		<% if (viewable) {
+		<% if (profileViewable) {
 				%>
 		<div class="row">
 			<div class="col-md-12">

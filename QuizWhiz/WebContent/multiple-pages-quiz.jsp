@@ -3,6 +3,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String userName = null;
+	Cookie[] cookies = request.getCookies();
+	if (cookies != null) {
+	    for (Cookie cookie : cookies) {
+	        if (cookie.getName().equals("CurrentUsername")){
+	        	System.out.println(cookie.getValue());
+	            userName = cookie.getValue();
+	        }
+	    }
+	}
+	if (userName == null || userName.isEmpty()){
+	    response.sendRedirect("login-page.jsp?");
+	    return;
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <link
@@ -26,6 +42,9 @@
 	href="${pageContext.request.contextPath}/style/multiplePages.css" />
 <title>
 	<%
+	UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+    User user = userManager.getUser(userName);
+
 		MultiplePageQuiz multiQuiz = (MultiplePageQuiz) request.getServletContext()
 				.getAttribute("multiplePageQuiz");
 		int quizID = Integer.parseInt(request.getParameter("quizId"));

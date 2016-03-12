@@ -8,6 +8,21 @@
 	type=”text/css” />
 <script type=”text/javascript” src=”bootstrap/js/bootstrap.min.js”></script>
 <title>Quiz</title>
+<%
+	String userName = null;
+	Cookie[] cookies = request.getCookies();
+	if (cookies != null) {
+	    for (Cookie cookie : cookies) {
+	        if (cookie.getName().equals("CurrentUsername")){
+	            userName = cookie.getValue();
+	        }
+	    }
+	}
+	if (userName == null || userName.isEmpty()){
+	    response.sendRedirect("login-page.jsp?");
+	    return;
+	}
+	%>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -34,14 +49,16 @@
 
 <title>
 	<%
-		long start = System.currentTimeMillis();
+	UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+    User user = userManager.getUser(userName);
+
+  		long start = System.currentTimeMillis();
 		session.setAttribute("startTime", start);
 		int quizID = Integer.parseInt(request.getParameter("id"));
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		Quiz toDisplay = quizManager.getQuiz(quizID);
 		String quizName = toDisplay.getQuizName();
 		session.setAttribute("currQuizId", quizID);
-		User user = (User) session.getAttribute("currentUser");
 
 		out.print(quizName);
 	%>

@@ -32,7 +32,7 @@ public class UserManager {
 			String query = "SELECT * FROM " + MyDBInfo.USER_TABLE + " WHERE username=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs.next()) {
-				user = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"), rs.getDate("joinDate"), PrivacySetting.valueOf(rs.getString("profilePrivacy")));
+				user = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"), rs.getDate("joinDate"), PrivacySetting.valueOf(rs.getString("profilePrivacy")), PrivacySetting.valueOf(rs.getString("friendPrivacy")));
 			}
 		} catch (SQLException e) {
 			return null;
@@ -213,11 +213,9 @@ public class UserManager {
 		try {
 			Statement stmt = con.createStatement();
 			String query  = "DELETE FROM " + MyDBInfo.FRIEND_REQUEST_TABLE +  " WHERE userToId=\"" + userName + "\" AND userFromId=\"" + userFriend + "\";";
-			System.out.print(query);
 			stmt.executeUpdate(query);
 			if(decision){
 				stmt.executeUpdate("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " (user1, user2) VALUES(\"" + userName + "\", \"" + userFriend +  "\");");	
-				System.out.print("INSERT INTO " + MyDBInfo.FRIENDS_TABLE + " (user1, user2) VALUES(\"" + userName + "\", \"" + userFriend +  "\");");
 
 			}
 		} catch (SQLException e) {
@@ -356,8 +354,8 @@ public class UserManager {
 	    return sb.toString();
 	}
 	
-	public void setProfilePrivacy(String username, String p) {
-		String query = "UPDATE " + MyDBInfo.USER_TABLE + " SET profilePrivacy='" +p+"' where username='" + username + "';";
+	public void setPrivacy(String privacyType, String username, String privacy) {
+		String query = "UPDATE " + MyDBInfo.USER_TABLE + " SET " + privacyType + "='" +privacy+"' where username='" + username + "';";
 		try {
 			Statement stmt = con.createStatement();
 			stmt.execute(query);
@@ -385,6 +383,24 @@ public class UserManager {
 		return PrivacySetting.valueOf(privacy);
 	}
 	
+
+	public PrivacySetting getFriendPrivacy(String username) {
+		String query = "SELECT friendPrivacy from " + MyDBInfo.USER_TABLE + " WHERE username='" + username + "';";
+		Statement stmt;
+		String friend = "";
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				 friend = rs.getString("friendPrivacy");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return PrivacySetting.valueOf(friend);
+	}
 	
 	public void closeConnection() {
 		DBConnector.closeConnection();

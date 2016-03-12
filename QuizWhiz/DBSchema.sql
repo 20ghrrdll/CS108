@@ -81,6 +81,8 @@ CREATE TABLE IF NOT EXISTS user (
 	admin BOOLEAN DEFAULT false,
 	joinDate DATETIME NOT NULL,
 	profilePrivacy enum('Everyone', 'MyFriends', 'NoOne') DEFAULT 'Everyone',
+	friendPrivacy enum('Everyone', 'NoOne') DEFAULT 'Everyone',
+	messagePrivacy enum('Everyone', 'MyFriends', 'NoOne') DEFAULT 'Everyone',
 	cookie VARCHAR(255)
 );
 
@@ -149,16 +151,10 @@ All tables loaded. Now we load initial quiz data
 INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken,pages, type) VALUES
 ('1','First Quiz', 'Our first quiz', '2016-02-27 13:41:00', 'Max', 10, 	FALSE, 'QuestionResponse'),
 ('2','The Preamble', 'How well do you know the first sentence of the constitution?', '2016-02-27 13:41:01', 'Max', 9,FALSE, 'FillIn'),
-('3','Disney', 'Put your knowledge of childlike whimsy to the test!', '2016-02-27 13:41:02', 'Max', 8, FALSE, 'MultipleChoice'),
+('3','Disney', 'Put your knowledge of childlike whimsy to the test!', '2016-02-27 13:41:02', 'Regina', 8, FALSE, 'MultipleChoice'),
 ('4','Cute Animals', "Do you struggle to identify animals when they're cute? Practice here!", '2016-02-27 13:41:03', 'Max', 7, TRUE,'PictureResponse'),
-('5','Math Problems', 'Really hard math problems', '2016-02-27 13:41:04', 'Max', 6, FALSE, 'QuestionResponse'),
-('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', 'Max', 5,FALSE, 'QuestionResponse'),
-('7','Seventh Quiz', 'Our 7th quiz', '2016-02-27 13:41:06', 'Max', 4, FALSE,'QuestionResponse'),
-('8','Eighth Quiz', 'Our 8th quiz', '2016-02-27 13:41:07', 'Max', 3,FALSE, 'QuestionResponse');
+('5','Math Problems', 'Really hard math problems', '2016-02-27 13:41:04', 'Max', 6, FALSE, 'QuestionResponse');
 
-/*
-	type enum('FillIn', 'QuestionResponse') DEFAULT 'QuestionResponse',
-*/
 
 INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numAnswers) VALUES
 (1, 1, 'How many knees do elephants have?', '2', 1),
@@ -178,9 +174,11 @@ INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numA
 (5, 6, 'Prove p=np', 'Let n=1, p=(1)p ==> p=p. Give me my nobel.', 1);
 
 
-
-
 INSERT INTO question_answers (quizId, questionId, answer) VALUES
+('1', '1', '2'),
+('1', '1', 'two'),
+('1', '2', 'they both have the same number'),
+('1', '2', 'both'),
 ('3', '1', '8'),
 ('3', '1', '9'),
 ('3', '1', '7'),
@@ -204,29 +202,30 @@ INSERT INTO user (username, password, joinDate, admin) VALUES
 ('Max', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),
 ('Carah', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),
 ('Regina', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),
-('Neel', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE);
+('Neel', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', TRUE),
+('TA', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2016-03-01 19:41:00', FALSE);
 
 INSERT INTO announcements (announcementId, userId, posted, subject, body) VALUES
-('1', 'Max','2016-02-27 13:41:00', 'Super important!', 'First announcement woohoo!'),
-('2', 'Neel','2016-02-27 13:41:00', 'Another Announcement', 'Second announcement woohoo!');
+('1', 'Max','2016-02-27 13:41:00', 'Super important!', 'Welcome to our website!'),
+('2', 'Neel','2016-02-27 13:41:00', 'Another Announcement', 'Privacy settings are up.');
 
 INSERT INTO quiz_records (quizId, userId, start_time, end_time, score, possibleScore) VALUES
 ('1', 'Max', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '1', '2'),
-('1', 'Max', '2016-03-01 13:25:17', '2016-03-01 18:20:05', '1', '2'),
-('1', 'Max', '2016-03-06 19:41:00', '2016-03-06 19:50:00', '2', '2'),
-('1', 'Max', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
+('2', 'Max', '2016-03-01 13:25:17', '2016-03-01 18:20:05', '1', '2'),
+('3', 'Max', '2016-03-06 19:41:00', '2016-03-06 19:50:00', '2', '2'),
+('4', 'Max', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
 ('1', 'Carah', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '1', '2'),
-('1', 'Carah', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
-('1', 'Carah', '2016-03-06 19:41:00', '2016-03-06 19:50:00', '2', '2'),
-('1', 'Neel', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
-('1', 'Neel', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
+('2', 'Carah', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
+('3', 'Carah', '2016-03-06 19:41:00', '2016-03-06 19:50:00', '2', '2'),
+('4', 'Neel', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
+('2', 'Neel', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
 ('1', 'Neel', '2016-03-06 19:41:00', '2016-03-06 19:50:00', '2', '2'),
-('1', 'Neel', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
+('3', 'Neel', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '2', '2'),
 ('1', 'Neel', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '1', '2'),
 ('1', 'Regina', '2016-03-06 19:41:00', '2016-03-06 19:50:00', '0', '2'),
-('1', 'Regina', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '0', '2'),
-('1', 'Regina', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '1', '2'),
-('1', 'Regina', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '1', '2');
+('2', 'Regina', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '0', '2'),
+('3', 'Regina', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '1', '2'),
+('4', 'Regina', '2016-03-01 19:41:00', '2016-03-01 19:50:00', '1', '2');
 
 -- Inserting unread messages (notes)
 INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, type) VALUES
@@ -243,7 +242,7 @@ INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body,
 ('8', 'max', 'carah', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 3, 'CHALLENGE', '2/2'),
 ('9', 'carah', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 4, 'CHALLENGE', '2/2'),
 ('10', 'regina', 'neel', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 5, 'CHALLENGE', '2/2'),
-('11', 'neel', 'max', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 6 ,'CHALLENGE', '2/2');
+('11', 'neel', 'max', '2016-03-05 15:46:00', 'A test challenge', 'take this quiz!', 3 ,'CHALLENGE', '2/2');
 
 -- Inserting read notes
 INSERT INTO messages (messageId, senderId, recipientId, timeSent, subject, body, unread, type) VALUES
@@ -259,10 +258,24 @@ INSERT INTO friends (user1, user2, established) VALUES
 ('Max', 'Regina', '2016-03-04 20:45:00');
 
 INSERT INTO achievements (userId, achievementId) VALUES
-('Max', 'CREATE_1');
+('Max', 'CREATE_1'), 
+('Max', 'TOOK_1'),
+('Max', 'PERFECT_SCORE'),
+('Max', 'HIGHEST_SCORE'),
+('Max', 'POPULAR_QUIZ'),
+('Regina', 'TOOK_1'),
+('Regina', 'CREATE_1'),
+('Neel', 'TOOK_1'),
+('Neel', 'PERFECT_SCORE'),
+('Carah', 'PERFECT_SCORE'),
+('Carah', 'TOOK_1'),
+('Carah', 'HIGHEST_SCORE'),
+('Carah', 'CHALLENGER');
 
 INSERT INTO quiz_ratings (quizId, userId, created, rating, review) VALUES 
-('1', 'Regina', '2016-03-04 20:45:00', 4, 'Great');
+('1', 'Regina', '2016-03-04 20:45:00', 4, 'Great'),
+('2', 'Neel', '2016-03-04 20:45:00', 5, 'Awesumzzzz');
 
 INSERT INTO reported_quizzes(quizId, reportedBy, reportedDate) VALUES 
-('1', 'Regina', '2016-03-04 20:45:00');
+('1', 'Regina', '2016-03-04 20:45:00'),
+('2', 'Neel', '2016-03-05 20:45:00');
