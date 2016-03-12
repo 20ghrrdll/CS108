@@ -59,6 +59,12 @@ public class AddQuestionsServlet extends HttpServlet {
 
 		String questions[] = request.getParameterValues("question");
 		String answers[] = request.getParameterValues("answer");
+		if (questions == null || answers == null) {
+			request.setAttribute("quiz", quiz);
+			RequestDispatcher d = request.getRequestDispatcher("add-questions.jsp?error=1");
+			d.forward(request, response); 
+			return;
+		}
 
 		for(int i = 0; i < questions.length; i++) {
 			String question = questions[i].trim();

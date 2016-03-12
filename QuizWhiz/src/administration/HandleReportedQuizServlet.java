@@ -40,11 +40,13 @@ public class HandleReportedQuizServlet extends HttpServlet {
 		
 		if (buttonAction.equals("delete")) {
 			if (!adminManager.deleteReportedQuiz(quizId)) {
-				request.setAttribute("error", 1);
+				response.sendRedirect("admin-page.jsp?error=1");
+				return;
 			}
 		} else if (buttonAction.equals("ignore")) {
 			if (!adminManager.ignoreReportedQuiz(quizId)) {
-				request.setAttribute("error", 1);
+				response.sendRedirect("admin-page.jsp?error=1");
+				return;
 			}
 		}
 		response.sendRedirect("admin-page.jsp?");		

@@ -48,12 +48,14 @@ public class AnnouncementServlet extends HttpServlet {
 				return;
 			}
 			if (!adminManager.createAnnouncement(username, subject, body)) {
-				request.setAttribute("error", 1);
+				response.sendRedirect("admin-page.jsp?error=1");
+				return;
 			}
 		} else if (buttonAction.equals("delete")) {
 			String announcementId = request.getParameter("announcementId");
 			if (!adminManager.deleteAnnouncement(Integer.parseInt(announcementId))) {
-				request.setAttribute("error", 1);
+				response.sendRedirect("admin-page.jsp?error=1");
+				return;
 			}
 		}
 		

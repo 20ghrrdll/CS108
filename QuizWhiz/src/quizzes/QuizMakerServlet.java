@@ -49,8 +49,7 @@ public class QuizMakerServlet extends HttpServlet {
 		String quizDescription = request.getParameter("quizDescription");
 		String category = request.getParameter("quizCategory");
 		if (quizName == null || quizDescription == null || category == null) {
-			request.setAttribute("error", 1);
-			response.sendRedirect("make-quiz.jsp?");
+			response.sendRedirect("make-quiz.jsp?error=1");
 			return;
 		}
 
@@ -66,8 +65,7 @@ public class QuizMakerServlet extends HttpServlet {
 		if (request.getParameter("quizType").equals("PictureResponse")) quizType = QuizType.PictureResponse;
 		
 		if (quizType == null || request.getParameter("pages") == null || request.getParameter("randomOrder") == null || request.getParameter("correction") == null) {
-			request.setAttribute("error", 1);
-			response.sendRedirect("index.jsp?");
+			response.sendRedirect("make-quiz.jsp?error=1");
 			return;
 		}
 		
@@ -83,8 +81,7 @@ public class QuizMakerServlet extends HttpServlet {
 
 		int quizId = quizManager.insertQuiz(quiz);
 		if (quizId == -1) {
-			request.setAttribute("error", 1);
-			response.sendRedirect("index.jsp?");
+			response.sendRedirect("make-quiz.jsp?error=1");
 			return;
 		} else {
 			quiz.setQuizId(quizId);
