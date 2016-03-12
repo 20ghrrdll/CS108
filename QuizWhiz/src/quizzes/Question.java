@@ -86,43 +86,7 @@ public class Question {
 		ArrayList<String> possibleAnswers = manager.getAllAnswers(Integer.toString(this.quizId), Integer.toString(this.questionId));
 		return possibleAnswers;
 	}
-	
-	/*public ArrayList<Boolean> areCorrect(ArrayList<String> userAnswers, String userID, boolean practiceMode, QuestionManager manager){
-		ArrayList<Boolean> results = new ArrayList<Boolean>(this.numAnswers);
-		boolean answeredOne = true;
-		boolean allTrue = true;
-		
-		for(int a = 0; a < this.numAnswers; a++){
-			String userAnswer = userAnswers.get(a);
-			System.out.println("The user answer is "+ userAnswer);
-			System.out.println(this.correctAnswers);
-			System.out.println(this.correctAnswers.get(a));
-			if(userAnswer == null){
-				userAnswers.set(a, "No Answer");
-				answeredOne = false;
-				results.add(false);
-				allTrue = false;
-			}
-			else if(userAnswer.compareToIgnoreCase(this.correctAnswers.get(a)) == 0){
-				results.add(true);
-			}
-			else{
-				allTrue = false;
-				results.add(false);
-			}
-		}
-		
-		if(!practiceMode){
-			String UserResponsesList = ListResponses(userAnswers);
-			manager.updateQuestionRecordsTable(userID, UserResponsesList, allTrue, answeredOne, this.questionId, this.quizId);
-		}
-		
-		System.out.println("The results are "+ results);
-		return results;
 
-		
-	}*/
-	
 	
 	private String ListResponses(ArrayList<String> userResponses){
 		String CommaSeparatedResponses = "";

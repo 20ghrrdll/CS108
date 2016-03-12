@@ -34,7 +34,6 @@ public class UserPrivacyServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String profile = request.getParameter("profile");
-		System.out.println(profile);
 		String friend = request.getParameter("friend");
 		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 		userManager.setPrivacy("profilePrivacy", request.getParameter("username"), profile);

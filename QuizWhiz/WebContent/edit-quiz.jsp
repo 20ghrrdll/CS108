@@ -17,6 +17,7 @@
 	Quiz quiz = quizManager.getQuiz(quizId);
 	String quizName = quiz.getQuizName();
 	ArrayList<Question> questions = quizManager.getQuestions(quiz.getQuizID());
+	int num = 0;
 %>
 
 
@@ -31,6 +32,7 @@ function removeElement(elementId) {
 }
 </script>
 <script language="javascript">
+//int num = 0;
 	function addQuestions() {
 
 		var div = document.createElement("div");
@@ -48,11 +50,9 @@ function removeElement(elementId) {
 		var br = document.createElement("BR");
 		var page = document.getElementById("questions");
 
-		var del = document.createElement("button");
-		del.innerHTML = "Delete Question";
-		del.id = "del";
-		//	del.className("btn btn-danger");
-		//del.onclick="removeElement(div)";
+		var del = document.createElement("input");
+		del.setAttribute("type", "button");
+		del.setAttribute("value", "Delete Question");
 
 		page.appendChild(p);
 		page.appendChild(br);
@@ -64,18 +64,12 @@ function removeElement(elementId) {
 		page.appendChild(br);
 		page.appendChild(br);
 		page.appendChild(p);
+		page.appendChild(br);
+
 		page.appendChild(del);
+		page.appendChild(p);
 
-
-		
-		//del.className('btn btn-danger');
-		
-		 
-		document.getElementById("del").className = "btn btn-danger";
-		document.getElementById("del").onclick = "removeElement(div)";
-
-	//	del.className("btn btn-danger");
-		
+		page.appendChild(br);
 		page.appendChild(br);
 	}
 </script>

@@ -50,6 +50,7 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 		if (profilePrivacy.equals(PrivacySetting.NoOne)) {
 			profileViewable = false; 
 		}
+		if (userToView.getUsername().equals(user.getUsername())) profileViewable = true;
 		
 		if (addFriendPrivacy == PrivacySetting.NoOne) {
 			addFriendViewable = false;
