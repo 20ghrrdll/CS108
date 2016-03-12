@@ -34,15 +34,17 @@ public class ReportQuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		String quizId = request.getParameter("quizId");
 		String reporter = request.getParameter("reporter");
 		if (!quizManager.addReportedQuiz(Integer.parseInt(quizId), reporter)) {
-			request.setAttribute("error", 1);
+			response.sendRedirect("quiz-summary-page.jsp?id=" + quizId + "&error=1");
+			return;
 		} else {
-			request.setAttribute("reported", 1);
+			response.sendRedirect("quiz-summary-page.jsp?id=" + quizId + "&reported=1");
+			return;
 		}
-		response.sendRedirect("quiz-summary-page.jsp?id=" + quizId);
 	}
 
 }

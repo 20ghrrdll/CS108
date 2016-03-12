@@ -41,13 +41,17 @@ public class QuizMakerServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		java.util.Date date = new java.util.Date();
 		Timestamp created = new Timestamp(date.getTime());
 
 		String quizName = request.getParameter("quizName");
 		String quizDescription = request.getParameter("quizDescription");
 		String category = request.getParameter("quizCategory");
-
+		if (quizName == null || quizDescription == null || category == null) {
+			response.sendRedirect("make-quiz.jsp?error=1");
+			return;
+		}
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("currentUser");
@@ -59,8 +63,12 @@ public class QuizMakerServlet extends HttpServlet {
 		if (request.getParameter("quizType").equals("FillIn")) quizType = QuizType.FillIn;
 		if (request.getParameter("quizType").equals("MultipleChoice")) quizType = QuizType.MultipleChoice;
 		if (request.getParameter("quizType").equals("PictureResponse")) quizType = QuizType.PictureResponse;
-
-
+		
+		if (quizType == null || request.getParameter("pages") == null || request.getParameter("randomOrder") == null || request.getParameter("correction") == null) {
+			response.sendRedirect("make-quiz.jsp?error=1");
+			return;
+		}
+		
 		boolean hasMultiplePages = false;
 		if (request.getParameter("pages").equals("multiple")) hasMultiplePages = true;
 		boolean hasRandomOrder = false;
@@ -73,8 +81,8 @@ public class QuizMakerServlet extends HttpServlet {
 
 		int quizId = quizManager.insertQuiz(quiz);
 		if (quizId == -1) {
-			request.setAttribute("error", 1);
-			response.sendRedirect("admin-page.jsp?");
+			response.sendRedirect("make-quiz.jsp?error=1");
+			return;
 		} else {
 			quiz.setQuizId(quizId);
 

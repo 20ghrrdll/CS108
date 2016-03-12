@@ -46,15 +46,14 @@ public class Question {
 	}
 	
 	public boolean isCorrect(String userAnswer, String userID, boolean practiceMode,  QuestionManager manager){
-		userAnswer = userAnswer.trim();
 		boolean correct = false;
 		boolean answered = true;
 		if(userAnswer == null) answered = false;
-		else if(userAnswer.compareToIgnoreCase(this.correctAnswer) == 0) correct = true;
+		else if(userAnswer.trim().compareToIgnoreCase(this.correctAnswer) == 0) correct = true;
 		else if(this.correctAnswer.equals("go to question_answers")){
 			ArrayList<String> possibleAnswers = manager.getAllAnswers(Integer.toString(this.quizId), Integer.toString(this.questionId));
 			for(int a = 0; a < possibleAnswers.size(); a++){
-				if(userAnswer.compareToIgnoreCase(possibleAnswers.get(a).trim()) == 0){
+				if(userAnswer.trim().compareToIgnoreCase(possibleAnswers.get(a).trim()) == 0){
 					correct = true;
 					break;
 				}	

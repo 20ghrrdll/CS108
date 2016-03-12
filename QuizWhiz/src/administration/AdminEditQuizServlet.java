@@ -34,6 +34,7 @@ public class AdminEditQuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		AdminManager adminManager = (AdminManager) getServletContext().getAttribute("adminManager");
 		String quizIDs = request.getParameter("quizIDs");
 		String buttonAction = request.getParameter("buttonAction");
@@ -47,11 +48,13 @@ public class AdminEditQuizServlet extends HttpServlet {
 			int quizId = Integer.parseInt(quiz.trim());
 			if (buttonAction.equals("delete")) {
 				if (!adminManager.deleteQuiz(quizId)) {
-					request.setAttribute("error", 1);
+					response.sendRedirect("admin-page.jsp?error=1");
+					return;
 				}
 			} else if (buttonAction.equals("clearHistory")) {
 				if (!adminManager.clearQuizHistory(quizId)) {
-					request.setAttribute("error", 1);
+					response.sendRedirect("admin-page.jsp?error=1");
+					return;
 				}
 			}
 		}

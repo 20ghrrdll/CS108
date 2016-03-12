@@ -6,9 +6,11 @@
 
 <%@include file="navigation-bar.jsp" %>
 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
 </head>
 <body>
-
 <% if(request.getParameter("error") != null) { %>
 	<div class="alert alert-danger">
   		<strong>Error:</strong> <% out.print(FinalConstants.ERROR_MSG); %>
@@ -130,7 +132,7 @@
 				%>
 				<div class="panel panel-default">
 				  <div class="panel-body">
-				    <b>Name: </b> <a href="quiz-summary.jsp?id=<%=reportedQuiz.getQuizId()%>"><%=fullQuiz.getQuizName() %></a><br>
+				    <b>Name: </b> <a href="quiz-summary-page.jsp?id=<%=reportedQuiz.getQuizId()%>"><%=fullQuiz.getQuizName() %></a><br>
 				    <b>Creator: </b> <%=fullQuiz.getQuizCreator() %><br>
 				    Reported by <%=reportedQuiz.getReporter() %> on <%=reportedQuiz.getDate() %>.
 				    <br><br>

@@ -33,6 +33,7 @@ public class ReviewServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String reviewer = request.getParameter("reviewer");
 		String quizId = request.getParameter("quizId");
 		String rating = request.getParameter("rating");
@@ -40,7 +41,8 @@ public class ReviewServlet extends HttpServlet {
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 
 		if (!quizManager.addReview(quizId, reviewer, rating, review)) {
-			request.setAttribute("error", 1);
+			response.sendRedirect("quiz-summary-page.jsp?id=" + quizId + "&error=1");
+			return;
 		}
 		
 		response.sendRedirect("quiz-summary-page.jsp?id=" + quizId);

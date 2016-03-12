@@ -8,7 +8,14 @@
 <link href=”bootstrap/css/bootstrap.min.css” rel=”stylesheet” type=”text/css” />
 <script type=”text/javascript” src=”bootstrap/js/bootstrap.min.js”></script>
 <title>Add Questions</title>
-<%@include file="navigation-bar.jsp" %>
+<script
+	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+<link
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="${pageContext.request.contextPath}/style/bootstrapOverride.css"
+	rel="stylesheet" type="text/css" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -57,10 +64,16 @@
 </head>
 
 <body> 
-<div class="container-fluid">
+<div class="container-fluid"><br>
 <div class="col-md-12"><div class="panel panel-default">
 <div class="panel-heading"><h1>Add Questions to '<%=quizName%>'</h1></div>
 <div class="panel-body">
+
+<% if(request.getParameter("error") != null) { %>
+	<div class="alert alert-danger">
+  		<strong>Error:</strong> There was an error adding questions. Please have at least one question.
+	</div>
+<% } %>
 
 <form action="AddQuestionsServlet" method="post">
 	

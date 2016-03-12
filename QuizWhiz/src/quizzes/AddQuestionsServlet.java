@@ -39,6 +39,7 @@ public class AddQuestionsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		int quizId = Integer.valueOf(request.getParameter("quizId"));
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
@@ -58,6 +59,12 @@ public class AddQuestionsServlet extends HttpServlet {
 
 		String questions[] = request.getParameterValues("question");
 		String answers[] = request.getParameterValues("answer");
+		if (questions == null || answers == null) {
+			request.setAttribute("quiz", quiz);
+			RequestDispatcher d = request.getRequestDispatcher("add-questions.jsp?error=1");
+			d.forward(request, response); 
+			return;
+		}
 
 		for(int i = 0; i < questions.length; i++) {
 			String question = questions[i].trim();
@@ -68,7 +75,7 @@ public class AddQuestionsServlet extends HttpServlet {
 				 numAnswers = 4;
 				 String[] questionAnswers = answers[i].trim().split("[|]+");
 				 answer = questionAnswers[0];
-					quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, 1, questionAnswers, true);
+				quizManager.addMultipleAnswerQuestion(quizId, i+1, question, answer, 1, questionAnswers, true);
 			} 
 			else 
 				//one answer
