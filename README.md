@@ -79,11 +79,11 @@ Here users can view all the messages they have recieved. Messages are challenges
 This is where admins are able to perform all of the actions outlined in the administration section above.
 
 #Extensions
-- ###Improved error handling for faulty login, account creation,searching for non existing user, and malformed inputs
-- ###Quiz review and rating system
+- ### Improved error handling for faulty login, account creation,searching for non existing user, and malformed inputs
+- ### Quiz review and rating system
     here we allow users to "Rate" a quiz. We use a 5 star rating system. They are also able to leave comments along with their rating. these reviews show up on the quiz summary page
-- ###Administration
-- ###Achievements
+- ### Administration
+- ### Achievements
 -   achievements include
     - Perfect Score
     - 10 friends
@@ -92,10 +92,10 @@ This is where admins are able to perform all of the actions outlined in the admi
     - Took 1, 10 quizzes
     - Highest Score
     - Challenger
-- ###Look and feel
-- ###Reporting Quizzes
+- ### Look and feel
+- ### Reporting Quizzes
   Users can report quizzes that they deem malformed or innapropriate. Admins get a list of all reported quizzes to review.
-- ###Categories
+- ### Categories
   Quizzes are categorized. 
-- ###Edit Quiz
+- ### Edit Quiz
   If a user is the creator, they have the option to edit a quiz. Here they can add, remove, and edit questions. 
