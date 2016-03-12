@@ -18,6 +18,7 @@ ArrayList<Quiz> popularQuizzes = quizManager.getPopularQuizzes();
 ArrayList<Quiz> recentQuizzes = quizManager.getRecentlyCreatedQuizzes();
 ArrayList<Quiz> recentlyTakenQuizzes = quizManager.getRecentlyTakenQuizzes();
 if(user != null){
+	System.out.println("Not null!");
 	myQuizzes = quizManager.getMyQuizzes(user.getUsername());
 	myAchievements = userManager.getAchievements(user.getUsername());
 	messages = messageManager.getMessages(user.getUsername(), false);
