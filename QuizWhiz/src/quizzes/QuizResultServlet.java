@@ -10,6 +10,7 @@ import main.FinalConstants;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,20 +48,40 @@ public class QuizResultServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+
+
 				request.setCharacterEncoding("UTF-8");
+				User user = (User)session.getAttribute("currentUser");
+				if(user == null){
+				String userName = null;
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
+				    for (Cookie cookie : cookies) {
+				        if (cookie.getName().equals("CurrentUsername")){
+				            userName = cookie.getValue();
+				            user = userManager.getUser(userName);
+				            
+				        }
+				    }
+				}
+				if (userName == null || userName.isEmpty()){
+				    response.sendRedirect("login-page.jsp?");
+				    return;
+				}
+			}
+		
 		long end_num = System.currentTimeMillis();
 		Date end_time = new Date(end_num);
 		allUserAnswers = new ArrayList<String>();
-		HttpSession session = request.getSession();
 		QuizManager manager = (QuizManager) request.getServletContext().getAttribute("quizManager");
-		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
 		QuestionManager questionManager = (QuestionManager)request.getServletContext().getAttribute("questionManager");
 		ArrayList<Question> questions;
 		isAnswerCorrect = new ArrayList<Boolean>();
 		try {
 			//get quiz and question parameters
 			int quizId = (Integer)session.getAttribute("currQuizId");
-			User user = (User)session.getAttribute("currentUser");
 			String userId = user.getUsername();
 			questions = manager.getQuestions(quizId);
 			String practiceModeBool = request.getParameter("practiceMode");

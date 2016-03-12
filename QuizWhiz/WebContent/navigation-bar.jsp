@@ -5,6 +5,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%
+String userName = null;
+Cookie[] cookies = request.getCookies();
+if (cookies != null) {
+    for (Cookie cookie : cookies) {
+        if (cookie.getName().equals("CurrentUsername")){
+        	System.out.println(cookie.getValue());
+            userName = cookie.getValue();
+        }
+    }
+}
+if (userName == null || userName.isEmpty()){
+    response.sendRedirect("login-page.jsp?");
+    return;
+}
+%>
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/style/index.css" />
 <link
@@ -31,13 +47,14 @@
 <body>
 
 	<%
-		User user = (User) session.getAttribute("currentUser");
-		if (user == null) {
+		//User user = (User) session.getAttribute("currentUser");
+		/* if (user == null) {
 			response.sendRedirect("login-page.jsp?");
 			return;
-		}
+		} */
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		UserManager userManager = (UserManager) request.getServletContext().getAttribute("userManager");
+        User user = userManager.getUser(userName);
 		MessageManager messageManager = (MessageManager) request.getServletContext().getAttribute("messageManager");
 		AnnouncementManager announcementManager = (AnnouncementManager) request.getServletContext()
 				.getAttribute("announcementManager");

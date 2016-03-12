@@ -8,8 +8,7 @@
 <title>Messages</title>
 <%@include file="navigation-bar.jsp"%>
 <%
-	ArrayList<QuizPerformance> recentlyTakenScores = quizManager
-			.getRecentlyTakenQuizzesScore(user.getUsername());
+	ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQuizzesScore(user.getUsername());
 %>
 </head>
 <body>
