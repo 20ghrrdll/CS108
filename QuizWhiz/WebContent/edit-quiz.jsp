@@ -33,6 +33,8 @@ function removeElement(elementId) {
 <script language="javascript">
 	function addQuestions() {
 
+		var div = document.createElement("div");
+		div.id = "div";
 		var p = document.createElement("p");
 		var question = document.createElement("textarea");
 		var answer = document.createElement("textarea");
@@ -46,6 +48,12 @@ function removeElement(elementId) {
 		var br = document.createElement("BR");
 		var page = document.getElementById("questions");
 
+		var del = document.createElement("button");
+		del.innerHTML = "Delete Question";
+		del.id = "del";
+		//	del.className("btn btn-danger");
+		//del.onclick="removeElement(div)";
+
 		page.appendChild(p);
 		page.appendChild(br);
 		page.appendChild(questionLabel);
@@ -53,11 +61,20 @@ function removeElement(elementId) {
 		page.appendChild(br);
 		page.appendChild(answerLabel);
 		page.appendChild(answer);
+		page.appendChild(br);
+		page.appendChild(br);
+		page.appendChild(p);
+		page.appendChild(del);
+
+
 		
-		var del = document.createElement("button");
-		del.value = "Delete Question";
-		del.classList.add("btn btn-danger");
+		//del.className('btn btn-danger');
 		
+		 
+		document.getElementById("del").className = "btn btn-danger";
+		document.getElementById("del").onclick = "removeElement(div)";
+
+	//	del.className("btn btn-danger");
 		
 		page.appendChild(br);
 	}

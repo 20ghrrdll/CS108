@@ -32,7 +32,7 @@
 <body>
 <div class="container-fluid">
 	<div class="panel panel-success">
-		<div class="panel-heading"><h1 class="panel-title">Search for a friend</h1></div>
+		<div class="panel-heading"><h1 class="panel-title">Search for users</h1></div>
 	<div class="panel-body">
 		<div class="ui-widget">
          	<label for="automplete-1">Username: </label>

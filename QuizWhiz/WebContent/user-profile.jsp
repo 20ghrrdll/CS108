@@ -25,7 +25,8 @@
 ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQuizzesScore(user.getUsername());
 
 	String usernameToView = request.getParameter("username");
-	if (userManager.getUser(usernameToView) == null) {
+	User userToView = userManager.getUser(usernameToView);
+	if (userToView == null) {
 %>
 <div class="alert alert-danger">
 	<strong>Error!</strong>
@@ -36,7 +37,19 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 	} else {
 
 		ArrayList<String> sentRequests = userManager.getSentRequests(user.getUsername());
+		PrivacySetting profilePrivacy = userToView.getProfilePrivacy();
+		boolean viewable = true;
+
+		if (profilePrivacy == PrivacySetting.MyFriends) {
+			if (!friendsNames.contains(usernameToView)){
+				viewable = false;
+			}
+		}
+		if (profilePrivacy.equals(PrivacySetting.NoOne)) {
+			viewable = false; 
+		}
 %>
+		
 
 <title>
 	<%
@@ -87,6 +100,7 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 			</div>
 		</div>
 	</div>
+	
 
 	<div class="container">
 		<!-- Modal -->
@@ -166,16 +180,20 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 						<h1>
 							<%
 								out.println(usernameToView);
+								
 							%>
 						</h1>
 					</div>
-					<div class="panel-body" style="text-align: center">
+					<div class="panel-body" style="text-align: left">
 						<%
 							if (!user.getUsername().equals(usernameToView)) {
 										Set<String> currentUserFriends = userManager.getFriends(user.getUsername());
 										if (!currentUserFriends.contains(usernameToView.toLowerCase())) {
 											if (!sentRequests.contains(usernameToView.toLowerCase())) {
 						%>
+						<div> 
+							
+					
 						<form action="FriendRequestServlet" method="post">
 							<input type="hidden" name="user1" value="<%=user.getUsername()%>">
 							<input type="hidden" name="user2" value="<%=usernameToView%>">
@@ -199,7 +217,9 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 							}
 										}
 						%>
-
+<div><li>Date joined: <%=userManager.getUser(usernameToView).getJoinDate()%></li>
+							<li>Number of quizzes made: <%=quizManager.getMyQuizzes(usernameToView).size()%></li></div>
+							<br>
 						<div class="col-md-3" style="float: left">
 							<a class="btn btn-link" id="myMessageBtn"> <i
 								class="material-icons">email</i> <br>Message
@@ -244,9 +264,12 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 			</div>
 		</div>
 
+		<% if (viewable) {
+				%>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
+			
 					<div class="panel-heading">
 						<h1 class="panel-title">Achievements</h1>
 					</div>
@@ -351,10 +374,10 @@ ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQui
 						</ol>
 					</div>
 				</div>
-			</div>
+			</div> <%} %>
 		</div>
 		<%
-			}
+		}
 			}
 		%>
 	

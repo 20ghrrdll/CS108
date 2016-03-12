@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS user (
 	password VARCHAR(255) NOT NULL,
 	admin BOOLEAN DEFAULT false,
 	joinDate DATETIME NOT NULL,
+	profilePrivacy enum('Everyone', 'MyFriends', 'NoOne') DEFAULT 'Everyone',
 	cookie VARCHAR(255)
 );
 

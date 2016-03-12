@@ -32,7 +32,7 @@ public class UserManager {
 			String query = "SELECT * FROM " + MyDBInfo.USER_TABLE + " WHERE username=\"" + username + "\";";
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs.next()) {
-				user = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"), rs.getDate("joinDate"));
+				user = new User(rs.getString("username"), rs.getString("password"), rs.getBoolean("admin"), rs.getDate("joinDate"), PrivacySetting.valueOf(rs.getString("profilePrivacy")));
 			}
 		} catch (SQLException e) {
 			return null;
@@ -355,6 +355,36 @@ public class UserManager {
 	    sb.append("]");
 	    return sb.toString();
 	}
+	
+	public void setProfilePrivacy(String username, String p) {
+		String query = "UPDATE " + MyDBInfo.USER_TABLE + " SET profilePrivacy='" +p+"' where username='" + username + "';";
+		try {
+			Statement stmt = con.createStatement();
+			stmt.execute(query);
+		} catch (SQLException e) {
+			e.printStackTrace(); 
+		}
+		
+	}
+	
+	public PrivacySetting getProfilePrivacy(String username) {
+		String query = "SELECT profilePrivacy from " + MyDBInfo.USER_TABLE + " WHERE username='" + username + "';";
+		Statement stmt;
+		String privacy = "";
+		try {
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				 privacy = rs.getString("profilePrivacy");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return PrivacySetting.valueOf(privacy);
+	}
+	
 	
 	public void closeConnection() {
 		DBConnector.closeConnection();
