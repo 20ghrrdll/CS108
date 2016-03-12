@@ -6,11 +6,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Messages</title>
 <%@include file="navigation-bar.jsp" %>
-
+<%ArrayList<QuizPerformance> recentlyTakenScores = quizManager.getRecentlyTakenQuizzesScore(user.getUsername()); %>
 </head>
 <body>
 
-
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<a class="btn btn-link" id="myBtn" style="width: 50%; margin: 0 auto;"> <i class="material-icons">games</i>
+								<br>Challenge
+							</a>
+							</div>
+							<div class="col-md-6">
+							<a class="btn btn-link" id="myMessageBtn" style="width: 50%; margin: 0 auto;"> <i
+								class="material-icons">email</i> <br>Message
+							</a></div></div></div>
 <div class="container-fluid"><ul class="list-group">
 	<% for(int i= 0; i < messages.size(); i++){ 
 			if(!messages.get(i).isUnread()){ %>
@@ -48,5 +58,102 @@
 
 </ul>
 </div>
+<div class="container">
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 35px 50px; background-color: #3ccecc">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>Challenge a Friend!</h4>
+					</div>
+					<div class="modal-body" style="padding: 40px 50px;">
+						<form action="MessageServlet" method="post">
+							<div class="form-group">
+								<label>Challenge</label> <input type="test" class="form-control"
+									name="username" placeholder="Username">
+							</div>
+							<label>Select a quiz from the quizzes you've taken</label> 
+							<select class="form-control"  name="quizId" >
+							<% for (int i = 0; i < recentlyTakenScores.size(); i++) { %>
+								<option value="<%=recentlyTakenScores.get(i).getQuizId()%> <%=recentlyTakenScores.get(i).getScore() %>&#47;<%=recentlyTakenScores.get(i).getPossibleScore() %>">
+								<%=recentlyTakenScores.get(i).getQuizName()%> Score: <%=recentlyTakenScores.get(i).getScore() %></option>
+							<% } %>
+							</select>
+							<input type="hidden" name="senderId"
+								value="<%=user.getUsername()%>"/> <input type="hidden"
+								name="sendChallenge" value="<%=user.getUsername()%>"/>
+							<button onclick="sendChallenge" class="btn btn-default" value="send">Challenge!</button>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-danger btn-default pull-left"
+							data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span> Cancel
+						</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<!-- Modal -->
+		<div class="modal fade" id="myMessageModal" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content" >
+					<div class="modal-header" style="padding: 35px 50px; background-color: #3ccecc">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>Send a Message</h4>
+					</div>
+					<div class="modal-body" style="padding: 40px 50px;">
+						<form action="MessageServlet" method="post" id="messageForm">
+							<div class="form-group">
+								<label>Send to</label> <input type="test" class="form-control"
+									name="username" placeholder="Username">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Subject</label> <input
+									type="test" class="form-control" name="subject"
+									placeholder="Subject">
+							</div>
+							<div class="form=group">
+								<label for="exampleInputEmail1">Body</label>
+								<textarea class="form-control" rows="3" placeholder="message..."
+									name="body"></textarea>
+							</div>
+							<input type="hidden" name="senderId"
+								value="<%=user.getUsername()%>"> <input type="hidden"
+								name="sendNote" value="<%=user.getUsername()%>">
+							<button type="submit" class="btn btn-default" value="send">Send
+								Message</button>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-danger btn-default pull-left"
+							data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span> Cancel
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+			$("#myBtn").click(function() {
+				$("#myModal").modal();
+			});
+			$("#myMessageBtn").click(function() {
+				$("#myMessageModal").modal();
+			});
+			
+		});
+	</script>
 </body>
 </html>

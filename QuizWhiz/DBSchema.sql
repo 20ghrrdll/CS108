@@ -150,7 +150,7 @@ INSERT INTO quiz (quizId, name, description, created, creatorId, amountTaken,pag
 ('2','The Preamble', 'How well do you know the first sentence of the constitution?', '2016-02-27 13:41:01', 'Max', 9,FALSE, 'FillIn'),
 ('3','Disney', 'Put your knowledge of childlike whimsy to the test!', '2016-02-27 13:41:02', 'Max', 8, FALSE, 'MultipleChoice'),
 ('4','Cute Animals', "Do you struggle to identify animals when they're cute? Practice here!", '2016-02-27 13:41:03', 'Max', 7, TRUE,'PictureResponse'),
-('5','Fifth Quiz', 'Our 5th quiz', '2016-02-27 13:41:04', 'Max', 6, FALSE, 'QuestionResponse'),
+('5','Math Problems', 'Really hard math problems', '2016-02-27 13:41:04', 'Max', 6, FALSE, 'QuestionResponse'),
 ('6','Sixth Quiz', 'Our 6th quiz', '2016-02-27 13:41:05', 'Max', 5,FALSE, 'QuestionResponse'),
 ('7','Seventh Quiz', 'Our 7th quiz', '2016-02-27 13:41:06', 'Max', 4, FALSE,'QuestionResponse'),
 ('8','Eighth Quiz', 'Our 8th quiz', '2016-02-27 13:41:07', 'Max', 3,FALSE, 'QuestionResponse');
@@ -168,7 +168,13 @@ INSERT INTO quiz_question (quizId, questionId, questionText, correctAnswer, numA
 	this story, what will happen to her if she doesnt succeed?', 'She will turn into sea foam', 4),
 (4, 1, "What kind of animal is this?|https://s-media-cache-ak0.pinimg.com/736x/7b/7b/7f/7b7b7fac88ead0c1b89573c781123b0f.jpg", "Giraffe", 1),
 (4, 2, "What kind of animal is this?|http://www.pamperedpetz.net/wp-content/uploads/2015/09/Puppy1.jpg", "Dog", 1),
-(4, 3, "What kind of animal is this?|http://cdn-img.people.com/emstag/i/2015/pets/news/150316/quokka-1024.jpg?ppl_tok=6c2950da2fa29610296cb843a46bf64b", "Quokka", 1);
+(4, 3, "What kind of animal is this?|http://cdn-img.people.com/emstag/i/2015/pets/news/150316/quokka-1024.jpg?ppl_tok=6c2950da2fa29610296cb843a46bf64b", "Quokka", 1),
+(5, 1, '1+1', 2, 1),
+(5, 2, '10+60', 70, 1),
+(5, 3, '100%10', 10, 1),
+(5, 4, '3+2', 5, 1),
+(5, 5, '9*9', 81, 1),
+(5, 6, 'Prove p=np', 'Let n=1, p=(1)p ==> p=p. Give me my nobel.', 1);
 
 
 
@@ -184,7 +190,13 @@ INSERT INTO question_answers (quizId, questionId, answer) VALUES
 ('3', '3', 'She will turn into sea foam'),
 ('3', '3', 'Her legs will turn back into fins'),
 ('3', '3', 'The witch will eat her'),
-('3', '3', 'She will turn back into a pumpkin');
+('3', '3', 'She will turn back into a pumpkin'),
+(5, 1, 2),
+(5, 2, 70),
+(5, 3, 10),
+(5, 4, 5),
+(5, 5, 81),
+(5, 6, 'Let n=1, p=(1)p ==> p=p. Give me my nobel.');
 
 
 INSERT INTO user (username, password, joinDate, admin) VALUES
