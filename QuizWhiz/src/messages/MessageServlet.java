@@ -64,6 +64,7 @@ public class MessageServlet extends HttpServlet {
 				response.sendRedirect("messages.jsp?");
 				return;
 			}
+			//handles sending challenge
 		} else if(request.getParameter("sendChallenge") != null){
 			String idAndScore = request.getParameter("quizId");
 			String[] splitted = idAndScore.split("\\s+");

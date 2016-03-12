@@ -41,6 +41,9 @@
 </title>
 </head>
 <body>
+<div class="container-fluid"><br><br><div class="panel panel-default">
+
+<div class="panel-body">
 	<%
 		String nextPage;
 		if (questionNum < multiQuiz.getNumQuestions()) {
@@ -56,24 +59,51 @@
 			QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
 
 			Question currQuestion = multiQuiz.getQuestion();
-			out.println("<div class = \"question\">"
+			String html = "<div class = \"question\">"
 					+ qManager.QuestionHTML(quizType, currQuestion.getQuestionText(),
 							Integer.toString(currQuestion.getQuestionId()), Integer.toString(quizID), questionNum)
-					+ "</div>");
+					+ "</div>";
+			System.out.println(html);
+			out.println(html);
+			if(multiQuiz.getImmediateScoring() &&request.getAttribute("prevAnswer") != null){
+				%>
+				<script>
+					<%
+					String prevAnswer = (String)request.getAttribute("prevAnswer");
+					if(quizType != "FillIn")
+						out.println("document.getElementsByName(\""+currQuestion.getQuestionId()+"\")[0].value = \""+prevAnswer+"\";");
+					else
+						out.println("document.getElementsByName(\""+currQuestion.getQuestionId()+"-0\")[0].value = \""+prevAnswer+"\";");
+					%>
+				</script>
+				<% 
+			}
 		%>
+		
 	</div>
 	<br>
-	<script>
-		$(button).click(function(){
-			
-		});
-	</script>
+
 	<%
 		if(multiQuiz.getImmediateScoring()){
 			%>
 				<input type="submit" class = "btn" name = "checkWork" value = "Check Your Answer"/>
 			
 			<% 
+			if(request.getParameter("startQuiz") == null){
+				if(request.getAttribute("isCorrect") != null){
+					boolean correct = (Boolean)request.getAttribute("isCorrect");
+					if(correct){
+						%>
+						<i class="medium material-icons">thumb_up</i>
+						<% 
+					}
+					else{
+						%>
+						<i class="medium material-icons">thumb_down</i>
+						<% 
+					}
+				}
+			}
 		}
 		out.println("<input name=\"questionNum\" type = \"hidden\" value = \"" + questionNum+"\"/>");		
 		out.println("<input name=\"questionId\" type = \"hidden\" value = \"" + currQuestion.getQuestionId()+"\"/>");
@@ -92,5 +122,6 @@
 	</div>
 	</form>
 
+</div></div></div>
 </body>
 </html>

@@ -30,7 +30,6 @@ function displayCorrectionCheck() {
         document.getElementById("delayed").checked = false;
 	}
 }
-
 </script>
 
 

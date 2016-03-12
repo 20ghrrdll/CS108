@@ -24,22 +24,19 @@
 	%>
 	<h1 class="text-center">Results</h1>
 	<h4 class="text-center">
-		<% out.print(user.getUsername());
+		<%
+			out.print(user.getUsername());
 		%>, you scored
 		<%
 			out.print(request.getAttribute("score"));
 		%>/<%
 			out.print(request.getAttribute("maxScore"));
 		%>
-		points in 
+		points in
 		<%
-
-			long quizTime = (Long)request.getAttribute("quizTime");
+			long quizTime = (Long) request.getAttribute("quizTime");
 			Date quizDate = new Date(quizTime);
-			String formattedTime = String.format("%d min, %d sec", 
-					quizDate.getMinutes(),
-				    quizDate.getSeconds()
-				);
+			String formattedTime = String.format("%d min, %d sec", quizDate.getMinutes(), quizDate.getSeconds());
 			out.print(formattedTime);
 			if (request.getAttribute("score").equals(request.getAttribute("maxScore"))) {
 				if (!userManager.getAchievements(user.getUsername()).contains(FinalConstants.PERFECT_SCORE)) {
@@ -71,52 +68,55 @@
 					<h1 class="panel-title">Your Results:</h1>
 				</div>
 				<div class="panel-body">
-						<%
-							ArrayList<String> userAnswers = (ArrayList<String>) request.getAttribute("allUserAnswers");
+					<%
+						ArrayList<String> userAnswers = (ArrayList<String>) request.getAttribute("allUserAnswers");
 
-							ArrayList<Question> questions = (ArrayList<Question>) request.getAttribute("questions");
-						%>
-						<table class="table">
-							<tr>
+						ArrayList<Question> questions = (ArrayList<Question>) request.getAttribute("questions");
+					%>
+					<table class="table">
+						<tr>
 							<td>Question</td>
 							<td>Your Answer</td>
 							<td>Correct Answer</td>
-							</tr>
-							<%
-								ArrayList<Boolean> isAnswerCorrect = (ArrayList<Boolean>)request.getAttribute("isAnswerCorrect");
+						</tr>
+						<%
+							ArrayList<Boolean> isAnswerCorrect = (ArrayList<Boolean>) request.getAttribute("isAnswerCorrect");
 
-								for (int a = 0; a < userAnswers.size(); a++) {
-									if(isAnswerCorrect.get(a)) out.println("<tr>");
-									else out.println("<tr class=\"danger\">");
-									Question currQuestion = questions.get(a);
-									
-									String questionText = currQuestion.getQuestionText();
-									if(questionText.indexOf('|') != -1){
-										String delims = "[|]+";
-										String[] tokens = questionText.split(delims);
-										questionText = tokens[0];
+							System.out.println(questions.size());
+							for (int a = 0; a < questions.size(); a++) {
+								if (isAnswerCorrect.get(a))
+									out.println("<tr>");
+								else
+									out.println("<tr class=\"danger\">");
+								Question currQuestion = questions.get(a);
+
+								String questionText = currQuestion.getQuestionText();
+								if (questionText.indexOf('|') != -1) {
+									String delims = "[|]+";
+									String[] tokens = questionText.split(delims);
+									questionText = tokens[0];
+								}
+								out.println("<td>" + (a + 1) + ". " + questionText + "</td>");
+								out.println("<td>" + userAnswers.get(a) + "</td>");
+								String answer = currQuestion.getCorrectAnswer();
+
+								if (answer.equals("go to question_answers")) {
+									answer = "";
+									QuestionManager manager = (QuestionManager) request.getServletContext()
+											.getAttribute("questionManager");
+									ArrayList<String> potentialAnswers = currQuestion.potentialAnswers(manager);
+									int numPotentialAnswers = potentialAnswers.size();
+									for (int b = 0; b < numPotentialAnswers - 1; b++) {
+										answer += potentialAnswers.get(b) + ", ";
 									}
-									out.println("<td>"+ (a+1)+". "+questionText+"</td>");
-									out.println("<td>"+userAnswers.get(a)+"</td>");
-									String answer = currQuestion.getCorrectAnswer();
-									
-									if(answer.equals("go to question_answers")){
-										answer = "";
-										QuestionManager manager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
-										ArrayList<String> potentialAnswers = currQuestion.potentialAnswers(manager);
-										int numPotentialAnswers = potentialAnswers.size();
-										for(int b = 0; b < numPotentialAnswers -1; b++){
-											answer += potentialAnswers.get(b) + ", ";
-										}
-										answer+= potentialAnswers.get(numPotentialAnswers-1);
-									}
-									
-									out.println("<td>"+answer+"</td>");
-									out.println("</tr>");
+									answer += potentialAnswers.get(numPotentialAnswers - 1);
 								}
 
-							%>
-						</table>
+								out.println("<td>" + answer + "</td>");
+								out.println("</tr>");
+							}
+						%>
+					</table>
 				</div>
 			</div>
 		</div>

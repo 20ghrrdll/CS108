@@ -21,7 +21,6 @@ public class MultiplePageQuiz {
 	public void setQuestionList(ArrayList<Question> newQuestions, boolean random, boolean immediateGrading, String quizType) {
 		start_time = System.currentTimeMillis();
 		questionsLeft = newQuestions;
-		System.out.println(newQuestions);
 		userAnswers = new HashMap<Integer, String>(newQuestions.size());
 		isCorrect = new ArrayList<Boolean>(newQuestions.size());
 		if (random) {
@@ -39,7 +38,6 @@ public class MultiplePageQuiz {
 		Question toReturn = null;
 		if(!questions.isEmpty()){
 			toReturn = questionsLeft.get(0);
-			questionsLeft.remove(0);
 		}
 		return toReturn;
 	}
@@ -97,6 +95,7 @@ public class MultiplePageQuiz {
 	
 	public void incrementCurrQuestionNum(){
 		currQuestionNum++;
+		questionsLeft.remove(0);
 	}
 	
 	public ArrayList<Question> getAllQuestions(){

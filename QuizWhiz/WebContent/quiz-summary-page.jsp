@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Quiz Summary</title>
 <%@include file="navigation-bar.jsp"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 </head>
 
 <%
@@ -61,6 +63,7 @@
 							else{
 								quizPageButton = "<form action=\"MultiplePageStartServlet\" method=\"get\"><br>"+
 										"<input name=\"quizId\" type = \"hidden\" value = \"" +id+"\"/>"+
+										"<input name=\"startQuiz\" type = \"hidden\" value = \"just started\"/>"+
 								"<div class=\"any_button\"><input type=\"submit\" class = \"btn btn-default\" value=\"Start Quiz\" /></div></form>";
 								//quizPageButton = "<a class=\"btn btn-primary\" href=\"MultiplePageServlet.java\" role=\"button\">Start Quiz</a>";
 							}

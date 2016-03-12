@@ -34,6 +34,7 @@ public class AnnouncementServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String buttonAction = request.getParameter("buttonAction");
 		AdminManager adminManager = (AdminManager) getServletContext().getAttribute("adminManager");
 
@@ -41,7 +42,6 @@ public class AnnouncementServlet extends HttpServlet {
 			String subject = request.getParameter("subject");
 			String body = request.getParameter("body");
 			String username = request.getParameter("creator");
-			System.out.println("servlet body: " + body);
 			
 			if(subject.isEmpty()  || body.isEmpty()) {
 				response.sendRedirect("admin-page.jsp?invalidAnnouncement=empty");

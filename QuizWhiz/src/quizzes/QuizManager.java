@@ -437,9 +437,7 @@ public class QuizManager {
 	public void addMultipleAnswerQuestion(int quizId, int questionId, String question, String answer, int numAnswers, String[] questionAnswers, boolean mcQuestion) {
 		addSingleAnswerQuestion(quizId, questionId, question, answer, numAnswers);
 		
-		int i = 0;
-		if (mcQuestion) i = 1;
-		for (; i < questionAnswers.length; i++) {
+		for (int i = 0; i < questionAnswers.length; i++) {
 			String query = "INSERT INTO " + MyDBInfo.ANSWERS_TABLE + " (quizId, questionId, answer)" + 
 					" VALUES (?, ?, ?)";
 			

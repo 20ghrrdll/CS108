@@ -37,7 +37,6 @@ public class MultiplePageStartServlet extends HttpServlet {
 		request.setAttribute("questionNum", new Integer(1));
 		try {
 			Quiz theQuiz = manager.getQuiz(quizID);
-			System.out.println(theQuiz.getQuizType());
 			QuizType type = theQuiz.getQuizType();
 			ArrayList<Question> newQuestions = manager.getQuestions(quizID);
 			multi.setQuestionList(newQuestions, theQuiz.randomOrder(), theQuiz.hasImmediateCorrection(), type.toString());

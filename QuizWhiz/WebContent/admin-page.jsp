@@ -6,9 +6,11 @@
 
 <%@include file="navigation-bar.jsp" %>
 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
 </head>
 <body>
-
 <% if(request.getParameter("error") != null) { %>
 	<div class="alert alert-danger">
   		<strong>Error:</strong> <% out.print(FinalConstants.ERROR_MSG); %>
