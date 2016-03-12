@@ -36,7 +36,6 @@ public class EditQuizServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("quizId"));
 		int quizId = Integer.valueOf(request.getParameter("quizId"));
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 		quizManager.deleteQuizAnswers(quizId);

@@ -103,7 +103,6 @@ public class QuestionManager {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){ 
 				String answer = rs.getString("answer");
-				//System.out.println("ANSWER: " + answer);
 				answers.add(answer);
 			}
 			return answers;
