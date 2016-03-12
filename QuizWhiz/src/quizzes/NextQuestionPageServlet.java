@@ -39,7 +39,7 @@ public class NextQuestionPageServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		long Time = System.currentTimeMillis();
+		long end_num = System.currentTimeMillis();
 		int questionNum = Integer.parseInt(request.getParameter("questionNum"));
 		//request.setAttribute("questionNum", questionNum+1);
 		int questionId = Integer.parseInt(request.getParameter("questionId"));
@@ -56,15 +56,18 @@ public class NextQuestionPageServlet extends HttpServlet {
 			dispatch = request.getRequestDispatcher("multiple-pages-quiz.jsp?");
 		}
 		else{
+			long start_num = multiQuiz.getStartTime();
+			long quizTime = end_num - start_num;
+			request.setAttribute("quizTime", quizTime);
 			request.setAttribute("currQuizId", request.getParameter("quizId"));
 	
 			
 			User user  = (User)request.getSession().getAttribute("currentUser");
 			QuestionManager qManager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
-			int score = multiQuiz.getScore((String)request.getAttribute("QuizType"), user.getUsername(), qManager);
-			request.getSession().setAttribute("score", score);
+			int score = multiQuiz.getScore(user.getUsername(), qManager);
+			request.setAttribute("score", score);
 			
-			request.getSession().setAttribute("maxScore", multiQuiz.getNumQuestions());
+			request.setAttribute("maxScore", multiQuiz.getNumQuestions());
 			request.setAttribute("allUserAnswers", multiQuiz.getUserAnswers());
 			request.setAttribute("questions", multiQuiz.getAllQuestions());
 			request.setAttribute("isAnswerCorrect", multiQuiz.getIsCorrect());

@@ -228,7 +228,7 @@
 					if (highScoresToday.size() == 0) { %>
 							<p>No high scores from today to display.</p>
 							<% } else {
-						for (int i = 0; i < quizzesTaken.size() && i < 5; i++) {	
+						for (int i = 0; i < highScoresToday.size() && i < 5; i++) {	
 							String highScoreUser = highScoresToday.get(i).getUserName();
 							String score = highScoresToday.get(i).getScoreString(); %>
 							<p>

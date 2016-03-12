@@ -11,13 +11,14 @@ public class MultiplePageQuiz {
 	private int numQs;
 	private String quizType;
 	private	int currQuestionNum;
+	private boolean immediateScoring;
 
 	// assumes that question array has been called
 	public MultiplePageQuiz() {
 		
 	}
 
-	public void setQuestionList(ArrayList<Question> newQuestions, boolean random, String quizType) {
+	public void setQuestionList(ArrayList<Question> newQuestions, boolean random, boolean immediateGrading, String quizType) {
 		start_time = System.currentTimeMillis();
 		questionsLeft = newQuestions;
 		System.out.println(newQuestions);
@@ -31,6 +32,7 @@ public class MultiplePageQuiz {
 		numQs = questions.size();
 		this.quizType = quizType;
 		currQuestionNum = 1;
+		immediateScoring = immediateGrading;
 	}
 
 	public Question getQuestion() {
@@ -56,7 +58,7 @@ public class MultiplePageQuiz {
 		return numQs;
 	}
 	
-	public int getScore(String Type, String userId, QuestionManager manager){
+	public int getScore(String userId, QuestionManager manager){
 		boolean practiceMode = false;
 		int score = 0;
 		Set<Integer> questionsNums = userAnswers.keySet();
@@ -74,6 +76,7 @@ public class MultiplePageQuiz {
 		}
 		return score;
 	}
+	
 	
 	public ArrayList<String> getUserAnswers(){
 		ArrayList<String> answers = new ArrayList<String>(numQs);
@@ -102,6 +105,10 @@ public class MultiplePageQuiz {
 	
 	public ArrayList<Boolean> getIsCorrect(){
 		return isCorrect;
+	}
+	
+	public boolean getImmediateScoring(){
+		return immediateScoring;
 	}
 
 }

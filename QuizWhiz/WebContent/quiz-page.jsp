@@ -80,7 +80,7 @@
 			<input name="practiceMode" type="hidden" value=<%=practiceMode%>>
 			<input name="quizType" type="hidden" value=<%=quizType%>>
 		
-		<br> <div class="submit"><input type="submit" /></div>
+		<br> <button type="submit" class="btn btn-default">Submit</button>
 	</form>
 	<br>
 	</div>

@@ -2,25 +2,26 @@
 
 .panel-heading {
 	background-image: none;
-	background-color: #1faf24;
-	color: #fff;
+	background-color: #3ece3c;
+	color: #061414;
 }
 
 .panel-default > .panel-heading {
   	background-image: none;
-	background-color: #1faf24;
-	color: #fff;
+	background-color: ##3ece3c;
+	color: #061414;
 }
 
 body {
-	background-color: #E3E3E3;
+	background-color: #fff;
 }
 
 .container-fluid {
-	background-color: #E3E3E3;
+	background-color: #fff;
 }
 
 .any_button{
 	padding-bottom: 5px;
 	padding-top: 5px;
 }
+

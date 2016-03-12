@@ -41,6 +41,7 @@ public class AnnouncementServlet extends HttpServlet {
 			String subject = request.getParameter("subject");
 			String body = request.getParameter("body");
 			String username = request.getParameter("creator");
+			System.out.println("servlet body: " + body);
 			
 			if(subject.isEmpty()  || body.isEmpty()) {
 				response.sendRedirect("admin-page.jsp?invalidAnnouncement=empty");
@@ -56,7 +57,7 @@ public class AnnouncementServlet extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect("index-page.jsp?");
+		response.sendRedirect("index.jsp?");
 	}
 
 }

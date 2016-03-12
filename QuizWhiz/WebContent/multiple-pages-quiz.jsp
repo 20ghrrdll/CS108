@@ -5,6 +5,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<link
+	href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!--  <script
+ 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script
+	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+<link
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="${pageContext.request.contextPath}/style/bootstrapOverride.css"
+	rel="stylesheet" type="text/css" />
 <title>
 	<%
 		MultiplePageQuiz multiQuiz = (MultiplePageQuiz) request.getServletContext()
@@ -24,6 +41,9 @@
 </title>
 </head>
 <body>
+<div class="container-fluid"><br><br><div class="panel panel-default">
+
+<div class="panel-body">
 	<%
 		String nextPage;
 		if (questionNum < multiQuiz.getNumQuestions()) {
@@ -46,7 +66,30 @@
 		%>
 	</div>
 	<br>
+	<script>
+		$(button).click(function(){
+			
+		});
+	</script>
 	<%
+		if(multiQuiz.getImmediateScoring()){
+			%>
+				<button class = "btn btn-default checkAnswer" >Check Answer</button>
+				<script>
+					$checkAnswer = $('.checkAnswer').click(function(){
+						<%
+							String questionId = Integer.toString(currQuestion.getQuestionId());
+							//out.print()
+							
+						%>
+						answer = $('input[name="questionId"]');
+					});
+				</script>
+				<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+			
+			<% 
+		}
 		out.println("<input name=\"questionNum\" type = \"hidden\" value = \"" + questionNum+"\"/>");		
 		out.println("<input name=\"questionId\" type = \"hidden\" value = \"" + currQuestion.getQuestionId()+"\"/>");
 		out.println("<input name=\"quizId\" type = \"hidden\" value = \"" + quizID+"\"/>");
@@ -64,5 +107,6 @@
 	</div>
 	</form>
 
+</div></div></div>
 </body>
 </html>
