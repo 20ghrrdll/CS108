@@ -41,6 +41,13 @@ function displayCorrectionCheck() {
 <div class="panel-heading"><h1>Make Quiz</h1></div>
 <div class="panel-body">
 
+	<% 
+	if(request.getParameter("error") != null) { %>
+	<div class="alert alert-danger" role="alert">
+  		<strong>Error:</strong> Please fill out all fields.
+	</div>
+	<% } %>
+
 	<form action="QuizMakerServlet" method="post">
 		<h4>Quiz Name:</h4> <input type="text" name="quizName"> <br>
 		<h4>Quiz Description:</h4> 

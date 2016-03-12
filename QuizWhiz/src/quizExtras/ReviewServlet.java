@@ -41,7 +41,8 @@ public class ReviewServlet extends HttpServlet {
 		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("quizManager");
 
 		if (!quizManager.addReview(quizId, reviewer, rating, review)) {
-			request.setAttribute("error", 1);
+			response.sendRedirect("quiz-summary-page.jsp?id=" + quizId + "&error=1");
+			return;
 		}
 		
 		response.sendRedirect("quiz-summary-page.jsp?id=" + quizId);

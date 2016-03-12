@@ -45,7 +45,6 @@ public class MultiplePageQuiz {
 	public void addUserAnswer(int questionNum, String answer){
 		if(userAnswers != null)
 			userAnswers.put(questionNum, answer);
-		else System.out.println("userAnswers is Null!");
 	}
 	
 	public long getStartTime(){
@@ -61,7 +60,6 @@ public class MultiplePageQuiz {
 		int score = 0;
 		Set<Integer> questionsNums = userAnswers.keySet();
 		for(int qNum: questionsNums){
-			System.out.println(qNum);
 			Question currQuestion = questions.get(qNum);
 			String currAnswer = userAnswers.get(qNum);
 			boolean correct = currQuestion.isCorrect(currAnswer, userId, practiceMode, manager);

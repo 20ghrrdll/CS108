@@ -12,6 +12,10 @@
 			.getRecentlyTakenQuizzesScore(user.getUsername());
 
 	String usernameToView = request.getParameter("username");
+	String score = request.getAttribute("score").toString();
+	String maxScore = request.getAttribute("maxScore").toString();
+	System.out.println(score);
+	System.out.println(maxScore);
 	/* 	if (userManager.getUser(usernameToView) == null) {
 	 */
 %>
@@ -148,16 +152,16 @@
 								</select>
 							</div>
 							<label>Your Results:</label>
-							<p><%=session.getAttribute("score")%>
+							<p><%=score%>
 								out of
-								<%=session.getAttribute("maxScore")%></p>
+								<%=maxScore %></p>
 							<input type="hidden" name="senderId"
 								value="<%=user.getUsername()%>" /> <input type="hidden"
 								name="sendChallenge" value="<%=user.getUsername()%>" /> <input
 								name="resultsPage" type="hidden"
 								value="<%=request.getContextPath()%>" /> <input type="hidden"
 								name="quizId"
-								value="<%=session.getAttribute("currQuizId")%> <%=session.getAttribute("score")%>&#47;<%=session.getAttribute("maxScore")%>" />
+								value="<%=session.getAttribute("currQuizId")%> <%=score%>&#47;<%=maxScore%>" />
 							<button onclick="sendChallenge" class="btn btn-default"
 								value="send">Challenge!</button>
 						</form>
