@@ -100,9 +100,12 @@
 					<%String prevAnswer = (String) request.getAttribute("prevAnswer");
 				if (quizType == "MultipleChoice")
 					out.println("$('input:radio[value=" + prevAnswer + "]').checked=true;");
-				else if (quizType == "FillIn")
+				else if (quizType == "FillIn"){
 					out.println("document.getElementsByName(\"" + currQuestion.getQuestionId() + "-0\")[0].value = \""
 							+ prevAnswer + "\";");
+					System.out.println("document.getElementsByName(\"" + currQuestion.getQuestionId() + "-0\")[0].value = \""
+							+ prevAnswer + "\";");
+				}
 				else
 					out.println("document.getElementsByName(\"" + currQuestion.getQuestionId() + "\")[0].value = \""
 							+ prevAnswer + "\";");%>

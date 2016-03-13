@@ -48,6 +48,8 @@ public class Question {
 	public boolean isCorrect(String userAnswer, String userID, boolean practiceMode,  QuestionManager manager){
 		boolean correct = false;
 		boolean answered = true;
+		System.out.println(userAnswer);
+		System.out.println(this.correctAnswer);
 		if(userAnswer == null) answered = false;
 		else if(userAnswer.trim().compareToIgnoreCase(this.correctAnswer) == 0) correct = true;
 		else if(this.correctAnswer.equals("go to question_answers")){
@@ -75,6 +77,7 @@ public class Question {
 	
 	
 	public ArrayList<Boolean> areCorrect(ArrayList<String> userAnswers, String userID, boolean practiceMode, QuestionManager manager){
+		System.out.println(userAnswers);
 		ArrayList<Boolean> results = new ArrayList<Boolean>(1);
 		results.add(isCorrect(userAnswers.get(0), userID, practiceMode, manager));
 		return results;

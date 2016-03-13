@@ -47,15 +47,19 @@ public class NextQuestionPageServlet extends HttpServlet {
 		int questionNum = Integer.parseInt(request.getParameter("questionNum"));
 		//request.setAttribute("questionNum", questionNum+1);
 		int questionId = Integer.parseInt(request.getParameter("questionId"));
-		String answer = request.getParameter(Integer.toString(questionId));
 		MultiplePageQuiz multiQuiz = (MultiplePageQuiz) request.getServletContext()
 				.getAttribute("multiplePageQuiz");
-		
+		String answer;
+		if(multiQuiz.getQuizType() == "FillIn")
+			answer = request.getParameter(Integer.toString(questionId)+"-0");
+		else
+			answer = request.getParameter(Integer.toString(questionId));
 		
 		//request.setAttribute("QuizType", request.getAttribute("QuizType"));
 		
 		RequestDispatcher dispatch;
-		String username = ((User) request.getSession().getAttribute("currentUser")).getUsername();
+		String username = "Carah";
+		//String username = ((User) request.getSession().getAttribute("currentUser")).getUsername();
 		QuestionManager manager = (QuestionManager) request.getServletContext().getAttribute("questionManager");
 		
 		String action = request.getParameter("checkWork");

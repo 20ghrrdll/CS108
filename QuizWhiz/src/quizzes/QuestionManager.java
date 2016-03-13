@@ -28,7 +28,9 @@ public class QuestionManager {
 			return pictureResponse(RawQuestion, qNum) + AnswerHTML(type,questionID, quizID);
 		}
 		else if(type.equals("FillIn")){
-			return fillIn(RawQuestion, questionID, qNum);
+			String fillIn = fillIn(RawQuestion, questionID, qNum);
+			System.out.println(fillIn);
+			return fillIn;
 		} 
 		else return type+" is not one of the types of questions I support!";
 		
